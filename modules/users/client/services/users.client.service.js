@@ -32,9 +32,17 @@
         method: 'POST',
         url: '/api/auth/reset/:token'
       },
-      signup: {
+      signup_admin: {
         method: 'POST',
-        url: '/api/auth/signup'
+        url: '/api/auth/signup_admin'
+      },
+      signup_student: {
+        method: 'POST',
+        url: '/api/auth/signup_student'
+      },
+      signup_volunteer: {
+        method: 'POST',
+        url: '/api/auth/signup_volunteer'
       },
       signin: {
         method: 'POST',
@@ -60,7 +68,7 @@
         }, passwordDetails).$promise;
       },
       userSignup: function (credentials) {
-        return this.signup(credentials).$promise;
+        return this.signup_student(credentials).$promise;
       },
       userSignin: function (credentials) {
         return this.signin(credentials).$promise;

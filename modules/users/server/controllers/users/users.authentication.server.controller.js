@@ -18,7 +18,7 @@ var noReturnUrls = [
 /**
  * Signup
  */
-exports.signup = function (req, res) {
+exports.signup_student = function (req, res) {
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
 
@@ -26,6 +26,71 @@ exports.signup = function (req, res) {
   var user = new User(req.body);
   user.provider = 'local';
   user.displayName = user.firstName + ' ' + user.lastName;
+  user.roles = ['user', 'student'];
+
+  // Then save the user
+  user.save(function (err) {
+    if (err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // Remove sensitive data before login
+      user.password = undefined;
+      user.salt = undefined;
+
+      req.login(user, function (err) {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+          res.json(user);
+        }
+      });
+    }
+  });
+};
+
+exports.signup_volunteer = function (req, res) {
+  // For security measurement we remove the roles from the req.body object
+  delete req.body.roles;
+
+  // Init user and add missing fields
+  var user = new User(req.body);
+  user.provider = 'local';
+  user.displayName = user.firstName + ' ' + user.lastName;
+  user.roles = ['user', 'volunteer'];
+
+  // Then save the user
+  user.save(function (err) {
+    if (err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // Remove sensitive data before login
+      user.password = undefined;
+      user.salt = undefined;
+
+      req.login(user, function (err) {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+          res.json(user);
+        }
+      });
+    }
+  });
+};
+
+exports.signup_admin = function (req, res) {
+  // For security measurement we remove the roles from the req.body object
+  delete req.body.roles;
+
+  // Init user and add missing fields
+  var user = new User(req.body);
+  user.provider = 'local';
+  user.displayName = user.firstName + ' ' + user.lastName;
+  user.roles = ['user', 'admin'];
 
   // Then save the user
   user.save(function (err) {

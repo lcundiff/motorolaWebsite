@@ -8,6 +8,7 @@ module.exports = {
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
   db: {
+    uri: 'mongodb://team13b:gogators17@ds113825.mlab.com:13825/moto13b',
     promise: global.Promise
   },
   port: process.env.PORT || 3000,
