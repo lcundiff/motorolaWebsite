@@ -65,8 +65,8 @@
         controllerAs: 'vm'
       })
       .state('authentication.signup', {
-        url: '/signup',
-        templateUrl: '/modules/users/client/views/authentication/signup.client.view.html',
+        url: '/signup/:token',
+        templateUrl: '/modules/users/client/views/authentication/signup-student.client.view.html',
         controller: 'AuthenticationController',
         controllerAs: 'vm',
         data: {
@@ -123,6 +123,23 @@
         data: {
           pageTitle: 'Password reset form'
         }
+      })
+      .state('signup', {
+        abstract: true,
+        url: '/signup',
+        template: '<ui-view/>'
+      })
+      /*.state('signupstudent.form', {
+        url: '/signup/student/:token',
+        templateUrl: '/modules/users/client/views/authentication/signup-student.client.view.html',
+        controller: 'AuthenticationController',
+        controllerAs: 'vm'
+      })*/
+      .state('signup.studentrequest', {
+        url: '/request_signup',
+        templateUrl: '/modules/users/client/views/authentication/request-signup.client.view.html',
+        controller: 'SignupController',
+        controllerAs: 'vm'
       });
   }
 }());

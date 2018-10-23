@@ -125,6 +125,12 @@ var UserSchema = new Schema({
   },
   resetPasswordExpires: {
     type: Date
+  },
+  signupLinkToken: {
+    type: String
+  },
+  signupLinkExpires: {
+    type: Date
   }
 });
 

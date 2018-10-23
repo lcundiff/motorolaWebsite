@@ -32,13 +32,21 @@
         method: 'POST',
         url: '/api/auth/reset/:token'
       },
+      signup_Request: {
+        method: 'POST',
+        url: '/api/auth/signup-request'
+      },
+      send_signup_link: {
+        method: 'POST',
+        url: '/api/auth/sendSignup'
+      },
       signup_admin: {
         method: 'POST',
         url: '/api/auth/signup_admin'
       },
       signup_student: {
         method: 'POST',
-        url: '/api/auth/signup_student'
+        url: '/api/auth/signup_student/:token'
       },
       signup_volunteer: {
         method: 'POST',
@@ -67,8 +75,16 @@
           token: token // api expects token as a parameter (i.e. /:token)
         }, passwordDetails).$promise;
       },
-      userSignup: function (credentials) {
-        return this.signup_student(credentials).$promise;
+      signupRequest: function(credentials){
+        return this.signup_Request(credentials).$promise;
+      },
+      sendSignupLink: function(credentials){
+        return this.send_signup_link(credentials).$promise;
+      },
+      userSignup: function (token, credentials) {
+        return this.signup_student({
+          token: token,
+        }, credentials).$promise;
       },
       userSignin: function (credentials) {
         return this.signin(credentials).$promise;

@@ -57,12 +57,16 @@ module.exports = {
     sandbox: true
   },
   mailer: {
-    from: process.env.MAILER_FROM || 'MAILER_FROM',
+    from: process.env.MAILER_FROM || 'Motorola Mentoring',
     options: {
-      service: process.env.MAILER_SERVICE_PROVIDER || 'MAILER_SERVICE_PROVIDER',
+      host: 'smtp.gmail.com',
+      secureConnection: true,
+      port: 465,
+      secure: true,
+      service: process.env.MAILER_SERVICE_PROVIDER || 'Google',
       auth: {
-        user: process.env.MAILER_EMAIL_ID || 'MAILER_EMAIL_ID',
-        pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
+        user: process.env.MAILER_EMAIL_ID || 'motorolamentoring@gmail.com',
+        pass: process.env.MAILER_PASSWORD || 'Shadow-Mentor'
       }
     }
   },
