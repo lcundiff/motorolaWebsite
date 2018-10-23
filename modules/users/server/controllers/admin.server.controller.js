@@ -20,6 +20,7 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
   var user = req.model;
+  console.log("server user: ",user);
 
   // For security purposes only merge these parameters
   user.firstName = req.body.firstName;
@@ -59,14 +60,19 @@ exports.delete = function (req, res) {
  * List of Users
  */
 exports.list = function (req, res) {
-  User.find({}, '-salt -password -providerData').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+  User.find({}, '-salt -password -providerData').sort('-created').populate('user', 'displayName').exec(async function (err, users) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
+    else{
 
-    res.json(users);
+      return res.status(200).send({ users });
+      //await(object.users = users);
+
+      //await(res.json(object));
+    }
   });
 };
 
@@ -74,6 +80,7 @@ exports.list = function (req, res) {
  * User middleware
  */
 exports.userByID = function (req, res, next, id) {
+  console.log("HERE");
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
       message: 'User is invalid'
@@ -90,4 +97,9 @@ exports.userByID = function (req, res, next, id) {
     req.model = user;
     next();
   });
+
+  exports.g = function(req, res) {
+    console.log(req);
+    return res.status(req);
+  }
 };

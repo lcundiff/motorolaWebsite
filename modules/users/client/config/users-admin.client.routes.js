@@ -44,9 +44,8 @@
     getUser.$inject = ['$stateParams', 'AdminService'];
 
     function getUser($stateParams, AdminService) {
-      return AdminService.get({
-        userId: $stateParams.userId
-      }).$promise;
+      return $stateParams.userId;
+      //return AdminService.retrieveUser($stateParams.userId).$promise;
     }
   }
 }());

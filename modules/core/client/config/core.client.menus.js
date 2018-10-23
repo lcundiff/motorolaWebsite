@@ -8,6 +8,7 @@
   menuConfig.$inject = ['menuService'];
 
   function menuConfig(menuService) {
+
     menuService.addMenu('account', {
       roles: ['user']
     });
@@ -38,5 +39,5 @@
       title: 'Manage Social Accounts',
       state: 'settings.accounts'
     });
-  }
+}
 }());

@@ -13,10 +13,18 @@
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
 
-    AdminService.query(function (data) {
-      vm.users = data;
-      vm.buildPager();
+    AdminService.retrieveUsers().then(async function (data) {
+
+      vm.users = data.users;
+      await(vm.buildPager());
+
     });
+    /*AdminService.retrieveUsers(function (data) {
+      console.log("data: ",data);
+      console.log("YO");
+      vm.users = data.users;
+      vm.buildPager();
+    });*/
 
     function buildPager() {
       vm.pagedItems = [];
