@@ -68,7 +68,7 @@ exports.signupLink = function (req, res, next) {
         var signupLinkExpires = Promise.resolve(Date.now() + (3600000*24)); // 1 hour
 
         Promise.all([email, firstName, lastName, signupLinkToken, signupLinkExpires]).then(async function([ue, uf, ul, ut, us]){
-          var userReq = new UserReq();
+          var userReq = new UserReq(req.body);
           await(userReq);
           await(userReq.firstName = uf);
           await(userReq.lastName = ul);
@@ -76,10 +76,10 @@ exports.signupLink = function (req, res, next) {
           await(userReq.signupLinkToken = ut);
           await(userReq.signupLinkExpires = us);
 
-          await(userReq.save(function (err) {
+          await(UserReq.findOneAndUpdate({_id: userReq._id}, userReq, {upsert:false}, function(err, userReq){
             done(err, token, userReq);
           }));
-        })
+        });
 
       } else {
         return res.status(422).send({
@@ -97,7 +97,7 @@ exports.signupLink = function (req, res, next) {
       res.render(path.resolve('modules/users/server/templates/signup-link-email'), {
         name: user.firstName + ' '+ user.lastName,
         appName: config.app.title,
-        url: baseUrl + '/api/auth/signup_student/' + token
+        url: baseUrl + '/api/auth/signup/' + token
       }, function (err, emailHTML) {
         done(err, emailHTML, user);
       });

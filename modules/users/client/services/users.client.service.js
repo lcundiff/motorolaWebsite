@@ -40,25 +40,26 @@
         method: 'POST',
         url: '/api/auth/sendSignup'
       },
-      signup_admin: {
+      signup: {
         method: 'POST',
-        url: '/api/auth/signup_admin'
-      },
-      signup_student: {
-        method: 'POST',
-        url: '/api/auth/signup_student/:token'
-      },
-      signup_volunteer: {
-        method: 'POST',
-        url: '/api/auth/signup_volunteer'
+        url: '/api/auth/signup'
       },
       signin: {
         method: 'POST',
         url: '/api/auth/signin'
+      },
+      delete_req: {
+        method: 'DELETE',
+        url: '/api/users/delete_userreq/:id'
       }
     });
 
     angular.extend(Users, {
+      deleteReq: function(id){
+        return this.delete_req({
+          id: id
+        }).$promise;
+      },
       changePassword: function (passwordDetails) {
         return this.updatePassword(passwordDetails).$promise;
       },
@@ -81,10 +82,8 @@
       sendSignupLink: function(credentials){
         return this.send_signup_link(credentials).$promise;
       },
-      userSignup: function (token, credentials) {
-        return this.signup_student({
-          token: token,
-        }, credentials).$promise;
+      userSignup: function (credentials) {
+        return this.signup(credentials).$promise;
       },
       userSignin: function (credentials) {
         return this.signin(credentials).$promise;

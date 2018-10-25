@@ -60,10 +60,6 @@ var UserReqSchema = new Schema({
   },
   email: {
     type: String,
-    index: {
-      unique: true,
-      sparse: true // For this to work on a previously indexed field, the index must be dropped & the application restarted.
-    },
     lowercase: true,
     trim: true,
     default: '',
@@ -74,6 +70,12 @@ var UserReqSchema = new Schema({
   },
   signupLinkExpires: {
     type: Date
+  },
+  roles: {
+    type: [{
+      type: String,
+      enum: ['user', 'admin', 'volunteer', 'student']
+    }]
   }
 });
 

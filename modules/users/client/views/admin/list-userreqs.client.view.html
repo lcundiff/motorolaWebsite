@@ -1,0 +1,35 @@
+<section>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>User Requests</h1>
+      </div>
+      <div class="col-md-4" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+      </div>
+    </div>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="userreq in vm.pagedItems" class="list-group-item">
+      <h4 class="list-group-item-heading" ng-bind="userreq.firstName + ' ' + userreq.lastName"></h4>
+      <!--<p class="list-group-item-text pull-right small" ng-bind="userreq.lastName"></p>-->
+      <p class="list-group-item-text pull-right small" ng-bind="userreq.email"></p>
+      <br>
+      <p class="list-group-item-text">Send Email for Sign-up as:</p>
+      <button type= "submit" ng-click="userreq.roles = ['student']; vm.sendSignupEmail(userreq)">Student</button>
+      <button type= "submit" ng-click="userreq.roles = ['volunteer']; vm.sendSignupEmail(userreq)">Volunteer</button>
+      <button type= "submit" ng-click="userreq.roles = ['admin']; vm.sendSignupEmail(userreq)">Admin</button>
+    </a>
+
+  </div>
+  <!--<div class="list-group">
+    <!--<a ng-repeat="userReq in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
+    <a ng-repeat="userReq in vm.pagedItems" class="list-group-item">
+      <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
+      <!--<p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
+      <p class="list-group-item-text" ng-bind="user.email"></p>
+    </a>
+  </div>-->
+
+  <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+</section>

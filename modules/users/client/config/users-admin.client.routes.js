@@ -39,13 +39,34 @@
         data: {
           pageTitle: '{{ userResolve.displayName }}'
         }
+      })
+      .state('admin.userreqs', {
+        url: '/userreqs',
+        templateUrl: '/modules/users/client/views/admin/list-userreqs.client.view.html',
+        controller: 'ReqListController',
+        controllerAs: 'vm'
+      })
+      .state('admin.userreq', {
+        url:'/userreqs/:reqId',
+        templateUrl: '/modules/users/client/views/admin/view-userreq.client.view.html',
+        controller: 'UserReqController',
+        controllerAs: 'vm',
+        resolve: {
+          userResolve: getUserReq
+        }
       });
+
 
     getUser.$inject = ['$stateParams', 'AdminService'];
 
     function getUser($stateParams, AdminService) {
       return $stateParams.userId;
       //return AdminService.retrieveUser($stateParams.userId).$promise;
+    }
+
+    function getUserReq($stateParams, AdminService) {
+      console.log("in client routes, req Id: ",$stateParams.reqId);
+      return $stateParams.reqId;
     }
   }
 }());

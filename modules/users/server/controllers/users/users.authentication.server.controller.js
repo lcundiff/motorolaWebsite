@@ -7,7 +7,8 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   mongoose = require('mongoose'),
   passport = require('passport'),
-  User = mongoose.model('User');
+  User = mongoose.model('User'),
+  UserReq = mongoose.model('UserReq');
 
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
@@ -18,99 +19,47 @@ var noReturnUrls = [
 /**
  * Signup
  */
-exports.signup_student = function (req, res) {
+exports.signup = function (req, res) {
   // For security measurement we remove the roles from the req.body object
+  console.log("req: ",req.body);
+  var token;
+  var user;
+  var p1 = Promise.resolve(token = req.body.userReqId);
   delete req.body.roles;
 
-  // Init user and add missing fields
-  var user = new User(req.body);
-  user.provider = 'local';
-  user.displayName = user.firstName + ' ' + user.lastName;
-  user.roles = ['user', 'student'];
+  Promise.all([p1]).then(function([p1]){
+    delete req.body.userReqId;
 
-  // Then save the user
-  user.save(function (err) {
-    if (err) {
-      return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
+    UserReq.findOne({ 'signupLinkToken': token}).then(async function(userReq){
+      console.log("userReq: ",userReq);
+      await(req.body.roles = userReq.roles);
+      //await(req.body.roles = userReq.roles);
 
-      req.login(user, function (err) {
+      await(user = new User(req.body));
+      await(console.log("user: ",user));
+      await(user.provider = 'local');
+      await(user.displayName = user.firstName + ' ' + user.lastName);
+      await(user.save(function (err) {
         if (err) {
-          res.status(400).send(err);
+          return res.status(422).send({
+            message: errorHandler.getErrorMessage(err)
+          });
         } else {
-          res.json(user);
+          // Remove sensitive data before login
+          user.password = undefined;
+          user.salt = undefined;
+
+          req.login(user, function (err) {
+            if (err) {
+              res.status(400).send(err);
+            } else {
+              res.json(user);
+            }
+          });
         }
-      });
-    }
-  });
-};
-
-exports.signup_volunteer = function (req, res) {
-  // For security measurement we remove the roles from the req.body object
-  delete req.body.roles;
-
-  // Init user and add missing fields
-  var user = new User(req.body);
-  user.provider = 'local';
-  user.displayName = user.firstName + ' ' + user.lastName;
-  user.roles = ['user', 'volunteer'];
-
-  // Then save the user
-  user.save(function (err) {
-    if (err) {
-      return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
-
-      req.login(user, function (err) {
-        if (err) {
-          res.status(400).send(err);
-        } else {
-          res.json(user);
-        }
-      });
-    }
-  });
-};
-
-exports.signup_admin = function (req, res) {
-  // For security measurement we remove the roles from the req.body object
-  delete req.body.roles;
-
-  // Init user and add missing fields
-  var user = new User(req.body);
-  user.provider = 'local';
-  user.displayName = user.firstName + ' ' + user.lastName;
-  user.roles = ['user', 'admin'];
-
-  // Then save the user
-  user.save(function (err) {
-    if (err) {
-      return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
-
-      req.login(user, function (err) {
-        if (err) {
-          res.status(400).send(err);
-        } else {
-          res.json(user);
-        }
-      });
-    }
+      }));
+      await(userReq.remove());
+    });
   });
 };
 

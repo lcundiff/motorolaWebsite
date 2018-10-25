@@ -28,16 +28,22 @@
     }
 
     function signup(isValid) {
+      var hash = $location.path();
+      console.log("hash: ",hash);
+      hash = hash.replace('/authentication/signup/', '');
+      var p1 = Promise.resolve(vm.credentials.userReqId = hash);
 
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
+      Promise.all([p1]).then(function([p1]){
+        if (!isValid) {
+          $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
 
-        return false;
-      }
+          return false;
+        }
 
-      UsersService.userSignup(vm.credentials)
-        .then(onUserSignupSuccess)
-        .catch(onUserSignupError);
+        UsersService.userSignup(vm.credentials)
+          .then(onUserSignupSuccess)
+          .catch(onUserSignupError);
+      });
     }
 
     function signin(isValid) {

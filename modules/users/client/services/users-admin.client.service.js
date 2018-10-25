@@ -18,17 +18,39 @@
         method: 'GET',
         url: '/api/users/:userId'
       },
-      send_signup_link: {
-        method: 'POST',
-        url: '/api/auth/sendSignup'
-      },
       update_user: {
         method: 'PUT',
         url: '/api/users/:userId'
+      },
+      retrieve_userreqs: {
+        method: 'GET',
+        url: '/api/users/list-userreqs'
+      },
+      retrieve_userreq: {
+        method: 'GET',
+        url: '/api/users/get-req/:reqId'
+      },
+      update_userreq: {
+        method: 'PUT',
+        url: '/api/users/update-req/:reqId'
       }
     });
 
     angular.extend(Admins, {
+      updateUserReq: function(reqId, userReq) {
+        console.log('here');
+        return this.update_userreq({
+          reqId: reqId
+        }, userReq).$promise;
+      },
+      retrieveUserReqs: function () {
+        return this.retrieve_userreqs().$promise;
+      },
+      retrieveUserReq: function (reqId) {
+        return this.retrieve_userreq({
+          reqId: reqId
+        }).$promise;
+      },
       retrieveUsers: function () {
         return this.retrieve_users().$promise;
       },
@@ -39,11 +61,8 @@
       },
       updateUser: function(userId, user) {
         return this.update_user({
-          userId
+          userId: userId
         }, user).$promise;
-      },
-      allowSignupRequest: function (credentials) {
-        return this.send_signup_link(credentials).$promise;
       }
     });
 
