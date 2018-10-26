@@ -164,7 +164,7 @@ var StudentSchema = new Schema({
   }
 }, { usePushEach: true });
 
-var studentUpdates = new Schema({
+/*var studentUpdates = new Schema({
   studentName: {
     type: String
   },
@@ -175,7 +175,7 @@ var studentUpdates = new Schema({
   action: {
     type: String
   }
-});
+});*/
 
-mongoose.model('studentUpdates', studentUpdates);
+//mongoose.model('studentUpdates', studentUpdates);
 mongoose.model('Student', StudentSchema);

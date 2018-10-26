@@ -2,17 +2,16 @@
   'use strict';
 
   angular
-    .module('core.student')
+    .module('core.volunteer')
     .run(menuConfig);
 
   menuConfig.$inject = ['menuService'];
 
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {
-      title: 'Student',
-      state: 'student',
-      type: 'dropdown',
-      roles: ['student']
+      title: 'Volunteer',
+      state: 'admin',
+      roles: ['volunteer']
     });
   }
 }());
