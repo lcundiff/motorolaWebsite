@@ -1,0 +1,598 @@
+<html>
+<title>Application</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  html,
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Roboto", sans-serif;
+  }
+
+  .w3-sidebar {
+    z-index: 3;
+    width: 250px;
+    top: 43px;
+    bottom: 0;
+    height: inherit;
+  }
+
+  .bot-pad {
+    margin-bottom: 25px;
+  }
+
+  .align-right {
+    float: right;
+  }
+
+  .inline {
+    display: inline;
+  }
+
+  .w3-text-black {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .w3-text-grey {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .roboto {
+    font-family: 'Roboto', sans-serif;
+  }
+</style>
+
+<body class="w3-light-grey">
+  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+    <center>
+      <h2 style="font-weight:bold;"> <strong>Your Application:</strong> </h2>
+    </center>
+  </div>
+  <!-- Overlay effect when opening sidebar on small screens -->
+  <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+  <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+  <div class="w3-main " style="">
+    <form name="studentForm" ng-submit="vm.createStudent(vm.studentForm.$valid)">
+    <!-- The Grid -->
+
+    <!-- herehrherherhe -->
+    <div class="w3-row-padding w3-padding-64">
+
+    <div class="w3-white w3-card-4" style="padding-bottom:125px; padding-top: 20px">
+
+    <div class="row padder" style="padding-bottom:2em;" >
+
+
+			<div class="column">
+        <h6 style="color:black; ">Browse for your form and click submit!</h6>
+        <div class="form-group" show-errors>
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.credentials.application.firstName" placeholder="First Name" required autofocus>
+          <div ng-messages="vm.studentForm.firstName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">First name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.credentials.application.lastName" placeholder="Last Name" required>
+          <div ng-messages="vm.studentForm.lastName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Last name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" class="form-control" ng-model="vm.credentials.application.email" placeholder="Email" lowercase required>
+          <div ng-messages="vm.studentForm.email.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Email address is required.</p>
+            <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
+          </div>
+        </div>
+        </div>
+
+
+        <div class="column">
+          <div class="form-group" show-errors>
+            <label for="homeAddress1">Home Address Line 1</label>
+            <input type="text" id="homeAddress1" name="homeAddress1" class="form-control" ng-model="vm.credentials.application.address.line_1" placeholder="Address Line 1" required>
+            <div ng-messages="vm.studentForm.homeAddress1.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Address Line 1 is required.</p>
+            </div>
+
+            <label for="homeAddress2">Home Address Line 2</label>
+            <input type="text" id="homeAddress2" name="homeAddress2" class="form-control" ng-model="vm.credentials.application.address.line_2" placeholder="Address Line 2">
+
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" class="form-control" ng-model="vm.credentials.application.address.city" placeholder="City" required>
+            <div ng-messages="vm.studentForm.city.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">City is required.</p>
+            </div>
+
+            <label for="state">State</label>
+            <input type="text" id="state" name="state" class="form-control" ng-model="vm.credentials.application.address.state" placeholder="State" required>
+            <div ng-messages="vm.studentForm.state.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">State is required.</p>
+            </div>
+
+            <label for="state">Zipcode</label>
+            <input type="text" id="zipcode" name="zipcode" class="form-control" ng-model="vm.credentials.application.address.zipcode" placeholder="Zipcode" required>
+            <div ng-messages="vm.studentForm.zipcode.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Zipcode is required.</p>
+            </div>
+          </div>
+          </div>
+
+
+      </div>
+	</div> <br><hr>
+	<div class="row padder" style="margin-bottom:-2em;">
+		<div class="column" style = "width:28%; margin-left:15px">
+      <label for="phone">Phone</label>
+      <input type="phone" id="phone" name="phone" class="form-control" ng-model="vm.credentials.application.phone" placeholder="Phone" required>
+      <div ng-messages="vm.studentForm.phone.$error" role="alert">
+        <p class="help-block error-text" ng-message="required">Phone is required.</p>
+      </div>
+		</div>
+		<div class="column" >
+      <label for="parentName">Parent Name</label>
+      <input type="text" id="parentName" name="parentName" class="form-control" ng-model="vm.credentials.application.parent.name" placeholder="Parent Name" required>
+      <div ng-messages="vm.studentForm.parentName.$error" role="alert">
+        <p class="help-block error-text" ng-message="required">Parent name is required.</p>
+      </div>
+
+      <label for="parentEmail">Parent E-mail</label>
+      <input type="text" id="parentEmail" name="parentEmail" class="form-control" ng-model="vm.credentials.application.parent.email" placeholder="Parent Email" required>
+      <div ng-messages="vm.studentForm.parentEmail.$error" role="alert">
+        <p class="help-block error-text" ng-message="required">Parent e-mail is required.</p>
+      </div>
+
+      <label for="parentPhone">Parent Phone</label>
+      <input type="text" id="parentPhone" name="parentPhone" class="form-control" ng-model="vm.credentials.application.parent.phone" placeholder="Parent Phone" required>
+      <div ng-messages="vm.studentForm.parentPhone.$error" role="alert">
+        <p class="help-block error-text" ng-message="required">Parent phone is required.</p>
+      </div>
+		</div>
+	</div>
+			<br><hr><br>
+
+	<div class="row padder" style="padding-bottom:2em;" >
+
+	<div class="column" style = "width:28%; margin-left:15px">
+				<h6 class="w3-text-black"><i class="fa fa-university fa-fw w3-margin-right w3-xlarge w3-text-blue"></"></i><b>School<span style="color:red;">*</span></b></h6>
+
+			  <select name = "school" ng-model="vm.credentials.application.school" required>
+			  <option value="">---Please select---</option>
+		      <option value = "Anderson Boyd HS"> Anderson Boyd High School</option>
+			  <option value = "American Heritage HS"> American Heritage High School</option>
+			  <option value = "Atlantic Community HS"> Atlantic Community High School</option>
+		      <option value = "Atlantic Technical HS"> Atlantic Technical High School</option>
+		      <option value = "Balnche Ely HS"> Balnche Ely High</option>
+			  <option value = "Boca Raton Community HS"> Boca Raton Community High School</option>
+			  <option value = "Boynton Beach Community HS"> Boynton Beach Community High School</option>
+			  <option value = "Cococnut Creek HS"> Coconut Creek High School</option>
+			  <option value = "College Academy - Cent Campus"> College Academy - Cent Campus</option>
+			  <option value = "Cooper City HS"> Cooper City High School</option>
+			  <option value = "Coral Glades HS"> Coral Glades High School</option>
+			  <option value = "Coral Springs HS"> Coral Springs High School</option>
+			  <option value = "Cypress Bay HS"> Cypress Bay High School</option>
+			  <option value = "Deerfield Beach HS"> Deerfield Beach High School</option>
+			  <option value = "Dillard 6-12 HS"> Dillard 6-12 High School</option>
+			  <option value = "Hialeah-Miami Lakes Senior HS"> Hialeah-Miami Lakes Senior High School</option>
+			  <option value = "High School in Puerto Rico"> High School in Puerto Rico</option>
+			  <option value = "Forest Hill Community HS"> Forest Hill Community High School</option>
+			  <option value = "G-Star School Of The Arts"> G-Star School Of The Arts</option>
+			  <option value = "Glades Central Community HS"> Glades Central Community High School</option>
+			  <option value = "John I. Leonard Community HS"> John I. Leonard Community High School</option>
+			  <option value = "Jupiter Community HS"> Jupiter Community High School</option>
+			  <option value = "Lake Worth Community HS"> Lake Worth Community High School</option>
+			  <option value = "Melbourne HS"> Melbourne High School</option>
+			  <option value = "Miami Central HS"> Miami Central High School</option>
+			  <option value = "Monarch HS"> Monarch High School</option>
+			  <option value = "North Broward Preparatory School"> North Broward Preparatory School</option>
+			  <option value = "Olympic Heights Community HS"> Olympic Heights Community High School</option>
+			  <option value = "Pahokee HS"> Pahokee High School</option>
+			  <option value = "Everglades HS"> Everglades High School</option>
+			  <option value = "Palatka HS"> Palatka High School</option>
+			  <option value = "Palm Beach Central HS"> Palm Beach Central High School</option>
+			  <option value = "Palm Beach Gardens Community HS"> Palm Beach Gardens Community High School</option>
+			  <option value = "Palm Beach Lakes Community HS"> Palm Beach Lakes Community High School</option>
+			  <option value = "Park Vista Community HS"> Park Vista Community High School</option>
+			  <option value = "Plantation HS"> Plantation High School</option>
+			  <option value = "Pompano Beach HS"> Pompano Beach High School</option>
+			  <option value = "Puerto Rico Dept Of Education"> Puerto Rico Dept Of Education</option>
+			  <option value = "Ransom Everglades HS"> Ransom Everglades School</option>
+			  <option value = "Royal Palm Beach Community HS"> Royal Palm Beach Community High School</option>
+			  <option value = "Santaluces Community HS"> Santaluces Community High School</option>
+			  <option value = "Seminole Ridge Community HS"> Seminole Ridge Community High School</option>
+			  <option value = "Sheridan Technical HS"> Sheridan Technical High School</option>
+			  <option value = "South Broward HS"> South Broward High School</option>
+			  <option value = "South Plantation HS"> South Plantation High School</option>
+			  <option value = "Spanish River Community HS"> Spanish River Community High School</option>
+			  <option value = "Suncoast Community HS"> Suncoast Community High School</option>
+			  <option value = "Stoneman Douglas HS"> Stoneman Douglas High School</option>
+			  <option value = "Stranahan HS"> Stranahan High School</option>
+			  <option value = "St Thomas Aquinas"> St Thomas Aquinas</option>
+			  <option value = "Taravella J.P. High"> Taravella J. P. High School</option>
+			  <option value = "Terra Environmental Research Institute"> Terra Environmental Research Institute</option>
+			  <option value = "Wellington Community HS"> Wellington Community High School</option>
+			  <option value = "West Boca Raton Community HS"> West Boca Raton Community High School</option>
+			  <option value = "West Broward HS"> West Broward High School</option>
+			  <option value = "West HS"> West High School</option>
+			  <option value = "Western HS"> Western High School</option>
+			  <option value = "Westminster Academy"> Westminster Academy</option>
+			  <option value = "William T. Dwyer HS"> William T. Dwyer High School</option>
+              <option value = "Not listed"> Not listed </option>
+			  </select>
+		      <h7 style="color:gray; margin-left:35px; "> * If your school is not listed, please</h7><br>
+			  <h7 style="color:gray; margin-left:40px;"> contact 954-907-5808 </h7>
+		</div>
+
+		<div class="column" >
+				<h6 class="w3-text-black"><i class="fa fa-asterisk fa-fw w3-margin-right w3-xlarge w3-text-blue"></i><b>Mentorship Area of Interest<span style="color:red;">*</span></b></h6>
+				<br>
+				<select style="width:15vw; margin-left:40px;" name="student_interests_1" class="form-control" ng-model="vm.credentials.interests[0]" required>
+				  <option value = "Electrical Engineering / Design">Electrical Engineering / Design</option>
+				  <option value = "Mechanical Engineering / Design">Mechanical Engineering / Design</option>
+				  <option value = "Software Engineering Development">Software Engineering Development</option>
+				  <option value = "Industrial / User Interface / Research Design">Industrial / User Interface / Research Design</option>
+				  <option value = "Program Management">Program Management</option>
+				  <option value = "Marketing">Marketing</option>
+				  <option value = "Business">Business</option>
+				  <option value = "Product Life Cycle Management">Product Life Cycle Management</option>
+				</select>
+				<br>
+				<center><h7 style = "color:gray;">1st Interest</h7></center>
+				<br>
+				<select style="width:15vw; margin-left:40px;" name="student_interests_2" class="form-control" ng-model="vm.credentials.interests[1]" required>
+				  <option value = "Electrical Engineering / Design">Electrical Engineering / Design</option>
+				  <option value = "Mechanical Engineering / Design">Mechanical Engineering / Design</option>
+				  <option value = "Software Engineering Development">Software Engineering Development</option>
+				  <option value = "Industrial / User Interface / Research Design">Industrial / User Interface / Research Design</option>
+				  <option value = "Program Management">Program Management</option>
+				  <option value = "Marketing">Marketing</option>
+				  <option value = "Business">Business</option>
+				  <option value = "Product Life Cycle Management">Product Life Cycle Management</option>
+				</select>
+				<br>
+				<center><h7 style = "color:gray;">2nd Interest</h7></center>
+				<br>
+				<select style="width:15vw; margin-left:40px;" name="student_interests_3" class="form-control" ng-model="vm.credentials.interests[2]" required>
+				  <option value = "Electrical Engineering / Design">Electrical Engineering / Design</option>
+				  <option value = "Mechanical Engineering / Design">Mechanical Engineering / Design</option>
+				  <option value = "Software Engineering Development">Software Engineering Development</option>
+				  <option value = "Industrial / User Interface / Research Design">Industrial / User Interface / Research Design</option>
+				  <option value = "Program Management">Program Management</option>
+				  <option value = "Marketing">Marketing</option>
+				  <option value = "Business">Business</option>
+				  <option value = "Product Life Cycle Management">Product Life Cycle Management</option>
+				</select>
+				<center> <h7 style = "color:gray;">3rd Interest</h7></center>
+            </div>
+
+	<!-- SESSION PREFERENCE -->
+		<div class="column" >
+				<h6 class="w3-text-black"><i class="fa fa-clock-o fa-fw w3-margin-right w3-xlarge w3-text-blue" ></i><b>Session Date Preferences<span style="color:red;">*</span></b></h6>
+				<br>
+				<select style="width:15vw; margin-left:40px;" ng-model="vm.credentials.application.preferredSession1" name="app_session1" ng-required = true>
+				  <option value = "1"> Session1 (6/25/18 - 6/29/18)</option>
+				  <option value = "2"> Session2 (7/23/18 - 7/27/18)</option>
+				  <option value = "3"> Session3 (8/6/18 - 8/10/18)</option>
+				  <option value = "N/A"> N/A</option>
+				</select>
+        <center> <h7 style = "color:gray;">1st Choice</h7></center>
+				<br>
+				<select style="width:15vw; margin-left:40px;" ng-model="vm.credentials.application.preferredSession2" name="app_session2" ng-required = true>
+				  <option value = "1"> Session1 (6/25/18 - 6/29/18)</option>
+				  <option value = "2"> Session2 (7/23/18 - 7/27/18)</option>
+				  <option value = "3"> Session3 (8/6/18 - 8/10/18)</option>
+				  <option value = "N/A"> N/A</option>
+				</select>
+        <center> <h7 style = "color:gray;">2nd Choice</h7></center>
+				<br>
+				<select style="width:15vw; margin-left:40px;" ng-model="vm.credentials.application.preferredSession3" name="app_session3" ng-required = true>
+				  <option value = "1"> Session1 (6/25/18 - 6/29/18)</option>
+				  <option value = "2"> Session2 (7/23/18 - 7/27/18)</option>
+				  <option value = "3"> Session3 (8/6/18 - 8/10/18)</option>
+				  <option value = "N/A"> N/A</option>
+				</select>
+        <center> <h7 style = "color:gray;">3rd Choice</h7></center>
+		</div>
+          </div>
+		  </div>
+        </div>
+        <br>
+
+
+
+      <!-- 2nd Section -->
+
+        <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+          <h2 class="w3-text-grey text-center w3-padding-16"><i class="fa fa-university fa-fw w3-margin-right xxw3-large w3-text-blue"></i>Relevant Classes</h2>
+          <p><center><font size="2"color="grey">Enter 1-2 relevant classes that relate to your Mentorship Area of Interests.</font></center></p>
+          <div class="w3-container" ng-repeat="class in vm.credentials.application.classes">
+            <h6 class="w3-text-black"><b>Class Title:</b></h6>
+            <element ng-switch="class.editMode">
+              <element ng-switch-when="false"><p class="w3-text-black">{{class.title}}</p></element>
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='class_edit.edit_class_title'><br></form></element>
+            </element>
+            <h6 class="w3-text-black"><b>Letter Grade:</b></h6>
+            <element ng-switch="class.editMode">
+              <element ng-switch-when="false"><p class="w3-text-black">{{class.grade}}</p></element>
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='class_edit.edit_class_grade'><br></form></element>
+            </element>
+            <h6 class="w3-text-black"><b>Description:</b></h6>
+            <element ng-switch="class.editMode">
+              <element ng-switch-when="false"><p class="w3-text-black">{{class.description}}</p></element>
+              <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='class_edit.edit_class_description' style="width:35vw"></textarea></form></element>
+            </element>
+            <element ng-switch="class.editMode">
+              <element ng-switch-when="false">
+                <button type="button" value='this' class="bot-pad btn btn-danger btn-outline" ng-click='removeClass(class)'>Remove</button>
+                <button type="button" id="{{volWork.id+'editButton'}}" class="bot-pad  button2-color	btn  btn-primary btn-outline"  ng-click="enterEditMode_class(class)">Edit</button>
+              </element>
+              <element ng-switch-when="true"><button type="button" value='this' class="btn btn-success btn-lg" ng-click="editClass(class)">Save</button></element>
+          </element>
+
+            <hr>
+          </div>
+
+          <div class="w3-container " style="padding-bottom:40px;">
+            <h6 class="w3-text-black"><b>Class Title:</b></h6>
+            <form><input type="text" style="width:35vw" ng-model='class_title'><br></form>
+            <h6 class="w3-text-black"><b>Letter Grade:</b></h6>
+            <form><input type="text" style="width:35vw" ng-model='class_grade'><br></form>
+            <h6 class="w3-text-black"><b>Description:</b></h6>
+            <form><textarea rows="6" cols="70" type="text" ng-model='class_description' style="width:35vw"></textarea></form>
+            <hr>
+            <button type="button" style=" "class="btn btn-success btn-lg" ng-click="addClasses()">Save</button>
+
+          </div>
+        </div>
+
+        <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+          <h2 class="w3-text-grey text-center w3-padding-16"><i class="fa fa-suitcase  fa-fw w3-margin-right w3-xxlarge w3-text-blue"></i>Relevant Clubs</h2>
+        <p><center><font size="2"color="grey">Enter 1-2 relevant clubs that relate to your Mentorship Area of Interests.</font></center></p>
+          <div class="w3-container" ng-repeat="club in vm.credentials.application.clubs">
+            <h6 class="w3-text-black"><b>Club Name:</b></h6>
+            <element ng-switch="club.editMode">
+              <element ng-switch-when="false"><p class="w3-text-black">{{club.name}}</p></element>
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='club_edit.edit_club_name'><br></form></element>
+            </element>
+            <h6 class="w3-text-black"><b>Position:</b></h6>
+            <element ng-switch="club.editMode">
+              <element ng-switch-when="false"><p class="w3-text-black">{{club.position}}</p></element>
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='club_edit.edit_club_position'><br></form></element>
+            </element>
+            <h6 class="w3-text-black"><b>Description:</b></h6>
+            <element ng-switch="club.editMode">
+              <element ng-switch-when="false"><p class="w3-text-black">{{club.description}}</p></element>
+              <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='club_edit.edit_club_description' style="width:35vw"></textarea></form></element>
+            </element>
+            <element ng-switch="club.editMode">
+              <element ng-switch-when="false">
+                <button type="button" value='this' class="bot-pad btn btn-danger btn-outline" ng-click='removeClub(club)'>Remove</button>
+                <button type="button" id="{{club.id+'editButton'}}" class="bot-pad  button2-color	btn  btn-primary btn-outline"  ng-click="enterEditMode_club(club)">Edit</button>
+              </element>
+              <element ng-switch-when="true"><button type="button" value='this' class="btn btn-success btn-lg" ng-click="editClub(club)">Save</button></element>
+
+            </element>
+          <hr>
+          </div>
+
+          <div class="w3-container" style="padding-bottom:40px;">
+            <h6 class="w3-text-black"><b>Club Name:</b></h6>
+            <form><input type="text" style="width:35vw" ng-model='club_name'><br></form>
+            <h6 class="w3-text-black"><b>Position:</b></h6>
+            <form><input type="text" style="width:35vw" ng-model='club_position'><br></form>
+            <h6 class="w3-text-black"><b>Description:</b></h6>
+            <form><textarea rows="6" cols="70" type="text" ng-model='club_description' style="width:35vw"></textarea></form>
+            <hr>
+            <button type="button" class="btn btn-success btn-lg" ng-click="addClubs()">Save</button>
+          </div>
+        </div>
+
+        <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+          <h2 class="w3-text-grey text-center w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right text-center w3-xxlarge w3-text-blue"></i>Projects</h2>
+          <p><center><font size="2"color="grey">Enter 1-2 relevant projects that relate to your Mentorship Area of Interests.</font></center></p>
+          <div class="w3-container" ng-repeat="project in vm.credentials.application.projects">
+            <h6 class="w3-text-black"><b>Project Name:</b></h6>
+            <element ng-switch="project.editMode">
+              <element ng-switch-when="false"><p class="w3-text-black">{{project.title}}</p></element>
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='proj_edit.edit_proj_title'><br></form></element>
+            </element>
+            <h6 class="w3-text-black"><b>Link:</b></h6>
+            <element ng-switch="project.editMode">
+              <element ng-switch-when="false"><p class="w3-text-black">{{project.link}}</p></element>
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='proj_edit.edit_proj_link'><br></form></element>
+            </element>
+            <h6 class="w3-text-black"><b>Description:</b></h6>
+            <element ng-switch="project.editMode">
+              <element ng-switch-when="false"><p class="w3-text-black">{{project.description}}</p></element>
+              <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='proj_edit.edit_proj_description' style="width:35vw"></textarea></form></element>
+            </element>
+            <element ng-switch="project.editMode">
+              <element ng-switch-when="false">
+                <button type="button" value='this' class="bot-pad btn btn-danger btn-outline" ng-click='removeProject(project)'>Remove</button>
+                <button type="button" id="{{proj.id+'editButton'}}" class="bot-pad  button2-color	btn  btn-primary btn-outline"  ng-click="enterEditMode_proj(project)">Edit</button>
+              </element>
+              <element ng-switch-when="true"><button type="button" value='this' class="btn btn-success btn-lg" ng-click="editProj(project)">Save</button></element>
+                </element>
+            </element>
+            <hr>
+          </div>
+
+          <div class="w3-container" style="padding-bottom:40px;">
+            <h6 class="w3-text-black"><b>Project Name:</b></h6>
+            <form><input type="text" style="width:35vw" ng-model='proj_title'><br></form>
+            <h6 class="w3-text-black"><b>Link:</b></h6>
+            <form><input type="text" style="width:35vw" ng-model='proj_link'><br></form>
+            <h6 class="w3-text-black"><b>Description:</b></h6>
+            <form><textarea rows="6" cols="70" type="text" ng-model='proj_description' style="width:35vw"></textarea></form>
+            <hr>
+            <button type="button" class="btn btn-success btn-lg" ng-click="addProjects()">Save</button>
+
+          </div>
+        </div>
+
+        <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+          <h2 class="w3-text-grey text-center text-center w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-blue"></i>Volunteer Experience</h2>
+          <p><center><font size="2"color="grey">Please enter any volunteer experiences that you have participated in.</font></center></p>
+          <div class="w3-container" ng-repeat="volWork in vm.credentials.application.volunteerExperiences">
+            <h6 class="w3-text-black"><b>Organization:</b></h6>
+            <form>
+              <element ng-switch='volWork.editMode'>
+                <element ng-switch-when="false"><p class="w3-text-black">{{volWork.organizationName}}</p></element>
+                <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='vol_edit.edit_vol_orgName'><br></form></element>
+              </element>
+              <h6 class="w3-text-black"><b>Experience Title:</b></h6>
+              <element ng-switch='volWork.editMode'>
+                <element ng-switch-when="false"><p class="w3-text-black">{{volWork.position}}</p></element>
+                <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='vol_edit.edit_vol_position'><br></form></element>
+              </element>
+              <h6 class="w3-text-black"><b>Description:</b></h6>
+              <element ng-switch='volWork.editMode'>
+                <element ng-switch-when="false"><p class="w3-text-black">{{volWork.description}}</p></element>
+                <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='vol_edit.edit_vol_description' style="width:35vw"></textarea><br></form>
+                </element>
+              </element>
+              <element ng-switch='volWork.editMode'>
+                <element ng-switch-when="false">  <p class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{volWork.startDate | date: "mediumDate" }} - <span class="w3-tag w3-grey w3-round">{{volWork.endDate | date: "mediumDate"}}</span></p></element>
+                <element ng-switch-when="true">
+                  <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>Start Date:</b></h6>
+                  <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vol_edit.edit_vol_startDate'></input><br></form>
+                  <!--  <h6 class="w3-text-black"><b> Do you still work here?<b></h6> <form><input type="radio"-->
+                  <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>End Date:</b></h6>
+                  <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vol_edit.edit_vol_endDate'></input><br></form>
+
+                </element>
+              </element>
+              <br>
+              <element ng-switch='volWork.editMode'>
+                <element ng-switch-when="false">
+                  <button type="button" value='this' class="bot-pad btn btn-danger btn-outline" ng-click='removeVolExperience(volWork)'>Remove</button>
+                  <button type="button" id="{{volWork.id+'v_editButton'}}" class="bot-pad  button2-color	btn  btn-primary btn-outline"  ng-click="enterEditMode_vol(volWork)">Edit</button>
+                </element>
+                <element ng-switch-when="true"><button type="button" value='this' class="btn btn-success btn-lg" ng-click="editVolExperience(volWork)">Save</button></element>
+              <hr>
+          </div>
+
+          <div class="w3-container" style="padding-bottom:40px;">
+            <h6 class="w3-text-black"><b>Organization:</b></h6>
+            <form><input type="text" style="width:35vw" ng-model='vol_orgName'><br></form>
+            <h6 class="w3-text-black"><b>Experience Title:</b></h6>
+            <form><input type="text" style="width:35vw" ng-model='vol_position'><br></form>
+            <h6 class="w3-text-black"><b>Description:</b></h6>
+            <form><textarea rows="6" cols="70" type="text" ng-model='vol_description' style="width:35vw"></textarea><br></form>
+            <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>Start Date:</b></h6>
+            <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vol_startDate'></input><br></form>
+            <!--  <h6 class="w3-text-black"><b> Do you still work here?<b></h6> <form><input type="radio"-->
+            <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>End Date:</b></h6>
+            <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vol_endDate'></input><br></form>
+            <hr>
+
+            <button type="button" class="btn btn-success btn-lg" ng-click="addVolExperience()">Save</button>
+
+            </hr>
+          </div>
+        </div>
+
+        <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+          <h2 class="w3-text-grey text-center w3-padding-16"><i class="fa fa-suitcase fa-fw  w3-xxlarge w3-text-blue"></i>Work Experience</h2>
+        <p><center><font size="2"color="grey">Please enter any work experiences that you have had.</font></center></p>
+          <div class="w3-container" id="{{work.id}}" ng-repeat="work in vm.credentials.application.professionalExperiences">
+            <h6 class="w3-text-black"><b>Company:</b></h6>
+            <element ng-switch="work.editMode">
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='work_edit.edit_pro_companyName' ng-change="updateValue(edit_pro_companyName)"><br></form></element>
+              <element ng-switch-when="false"<p class="w3-text-black">{{work.companyName}}</p></element>
+            </element>
+            <h6 class="w3-text-black"><b>Job Title:</b></h6>
+            <element ng-switch="work.editMode">
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='work_edit.edit_pro_position'><br></form></element>
+              <element ng-switch-when="false"><p class="w3-text-black">{{work.position}}</p></element>
+            </element>
+            <h6 class="w3-text-black"><b>Description:</b></h6>
+            <element ng-switch="work.editMode">
+              <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='work_edit.edit_pro_description' style="width:35vw"></textarea><br></form></element>
+              <element ng-switch-when="false"><p class="w3-text-black">{{work.description}}</p></element>
+            </element>
+            <element ng-switch="work.editMode">
+              <element ng-switch-when="false">
+                <p class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{work.startDate | date: "mediumDate" }} - <span class="w3-tag w3-grey w3-round">{{work.endDate | date: "mediumDate"}}</span></p>
+              </element>
+              <element ng-switch-when="true">
+                <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>Start Date:</b></h6>
+                <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='work_edit.edit_pro_startDate'></input><br></form>
+                <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>End Date:</b></h6>
+                <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='work_edit.edit_pro_endDate'></input><br></form>
+              </element>
+            </element>
+            <element ng-switch="work.editMode">
+              <element ng-switch-when="false">
+                <button type="button" value='this' class="bot-pad  button2-color	btn  btn-danger btn-outline" ng-click='removeProExperience(work)'>Remove</button>
+                <button type="button" id="{{work.id+'w_editButton'}}" class="bot-pad  button2-color	btn  btn-primary btn-outline" ng-click="enterEditMode_work(work)">Edit</button>
+              </element>
+              <element ng-switch-when="true">
+                <button type="button" value='this' class="btn btn-success btn-lg" ng-click="editProExperience(work)">Save</button>
+              </element>
+            </element>
+            <hr>
+          </div>
+          <div class="w3-container" style="padding-bottom:40px;">
+            <h6 class="w3-text-black"><b>Company:</b></h6>
+            <form><input type="text" style="width:35vw" ng-model='pro_companyName'><br></form>
+            <h6 class="w3-text-black"><b>Job Title:</b></h6>
+            <form><input type="text" style="width:35vw" ng-model='pro_position'><br></form>
+            <h6 class="w3-text-black" ><b>Description:</b></h6>
+            <form><textarea rows="6" cols="70" type="text" ng-model='pro_description' style="width:35vw"></textarea><br></form>
+            <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>Start Date:</b></h6>
+            <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='pro_startDate'></input><br></form>
+            <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>End Date:</b></h6>
+            <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='pro_endDate'></input><br></form>
+            <hr>
+            <button type="button" class="btn btn-success btn-lg" ng-click="addProExperience()">Save</button>
+          </div>
+        </div>
+<!-- this is sunnys code to show files submitted
+        <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+          <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw text-center w3-margin-right w3-xxlarge w3-text-blue"></i>Files Submitted</h2>
+          <div class="w3-container" ng-repeat="file in student_Forms">
+            <h6 class="w3-text-black"><b>File Name:</b></h6>
+            <p class="w3-text-black">{{file.name}}</p>
+            <h6 class="w3-text-black"><b>File ID:</b></h6>
+            <p class="w3-text-black">{{file.id}}</p>
+            <hr>
+          </div>
+        </div>
+-->
+
+	<!--   {{myForm.app_phone.$valid}}
+      {{myForm.parent_name.$valid}}
+      {{myForm.parent_email.$valid}}
+      {{myForm.app_line_1.$valid}}
+      {{myForm.app_city.$valid}}
+      {{myForm.app_state.$valid}}
+      {{myForm.app_school.$valid}}
+      {{myForm.app_zipcode.$valid}} -->
+	  <div class="w3-container w3-card-2 w3-white w3-margin-bottom" style="padding:20px;">
+        <button ng-if="myForm.app_phone.$valid && myForm.parent_name.$valid && myForm.parent_email.$valid && myForm.app_school.$valid && myForm.app_line_1.$valid && myForm.app_city.$valid && myForm.app_state.$valid && myForm.app_zipcode.$valid" class="btn btn-primary btn-lg" ng-click='ChangesNotAllowed()'style="margin-right:10px;">Submit</button>
+        <button ng-if="!myForm.app_phone.$valid || !myForm.parent_name.$valid || !myForm.parent_email.$valid || !myForm.app_school.$valid || !myForm.app_line_1.$valid || !myForm.app_city.$valid || !myForm.app_state.$valid || !myForm.app_zipcode.$valid"  class="btn btn-primary btn-lg" ng-click='notMeet()'>Submit</button>
+
+        <button  class ="btn btn-success btn-lg"  style="margin-right:30px; background-color:#64ba51;" ng-click = 'ChangesNotAllowed()'>Save Application</button>
+	 </div>
+    </form>
+  </form>
+  </div>
+
+
+</body>
+
+</html>

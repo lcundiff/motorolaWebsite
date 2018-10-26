@@ -12,8 +12,8 @@
     $stateProvider
       .state('student.application', {
         url: '/student/application',
-        templateUrl: '/modules/users/client/views/admin/list-users.client.view.html',
-        controller: 'UserListController',
+        templateUrl: '/modules/users/client/views/students/application-student-edit.client.view.html',
+        controller: 'StudentsController',
         controllerAs: 'vm'
       });
     /*  .state('student.', {

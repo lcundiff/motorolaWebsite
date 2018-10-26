@@ -17,6 +17,8 @@
     vm.isContextUserSelf = isContextUserSelf;
     vm.remove = remove;
 
+    console.log("vm.authentication: ",vm.authentication);
+
     function createStudent(isValid){
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.studentForm');
@@ -25,8 +27,8 @@
       }
 
       StudentService.createStudent(vm.credentials)
-        .then()
-        .catch()
+        .then(onStudentSubmissionSuccess)
+        .catch(onStudentSubmissionError);
     }
 
     function updateStudent(isValid){
@@ -58,7 +60,7 @@
       vm.authentication.student = response;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student submission successful.' });
       // And redirect to the previous or home page
-      $state.go($state.previous.state.name || 'home', $state.previous.params);
+      //$state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
     function onStudentSubmissionError(response) {

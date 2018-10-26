@@ -1,0 +1,300 @@
+<html>
+<html ng-app="core">
+
+   <title>Student Dashboard</title>
+   <meta charset="UTF-8">
+   <head>
+   <!-- W3 CSS -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href="../css/bootstrap.min.css" type="text/html" rel="stylesheet">
+       <!-- Custom CSS -->
+   <link href="../css/sb-admin.css" type="text/html"  rel="stylesheet">
+   <link href="../css/bootstrap.css" type="text/html"  rel="stylesheet">
+   <link href="../css/bootstrap-rtl.css" type="text/html"  rel="stylesheet">
+   <link href="../css/sb-admin-rlt.css" type="text/css"  rel="stylesheet">
+   <link href="../css/bootstrap-rtl.min.css" type="text/html"  rel="stylesheet">
+
+       <!-- Custom Fonts -->
+   <link rel="stylesheet" type="text/html"  href="https://fonts.googleapis.com/css?family=Roboto">
+	<link rel="stylesheet" type="text/html" href="/modules/core/client/css/core.css">
+
+   <style>
+   html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+
+
+   .opaque {
+     opacity: 0.75;
+   }
+   .padder {
+     padding: 15px;
+   }
+   .huge {
+     font-size: 25px;
+   }
+   img.red-hover:hover {
+     opacity: 0.95;
+     border: 1px solid gray;
+   }
+   img.green-hover:hover {
+     opacity: 0.7;
+     border: 1px solid gray;
+   }
+   .btn{
+		font-weight: 600;
+		border-radius: 15px;
+		border: black;
+		margin-left:-4em;
+		color: #26598d;
+		padding: 18px 45px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		letter-spacing:2px;
+		cursor: pointer;
+		border-radius: 5px;
+		text-align: center;
+		font-family: "Roboto", sans-serif;
+   }
+   </style>
+   </head>
+
+    <body>
+        <div ng-controller="StudentsController" data-ng-init = 'checkAppStatus2()'>
+          <div style="background-color:#003d66 ; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw);   width:100vw;" class="">
+            <div ng-controller = "HeaderController as vm" >
+            <center>
+              <h1>Welcome {{vm.authentication.user.displayName}} </h1>
+            </center>
+			</div>
+		  </div>
+
+         <div class="row" style="margin-bottom:0em;">
+           <div class="column"style="margin-bottom:0em;">
+				  <div ng-controller = "ChangeProfilePictureController as vm" class="">
+						<div style = "margin:1em; margin-left:1em;" class="form-group ">
+						  <img style="line-height: 50px; text-align: center;" ngf-src="vm.user.profileImageURL" alt="Click here to set profile picture!" class="img-thumbnail user-profile-picture" ui-sref="settings.picture" ngf-drop >
+						</div>
+				  </div>
+			</div>
+			<div class="column">
+					<img src="/modules/volunteers/client/img/register.png" style= " margin-bottom:-7em; margin-left:-12em; margin-top: -6em; width: 50em; height: 30em;" alt="application">
+			 </div>
+			 <div style = "margin-top:4em;" class="column">
+				<a style= "margin-left:9em; color:blue; " class = "" ui-sref="faq">Need Help? Check out our FAQ!</a>
+			</div>
+		 </div>
+
+              <!--- TO DOS -->
+          <div class="row" style= "margin-left: 0em; margin-top: 0em; margin-bottom: 10px;">
+
+          <div ng-switch = "student.isAppComplete">
+              <!--  blue block -->
+            <div ng-switch-when = 'true'>
+				<div class="col-lg-4 ">
+					<center>
+					<img align="center"  src="/modules/volunteers/client/img/1.png" style= "width:20em; height: 13em;" alt="application">
+                    </center>
+					<div class="panel panel-blue">
+                      <div class="panel-heading">
+                        <div class="row">
+                          <div class="text-center">
+                            <center>
+                            <div class="huge">Application</div>
+                           </center>
+
+                          </div>
+                        </div>
+                      </div>
+                      <a href="studentapp">
+                        <div class="panel-footer">
+                          <center>
+                          <img class ="opaque green-hover" src="/modules/volunteers/client/img/app.png" style= "margin-bottom:1em; max-width:23em; height: 14em;" alt="application">
+                        <label style="letter-spacing:3px;" >Status: Submitted <label>
+                          </center>
+                        </div>
+                      </a>
+                    </div>
+                </div>
+            </div>
+
+
+              <div ng-switch-default>
+                <!-- white block -->
+                <div class="col-lg-4 ">
+				<center>
+				<img align="center"  src="/modules/volunteers/client/img/1.png" style= "width:20em; height: 13em;" alt="application">
+                 </center>
+				 <div class="panel panel-white">
+                   <div class="panel-heading">
+                     <div class="row">
+                        <div class="text-center">
+                          <center>
+                            <div class="huge">Application</div>
+                         </center>
+
+
+                        </div>
+                      </div>
+                    </div>
+                    <a href="studentapp">
+                    <div class="panel-footer">
+                      <center>
+                      <img class="opaque green-hover" src="/modules/volunteers/client/img/app2.png" style= "margin-bottom:1em; width:16em; height: 14em;" alt="application">
+                      <label style="letter-spacing:3px;" >Status: Incomplete <label>
+                      </center>
+                    </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+             <div ng-switch = "student.isFormSubmitted">
+              <div ng-switch-when="true">
+             <!-- blue block -->
+               <div class="col-lg-4 ">
+			   <center>
+                 <img align="center"  src="/modules/volunteers/client/img/2.png" style= "width:20em; height: 13em;" alt="forms">
+                 </center>
+				 <div class="panel panel-blue">
+                   <div class="panel-heading">
+                     <div class="row">
+                       <div class="text-center">
+                         <center>
+							<div class="huge">Forms</div>
+                         </center>
+                        </div>
+                     </div>
+                   </div>
+                   <a href="studentforms">
+                     <div class="panel-footer">
+                       <center>
+                       <img class ="opaque green-hover" src="/modules/volunteers/client/img/form.png" style= "width:16em; height: 12em;" alt="forms">
+                       <label style="letter-spacing:3px;" >Status: Submitted<label>
+                       </center>
+                     </div>
+                   </a>
+                 </div>
+               </div>
+             </div>
+            <div ng-switch-default>
+              <!-- red block -->
+              <div class="col-lg-4 ">
+			  <center>
+                <img align="center"  src="/modules/volunteers/client/img/2.png" style= "width:20em; height: 13em;" alt="forms">
+                </center>
+				<div class="panel panel-white">
+                  <div class="panel-heading">
+                    <div class="row">
+                      <div class="text-center">
+                       <center>
+                         <div class="huge">Forms</div>
+                       </center>
+
+                     </div>
+                   </div>
+                 </div>
+                 <a href="studentforms">
+                 <div class="panel-footer">
+                   <center>
+                   <img class="opaque green-hover" src="/modules/volunteers/client/img/form2.png" style= "float:center;  margin-bottom:1em; width:13em; height: 14em;" alt="application">
+					<label style="letter-spacing:3px;" >Status: Incomplete<label>
+                   </center>
+                 </div>
+                 </a>
+               </div>
+             </div>
+           </div>
+
+       </div>
+
+
+        <div ng-switch = "student.isLetterofRecommendationSubmitted">
+           <div ng-switch-when="true">
+           <!-- white block -->
+             <div class="col-lg-4 ">
+				<center>
+					<img align="center"  src="/modules/volunteers/client/img/3.png" style= "margin-right:-1em; width:20em; height: 13em;" alt="rec letter">
+				</center>
+			   <div class="panel panel-blue">
+                 <div class="panel-heading">
+                   <div class="row">
+                     <div class="text-center">
+                       <center>
+                       <div class="huge">Recommendation</div>
+                       </center>
+
+                     </div>
+                   </div>
+                 </div>
+                 <a href="studentrecommendation">
+                   <div class="panel-footer">
+                     <center>
+                     <img class ="opaque green-hover" src="/modules/volunteers/client/img/thumb1.png" style= "float:center;  margin-bottom:1em; width:12em; height: 14em;" alt="forms">
+                     <label style="letter-spacing:3px;" >Status: Submitted <label>
+                     </center>
+                   </div>
+                 </a>
+               </div>
+             </div>
+           </div>
+          <div ng-switch-default>
+            <!-- red block -->
+            <div class="col-lg-4 ">
+			    <center>
+                <img align="center"  src="/modules/volunteers/client/img/3.png" style= " width:20em; height: 13em;" alt="forms">
+                </center>
+				<div class="panel panel-white">
+                <div class="panel-heading">
+                  <div class="row">
+                    <div class="text-center">
+                     <center>
+                       <div class="huge">Recommendation</div>
+                     </center>
+
+                   </div>
+                 </div>
+               </div>
+               <a href="studentrecommendation">
+                 <div class="panel-footer">
+                 <center>
+                 <img class="white-hover" src="/modules/volunteers/client/img/thumb2.png" style= "float:center; margin-bottom:1em; width:12em; height: 14em;" alt="application">
+                 <label style="letter-spacing:3px;" >Status: Incomplete <label>
+                 </center>
+                 </div>
+               </a>
+             </div>
+           </div>
+
+
+       </div>
+     </div>
+   </div>
+   <div class="col-lg-12">
+         <div class="panel panel-blue">
+           <div class="panel-heading">
+             <div class="row title">
+				<div class="text-center">
+					<div class="huge">Important Dates</div>
+				</div>
+			 </div>
+           </div>
+			   <center>
+				   <br>
+					<b class="huge" style="color:#497daa;" > May 21st Application Due </b>
+					<br><hr style="border-color:blue;"<br><br>
+					<b class="huge" style="color:#497daa;"> June 25th-29th 1st Session</b>
+					<br><hr style="border-color:blue;"><br>
+					<b class="huge" style="color:#497daa;"> July 23rd-27th 2nd Session </b>
+					<br><hr style="border-color:blue;"><br>
+					<b class="huge" style="color:#497daa;"> Aug 6th-10th 3rd Session </b>
+				</center>
+            </div>
+      </div>
+   </div>
+
+	</div>
+   </body>
+   </html>
