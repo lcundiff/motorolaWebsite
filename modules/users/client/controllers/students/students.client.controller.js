@@ -11,21 +11,69 @@
   function StudentsController($scope, $state, $window, StudentService, Authentication, Notification, $http, $sce) {
     var vm = this;
     vm.student;
+    vm.credentials;
     vm.authentication = Authentication;
     vm.createStudent = createStudent;
     vm.updateStudent = updateStudent;
     vm.isContextUserSelf = isContextUserSelf;
     vm.remove = remove;
 
-    console.log("vm.authentication: ",vm.authentication);
+    vm.addClasses = addClasses;
+
+    StudentService.getStudentByUsername(vm.authentication.user.username).then(function(data){
+      if(data.message === undefined){
+        $scope.vm.credentials = data;
+        $scope.vm.credentials.application = data.application;
+      }
+      else{
+        $scope.vm.credentials = {};
+        $scope.vm.credentials.application = {};
+        $scope.vm.credentials.application.firstName = vm.authentication.user.firstName;
+        $scope.vm.credentials.application.lastName = vm.authentication.user.lastName;
+        $scope.vm.credentials.application.email = vm.authentication.user.email;
+      }
+    });
+
+    function addClasses() {
+      var classN = {
+        editMode: false,
+        title: $scope.vm.classTitle,
+        grade: $scope.vm.classGrade,
+        description: $scope.vm.classDescription
+      }
+
+      console.log("classN: ",classN);
+
+      $scope.vm.credentials.application.classes.push(classN);
+
+      $scope.vm.classTitle = '';
+      $scope.vm.classGrade = '';
+      $scope.vm.classDescription = '';
+
+    };
+    function addClubs() {
+      var club = {
+        editMode: false,
+        name: $scope.club_name,
+        position: $scope.club_position,
+        description: $scope.club_description
+      }
+
+      $scope.student_clubs.push(club);
+
+      $scope.club_name = '';
+      $scope.club_position = '';
+      $scope.club_description = '';
+
+    };
 
     function createStudent(isValid){
+
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.studentForm');
 
         return false;
       }
-
       StudentService.createStudent(vm.credentials)
         .then(onStudentSubmissionSuccess)
         .catch(onStudentSubmissionError);
@@ -134,98 +182,6 @@
            updateStudentAfterForms(fileType, data.data.id);
       });
 
-    };
-
-    function updateStudentAfterForms(fileType, fileId){
-
-      StudentsService.read($scope.userid).then(function(response){
-        console.log("123400");
-              $scope.student= response.data;
-
-              return new Promise(function(resolve, reject){
-                console.log("123500");
-                if(fileType ==="NDA" && $scope.student.NDAId !== ""){
-                    googleDriveService.deleteDocs($scope.student.NDAId).then(function(response){
-                      console.log("Previous NDA existed. Now deleted.");
-                      console.log(response);
-
-                      resolve($scope.student);
-                    });
-                }
-                else if(fileType === "waiver" && $scope.student.WaiverId !== ""){
-                    googleDriveService.deleteDocs($scope.student.WaiverId).then(function(response){
-                      console.log("Previous Waiver existed. Now deleted.");
-                      console.log(response);
-
-                      resolve($scope.student);
-                    });
-                }
-                else if(fileType === "Letter" && $scope.student.letterOfRecommendationId !== ""){
-                    googleDriveService.deleteDocs($scope.student.letterOfRecommendationId).then(function(response){
-                      console.log("Previous Letter of Recommendation existed. Now deleted.");
-                      console.log(response);
-
-                      resolve($scope.student);
-                    });
-                }
-                else if(fileType === "Resume" && $scope.student.ResumeId !== ""){
-                  googleDriveService.deleteDocs($scope.student.ResumeId).then(function(response){
-                    console.log("Previous Resume existed. Now deleted.");
-                    console.log(response);
-
-                    resolve($scope.student);
-                  })
-                }
-                else{
-                  resolve($scope.student);
-                }
-              }).then(function(student){
-                return new Promise(function(resolve, reject){
-                  if(fileType ==="NDA" ){
-                    $scope.student.isNDASubmitted = true;
-                    $scope.student.NDAId = fileId;
-                    console.log("student.NDAId: ", $scope.student.NDAId);
-                    console.log("$scope.student 233", $scope.student);
-
-                    resolve($scope.student);
-                  }
-                  else if(fileType === "waiver"){
-                    $scope.student.isWaiverSubmitted = true;
-                    $scope.student.WaiverId = fileId;
-
-                    console.log("$scope.student 233", $scope.student);
-
-                    resolve($scope.student);
-                  }
-                  else if(fileType === "Letter"){
-                    $scope.student.isLetterofRecommendationSubmitted = true;
-                    $scope.student.letterOfRecommendationId = fileId;
-
-                    console.log("$scope.student 233", $scope.student);
-
-                    resolve($scope.student);
-                  }
-                  else if(fileType === "Resume"){
-                    $scope.student.ResumeId = fileId;
-                  }
-                });
-              }).then(async function(student){
-                console.log("54600");
-                console.log("student", student);
-                if($scope.student.isNDASubmitted === true && $scope.student.isWaiverSubmitted === true){
-                  await ($scope.student.isFormSubmitted = true);
-                }
-
-                StudentsService.update(student, student.user).then(function(response){
-                  console.log("yo I'm here");
-                  console.log("response: ", response);
-
-                  alert('File successfully uploaded.');
-
-                  $window.location.reload();
-                });
-              });
-            });
     };
 
     $scope.photoChanged1 = function (files) {
@@ -374,116 +330,6 @@
       });
 
     };
-
-    function saveStudent() {
-
-      var application = {
-        name: $scope.stuuser.displayName,
-        email: $scope.stuuser.email,
-        phone: $scope.app_phone,
-        address: {
-          line_1: $scope.app_line_1,
-          line_2: $scope.app_line_2,
-          city: $scope.app_city,
-          state: $scope.app_state,
-          zipcode: $scope.app_zipcode
-        },
-        school: $scope.app_school,
-        grade: $scope.app_school_grade,
-        parent: {
-          name: $scope.parent_name,
-          email: $scope.parent_email,
-          phone: $scope.parent_phone
-        },
-        classes: $scope.student_classes,
-        projects: $scope.student_projects,
-        clubs: $scope.student_clubs,
-
-
-        professionalExperiences: $scope.student_proExperience,
-        volunteerExperiences: $scope.student_volExperience,
-        preferredSession1: $scope.app_session1,
-        preferredSession2: $scope.app_session2,
-        preferredSession3: $scope.app_session3
-        //timeSlot: $scope.student_timeSlot
-      }
-
-      var student = {
-        credentialId: 'TBD',
-        application: application,
-        locationChoice: $scope.student_locationChoice,
-        interviewForms: $scope.student_Forms,
-        interviewForms: $scope.student_interviewForms,
-        forms: $scope.student_Forms,
-        sessionsAvailable: $scope.student_timeSlots,
-        interests: [$scope.student_interests_1, $scope.student_interests_2, $scope.student_interests_3],
-
-        mentor: $scope.student_mentor,
-        mentorID: $scope.student_mentorID,
-        mentor_email: $scope.student_mentor_email,
-        track: $scope.student_track,
-        isAppComplete : $scope.student.isAppComplete,
-        isLetterofRecommendationSubmitted: $scope.student.isLetterofRecommendationSubmitted,
-        isFormSubmitted: $scope.student.isFormSubmitted,
-         isWaiverSubmitted: $scope.student.isWaiverSubmitted,
-         isNDASubmitted: $scope.student.isNDASubmitted
-
-
-        }
-
-      return student;
-    }
-
-    function upSaveStudent(){
-      console.log("B2");
-      var student = $scope.student;
-
-      return new Promise(function(resolve, reject){
-        var application = {
-          name: $scope.stuuser.displayName,
-          email: $scope.stuuser.email,
-          phone: $scope.app_phone,
-          address: {
-            line_1: $scope.app_line_1,
-            line_2: $scope.app_line_2,
-            city: $scope.app_city,
-            state: $scope.app_state,
-            zipcode: $scope.app_zipcode
-          },
-          school: $scope.app_school,
-          grade: $scope.app_school_grade,
-          parent: {
-            name: $scope.parent_name,
-            email: $scope.parent_email,
-            phone: $scope.parent_phone
-          },
-          classes: $scope.student_classes,
-          projects: $scope.student_projects,
-          clubs: $scope.student_clubs,
-
-
-          professionalExperiences: $scope.student_proExperience,
-          volunteerExperiences: $scope.student_volExperience,
-          preferredSession1: $scope.app_session1,
-          preferredSession2: $scope.app_session2,
-          preferredSession3: $scope.app_session3
-          //timeSlot: $scope.student_timeSlot
-        }
-
-        console.log("student application: ",application);
-        student.application = application;
-        student.credentialId = 'TBD';
-        student.locationChoice = $scope.student_locationChoice;
-        student.interests = [$scope.student_interests_1, $scope.student_interests_2, $scope.student_interests_3];
-        student.isAppComplete = $scope.student.isAppComplete;
-
-        resolve(student);
-      }).then(function(upStudent){
-        console.log("Updated Student: ", upStudent);
-        return upStudent;
-      });
-    };
-
   // Submission functions for forms page
   // letter of rec
     $scope.saveSubmittedLetterofRecommendation = function(){
@@ -558,247 +404,7 @@
          });
 
  };
-    $scope.testUser = function() {
 
-      console.log("we are in testuser");
-
-      StudentsService.read($scope.userid)
-        .then(function(response) {
-          console.log("A123: ", response);
-          $scope.student = response.data;
-          $scope.app_name = $scope.stuuser.displayName;
-          $scope.app_email = $scope.stuuser.email;
-          if ($scope.student.application !== null || $scope.student.application !== undefined) {
-            $scope.app_name = $scope.student.application.name;
-            $scope.app_email = $scope.student.application.email;
-            $scope.app_phone = $scope.student.application.phone;
-            $scope.app_line_1 = $scope.student.application.address.line_1;
-            $scope.app_line_2 = $scope.student.application.address.line_2;
-            $scope.app_city = $scope.student.application.address.city;
-            $scope.app_state = $scope.student.application.address.state;
-            $scope.app_zipcode = $scope.student.application.address.zipcode;
-            $scope.app_school = $scope.student.application.school;
-            $scope.app_school_grade = $scope.student.application.grade;
-            $scope.parent_name = $scope.student.application.parent.name;
-            $scope.parent_email = $scope.student.application.parent.email;
-            $scope.parent_phone = $scope.student.application.parent.phone;
-            $scope.app_session1 = $scope.student.application.preferredSession1;
-            $scope.app_session2 = $scope.student.application.preferredSession2;
-            $scope.app_session3 = $scope.student.application.preferredSession3;
-            $scope.student_interests_1 = $scope.student.interests[0];
-            $scope.student_interests_2 = $scope.student.interests[1];
-            $scope.student_interests_3 = $scope.student.interests[2];
-
-            // console.log("a111",$scope.app_line_1);
-
-            $scope.student.application.professionalExperiences.forEach(function(element) {
-              $scope.student_proExperience.push(element);
-              $scope.parent_email = $scope.student.application.parent.email;
-            });
-
-            $scope.student.application.projects.forEach(function(element) {
-              $scope.student_projects.push(element);
-            });
-
-            $scope.student.application.volunteerExperiences.forEach(function(element) {
-              $scope.student_volExperience.push(element);
-            });
-
-            $scope.student.application.clubs.forEach(function(element) {
-              $scope.student_clubs.push(element);
-            });
-
-            $scope.student.application.classes.forEach(function(element) {
-              $scope.student_classes.push(element);
-            });
-
-            // $scope.student.interests.forEach(function(element){
-            //   $scope.student_interests.push(element);
-            // });
-
-            $scope.student.forms.forEach(function(element) {
-              $scope.student_Forms.push(element);
-            });
-
-            $scope.student.locationChoice.forEach(function(element) {
-              $scope.student_locationChoice.push(element);
-            });
-          }
-        }, function(error) {
-          $scope.error = 'Unable to retrieve student!\n' + error;
-        });
-
-    };
-
-$scope.notMeet = function(){
-  alert("Please fill all the required(*) area.");
-}
-
-$scope.modifyStudent = function(){
-  console.log("A1");
-  StudentsService.read($scope.userid).then(function(response){
-    console.log("res data app: ", response.data.application);
-    if(response.data.application === null || response.data.application === undefined){
-      console.log('create initiated');
-      $scope.createStudent();
-
-    }
-    else {
-      console.log("update");
-      console.log("$scope.userid in modifyStudent:", $scope.userid);
-      $scope.updateStudent($scope.userid);
-    }
-	document.emailSubmission.submit();
-    alert("Application submitted successfully.");
-}, function(error) {
-  $scope.error = 'Unable to retrieve student!\n' + error;
-});
-};
-
-    $scope.getAllStudent = function() {
-      StudentsService.getAll()
-        .then(function(response) {
-          $scope.students = response.data;
-          console.log($scope.students);
-        }, function(error) {
-          $scope.error = 'Unable to retrieve students!\n' + error;
-        });
-
-      };
-
-
-      var isAppComplete = false;
-
-      function checkAppStatus(student){
-        console.log('Student here: ',student);
-        return new Promise(function(resolve, reject){
-
-        if( student.application.email !== '' && student.application.phone !== '' &&   student.application.address !== '' &&
-           student.application.school !== '' && student.application.preferredSession1 !== '' &&
-           student.application.preferredSession2 !== '' && student.application.preferredSession3 !== ''){
-            //console.log($scope.student.isAppComplete);
-            student.isAppComplete = true ;
-
-            resolve(student);
-
-          }
-          else {
-            student.isAppComplete = false;
-
-            resolve(student);
-          }
-        }).then(function(upStudent){
-          return upStudent;
-        });
-      };
-
-      $scope.checkAppStatus2 = function(userid) {
-          StudentsService.read($scope.userid).then(function(response){
-             $scope.student = response.data;
-
-             console.log("the value on db is:" + $scope.student.isAppComplete);
-
-             if ($scope.student.isAppComplete !== false){
-                 isAppComplete = true;
-             }
-
-             else{
-                 isAppComplete = false;
-             }
-
-             console.log("we are executing this: " + isAppComplete);
-
-       }, function(error){
-           $scope.error = 'Unable to check application status\n' + error;
-       });
-
-     };
-
-
-
-    $scope.getStudent = function(id) {
-      StudentsService.read(id)
-        .then(function(response) {
-          $scope.student = response.data;
-          //console.log(response.data);
-        }, function(error) {
-          $scope.error = 'Unable to retrieve student!\n' + error;
-        });
-    };
-
-    $scope.createStudent = function() {
-      return new Promise(function(resolve, reject){
-        $scope.error = null;
-
-        var student = saveStudent();
-        student.indivRanks = ["Not Ranked", "Not Ranked", "Not Ranked"];
-        student.interviewRank = [];
-        student.timeSlot = [];
-        student.mentor = "";
-        student.mentorID = "";
-        student.NDAId = "";
-        student.WaiverId = "";
-        student.letterOfRecommendationId = "";
-        student.resumeId = "";
-
-        resolve(student);
-      }).then(function(stu){
-        return new Promise(function(resolve, reject){
-
-          var upStudent = checkAppStatus(stu);
-
-          resolve(upStudent);
-        });
-      }).then(function(newUpStudent){
-        StudentsService.create(newUpStudent)
-          .then(function(response) {
-            console.log("response after creation: ", response.data);
-            $scope.student = response.data;
-          //  $scope.student = response.data;
-            //alert('Application submitted successfully.');
-            //$window.location.reload();
-            //  $state.go('TBD', {successMessage: 'A student had been registered! '});
-          }, function(error) {
-            $scope.error = 'Unable to save student!\n' + error;
-          });
-      });
-    };
-
-    // $scope.checkStuff = function(){
-    //   console.log("file upload doc: ",document.getElementById('file_Upload'));
-    //   console.log("file upload doc: ",document.getElementById('file_upload2'));
-    // };
-
-    $scope.submitEmail = function () {
-        $scope.myTxt = "You clicked submit!";
-    }
-
-    $scope.updateStudent = function(id) {
-      return new Promise(function(resolve, reject){
-        console.log("B1");
-        var student = upSaveStudent();
-        console.log("B2 student: ", student);
-
-        resolve(student);
-      }).then(function(stu){
-        return new Promise(function(resolve, reject){
-          var upStudent = checkAppStatus(stu);
-		  //angular.element('#mce-EMAIL').trigger('submit');
-		  //var mailchimp = angular.element( document.querySelector( '#mce-EMAIL' ) );
-		  document.getElementById('#mce-EMAIL').submit();
-          resolve(upStudent);
-        });
-      }).then(function(newUpStudent){
-        console.log("B3");
-        console.log("newUpStudent: ",newUpStudent);
-        StudentsService.update(newUpStudent, id).then(function(response){
-          console.log('Success update student!');
-          console.log(response);
-          $scope.student = response.data;
-           //$window.location.reload();
-        });
-      });
-    };
 
 
     $scope.remove = function() {
@@ -1079,22 +685,6 @@ $scope.modifyStudent = function(){
     };
 
     //Functionality to add classes to the student application
-    $scope.addClasses = function() {
-      var classes = {
-        id: Math.floor((Math.random()*6)+1),
-        editMode: false,
-        title: $scope.class_title,
-        grade: $scope.class_grade,
-        description: $scope.class_description
-      }
-
-      $scope.student_classes.push(classes);
-
-      $scope.class_title = '';
-      $scope.class_grade = '';
-      $scope.class_description = '';
-
-    };
 
     //Functionality to add projects to the student application
     $scope.addProjects = function() {

@@ -62,7 +62,7 @@
 
   <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
   <div class="w3-main " style="">
-    <form name="studentForm" ng-submit="vm.createStudent(vm.studentForm.$valid)">
+    <form name="vm.studentForm" ng-submit="vm.createStudent(vm.studentForm.$valid)" class="application" novalidate autocomplete="off">
     <!-- The Grid -->
 
     <!-- herehrherherhe -->
@@ -239,7 +239,7 @@
 		<div class="column" >
 				<h6 class="w3-text-black"><i class="fa fa-asterisk fa-fw w3-margin-right w3-xlarge w3-text-blue"></i><b>Mentorship Area of Interest<span style="color:red;">*</span></b></h6>
 				<br>
-				<select style="width:15vw; margin-left:40px;" name="student_interests_1" class="form-control" ng-model="vm.credentials.interests[0]" required>
+				<select style="width:15vw; margin-left:40px;" name="student_interests_1" class="form-control" ng-model="vm.credentials.application.interests[0]" required>
 				  <option value = "Electrical Engineering / Design">Electrical Engineering / Design</option>
 				  <option value = "Mechanical Engineering / Design">Mechanical Engineering / Design</option>
 				  <option value = "Software Engineering Development">Software Engineering Development</option>
@@ -252,7 +252,7 @@
 				<br>
 				<center><h7 style = "color:gray;">1st Interest</h7></center>
 				<br>
-				<select style="width:15vw; margin-left:40px;" name="student_interests_2" class="form-control" ng-model="vm.credentials.interests[1]" required>
+				<select style="width:15vw; margin-left:40px;" name="student_interests_2" class="form-control" ng-model="vm.credentials.application.interests[1]" required>
 				  <option value = "Electrical Engineering / Design">Electrical Engineering / Design</option>
 				  <option value = "Mechanical Engineering / Design">Mechanical Engineering / Design</option>
 				  <option value = "Software Engineering Development">Software Engineering Development</option>
@@ -265,7 +265,7 @@
 				<br>
 				<center><h7 style = "color:gray;">2nd Interest</h7></center>
 				<br>
-				<select style="width:15vw; margin-left:40px;" name="student_interests_3" class="form-control" ng-model="vm.credentials.interests[2]" required>
+				<select style="width:15vw; margin-left:40px;" name="student_interests_3" class="form-control" ng-model="vm.credentials.application.interests[2]" required>
 				  <option value = "Electrical Engineering / Design">Electrical Engineering / Design</option>
 				  <option value = "Mechanical Engineering / Design">Mechanical Engineering / Design</option>
 				  <option value = "Software Engineering Development">Software Engineering Development</option>
@@ -322,17 +322,17 @@
             <h6 class="w3-text-black"><b>Class Title:</b></h6>
             <element ng-switch="class.editMode">
               <element ng-switch-when="false"><p class="w3-text-black">{{class.title}}</p></element>
-              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='class_edit.edit_class_title'><br></form></element>
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='vm.credentials.application.classes[$index].title'><br></form></element>
             </element>
             <h6 class="w3-text-black"><b>Letter Grade:</b></h6>
             <element ng-switch="class.editMode">
               <element ng-switch-when="false"><p class="w3-text-black">{{class.grade}}</p></element>
-              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='class_edit.edit_class_grade'><br></form></element>
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='vm.credentials.application.classes[$index].grade'><br></form></element>
             </element>
             <h6 class="w3-text-black"><b>Description:</b></h6>
             <element ng-switch="class.editMode">
               <element ng-switch-when="false"><p class="w3-text-black">{{class.description}}</p></element>
-              <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='class_edit.edit_class_description' style="width:35vw"></textarea></form></element>
+              <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='vm.credentials.application.classes[$index].description' style="width:35vw"></textarea></form></element>
             </element>
             <element ng-switch="class.editMode">
               <element ng-switch-when="false">
@@ -347,13 +347,13 @@
 
           <div class="w3-container " style="padding-bottom:40px;">
             <h6 class="w3-text-black"><b>Class Title:</b></h6>
-            <form><input type="text" style="width:35vw" ng-model='class_title'><br></form>
+            <form><input type="text" style="width:35vw" ng-model='vm.classTitle'><br></form>
             <h6 class="w3-text-black"><b>Letter Grade:</b></h6>
-            <form><input type="text" style="width:35vw" ng-model='class_grade'><br></form>
+            <form><input type="text" style="width:35vw" ng-model='vm.classGrade'><br></form>
             <h6 class="w3-text-black"><b>Description:</b></h6>
-            <form><textarea rows="6" cols="70" type="text" ng-model='class_description' style="width:35vw"></textarea></form>
+            <form><textarea rows="6" cols="70" type="text" ng-model='vm.classDescription' style="width:35vw"></textarea></form>
             <hr>
-            <button type="button" style=" "class="btn btn-success btn-lg" ng-click="addClasses()">Save</button>
+            <button type="button" style=" "class="btn btn-success btn-lg" ng-click="vm.addClasses()">Save</button>
 
           </div>
         </div>
@@ -583,10 +583,7 @@
       {{myForm.app_school.$valid}}
       {{myForm.app_zipcode.$valid}} -->
 	  <div class="w3-container w3-card-2 w3-white w3-margin-bottom" style="padding:20px;">
-        <button ng-if="myForm.app_phone.$valid && myForm.parent_name.$valid && myForm.parent_email.$valid && myForm.app_school.$valid && myForm.app_line_1.$valid && myForm.app_city.$valid && myForm.app_state.$valid && myForm.app_zipcode.$valid" class="btn btn-primary btn-lg" ng-click='ChangesNotAllowed()'style="margin-right:10px;">Submit</button>
-        <button ng-if="!myForm.app_phone.$valid || !myForm.parent_name.$valid || !myForm.parent_email.$valid || !myForm.app_school.$valid || !myForm.app_line_1.$valid || !myForm.app_city.$valid || !myForm.app_state.$valid || !myForm.app_zipcode.$valid"  class="btn btn-primary btn-lg" ng-click='notMeet()'>Submit</button>
-
-        <button  class ="btn btn-success btn-lg"  style="margin-right:30px; background-color:#64ba51;" ng-click = 'ChangesNotAllowed()'>Save Application</button>
+        <button  class ="btn btn-success btn-lg"  <button type="submit" class="btn btn-primary" ng-click="vm.createStudent(vm.studentForm.$valid)">Save Application</button>
 	 </div>
     </form>
   </form>

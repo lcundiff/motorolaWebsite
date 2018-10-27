@@ -12,10 +12,16 @@ var mongoose = require('mongoose'),
 var StudentSchema = new Schema({
   credentialId: {
     type: String,
-    required: 'Please create a credential for student and assign this field with credential ID'
+    //required: 'Please create a credential for student and assign this field with credential ID'
   },
   application: {
-    name: {
+    firstName: {
+      type: String,
+      default: '',
+      required: 'Please fill Student name',
+      trim: true
+    },
+    lastName: {
       type: String,
       default: '',
       required: 'Please fill Student name',
@@ -157,7 +163,9 @@ var StudentSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-
+  username: {
+    type: String
+  },
   signup_link: {
     type: String,
     default: ''

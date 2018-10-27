@@ -12,6 +12,7 @@ module.exports = function (app) {
   app.route('/api/students/list').get(students.list);
   app.route('/api/students/listDeactivated').get(students.listDeactivated);
   app.route('/api/students/listAccepted').get(students.listAccepted);
+  app.route('/api/students/getByUsername/:username').get(students.getStudentByUsername);
 
 
   // Finish by binding the user middleware

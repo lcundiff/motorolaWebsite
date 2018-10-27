@@ -29,21 +29,25 @@ var path = require('path'),
 
 exports.create = function(req, res) {
   console.log("create");
-  return "create";
   var student = new Student(req.body);
 
-  student.user = req.user;
+  console.log("req.body: ",req.body);
+  console.log("req.user: ",req.user);
+  console.log("req.user: ",req.body.user);
+
+  student.user = {
+    _id: req.user._id
+  };
+  student.username = req.user.username;
   student.credentialId = req.body.credentialId;
   student.application = req.body.application;
-  student.application.address = req.body.application.address;
-  student.application.parent = req.body.application.parent;
   student.locationChoice = req.body.locationChoice;
   student.interviewForms = req.body.interviewForms;
   student.timeSlots = req.body.timeSlots;
   student.isAppComplete = req.body.isAppComplete;
-   student.isFormSubmitted = req.body.isFormSubmitted;
+  student.isFormSubmitted = req.body.isFormSubmitted;
   student.isLetterofRecommendationSubmitted = req.body.isLetterofRecommendationSubmitted;
-  student.interests = req.body.interests;
+  student.interests = req.body.application.interests;
   student.mentor = req.body.mentor;
   student.mentorID = req.body.mentorID;
   student.indivRanks = req.body.indivRanks;
@@ -54,12 +58,13 @@ exports.create = function(req, res) {
 
   student.save(function(err) {
     if (err) {
+      console.log(err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-
-      res.jsonp(student);
+      console.log("STUDENT: ",student);
+      res.json(student);
     }
   });
 };
@@ -70,13 +75,37 @@ exports.create = function(req, res) {
 exports.read = function(req, res) {
   console.log("read");
   // convert mongoose document to JSON
-  //var student = req.student ? req.student.toJSON() : {};
+  var student = req.student ? req.student.toJSON() : {};
+
+  console.log("student: ",student);
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   // student.isCurrentUserOwner = req.user && student.user && student.user._id.toString() === req.user._id.toString();
 
-  //res.jsonp(student);
+  res.json(student);
+};
+
+exports.getStudentByUsername = function(req, res){
+  console.log("req.params.username: ", req.params.username);
+
+  Student.findOne({username: req.params.username}).then(function(student){
+    console.log("student: ",student);
+    if(student === null){
+      return res.status(200).send({
+        message: "DNE"
+      });
+    }
+    else{
+      res.json(student);
+    }
+  }, function(err){
+    if(err){
+      return res.status(200).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+  });
 };
 
 /**
@@ -175,6 +204,7 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) {
   Student.find({active: {$ne: false } }).sort('-created').populate('user', 'displayName').exec(function(err, students) {
     if (err) {
+      console.log(err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });

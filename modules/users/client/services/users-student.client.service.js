@@ -14,6 +14,10 @@
           method: 'GET',
           url: '/api/students/read/:userId'
         },
+        get_student_by_username: {
+          method: 'GET',
+          url: '/api/students/getByUsername/:username'
+        },
         create_student: {
           method: 'PUT',
           url: '/api/students/create'
@@ -46,6 +50,11 @@
       getStudent: function(userId) {
         return this.get_student({
           userId: userId
+        }).$promise;
+      },
+      getStudentByUsername: function(username) {
+        return this.get_student_by_username({
+          username: username
         }).$promise;
       },
       createStudent: function(student){
