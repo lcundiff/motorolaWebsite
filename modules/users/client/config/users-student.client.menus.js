@@ -22,7 +22,7 @@
 
     menuService.addMenuItem('topbar', {
       title: 'Forms',
-      state: 'student.application',
+      state: 'student.forms',
       roles: ['student']
     });
 

@@ -13,4 +13,5 @@
 
   app.registerModule('users.routes', ['ui.router', 'core.routes']);
   app.registerModule('users.services');
+  app.registerModule('users.files.services');
 }(ApplicationConfiguration));
