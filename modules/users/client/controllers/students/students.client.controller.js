@@ -13,17 +13,38 @@
     vm.student;
     vm.credentials;
     vm.authentication = Authentication;
+
     vm.createStudent = createStudent;
     vm.updateStudent = updateStudent;
     vm.isContextUserSelf = isContextUserSelf;
     vm.remove = remove;
 
     vm.addClasses = addClasses;
+    vm.editClass = editClass;
+    vm.removeClass = removeClass;
+
+    vm.addClubs = addClubs;
+    vm.editClub = editClub;
+    vm.removeClub = removeClub;
+
+    vm.addProjects = addProjects;
+    vm.editProject = editProject;
+    vm.removeProject = removeProject;
+
+    vm.addVolunteerExperiences = addVolunteerExperiences;
+    vm.editVolunteerExperience = editVolunteerExperience;
+    vm.removeVolunteerExperience = removeVolunteerExperience;
+
+    vm.addProfessionalExperiences = addProfessionalExperiences;
+    vm.editProfessionalExperience = editProfessionalExperience;
+    vm.removeProfessionalExperience = removeProfessionalExperience;
 
     StudentService.getStudentByUsername(vm.authentication.user.username).then(function(data){
       if(data.message === undefined){
         $scope.vm.credentials = data;
         $scope.vm.credentials.application = data.application;
+        $scope.vm.submitIsUpdate = true;
+        console.log("userid check: ",$scope.vm.credentials);
       }
       else{
         $scope.vm.credentials = {};
@@ -31,6 +52,7 @@
         $scope.vm.credentials.application.firstName = vm.authentication.user.firstName;
         $scope.vm.credentials.application.lastName = vm.authentication.user.lastName;
         $scope.vm.credentials.application.email = vm.authentication.user.email;
+        $scope.vm.submitIsUpdate = true;
       }
     });
 
@@ -42,30 +64,128 @@
         description: $scope.vm.classDescription
       }
 
-      console.log("classN: ",classN);
-
       $scope.vm.credentials.application.classes.push(classN);
 
       $scope.vm.classTitle = '';
       $scope.vm.classGrade = '';
       $scope.vm.classDescription = '';
 
-    };
+    }
+
+    function editClass(classE, index) {
+      classE.editMode = false;
+      $scope.vm.credentials.application.classes[index] = classE;
+    }
+
+    function removeClass(index) {
+      $scope.vm.credentials.application.classes.splice(index, 1);
+    }
+
     function addClubs() {
       var club = {
         editMode: false,
-        name: $scope.club_name,
-        position: $scope.club_position,
-        description: $scope.club_description
+        name: $scope.vm.clubName,
+        position: $scope.vm.clubPosition,
+        description: $scope.vm.clubPosition
       }
 
-      $scope.student_clubs.push(club);
+      $scope.vm.credentials.application.clubs.push(club);
 
-      $scope.club_name = '';
-      $scope.club_position = '';
-      $scope.club_description = '';
+      $scope.vm.clubName = '';
+      $scope.vm.clubPosition = '';
+      $scope.vm.clubDescription = '';
+    }
 
-    };
+    function editClub(clubE, index) {
+      clubE.editMode = false;
+      $scope.vm.credentials.application.clubs[index] = clubE;
+    }
+
+    function removeClub(index) {
+      $scope.vm.credentials.application.clubs.splice(index, 1);
+    }
+
+    function addProjects() {
+      var project = {
+        editMode: false,
+        title: $scope.vm.projectTitle,
+        link: $scope.vm.projectLink,
+        description: $scope.vm.projectDescription
+      }
+
+      $scope.vm.credentials.application.projects.push(project);
+
+      $scope.vm.projectTitle = '';
+      $scope.vm.projectLink = '';
+      $scope.vm.projectDescription = '';
+    }
+
+    function editProject(projE, index){
+      projE.editMode = false;
+      $scope.vm.credentials.application.projects[index] = projE;
+    }
+
+    function removeProject(index) {
+      $scope.vm.credentials.application.projects.splice(index, 1);
+    }
+
+    function addVolunteerExperiences() {
+      var volExp = {
+        editMode: false,
+        organizationName: $scope.vm.VolunteerOrganizationName,
+        position: $scope.vm.VolunteerPosition,
+        description: $scope.vm.VolunteerDescription,
+        startDate: $scope.vm.VolunteerStartDate,
+        endDate: $scope.vm.VolunteerEndDate
+      }
+
+      $scope.vm.credentials.application.volunteerExperiences.push(volExp);
+
+      $scope.vm.VolunteerOrganizationName = '';
+      $scope.vm.VolunteerPosition = '';
+      $scope.vm.VolunteerDescription = '';
+      $scope.vm.VolunteerStartDate = '';
+      $scope.vm.VolunteerEndDate = '';
+    }
+
+    function editVolunteerExperience(volE, index){
+      volE.editMode = false;
+      $scope.vm.credentials.application.volunteerExperiences[index] = volE;
+    }
+
+    function removeVolunteerExperience(index) {
+      $scope.vm.credentials.application.volunteerExperiences.splice(index, 1);
+    }
+
+    function addProfessionalExperiences() {
+      var work = {
+        editMode: false,
+        companyName: $scope.vm.WorkCompanyName,
+        position: $scope.vm.WorkPosition,
+        description: $scope.vm.WorkDescription,
+        startDate: $scope.vm.WorkStartDate,
+        endDate: $scope.vm.WorkEndDate
+      }
+
+      $scope.vm.credentials.application.professionalExperiences.push(work);
+
+      $scope.vm.WorkCompanyName = '';
+      $scope.vm.WorkPosition = '';
+      $scope.vm.WorkDescription = '';
+      $scope.vm.WorkStartDate = '';
+      $scope.vm.WorkEndDate = '';
+    }
+
+    function editProfessionalExperience(work, index){
+      work.editMode = false;
+      $scope.vm.credentials.application.professionalExperiences[index] = work;
+    }
+
+    function removeProfessionalExperience(index) {
+      $scope.vm.credentials.application.professionalExperiences.splice(index, 1);
+    }
+
+
 
     function createStudent(isValid){
 
@@ -80,7 +200,14 @@
     }
 
     function updateStudent(isValid){
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.studentForm');
 
+        return false;
+      }
+      StudentService.updateStudent(vm.credentials.user, vm.credentials)
+        .then(onStudentSubmissionSuccess)
+        .catch(onStudentSubmissionError);
     }
 
     function isContextUserSelf(){
@@ -155,7 +282,7 @@
 
     };*/
 
-    $scope.Submit = function (fileType) {
+    /*$scope.Submit = function (fileType) {
 
       //console.log("uploadsubmit called");
 
@@ -182,7 +309,7 @@
            updateStudentAfterForms(fileType, data.data.id);
       });
 
-    };
+    };*/
 
     $scope.photoChanged1 = function (files) {
       console.log("files: ",files);
@@ -404,407 +531,6 @@
          });
 
  };
-
-
-
-    $scope.remove = function() {
-      var id = '59ec3b14c2c8291270f23d73';
-
-      StudentsService.delete(id)
-        .then(function(response) {
-          //$state.go('TBD', {successMessage: 'A student had been deleted! '});
-        }, function(error) {
-          $scope.error = 'Unable to delete student\n' + error;
-        });
-    };
-
-    $scope.enterEditMode_work = function(work){
-    /*  for(var i =0; i<$scope.student_proExperience.length; i++){
-        document.getElementById($scope.student_proExperience[i].id+'editButton').disabled = true;
-      }*/
-      if($scope.inWorkEditMode === true){
-        alert('You can only edit one work experience at a time.');
-      }
-      else{
-
-        $scope.work_edit.edit_pro_companyName = work.companyName;
-        $scope.work_edit.edit_pro_position = work.position;
-        $scope.work_edit.edit_pro_startDate = work.startDate;
-        $scope.work_edit.edit_pro_endDate = work.endDate;
-        $scope.work_edit.edit_pro_description = work.description;
-      console.log('workeditMode: ',work.editMode);
-      work.editMode = true;
-      $scope.inWorkEditMode = true;
-    }
-
-    };
-
-    $scope.enterEditMode_vol = function(volE){
-      if($scope.inVolEditMode === true){
-        alert('You can only edit one volunteer experience at a time.');
-      }
-      else{
-
-        $scope.vol_edit.edit_vol_orgName = volE.organizationName;
-        $scope.vol_edit.edit_vol_position = volE.position;
-        $scope.vol_edit.edit_vol_startDate = volE.startDate;
-        $scope.vol_edit.edit_vol_endDate = volE.endDate;
-        $scope.vol_edit.edit_vol_description = volE.description;
-      console.log('workeditMode: ',volE.editMode);
-      volE.editMode = true;
-      $scope.inVolEditMode = true;
-    }
-
-    };
-
-    $scope.enterEditMode_class = function(classE){
-      if($scope.inClassEditMode === true){
-        alert('You can only edit one class at a time.');
-      }
-      else{
-
-        $scope.class_edit.edit_class_title = classE.title;
-        $scope.class_edit.edit_class_grade = classE.grade;
-        $scope.class_edit.edit_class_description = classE.description;
-
-      classE.editMode = true;
-      $scope.inClassEditMode = true;
-    }
-
-    };
-
-    $scope.enterEditMode_club = function(club){
-      if($scope.inClubEditMode === true){
-        alert('You can only edit one club at a time.');
-      }
-      else{
-
-        $scope.club_edit.edit_club_name = club.name;
-        $scope.club_edit.edit_club_position = club.position;
-        $scope.club_edit.edit_club_description = club.description;
-
-      club.editMode = true;
-      $scope.inClubEditMode = true;
-    }
-
-    };
-
-    $scope.enterEditMode_proj = function(proj){
-      if($scope.inProjEditMode === true){
-        alert('You can only edit one project at a time.');
-      }
-      else{
-
-        $scope.proj_edit.edit_proj_title = proj.title;
-        $scope.proj_edit.edit_proj_link = proj.link;
-        $scope.proj_edit.edit_proj_description = proj.description;
-
-      proj.editMode = true;
-      $scope.inProjEditMode = true;
-    }
-
-    };
-
-    $scope.removeProExperience = function(work) {
-      $scope.student_proExperience.splice($scope.student_proExperience.indexOf(work), 1);
-    };
-
-    $scope.removeVolExperience = function(vol) {
-      $scope.student_volExperience.splice($scope.student_volExperience.indexOf(vol), 1);
-    };
-
-    $scope.removeClass = function(stdClass) {
-      $scope.student_classes.splice($scope.student_classes.indexOf(stdClass), 1);
-    };
-
-    $scope.removeClub = function(club) {
-      $scope.student_clubs.splice($scope.student_clubs.indexOf(club), 1);
-    };
-
-    $scope.removeProject = function(project) {
-      $scope.student_projects.splice($scope.student_projects.indexOf(project), 1);
-    };
-
-    //Functionality to edit sections added to the student application
-    $scope.editProExperience = function(work) {
-      console.log("in here");
-      return new Promise(function(resolve, reject){
-        work.companyName = $scope.work_edit.edit_pro_companyName;
-        work.position = $scope.work_edit.edit_pro_position;
-        work.startDate = $scope.work_edit.edit_pro_startDate;
-        work.endDate = $scope.work_edit.edit_pro_endDate;
-        work.description = $scope.work_edit.edit_pro_description;
-        work.editMode = false;
-        console.log("$scope: ",$scope);
-        resolve(work);
-      }).then(function(updated_work){
-        return new Promise(function(resolve, reject){
-          for(var i =0; i<$scope.student_proExperience.length; i++){
-            console.log("are work ids equal?",$scope.student_proExperience[i].id === updated_work.id);
-            if($scope.student_proExperience[i].id === updated_work.id){
-              $scope.student_proExperience[i].companyName === work.companyName;
-              $scope.student_proExperience[i].position === work.position;
-              $scope.student_proExperience[i].startDate === work.startDate;
-              $scope.student_proExperience[i].endDate === work.endDate;
-              $scope.student_proExperience[i].description === work.description;
-              $scope.student_proExperience[i].editMode === work.editMode;
-
-              console.log($scope.student_proExperience);
-              resolve($scope.student_proExperience);
-            }
-          }
-        });
-      }).then(function(){
-        console.log("PE: ",$scope.student_proExperience);
-        $scope.inWorkEditMode = false;
-        /*for(var i =0; i<$scope.student_proExperience.length; i++){
-          console.log(document.getElementById($scope.student_proExperience[i].id+'editButton'));
-          document.getElementById($scope.student_proExperience[i].id+'editButton').disabled = false;
-        }*/
-        console.log("$scope.inEditMode", $scope.inEditMode);
-      });
-    };
-
-    $scope.editVolExperience = function(volE) {
-      console.log("in here");
-      return new Promise(function(resolve, reject){
-        volE.organizationName = $scope.vol_edit.edit_vol_orgName;
-        volE.position = $scope.vol_edit.edit_vol_position;
-        volE.startDate = $scope.vol_edit.edit_vol_startDate;
-        volE.endDate = $scope.vol_edit.edit_vol_endDate;
-        volE.description = $scope.vol_edit.edit_vol_description;
-        volE.editMode = false;
-        console.log("$scope: ",$scope);
-        resolve(volE);
-      }).then(function(updated_volE){
-        return new Promise(function(resolve, reject){
-          for(var i =0; i<$scope.student_volExperience.length; i++){
-            console.log("are work ids equal?",$scope.student_volExperience[i].id === updated_volE.id);
-            if($scope.student_volExperience[i].id === updated_volE.id){
-              $scope.student_volExperience[i].orgName === volE.orgName;
-              $scope.student_volExperience[i].position === volE.position;
-              $scope.student_volExperience[i].startDate === volE.startDate;
-              $scope.student_volExperience[i].endDate === volE.endDate;
-              $scope.student_volExperience[i].description === volE.description;
-              $scope.student_volExperience[i].editMode === volE.editMode;
-
-              console.log($scope.student_volExperience);
-              resolve($scope.student_volExperience);
-            }
-          }
-        });
-      }).then(function(){
-        console.log("PE: ",$scope.student_volExperience);
-        $scope.inVolEditMode = false;
-      /*  for(var i =0; i<$scope.student_volExperience.length; i++){
-          console.log(document.getElementById($scope.student_volExperience[i].id+'editButton'));
-
-          document.getElementById($scope.student_volExperience[i].id+'editButton').disabled = false;
-        }*/
-        console.log("$scope.inEditMode", $scope.inVolEditMode);
-      });
-    };
-
-    $scope.editClass = function(classE) {
-      console.log("in here");
-      return new Promise(function(resolve, reject){
-        classE.title = $scope.class_edit.edit_class_title;
-        classE.grade = $scope.class_edit.edit_class_grade;
-        classE.description = $scope.class_edit.edit_class_description;
-        classE.editMode = false;
-        console.log("$scope: ",$scope);
-        resolve(classE);
-      }).then(function(updated_classE){
-        return new Promise(function(resolve, reject){
-          for(var i =0; i<$scope.student_classes.length; i++){
-            if($scope.student_classes[i].id === updated_classE.id){
-              $scope.student_classes[i].title === classE.title;
-              $scope.student_classes[i].grade === classE.grade;
-              $scope.student_classes[i].description === classE.description;
-              $scope.student_classes[i].editMode === classE.editMode;
-
-              resolve($scope.student_classes);
-            }
-          }
-        });
-      }).then(function(){
-        $scope.inClassEditMode = false;
-      });
-    };
-
-    $scope.editClub = function(club) {
-      return new Promise(function(resolve, reject){
-        club.title = $scope.club_edit.edit_club_name;
-        club.position = $scope.club_edit.edit_club_position;
-        club.description = $scope.club_edit.edit_club_description;
-        club.editMode = false;
-
-        resolve(club);
-      }).then(function(updated_club){
-        return new Promise(function(resolve, reject){
-          for(var i =0; i<$scope.student_clubs.length; i++){
-            if($scope.student_clubs[i].id === updated_club.id){
-              $scope.student_clubs[i].name === club.name;
-              $scope.student_clubs[i].position === club.position;
-              $scope.student_clubs[i].description === club.description;
-              $scope.student_clubs[i].editMode === club.editMode;
-
-              resolve($scope.student_clubs);
-            }
-          }
-        });
-      }).then(function(){
-        $scope.inClubEditMode = false;
-      });
-    };
-
-    $scope.editProj = function(proj) {
-      return new Promise(function(resolve, reject){
-        proj.title = $scope.proj_edit.edit_proj_title;
-        proj.link = $scope.proj_edit.edit_proj_link;
-        proj.description = $scope.proj_edit.edit_proj_description;
-        proj.editMode = false;
-
-        resolve(proj);
-      }).then(function(updated_proj){
-        return new Promise(function(resolve, reject){
-          for(var i =0; i<$scope.student_projects.length; i++){
-            if($scope.student_projects[i].id === updated_proj.id){
-              $scope.student_projects[i].title === proj.title;
-              $scope.student_projects[i].link === proj.position;
-              $scope.student_projects[i].description === proj.description;
-              $scope.student_projects[i].editMode === proj.editMode;
-
-              resolve($scope.student_projects);
-            }
-          }
-        });
-      }).then(function(){
-        $scope.inProjEditMode = false;
-      });
-    };
-
-    //Functionality to add classes to the student application
-
-    //Functionality to add projects to the student application
-    $scope.addProjects = function() {
-      console.log("Here added project");
-      var project = {
-        id: Math.floor((Math.random()*6)+1),
-        editMode: false,
-        title: $scope.proj_title,
-        link: $scope.proj_link,
-        description: $scope.proj_description
-      }
-
-      $scope.student_projects.push(project);
-
-      $scope.proj_title = '';
-      $scope.proj_link = '';
-      $scope.proj_description = '';
-
-    };
-    //Functionality to add clubs to the student application
-    $scope.addClubs = function() {
-      var club = {
-        id: Math.floor((Math.random()*6)+1),
-        editMode: false,
-        name: $scope.club_name,
-        position: $scope.club_position,
-        description: $scope.club_description
-      }
-
-      $scope.student_clubs.push(club);
-
-      $scope.club_name = '';
-      $scope.club_position = '';
-      $scope.club_description = '';
-
-    };
-
-    $scope.addProExperience = function() {
-      var proExperience = {
-        id: Math.floor((Math.random()*6)+1),
-        editMode: false,
-        companyName: $scope.pro_companyName,
-        position: $scope.pro_position,
-        startDate: $scope.pro_startDate,
-        endDate: $scope.pro_endDate,
-        description: $scope.pro_description
-      }
-
-      return new Promise(function(resolve, reject){
-
-        $scope.student_proExperience.push(proExperience);
-
-        $scope.pro_companyName = '';
-        $scope.pro_position = '';
-        $scope.pro_startDate = '';
-        $scope.pro_endDate = '';
-        $scope.pro_description = '';
-
-        resolve($scope.student_proExperience);
-      }).then(function(student_proExperience){
-      /*  if($scope.inWorkEditMode === true){
-          console.log(document.getElementById(proExperience.id+'editButton'));
-          document.getElementById(proExperience.id+'editButton').disabled = true;
-        }*/
-      });
-    };
-
-    $scope.addVolExperience = function() {
-      var volExperience = {
-        id: Math.floor((Math.random()*6)+1),
-        editMode: false,
-        organizationName: $scope.vol_orgName,
-        position: $scope.vol_position,
-        startDate: $scope.vol_startDate,
-        endDate: $scope.vol_endDate,
-        description: $scope.vol_description
-      }
-
-      return new Promise(function(resolve, reject){
-        $scope.student_volExperience.push(volExperience);
-
-        $scope.vol_orgName = '';
-        $scope.vol_position = '';
-        $scope.vol_startDate = '';
-        $scope.vol_endDate = '';
-        $scope.vol_description = '';
-
-        resolve($scope.student_volExperience);
-      }).then(function(student_volExperience){
-      /*  if($scope.inVolEditMode === true){
-          console.log(document.getElementById(volExperience.id+'editButton'));
-
-          document.getElementById(volExperience.id+'editButton').disabled = true;
-        }*/
-      });
-    };
-
-  /*  $scope.addLocationChoice = function() {
-      var locationChoice = {
-        name: $scope.locName,
-        address: $scope.locAddress
-      }
-
-      $scope.student_locationChoice.add(locationChoice);
-    };
-
-    $scope.addForm = function(formId) {
-      $scope.student_Forms.push(formId);
-    };
-
-    $scope.addInterviewRank = function() {
-      var interviewRank = {
-        interviewer: $scope.interviewer_name,
-        rank: $scope.rank
-      }
-      $scope.interview_rank.push(interviewRank);
-      $scope.interviewer_name = '';
-      $scope.rank = '';
-    };*/
-
-  }
+}
 
 }());

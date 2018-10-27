@@ -25,7 +25,7 @@
 
         update_student: {
           method: 'PUT',
-          url: '/api/students/updates/:userId'
+          url: '/api/students/update/:userId'
         },
         delete_student: {
           method: 'DELETE',

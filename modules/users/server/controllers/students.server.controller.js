@@ -112,13 +112,17 @@ exports.getStudentByUsername = function(req, res){
  * Update a Student
  */
 exports.update = function(req, res) {
-  console.log("update");
-  /*var student = req.student;
 
-  //student = _.extend(student, req.body);
+  var student = new Student(req.body);
 
-  //console.log(student);
+  console.log("YOYO: ",student);
 
+  Student.findOneAndUpdate({username: student.username}, student, {upsert: false}).then(function(data){
+    console.log("YOYO DATA: ",data);
+
+    res.json(data);
+  })
+  /*
   student.credentialId = req.body.credentialId;
   student.application = req.body.application;
   student.application.address = req.body.application.address;
@@ -261,10 +265,8 @@ exports.listAccepted = function(req, res) {
      });
    }
 
-   User.findOne({
-     user: {
-        _id: id
-     }
+   Student.findOne({
+     user: id
    }).exec(function (err, user) {
      if (err) {
        return next(err);

@@ -336,10 +336,10 @@
             </element>
             <element ng-switch="class.editMode">
               <element ng-switch-when="false">
-                <button type="button" value='this' class="bot-pad btn btn-danger btn-outline" ng-click='removeClass(class)'>Remove</button>
-                <button type="button" id="{{volWork.id+'editButton'}}" class="bot-pad  button2-color	btn  btn-primary btn-outline"  ng-click="enterEditMode_class(class)">Edit</button>
+                <button type="button" value='this' class="bot-pad btn btn-danger btn-outline" ng-click='vm.removeClass($index)'>Remove</button>
+                <button type="button" class="bot-pad  button2-color	btn  btn-primary btn-outline"  ng-click="class.editMode = true;">Edit</button>
               </element>
-              <element ng-switch-when="true"><button type="button" value='this' class="btn btn-success btn-lg" ng-click="editClass(class)">Save</button></element>
+              <element ng-switch-when="true"><button type="button" value='this' class="btn btn-success btn-lg" ng-click="vm.editClass(class, $index)">Save</button></element>
           </element>
 
             <hr>
@@ -365,24 +365,24 @@
             <h6 class="w3-text-black"><b>Club Name:</b></h6>
             <element ng-switch="club.editMode">
               <element ng-switch-when="false"><p class="w3-text-black">{{club.name}}</p></element>
-              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='club_edit.edit_club_name'><br></form></element>
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='vm.credentials.application.clubs[$index].name'><br></form></element>
             </element>
             <h6 class="w3-text-black"><b>Position:</b></h6>
             <element ng-switch="club.editMode">
               <element ng-switch-when="false"><p class="w3-text-black">{{club.position}}</p></element>
-              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='club_edit.edit_club_position'><br></form></element>
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='vm.credentials.application.clubs[$index].position'><br></form></element>
             </element>
             <h6 class="w3-text-black"><b>Description:</b></h6>
             <element ng-switch="club.editMode">
               <element ng-switch-when="false"><p class="w3-text-black">{{club.description}}</p></element>
-              <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='club_edit.edit_club_description' style="width:35vw"></textarea></form></element>
+              <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='vm.credentials.application.clubs[$index].description' style="width:35vw"></textarea></form></element>
             </element>
             <element ng-switch="club.editMode">
               <element ng-switch-when="false">
-                <button type="button" value='this' class="bot-pad btn btn-danger btn-outline" ng-click='removeClub(club)'>Remove</button>
-                <button type="button" id="{{club.id+'editButton'}}" class="bot-pad  button2-color	btn  btn-primary btn-outline"  ng-click="enterEditMode_club(club)">Edit</button>
+                <button type="button" value='this' class="bot-pad btn btn-danger btn-outline" ng-click='vm.removeClub($index)'>Remove</button>
+                <button type="button" class="bot-pad  button2-color	btn  btn-primary btn-outline"  ng-click="club.editMode = true;">Edit</button>
               </element>
-              <element ng-switch-when="true"><button type="button" value='this' class="btn btn-success btn-lg" ng-click="editClub(club)">Save</button></element>
+              <element ng-switch-when="true"><button type="button" value='this' class="btn btn-success btn-lg" ng-click="vm.editClub(club, $index)">Save</button></element>
 
             </element>
           <hr>
@@ -390,13 +390,13 @@
 
           <div class="w3-container" style="padding-bottom:40px;">
             <h6 class="w3-text-black"><b>Club Name:</b></h6>
-            <form><input type="text" style="width:35vw" ng-model='club_name'><br></form>
+            <form><input type="text" style="width:35vw" ng-model='vm.clubName'><br></form>
             <h6 class="w3-text-black"><b>Position:</b></h6>
-            <form><input type="text" style="width:35vw" ng-model='club_position'><br></form>
+            <form><input type="text" style="width:35vw" ng-model='vm.clubPosition'><br></form>
             <h6 class="w3-text-black"><b>Description:</b></h6>
-            <form><textarea rows="6" cols="70" type="text" ng-model='club_description' style="width:35vw"></textarea></form>
+            <form><textarea rows="6" cols="70" type="text" ng-model='vm.clubDescription' style="width:35vw"></textarea></form>
             <hr>
-            <button type="button" class="btn btn-success btn-lg" ng-click="addClubs()">Save</button>
+            <button type="button" class="btn btn-success btn-lg" ng-click="vm.addClubs()">Save</button>
           </div>
         </div>
 
@@ -407,24 +407,24 @@
             <h6 class="w3-text-black"><b>Project Name:</b></h6>
             <element ng-switch="project.editMode">
               <element ng-switch-when="false"><p class="w3-text-black">{{project.title}}</p></element>
-              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='proj_edit.edit_proj_title'><br></form></element>
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='vm.credentials.application.projects[$index].title'><br></form></element>
             </element>
             <h6 class="w3-text-black"><b>Link:</b></h6>
             <element ng-switch="project.editMode">
               <element ng-switch-when="false"><p class="w3-text-black">{{project.link}}</p></element>
-              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='proj_edit.edit_proj_link'><br></form></element>
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='vm.credentials.application.projects[$index].link'><br></form></element>
             </element>
             <h6 class="w3-text-black"><b>Description:</b></h6>
             <element ng-switch="project.editMode">
               <element ng-switch-when="false"><p class="w3-text-black">{{project.description}}</p></element>
-              <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='proj_edit.edit_proj_description' style="width:35vw"></textarea></form></element>
+              <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='vm.credentials.application.projects[$index].description' style="width:35vw"></textarea></form></element>
             </element>
             <element ng-switch="project.editMode">
               <element ng-switch-when="false">
-                <button type="button" value='this' class="bot-pad btn btn-danger btn-outline" ng-click='removeProject(project)'>Remove</button>
-                <button type="button" id="{{proj.id+'editButton'}}" class="bot-pad  button2-color	btn  btn-primary btn-outline"  ng-click="enterEditMode_proj(project)">Edit</button>
+                <button type="button" value='this' class="bot-pad btn btn-danger btn-outline" ng-click='vm.removeProject($index)'>Remove</button>
+                <button type="button" id="{{proj.id+'editButton'}}" class="bot-pad  button2-color	btn  btn-primary btn-outline"  ng-click="project.editMode = true;">Edit</button>
               </element>
-              <element ng-switch-when="true"><button type="button" value='this' class="btn btn-success btn-lg" ng-click="editProj(project)">Save</button></element>
+              <element ng-switch-when="true"><button type="button" value='this' class="btn btn-success btn-lg" ng-click="vm.editProject(project, $index)">Save</button></element>
                 </element>
             </element>
             <hr>
@@ -432,13 +432,13 @@
 
           <div class="w3-container" style="padding-bottom:40px;">
             <h6 class="w3-text-black"><b>Project Name:</b></h6>
-            <form><input type="text" style="width:35vw" ng-model='proj_title'><br></form>
+            <form><input type="text" style="width:35vw" ng-model='vm.projectTitle'><br></form>
             <h6 class="w3-text-black"><b>Link:</b></h6>
-            <form><input type="text" style="width:35vw" ng-model='proj_link'><br></form>
+            <form><input type="text" style="width:35vw" ng-model='vm.projectLink'><br></form>
             <h6 class="w3-text-black"><b>Description:</b></h6>
-            <form><textarea rows="6" cols="70" type="text" ng-model='proj_description' style="width:35vw"></textarea></form>
+            <form><textarea rows="6" cols="70" type="text" ng-model='vm.projectDescription' style="width:35vw"></textarea></form>
             <hr>
-            <button type="button" class="btn btn-success btn-lg" ng-click="addProjects()">Save</button>
+            <button type="button" class="btn btn-success btn-lg" ng-click="vm.addProjects()">Save</button>
 
           </div>
         </div>
@@ -451,55 +451,55 @@
             <form>
               <element ng-switch='volWork.editMode'>
                 <element ng-switch-when="false"><p class="w3-text-black">{{volWork.organizationName}}</p></element>
-                <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='vol_edit.edit_vol_orgName'><br></form></element>
+                <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='vm.credentials.application.volunteerExperiences[$index].organizationName'><br></form></element>
               </element>
               <h6 class="w3-text-black"><b>Experience Title:</b></h6>
               <element ng-switch='volWork.editMode'>
                 <element ng-switch-when="false"><p class="w3-text-black">{{volWork.position}}</p></element>
-                <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='vol_edit.edit_vol_position'><br></form></element>
+                <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='vm.credentials.application.volunteerExperiences[$index].position'><br></form></element>
               </element>
               <h6 class="w3-text-black"><b>Description:</b></h6>
               <element ng-switch='volWork.editMode'>
                 <element ng-switch-when="false"><p class="w3-text-black">{{volWork.description}}</p></element>
-                <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='vol_edit.edit_vol_description' style="width:35vw"></textarea><br></form>
+                <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='vm.credentials.application.volunteerExperiences[$index].description' style="width:35vw"></textarea><br></form>
                 </element>
               </element>
               <element ng-switch='volWork.editMode'>
                 <element ng-switch-when="false">  <p class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{volWork.startDate | date: "mediumDate" }} - <span class="w3-tag w3-grey w3-round">{{volWork.endDate | date: "mediumDate"}}</span></p></element>
                 <element ng-switch-when="true">
                   <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>Start Date:</b></h6>
-                  <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vol_edit.edit_vol_startDate'></input><br></form>
+                  <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vm.credentials.application.volunteerExperiences[$index].startDate'></input><br></form>
                   <!--  <h6 class="w3-text-black"><b> Do you still work here?<b></h6> <form><input type="radio"-->
                   <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>End Date:</b></h6>
-                  <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vol_edit.edit_vol_endDate'></input><br></form>
+                  <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vm.credentials.application.volunteerExperiences[$index].endDate'></input><br></form>
 
                 </element>
               </element>
               <br>
               <element ng-switch='volWork.editMode'>
                 <element ng-switch-when="false">
-                  <button type="button" value='this' class="bot-pad btn btn-danger btn-outline" ng-click='removeVolExperience(volWork)'>Remove</button>
-                  <button type="button" id="{{volWork.id+'v_editButton'}}" class="bot-pad  button2-color	btn  btn-primary btn-outline"  ng-click="enterEditMode_vol(volWork)">Edit</button>
+                  <button type="button" value='this' class="bot-pad btn btn-danger btn-outline" ng-click='vm.removeVolunteerExperience($index)'>Remove</button>
+                  <button type="button" id="{{volWork.id+'v_editButton'}}" class="bot-pad  button2-color	btn  btn-primary btn-outline"  ng-click="volWork.editMode = true;">Edit</button>
                 </element>
-                <element ng-switch-when="true"><button type="button" value='this' class="btn btn-success btn-lg" ng-click="editVolExperience(volWork)">Save</button></element>
+                <element ng-switch-when="true"><button type="button" value='this' class="btn btn-success btn-lg" ng-click="vm.editVolunteerExperience(volWork, $index)">Save</button></element>
               <hr>
           </div>
 
           <div class="w3-container" style="padding-bottom:40px;">
             <h6 class="w3-text-black"><b>Organization:</b></h6>
-            <form><input type="text" style="width:35vw" ng-model='vol_orgName'><br></form>
+            <form><input type="text" style="width:35vw" ng-model='vm.VolunteerOrganizationName'><br></form>
             <h6 class="w3-text-black"><b>Experience Title:</b></h6>
-            <form><input type="text" style="width:35vw" ng-model='vol_position'><br></form>
+            <form><input type="text" style="width:35vw" ng-model='vm.VolunteerPosition'><br></form>
             <h6 class="w3-text-black"><b>Description:</b></h6>
-            <form><textarea rows="6" cols="70" type="text" ng-model='vol_description' style="width:35vw"></textarea><br></form>
+            <form><textarea rows="6" cols="70" type="text" ng-model='vm.VolunteerDescription' style="width:35vw"></textarea><br></form>
             <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>Start Date:</b></h6>
-            <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vol_startDate'></input><br></form>
+            <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vm.VolunteerStartDate'></input><br></form>
             <!--  <h6 class="w3-text-black"><b> Do you still work here?<b></h6> <form><input type="radio"-->
             <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>End Date:</b></h6>
-            <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vol_endDate'></input><br></form>
+            <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vm.VolunteerEndDate'></input><br></form>
             <hr>
 
-            <button type="button" class="btn btn-success btn-lg" ng-click="addVolExperience()">Save</button>
+            <button type="button" class="btn btn-success btn-lg" ng-click="vm.addVolunteerExperiences()">Save</button>
 
             </hr>
           </div>
@@ -508,20 +508,20 @@
         <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
           <h2 class="w3-text-grey text-center w3-padding-16"><i class="fa fa-suitcase fa-fw  w3-xxlarge w3-text-blue"></i>Work Experience</h2>
         <p><center><font size="2"color="grey">Please enter any work experiences that you have had.</font></center></p>
-          <div class="w3-container" id="{{work.id}}" ng-repeat="work in vm.credentials.application.professionalExperiences">
+          <div class="w3-container" ng-repeat="work in vm.credentials.application.professionalExperiences">
             <h6 class="w3-text-black"><b>Company:</b></h6>
             <element ng-switch="work.editMode">
-              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='work_edit.edit_pro_companyName' ng-change="updateValue(edit_pro_companyName)"><br></form></element>
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='vm.credentials.application.professionalExperiences[$index].companyName' ng-change="updateValue(edit_pro_companyName)"><br></form></element>
               <element ng-switch-when="false"<p class="w3-text-black">{{work.companyName}}</p></element>
             </element>
             <h6 class="w3-text-black"><b>Job Title:</b></h6>
             <element ng-switch="work.editMode">
-              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='work_edit.edit_pro_position'><br></form></element>
+              <element ng-switch-when="true"><form><input type="text" style="width:35vw" ng-model='vm.credentials.application.professionalExperiences[$index].position'><br></form></element>
               <element ng-switch-when="false"><p class="w3-text-black">{{work.position}}</p></element>
             </element>
             <h6 class="w3-text-black"><b>Description:</b></h6>
             <element ng-switch="work.editMode">
-              <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='work_edit.edit_pro_description' style="width:35vw"></textarea><br></form></element>
+              <element ng-switch-when="true"><form><textarea rows="6" cols="70" type="text" ng-model='vm.credentials.application.professionalExperiences[$index].description' style="width:35vw"></textarea><br></form></element>
               <element ng-switch-when="false"><p class="w3-text-black">{{work.description}}</p></element>
             </element>
             <element ng-switch="work.editMode">
@@ -530,35 +530,35 @@
               </element>
               <element ng-switch-when="true">
                 <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>Start Date:</b></h6>
-                <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='work_edit.edit_pro_startDate'></input><br></form>
+                <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vm.credentials.application.professionalExperiences[$index].startDate'></input><br></form>
                 <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>End Date:</b></h6>
-                <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='work_edit.edit_pro_endDate'></input><br></form>
+                <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vm.credentials.application.professionalExperiences[$index].endDate'></input><br></form>
               </element>
             </element>
             <element ng-switch="work.editMode">
               <element ng-switch-when="false">
-                <button type="button" value='this' class="bot-pad  button2-color	btn  btn-danger btn-outline" ng-click='removeProExperience(work)'>Remove</button>
-                <button type="button" id="{{work.id+'w_editButton'}}" class="bot-pad  button2-color	btn  btn-primary btn-outline" ng-click="enterEditMode_work(work)">Edit</button>
+                <button type="button" value='this' class="bot-pad  button2-color	btn  btn-danger btn-outline" ng-click='vm.removeProfessionalExperience($index)'>Remove</button>
+                <button type="button" class="bot-pad  button2-color	btn  btn-primary btn-outline" ng-click="work.editMode = true;">Edit</button>
               </element>
               <element ng-switch-when="true">
-                <button type="button" value='this' class="btn btn-success btn-lg" ng-click="editProExperience(work)">Save</button>
+                <button type="button" value='this' class="btn btn-success btn-lg" ng-click="vm.editProfessionalExperience(work, $index)">Save</button>
               </element>
             </element>
             <hr>
           </div>
           <div class="w3-container" style="padding-bottom:40px;">
             <h6 class="w3-text-black"><b>Company:</b></h6>
-            <form><input type="text" style="width:35vw" ng-model='pro_companyName'><br></form>
+            <form><input type="text" style="width:35vw" ng-model='vm.WorkCompanyName'><br></form>
             <h6 class="w3-text-black"><b>Job Title:</b></h6>
-            <form><input type="text" style="width:35vw" ng-model='pro_position'><br></form>
+            <form><input type="text" style="width:35vw" ng-model='vm.WorkPosition'><br></form>
             <h6 class="w3-text-black" ><b>Description:</b></h6>
-            <form><textarea rows="6" cols="70" type="text" ng-model='pro_description' style="width:35vw"></textarea><br></form>
+            <form><textarea rows="6" cols="70" type="text" ng-model='vm.WorkDescription' style="width:35vw"></textarea><br></form>
             <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>Start Date:</b></h6>
-            <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='pro_startDate'></input><br></form>
+            <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vm.WorkStartDate'></input><br></form>
             <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>End Date:</b></h6>
-            <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='pro_endDate'></input><br></form>
+            <form><input type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vm.WorkEndDate'></input><br></form>
             <hr>
-            <button type="button" class="btn btn-success btn-lg" ng-click="addProExperience()">Save</button>
+            <button type="button" class="btn btn-success btn-lg" ng-click="vm.addProfessionalExperiences()">Save</button>
           </div>
         </div>
 <!-- this is sunnys code to show files submitted
@@ -582,8 +582,16 @@
       {{myForm.app_state.$valid}}
       {{myForm.app_school.$valid}}
       {{myForm.app_zipcode.$valid}} -->
+
 	  <div class="w3-container w3-card-2 w3-white w3-margin-bottom" style="padding:20px;">
-        <button  class ="btn btn-success btn-lg"  <button type="submit" class="btn btn-primary" ng-click="vm.createStudent(vm.studentForm.$valid)">Save Application</button>
+        <element ng-switch="vm.submitIsUpdate">
+          <element ng-switch-when="true">
+            <button  class ="btn btn-success btn-lg"  <button type="submit" class="btn btn-primary" ng-click="vm.updateStudent(vm.studentForm.$valid)">Update Application</button>
+          </element>
+          <element ng-switch-when="false">
+            <button  class ="btn btn-success btn-lg"  <button type="submit" class="btn btn-primary" ng-click="vm.createStudent(vm.studentForm.$valid)">Save Application</button>
+          </element>
+        </element>
 	 </div>
     </form>
   </form>
