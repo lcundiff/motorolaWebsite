@@ -582,6 +582,20 @@
       {{myForm.app_state.$valid}}
       {{myForm.app_school.$valid}}
       {{myForm.app_zipcode.$valid}} -->
+      <div class="w3-container w3-card-2 w3-white w3-margin-bottom" style="padding:20px;">
+        <div class="w3-container w3-card-2 w3-white w3-margin-bottom" style="padding:20px;">
+          Resume Upload
+          <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadResume(file);">
+                     <label class="btn btn-success">
+                       Browse
+                       <input type="file" file-model="file.upload" name="myFile" ng-disabled="uploading">
+                     </label>
+                     <br>
+                     <br>
+          <button type="submit">Submit</button>
+          </form>
+       </div>
+  	 </div>
 
 	  <div class="w3-container w3-card-2 w3-white w3-margin-bottom" style="padding:20px;">
         <element ng-switch="vm.submitIsUpdate">

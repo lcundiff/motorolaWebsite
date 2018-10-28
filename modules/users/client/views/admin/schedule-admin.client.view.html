@@ -1,0 +1,58 @@
+<html>
+<title>Schedule</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  html,
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Roboto", sans-serif;
+  }
+
+  .w3-sidebar {
+    z-index: 3;
+    width: 250px;
+    bottom: 0;
+    height: inherit;
+  }
+</style>
+
+<body>
+
+  <div style="background-color:#003d66 ; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+    <center>
+      <h1 style="font-weight:bold;">Schedule</h1>
+    </center>
+  </div>
+  
+  <center>
+      <form style="margin-top:2em;" action="https://calendar.google.com/calendar/embed?src=motocalendars%40gmail.com&ctz=America%2FNew_York">
+		<input type="submit" value="Edit Calendar Here" style=" padding-right:40px; padding-left:40px;margin-top:1em; margin-bottom: 1.5em; margin-left: 1em; margin-right: 1em;" class="btn btn-primary btn-lg" href="https://calendar.google.com/calendar/embed?src=motocalendars%40gmail.com&ctz=America%2FNew_York"></input>
+	  </form>
+  <div class="w3-row w3-padding-64">
+    
+      <iframe src="https://calendar.google.com/calendar/embed?src=motocalendars%40gmail.com&ctz=America%2FNew_York" style=" margin-top:-2em; border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+    <div>
+
+		</div>
+
+    </center>
+
+    <!-- <script src="https://apis.google.com/js/client.js"></script> -->
+    <script src="https://apis.google.com/js/client.js"></script>
+    <script src="bower_components/angular-GAPI/lib/angular-GAPI.js"></script>
+    <script src="bower_components/angular-GAPI/lib/plugin/gapi.calendar.factory.js"></script>
+    <script src="bower_components/angular-GAPI/lib/plugin/gapi.user.factory.js"></script>
+  </div>
+</body>
+
+</html>

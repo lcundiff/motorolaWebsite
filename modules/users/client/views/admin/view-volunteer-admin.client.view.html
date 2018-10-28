@@ -1,0 +1,100 @@
+﻿<html>
+<title>Volunteers</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Roboto", sans-serif;
+  }
+
+  .button {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    color: white;
+    display: inline-block;
+    padding: 4px 6px;
+  }
+
+  .deactivate {
+    background-color: red !important;
+  }
+
+  .activate {
+    background-color: green !important;
+  }
+</style>
+
+<body>
+  <center><div class="w3-main" style="position:relative;" ng-controller="AdminsController as vm">
+  </center><div class="w3-row w3-padding-32">
+      <!-- <div class="w3-third" ng-init="getStudent("59f94d955d8fa92c50fdc8a9")"> -->
+      <div ng-show="error" class="text-danger">
+        <strong ng-bind="error"></strong>
+      </div>
+
+
+
+      <div class="w3-white w3-card-4" style="position:relative;" ng-controller="AdminsController as vm" ng-init="getVolunteer(id)">
+        <div ui-sref="adminVolunteers()" style="cursor:pointer; position:absolute; background-color:lightgrey; text-align:center; width:40px; height:40px;"><h2 style="color:white; margin-top:0px; margin-bottom:0px; vertical-align:middle;"><</h2></div>
+        <div ng-click="(volunteer.active ? deactivateVolunteer(volunteer._id) : activateVolunteer(volunteer._id))" ng-class="'btn btn-sm ' + (volunteer.active ? 'deactivate' : 'activate')">{{volunteer.active ? "Deactivate":"Activate"}}</div>
+        <div class="w3-container">
+
+          <!-- <div ng-show="student"> -->
+          <h6 class="w3-text-black-"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Volunteer Name:</b> &nbsp; {{volunteer.application.name}}</h6>
+          <br>
+          <h6 class="w3-text-black"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Roles in Program:</b> &nbsp; {{volunteer.roles.toString()}}</h6>
+          <br>
+          <h6 class="w3-text-black"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i><b>Email:</b> &nbsp; {{volunteer.application.email}}</h6>
+          <br>
+          <h6 class="w3-text-black"><i class="fa fa-phone fa-fw w3-margin-right w3-large"></i><b>Phone Number:</b> &nbsp; {{volunteer.application.phone}}</h6>
+          <br>
+          <h6 class="w3-text-black"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Area of Expertise:</b> &nbsp; {{volunteer.areaofexpertise}}</h6>
+
+
+          <br>
+
+
+
+          <!--<p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-black"></i>Location: {{volunteer.application.location}}</p>
+    <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-black"></i>Area of Expertise: {{volunteer.application.areaofexpertise}}</p>
+    <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-black"></i>Availability: {{volunteer.availability}}</p>
+
+    <p>Work Experience:
+      <p>-->
+          <!--  <hr> -->
+          <!--<p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-black"></i>Interests</b></p>
+      <table class="table table-striped table-hover">
+        <tr>
+         <th>Interests</th>
+       </tr>
+      <tr ng-repeat="interests in student.interests | filter:query ">
+        <td>{{student.interests}}</td>
+      </tr>
+    </table>-->
+          <!--  </div> -->
+          <br>
+        </div>
+      </div>
+    </div><br>
+
+
+
+
+    <!-- End Left Column-->
+  </div>
+  </div>
+</body>
+
+</html>

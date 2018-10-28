@@ -11,7 +11,7 @@ var path = require('path'),
 
   var storage = multer.diskStorage({
       destination:function(req,file,cb){
-          cb(null, './uploads/adminUploads');
+          cb(null, './uploads');
       },
       filename:function(req,file,cb){
         if (!file.originalname.match(/\.(pdf|doc|docx|pages)$/)){
@@ -23,6 +23,7 @@ var path = require('path'),
         }
       }
   });
+
   var upload = multer({
     storage: storage,
     limits: {

@@ -122,63 +122,7 @@ exports.update = function(req, res) {
 
     res.json(data);
   })
-  /*
-  student.credentialId = req.body.credentialId;
-  student.application = req.body.application;
-  student.application.address = req.body.application.address;
-  student.application.parent = req.body.application.parent;
-  student.locationChoice = req.body.locationChoice;
-  student.interviewForms = req.body.interviewForms;
-  student.timeSlot = req.body.timeSlot;
-  student.isAppComplete = req.body.isAppComplete;
-  student.isFormSubmitted = req.body.isFormSubmitted;
-  student.isLetterofRecommendationSubmitted = req.body.isLetterofRecommendationSubmitted;
-  student.isWaiverSubmitted = req.body.isWaiverSubmitted;
-  student.isNDASubmitted = req.body.isNDASubmitted;
-  student.active = req.body.active;
 
-  student.interests = req.body.interests;
-  student.mentor = req.body.mentor;
-  student.mentorID = req.body.mentor;
-  student.mentor_email = req.body.mentor;
-  student.track = req.body.mentor;
-  student.forms = req.body.forms;
-  student.interviewRank = req.body.interviewRank;
-  student.interviewer = req.body.interviewer;
-  student.interviewerID = req.body.interviewerID;
-  student.indivRanks = req.body.indivRanks;
-
-  student.NDAId = req.body.NDAId;
-  student.WaiverId = req.body.WaiverId;
-  student.letterOfRecommendationId = req.body.letterOfRecommendationId;
-
-  console.log("req.body.active: ",req.body.active);
-
-
-  student.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      var update = new Update;
-      update.studentName = req.body.application.name;
-      update.action = "Updated a resume profile.";
-      update.save(function(err) {
-        if (err) {
-          return res.status(400).send({
-            message: errorHandler.getErrorMessage(err)
-          });
-        }
-      });
-      Student.findOneAndUpdate({
-        _id: req.user._id
-      }, {
-        interviewRank: req.body.interviewRank
-      });
-      res.jsonp(student);
-    }
-  });*/
 };
 
 /**
@@ -219,9 +163,21 @@ exports.list = function(req, res) {
   });
 };
 
+exports.listActive = function (req, res) {
+  console.log("In server list all students");
+  Student.find({active: true}).sort('-created').exec().then(function (students) {
+      res.json(students);
+  }, function(err){
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+  });
+};
 exports.listDeactivated = function (req, res) {
   console.log("In server list all students");
-  Student.find({active: false}).sort('-created').populate('user', 'displayName').exec().then(function (students) {
+  Student.find({active: false}).sort('-created').exec().then(function (students) {
       res.jsonp(students);
   }, function(err){
     if (err) {

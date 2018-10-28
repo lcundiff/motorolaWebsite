@@ -6,9 +6,9 @@
     .module('users')
     .controller('StudentsController', StudentsController)
 
-  StudentsController.$inject = ['$scope', '$state', '$window', 'StudentService', 'Authentication', 'Notification', '$http','$sce'];
+  StudentsController.$inject = ['$scope', '$state', '$window', 'StudentService', 'FileService', 'Authentication', 'Notification', '$http','$sce'];
 
-  function StudentsController($scope, $state, $window, StudentService, Authentication, Notification, $http, $sce) {
+  function StudentsController($scope, $state, $window, StudentService, FileService, Authentication, Notification, $http, $sce) {
     var vm = this;
     vm.student;
     vm.credentials;
@@ -18,6 +18,8 @@
     vm.updateStudent = updateStudent;
     vm.isContextUserSelf = isContextUserSelf;
     vm.remove = remove;
+
+    vm.uploadResume = uploadResume;
 
     vm.addClasses = addClasses;
     vm.editClass = editClass;
@@ -55,6 +57,23 @@
         $scope.vm.submitIsUpdate = true;
       }
     });
+
+    function uploadResume(){
+      console.log($scope.file.upload);
+      vm.credentials.ResumeId = 'uploads/'+$scope.file.upload.name;
+
+      $scope.uploading = true;
+      FileService.upload($scope.file).then(function(data){
+        console.log(data);
+        if(data.data.success){
+          $scope.uploading = false;
+        }
+      });
+
+      StudentService.updateStudent(vm.credentials.user, vm.credentials)
+        .then(onResumeSubmissionSuccess)
+        .catch(onResumeSubmissionError);
+    }
 
     function addClasses() {
       var classN = {
@@ -240,6 +259,18 @@
 
     function onStudentSubmissionError(response) {
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Student submission error.', delay: 6000 });
+    }
+
+    function onResumeSubmissionSuccess(response) {
+      // If successful we assign the response to the global user model
+      vm.authentication.student = response;
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Resume submission successful.' });
+      // And redirect to the previous or home page
+      //$state.go($state.previous.state.name || 'home', $state.previous.params);
+    }
+
+    function onResumeSubmissionError(response) {
+      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Resume submission error.', delay: 6000 });
     }
 
     /*$scope.ChangesNotAllowed = function(){

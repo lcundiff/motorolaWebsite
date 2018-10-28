@@ -54,7 +54,31 @@
         resolve: {
           userResolve: getUserReq
         }
+      })
+      .state('admin.students', {
+        url:'/students',
+        templateUrl: '/modules/users/client/views/admin/applicants-admin.client.view.html',
+        controller: 'ApplicantsAdminsController',
+        controllerAs: 'vm'
       });
+    /*  .state('admin.student', {
+
+      })
+      .state('admin.volunteers', {
+
+      })
+      .state('admin.volunteer', {
+
+      })
+      .state('admin.match', {
+
+      })
+      .state('admin.docs', {
+
+      })
+      .state('admin.calendar', {
+
+      });*/
 
 
     getUser.$inject = ['$stateParams', 'AdminService'];

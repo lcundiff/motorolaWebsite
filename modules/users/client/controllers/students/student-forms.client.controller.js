@@ -33,6 +33,7 @@
     });
 
     function uploadFile(){
+      console.log("$scope file: ",$scope.file);
 
       $scope.uploading = true;
       FileService.upload($scope.file).then(function(data){

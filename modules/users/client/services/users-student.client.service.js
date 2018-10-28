@@ -33,14 +33,22 @@
         },
         list: {
           method: 'GET',
+          isArray: true,
           url: '/api/students/list'
         },
         list_deactivated: {
           method: 'GET',
+          isArray: true,
           url: '/api/students/listDeactivated'
+        },
+        list_active: {
+          method: 'GET',
+          isArray: true,
+          url: '/api/students/listActive'
         },
         list_accepted: {
           method: 'GET',
+          isArray: true,
           url: '/api/students/listAccepted'
         }
       });
@@ -77,7 +85,7 @@
         return this.list_deactivated().$promise;
       },
       studentListActive: function(){
-        return this.list_accepted().$promise;
+        return this.list_active().$promise;
       }
     });
 

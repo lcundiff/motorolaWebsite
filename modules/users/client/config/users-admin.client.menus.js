@@ -18,5 +18,9 @@
       title: 'Manage User Requests',
       state: 'admin.userreqs'
     });
+    menuService.addMenuItem('topbar', {
+      title: 'Applicants',
+      state: 'admin.students'
+    });
   }
 }());
