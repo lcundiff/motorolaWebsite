@@ -28,7 +28,7 @@ module.exports = function (app) {
   app.route('/api/automate/manUnassignInterview').put(admin.manUnassignInterview);
 
   app.route('/api/automate/autoAcceptAllStudents').put(admin.autoAcceptAllStudents);
-  app.route('/api/automate/manAccept').put(admin.manAccept);
+  app.route('/api/automate/manAccept/:sessionNum').put(admin.manAccept);
 
   app.route('/api/automate/manMatch').put(admin.manMatch);
   app.route('/api/automate/manUnmatch').put(admin.manUnmatch);

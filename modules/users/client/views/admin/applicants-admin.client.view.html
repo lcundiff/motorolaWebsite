@@ -123,8 +123,8 @@ body, html {
 
   <div class="" style=" padding-bottom:20em; padding:25px; margin-top: -25px; margin-left: calc(-45vw + 45%); width:100vw; height: 80vh">
     <!--  ACTIVATE and DEACTIVATE Buttons -->
-    <button class="tablink" style="background-color:id='defaultOpen'" ng-click="openPage('Active', this); vm.listActiveStudents();" id="defaultOpen">Active Students</button>
-    <button class="tablink" id="defaultOpen" ng-click="openPage('NonActive', this); vm.listDeactivatedStudents();">Deactivated Students</button>
+    <button class="tablink" style="background-color:id='defaultOpen'" ng-click=" vm.listActiveStudents(); openPage('Active', this);" id="defaultOpen">Active Students</button>
+    <button class="tablink" id="defaultOpen" ng-click="vm.listDeactivatedStudents(); openPage('NonActive', this);">Deactivated Students</button>
 	<!-- clear all interviews button -->
 	<!--<button style=" margin-bottom:0.2vw margin-top:0.8vw; width:20vw;" class="btn btn-primary" ng-click="clearData()">Delete All Interviews</button>-->
 
@@ -225,7 +225,9 @@ body, html {
                         <p class="w3-text-black">{{vm.modal_student.application.parent.email}}</p>
                         <hr>
                         <p class="w3-text-black w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right"></i>Interests</b></p>
-                        <p class="w3-text-black">{{vm.modal_student.interests.toString()}}</p>
+                        <p class="w3-text-black">{{vm.modal_student.interests[0]}}</p>
+                        <p class="w3-text-black">{{vm.modal_student.interests[1]}}</p>
+                        <p class="w3-text-black">{{vm.modal_student.interests[2]}}</p>
                         <br>
                       </div>
                       </div>
@@ -344,7 +346,7 @@ body, html {
                 <br>
                 <form name="sessions">
                   <select name="selectedOption" ng-model="vm.students[$index].timeSlot[0]" id="{{student.user._id + 'session'}}">
-                      <option value=undefined>N/A</option>
+                      <option value=NA>N/A</option>
                       <option value=1>1</option>
                       <option value=2>2</option>
                       <option value=3>3</option>
@@ -362,13 +364,13 @@ body, html {
                     <td>
 					<center>
                       <div class="col-md-8 margin-top">
-						<a class="btn btn-sm btn-warning" style="margin-left:15px; margin-right:15px;" data-ng-if="student.timeSlot.length > 0 && student.timeSlot[0] !== 'NA'" ng-click="manAcceptStudents(student.user._id, selectedOption)"><i class="glyphicon glyphicon-edit"></i>
+						<a class="btn btn-sm btn-warning" style="margin-left:15px; margin-right:15px;" data-ng-if="student.timeSlot.length > 0 && student.timeSlot[0] !== 'NA'" ng-click="vm.manAcceptStudent($index, student)"><i class="glyphicon glyphicon-edit"></i>
 						  Update
 						</a>
-						<a class="btn btn-sm btn-success" style="margin-top:2px;" data-ng-if="student.timeSlot[0] === undefined || student.timeSlot[0] === null || student.timeSlot[0] === 'NA'" ng-click="manAcceptStudents(student.user._id, selectedOption)"><i class="glyphicon glyphicon-edit"></i>
+						<a class="btn btn-sm btn-success" style="margin-top:2px;" data-ng-if="student.timeSlot[0] === undefined || student.timeSlot[0] === null || student.timeSlot[0] === 'NA'" ng-click="vm.manAcceptStudent($index, student)"><i class="glyphicon glyphicon-edit"></i>
 						  Accept
 						</a>
-						<a class="btn btn-sm btn-primary " style="margin-top:2px;" id="myBtn" ng-click="openModal(student.user._id, 'myModal')"><i class=""></i>
+						<a class="btn btn-sm btn-primary " style="margin-top:2px;" id="myBtn" ng-click="openModal(student.username, 'myModal')"><i class=""></i>
 						      View
 						</a>
 						<a class="btn btn-sm btn-danger" style="margin-top:3px;" data-ng-if="student.active === false" ng-click="vm.activateStudent(student.user, student, $index)" ng-confirm-click="You are about to activate this applicant; doing so will implement this applicant into the system. Would you like to continue?"><i class=""></i>

@@ -302,38 +302,15 @@ exports.autoAssignInterviews = function(req, res){
 MANUALLY ACCEPT FUNCTION
 */
 exports.manAccept = function(req, res){
-  var s;
-  console.log("student id: ", req.params.studentId);
   console.log("session :", req.params.sessionNum);
-  console.log("req params: ", req.params);
+  console.log("student: ",req.body);
 
-  Student.find({user: {_id: req.params.studentId} }).exec().then(function(student){
-    s = student[0];
-    return new Promise(function(resolve, reject){
-      console.log(s.timeSlot);
-      console.log(s);
-      if(s.timeSlot.length > 0){
-        console.log("A2");
-        s.timeSlot.shift();
-        if(req.params.sessionNum !== 'NA'){
-          s.timeSlot.push(req.params.sessionNum);
-        }
-      }
-      else if(s.timeSlot.length === 0){
-        console.log("A1");
-        s.timeSlot.push(req.params.sessionNum);
-      }
-
-      resolve(s);
-    });
-  }).then(function(student_accepted){
-
-    student_accepted.save(function(err){
-      if (err) console.log(err);
-    }).then(function(stu){
-      res.json('accepted');
-    });
+  Student.findOneAndUpdate({username: req.body.username }, req.body, {upsert: false}).exec().then(function(student){
+    res.json({success: true, message: 'success'});
+  }, function(err){
+    res.json({success: false, message:err});
   });
+
 };
 
 exports.manMatch = function(req, res){

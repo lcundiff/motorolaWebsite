@@ -33,6 +33,10 @@
       update_userreq: {
         method: 'PUT',
         url: '/api/users/update-req/:reqId'
+      },
+      man_accept_student: {
+        method: 'PUT',
+        url: '/api/automate/manAccept/:sessionNum'
       }
     });
 
@@ -63,6 +67,11 @@
         return this.update_user({
           userId: userId
         }, user).$promise;
+      },
+      manAcceptStudent: function(sessionNum, student) {
+        return this.man_accept_student(
+          {sessionNum: sessionNum
+        }, student).$promise;
       }
     });
 

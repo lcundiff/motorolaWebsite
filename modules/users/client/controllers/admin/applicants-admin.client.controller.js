@@ -6,9 +6,9 @@
     .module('users')
     .controller('ApplicantsAdminsController', ApplicantsAdminsController);
 
-  ApplicantsAdminsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'Notification', 'UsersService', 'StudentService', /*'VolunteersService', 'AutomateService', 'googleDriveService',*/'$http','$sce'];
+  ApplicantsAdminsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'Notification', 'AdminService', 'UsersService', 'StudentService', /*'VolunteersService', 'AutomateService', 'googleDriveService',*/'$http','$sce'];
 
-  function ApplicantsAdminsController($scope, $state, $window, Authentication, Notification, UsersService, StudentService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
+  function ApplicantsAdminsController($scope, $state, $window, Authentication, Notification, AdminService, UsersService, StudentService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
@@ -20,6 +20,8 @@
 
     vm.deactivateStudent = deactivateStudent;
     vm.activateStudent = activateStudent;
+
+    vm.manAcceptStudent = manAcceptStudent;
 
     function buildPager() {
       vm.pagedItems = [];
@@ -247,32 +249,33 @@
       }
     };*/
 
-    $scope.manAcceptStudents = function(id, sessionNum) {
+    function manAcceptStudent(index, student) {
+      console.log("timeSLot: ",vm.students[index].timeSlot[0]);
       var r;
       //Ask admin to confirm manual acceptance of student.
-      if(sessionNum === "NA"){
+      if(vm.students[index].timeSlot[0] === "NA"){
         r = confirm('This will rescind the acceptance of the selected student. Would you like to proceed?');
       }
       else{
-        r = confirm('This will accept selected student into session '+sessionNum+'. Would you like to proceed?');
+        r = confirm('This will accept selected student into session '+vm.students[index].timeSlot[0]+'. Would you like to proceed?');
       }
 
       //If admin consented, continue with action
       if(r === true){
 
-        if(sessionNum === undefined){
-          alert('Please enter a session number.');
-          $state.reload();
+        if(vm.students[index].timeSlot[0] === undefined){
+          Notification.error({ message: 'error', title: '<i class="glyphicon glyphicon-remove"></i> Please specify the session.', delay: 6000 });
         }
         else {
-          AutomateService.manAcceptStudent(id, sessionNum).then(function(response){
-            if(sessionNum === "NA"){
-              alert('Student acceptance has been rescinded.');
+          AdminService.manAcceptStudent(vm.students[index].timeSlot[0], student).then(function(response){
+            if(vm.students[index].timeSlot[0] === "NA"){
+              Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student acceptance has been rescinded successfully.' });
+
             }
             else{
-              alert('Student has been accepted into session '+sessionNum+'.');
+              Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student acceptance successful.' });
+
             }
-            $state.reload();
           });
         }
       }
@@ -360,6 +363,7 @@ function onActivationSuccess(response) {
     function onActivationError(response) {
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Student activation error.', delay: 6000 });
     }
+
 }
 
 
