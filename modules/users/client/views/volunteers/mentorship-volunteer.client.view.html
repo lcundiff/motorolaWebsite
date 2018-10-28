@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<title>Mentorship</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<style>
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100000 !important;
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+  body,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Roboto", sans-serif;
+  }
+
+  h1 {
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+  }
+
+  h2 {
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+  }
+
+  table {
+    width: 50%;
+  }
+</style>
+
+<body>
+  <div style="background-color:#003d66 ; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+    <h1 style="font-weight:bold;">Assigned Student Mentees</h1>
+    <!-- <hr> -->
+  </div>
+  <div class="container">
+
+    <div class="w3-row w3-padding-64">
+      <!--   <div class="w3-twothird w3-container"> -->
+      <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+
+
+        <div class="row">
+          <h1 style="padding:15px; "> Student Mentorship </h1>
+          <h7 style="padding:15px; ">Click on the student's name to see the student's resumé</h7>
+        </div>
+
+        <div class="row" ng-controller="VolunteersController" ng-init='getVolunteer()'>
+
+          <div class="col-md-12">
+            <div class="input-group" id="searchBar">
+              <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
+              <input type="text" class="form-control" placeholder="Search" ng-model="query">
+            </div>
+          </div>
+
+          <!-- The Modal -->
+          <div id="myModal" class="modal">
+            <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close" ng-click="closeModal()">&times;</span>
+            <!-- RESUME -->
+              <!-- The Grid -->
+              <div class="w3-row-padding w3-padding-16">
+                <!-- Left Column -->
+                <div class="w3-third">
+                  <div class="w3-white w3-card-4">
+                    <div class="w3-display-container">
+                      <img ngf-src="modal_student.profileImageURL" style="width:100%" ng-if="modal_student.profileImageURL !== null || modal_student.profileImageURL !== undefined || modal_student.profileImageURL !== ''"alt="Avatar" ngf-drop>
+                      <img src="/modules/users/client/img/profile/Unknown.png" style="width:100%" ng-if="modal_student.profileImageURL === null || modal_student.profileImageURL === undefined || modal_student.profileImageURL === ''"alt="Avatar">
+                    </div>
+                    <!-- <div class="w3-display-container">
+                </div> -->
+                  <div class="w3-container" ng-controller="AdminsController as vm">
+                      <!-- <img src="#" style="width:100%" alt="Avatar"> -->
+                      <!-- <div class="w3-display-bottomleft w3-container w3-text-black"> -->
+                      <!-- <h2>Student Name Here</h2> -->
+                      <!-- </div> -->
+
+                      <h6 class="w3-text-black"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Student Name:</b></h6>
+                      <p class="w3-text-black">{{modal_student.application.name}}</p>
+                      <h6 class="w3-text-black"><i class="fa fa-home fa-fw w3-margin-right w3-large"></i><b>Home Address:</b></h6>
+                      <p class="w3-text-black">{{modal_student.application.address.line_1}} {{modal_student.application.address.line_2}}, {{modal_student.application.address.city}}, {{modal_student.application.address.state}} {{modal_student.application.address.zipcode}}</p>
+                      <h6 class="w3-text-black"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i><b>Email:</b></h6>
+                      <p class="w3-text-black">{{modal_student.application.email}}</p>
+                      <h6 class="w3-text-black"><i class="fa fa-phone fa-fw w3-margin-right w3-large"></i><b>Phone Number:</b></h6>
+                      <p class="w3-text-black">{{modal_student.application.phone}}</p>
+
+                      <h6 class="w3-text-black"><i class="fa fa-university fa-fw w3-margin-right w3-large"></i><b>School:</b></h6>
+                      <p class="w3-text-black">{{modal_student.application.school}}</p>
+
+                      <h6 class="w3-text-black"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Parent Name:</b></h6>
+                      <p class="w3-text-black">{{modal_student.application.parent.name}}</p>
+                      <h6 class="w3-text-black"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i><b>Parent Email:</b></h6>
+                      <p class="w3-text-black">{{modal_student.application.parent.email}}</p>
+                      <hr>
+                      <p class="w3-text-black w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right"></i>Interests</b></p>
+                      <p class="w3-text-black">{{modal_student.interests.toString()}}</p>
+                      <br>
+                    </div>
+                  </div>
+
+                  <br>
+                  <!-- End Left Column-->
+                </div>
+
+                <!-- Right Column -->
+                <div class="w3-twothird" ng-controller="AdminsController">
+
+                  <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Classes</h2>
+                    <div class="w3-container" ng-repeat="class in modal_student.application.classes">
+                      <h6 class="w3-text-black"><b>Class Title:</b></h6>
+                      <p class="w3-text-black">{{class.title}}</p>
+                      <h6 class="w3-text-black"><b>Grade:</b></h6>
+                      <p class="w3-text-black">{{class.grade}}</p>
+                      <h6 class="w3-text-black"><b>Description:</b></h6>
+                      <p class="w3-text-black">{{class.description}}</p>
+
+                      <hr>
+                    </div>
+                  </div>
+
+                  <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Clubs</h2>
+                    <div class="w3-container" ng-repeat="club in modal_student.application.clubs">
+                      <h6 class="w3-text-black"><b>Club Name:</b></h6>
+                      <p class="w3-text-black">{{club.name}}</p>
+                      <h6 class="w3-text-black"><b>Position:</b></h6>
+                      <p class="w3-text-black">{{club.position}}</p>
+                      <h6 class="w3-text-black"><b>Description:</b></h6>
+                      <p class="w3-text-black">{{club.description}}</p>
+
+
+                      <hr>
+                    </div>
+                  </div>
+
+                  <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Projects</h2>
+                    <div class="w3-container" ng-repeat="project in modal_student.application.projects">
+                      <h6 class="w3-text-black"><b>Project Name:</b></h6>
+                      <p class="w3-text-black">{{project.title}}</p>
+                      <h6 class="w3-text-black"><b>Link:</b></h6>
+                      <p class="w3-text-black">{{project.link}}</p>
+                      <h6 class="w3-text-black"><b>Description:</b></h6>
+                      <p class="w3-text-black">{{project.description}}</p>
+
+
+                      <hr>
+                    </div>
+                  </div>
+
+                  <div class="w3-container w3-card-2 w3-white w3-margin-bottom" ng-controller="AdminsController as vm" ng-init="getStudent(id)">
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Volunteer Experience</h2>
+                    <div class="w3-container" ng-repeat="volWork in modal_student.application.volunteerExperiences">
+                      <h6 class="w3-text-black"><b>Organization:</b></h6>
+                      <form>
+                        <p class="w3-text-black">{{volWork.organizationName}}</p>
+                        <h6 class="w3-text-black"><b>Experience Title:</b></h6>
+                        <p class="w3-text-black">{{volWork.position}}</p>
+                        <h6 class="w3-text-black"><b>Description:</b></h6>
+                        <p class="w3-text-black">{{volWork.description}}</p>
+
+                        <p class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{volWork.startDate | date: "mediumDate" }} - <span class="w3-tag w3-grey w3-round">{{volWork.endDate | date: "mediumDate"}}</span></p>
+
+                        <hr>
+                    </div>
+                  </div>
+                  
+                  <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Work Experience</h2>
+                    <div class="w3-container" ng-repeat="work in modal_student.application.professionalExperiences">
+                      <h6 class="w3-text-black"><b>Company:</b></h6>
+                      <p class="w3-text-black">{{work.companyName}}</p>
+                      <h6 class="w3-text-black"><b>Job Title:</b></h6>
+                      <p class="w3-text-black">{{work.position}}</p>
+                      <h6 class="w3-text-black"><b>Description:</b></h6>
+                      <p class="w3-text-black">{{work.description}}</p>
+
+                      <p class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{work.startDate | date: "mediumDate" }} - <span class="w3-tag w3-grey w3-round">{{work.endDate | date: "mediumDate"}}</span></p>
+                      <hr>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!--End Right Column -->
+              </div>
+
+              <!--End Page Container -->
+            </div>
+          <!-- END -->
+          </div>
+
+          <div class="col-md-12">
+            <div class="tableWrapper">
+              <table class="table table-striped table-hover">
+                <tr>
+                  <th>Student Name</th>
+                  <th>High School</th>
+                  <th>E-Mail</th>
+                  <th>Area of Interest</th>
+                  <th>Total Interview Rank</th>
+                </tr>
+
+                <tr ng-repeat="mentee in mentees | filter: query"  on-finish-render="fillSelects()">
+                  <td ng-click="openModal(mentee.user._id);">{{mentee.application.name}}</td>
+                  <td>{{mentee.application.school}}</td>
+                  <td>{{mentee.application.email}}</td>
+                  <td>{{mentee.interests[0]}}</td>
+                  <td>{{mentee.interviewRank[0]}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <script src="https://code.angularjs.org/1.4.3/angular.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/factories/listingFactory.js"></script>
+    <script src="js/controllers/listingController.js"></script>
+</body>
+
+</html>

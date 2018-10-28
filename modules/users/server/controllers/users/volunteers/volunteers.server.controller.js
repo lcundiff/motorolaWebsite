@@ -18,10 +18,9 @@ var path = require('path'),
  */
 
 exports.create = function(req, res) {
-  var volunteer = new Volunteer(req.body);
+  console.log("req.body: ",req.body);
+  /*var volunteer = new Volunteer(req.body);
   console.log("req.volunteer: ", req.volunteer);
-  console.log("req.user: ", req.user);
-  console.log("req.body: ", req.body);
   volunteer.user = req.user;
 
   volunteer.save(function(err) {
@@ -30,13 +29,13 @@ exports.create = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-        User.findOneAndUpdate({_id: req.user._id}, {roles: req.body.roles},
+        User.findOneAndUpdate({ _id: req.user}, {roles: req.body.roles},
         function(err) {
              if (err) throw err;
            });
       res.jsonp(volunteer);
     }
-  });
+  });*/
 };
 
 /**
@@ -53,55 +52,8 @@ exports.read = function(req, res) {
  * Update a Volunteer
  */
 exports.update = function(req, res) {
-
-  var volunteer = req.volunteer;
-  console.log("req vol: ", req.volunteer);
-  console.log("req vol param: ", req.params.volunteer);
-
-  volunteer.isAppComplete = req.body.isAppComplete;
-  volunteer.application.name = req.body.application.name;
-  volunteer.application.email = req.body.application.email;
-  volunteer.application.phone = req.body.application.phone;
-  volunteer.application.sessions = req.body.application.sessions;
-  volunteer.application.roles = req.body.application.roles;
-  volunteer.sessions = req.body.application.sessions;
-  volunteer.roles = req.body.roles;
-  volunteer.application.areaofexpertise = req.body.application.areaofexpertise;
-  volunteer.areaofexpertise = req.body.application.areaofexpertise;
-  volunteer.interviewee = req.body.interviewee;
-  volunteer.intervieweeID = req.body.intervieweeID;
-  volunteer.mentee = req.body.mentee;
-  volunteer.menteeID = req.body.menteeID;
-  volunteer.mentee_count_sess_1 = req.body.mentee_count_sess_1;
-  volunteer.mentee_count_sess_2 = req.body.mentee_count_sess_2;
-  volunteer.mentee_count_sess_3 = req.body.mentee_count_sess_3;
-  volunteer.interviewee_count = req.body.interviewee_count;
-  volunteer.active = req.body.active;
-
-  console.log("req.volunteer:---------------------\n", req.volunteer);
-  console.log("req.user:--------------------------\n", req.user);
-  console.log("req.body:--------------------------\n", req.body);
-  var flag = req.body.flag;
-  console.log("volunteer right before volunteer.save call:-------------------------\n", volunteer);
-  console.log("flag variable right before volunteer.save call:---------------------\n", flag);
-  volunteer.save(function(err) {
-    console.log("inside volunteer.save call");
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      if(flag == "true")
-      {
-        console.log("inside user update if statement");
-        User.findOneAndUpdate({_id: req.user._id}, {roles: req.body.roles},
-        function(err) {
-             if (err) throw err;
-           });
-      }
-      res.jsonp(volunteer);
-    }
-  });
+console.log("update volunteer");
+console.log("req.body: ",req.body);
 };
 
 /**
@@ -169,7 +121,7 @@ exports.updateRank = function(req, res) {
   var index = -1;
   var student;
 
-  Student.find({ user: studentId }).exec().then(function(response){
+  /*Student.find({ user: studentId }).exec().then(function(response){
     console.log(response);
     return new Promise(function(resolve, reject){
       student = response[0];
@@ -213,11 +165,11 @@ exports.updateRank = function(req, res) {
     });
 
 
-  });
+  });*/
 };
 
 exports.listDeactivated = function (req, res) {
-  Volunteer.find({active:false}).sort('-created').populate('user', 'displayName').exec(function (err, volunteers) {
+  Volunteer.find({active:false}).sort('-created').exec(function (err, volunteers) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -232,15 +184,6 @@ exports.listDeactivated = function (req, res) {
  * Volunteer middleware
  */
 exports.volunteerByID = function(req, res, next, id) {
-
-  if (id === "undefined") {
-    id = req.user.id;
-  }
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'Volunteer is invalid'
-    });
-  }
 
   // Volunteer.findById(id).populate('user', 'displayName').exec(function (err, volunteer) {
   //   if (err) {

@@ -1,0 +1,263 @@
+</html>
+<html>
+<title>Volunteer Dashboard</title>
+<meta charset="UTF-8">
+
+<head>
+  <!-- W3 CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="../css/sb-admin.css" type="text/css" rel="stylesheet">
+  <link href="../css/main.css" type="text/css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
+  <link href="../css/bootstrap.css" type="text/css" rel="stylesheet">
+  <link href="../css/bootstrap-rtl.css" type="text/css" rel="stylesheet">
+  <link href="../css/sb-admin-rlt.css" type="text/css" rel="stylesheet">
+  <link href="../css/bootstrap-rtl.min.css" type="text/css" rel="stylesheet">
+  <!-- Morris Charts CSS -->
+  <link href="../css/plugins/morris.css" rel="stylesheet">
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+  <style>
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "Roboto", sans-serif;
+    }
+
+    .w3-sidebar {
+      z-index: 3;
+      width: 250px;
+      top: 43px;
+      bottom: 0;
+      height: inherit;
+    }
+
+    u {
+      text-decoration: none;
+      /*border-bottom: 2px solid white;*/
+    }
+
+    .opaque {
+      opacity: 0.75;
+    }
+
+    .padder {
+      padding: 15px;
+    }
+
+    .huge {
+      font-size: 25px;
+    }
+
+    img.red-hover:hover {
+      opacity: 0.95;
+      border: 1px solid gray;
+    }
+
+    img.green-hover:hover {
+      opacity: 0.7;
+      border: 1px solid gray;
+    }
+  </style>
+</head>
+
+
+<body>
+  <div class="container-fluid" ng-controller="HeaderController as vm">
+    <!-- Page Heading -->
+    <div style="background-color:#003d66 ; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+      <!-- <h1 class ="col-lg-4" style="margin-left:10vw"> -->
+      <h1>
+        <!-- <h1 class ="col-lg-8"> -->
+        <center>
+          <ul>Welcome {{voluser.displayName}}</u>
+        </center>
+            <!-- Dashboard <small>student</small> -->
+          </h1>
+        </div>
+       <!-- </div> -->
+       <!-- /.row -->
+
+       <div class="row padder">
+         <div class="col-lg-14">
+			<center>
+			<h1 style="color:#003d66 ; font-weight:600; margin-top:5px;">To Do:</h1>
+			<!-- register image seems irrelevent <img class="" src="/modules/volunteers/client/img/register.png" style= " margin-bottom:-8em; margin-top: -8em; width:75%; height: 28em;" alt="application">-->
+            <div style="margin-top:2em;">
+                      <img class="" src="/modules/volunteers/client/img/1.png" style= "margin:-3em; float:center; margin-right:20%; width:20em; height: 13em;" alt="application">
+                      <img class="" src="/modules/volunteers/client/img/2.png" style= "margin:-3em; float:center; width:20em; height: 13em;" alt="application">
+               </center>
+           </div>
+         </div>
+       </div>
+
+          <element ng-controller="VolunteersController" ng-init="getVolunteer();" ng-switch="volunteer.isAppComplete"> <!-- not real function -->
+            <!--  <div ng-switch-when="true"> -->
+              <!-- blue block -->
+          <element ng-switch-when = 'true'>
+                <div style="margin-left:10%;"class="col-lg-4 ">
+                  <div class="panel panel-blue">
+                    <div class="panel-heading">
+                      <div class="row">
+                        <div class="text-center">
+                          <center>
+                          <div class="huge">Application</div>
+                         </center>
+                        </div>
+                      </div>
+                    </div>
+                    <a>
+                      <div class="panel-footer">
+                        <center>
+
+                          <img class ="opaque green-hover" src="/modules/volunteers/client/img/app.png" style= "float:center; margin-left:-4%; margin-bottom:1em; width:23em; height: 14em;" alt="application">
+                        <label style="letter-spacing:3px;" >Status: Submitted <label>
+                        </center>
+
+                      </div>
+
+                    </a>
+
+
+                  </div>
+                </div>
+              </element>
+
+            <element ng-switch-default>
+              <!-- white block -->
+              <div style="margin-left:10%;" class="col-lg-4 ">
+               <div class="panel panel-white">
+                 <div class="panel-heading">
+                   <div class="row">
+                      <div class="text-center">
+                        <center>
+                          <div class="huge">Application</div>
+
+                       </center>
+
+
+                      </div>
+                    </div>
+                  </div>
+                  <a href="volunteerapp">
+                  <div class="panel-footer">
+                    <center>
+
+                      <img class="opaque green-hover" src="/modules/volunteers/client/img/app2.png" style= "float:center; margin-left:-4%; margin-bottom:1em; width:23em; height: 14em;" alt="application">
+                      <label style="letter-spacing:3px;" > <label>
+
+                    </center>
+                  </div>
+                  </a>
+                </div>
+              </div>
+            </element>
+          </element>
+
+
+        <div ng-switch = "volunteer.interviewsScheduled"> <!-- not real function -->
+            <div ng-switch-when="true">
+           <!-- blue block 2 ---------------------------------------->
+             <div style="margin-left:12%;" class="col-lg-4 ">
+               <div class="panel panel-blue">
+                 <div class="panel-heading">
+                   <div class="row">
+                     <div class="text-center">
+                       <center>
+                       <div class="huge">Interviews</div>
+                       </center>
+
+                     </div>
+                   </div>
+                 </div>
+                 <a href="volunteerinterviews">
+                   <div class="panel-footer">
+                     <center>
+
+                       <img class ="opaque green-hover" src="/modules/volunteers/client/img/form.png" style= "margin:auto; width:16em; height: 12em;" alt="forms">
+                       <label style="letter-spacing:3px;" >Status: Submitted<label>
+                     </center>
+
+                   </div>
+                 </a>
+               </div>
+             </div>
+           </div>
+
+          <div ng-switch-default>
+            <!-- white block 2 ------------------------------------------------>
+            <div style="margin-left:12%;" class="col-lg-4 ">
+             <div class="panel panel-white">
+                <div class="panel-heading">
+                  <div class="row">
+                    <div class="text-center">
+                     <center>
+                       <div class="huge">Interviews</div>
+                     </center>
+
+                   </div>
+                 </div>
+               </div>
+
+               <!--<a href="">-->
+               <div class="panel-footer">
+                 <center>
+                   <img class="opaque green-hover" src="/modules/volunteers/client/img/interview.png" style= "float:center; margin-left:; margin-bottom:1em; width:13em; height: 14em;" alt="application">
+                 <label style="letter-spacing:3px;" ><label>
+                 </center>
+
+
+               </div>
+               <!--</a>-->
+             </div>
+           </div>
+         </div>
+       </div>
+
+   </div> <!-- end of format -->
+ </div>
+
+
+	<div class="col-lg-12">
+         <div class="panel panel-blue">
+           <div class="panel-heading">
+             <div class="row title">
+				<div class="text-center">
+					<div class="huge">Important Dates</div>
+				</div>
+			 </div>
+           </div>
+           <div class="panel-body">
+             <div class="list-group">
+               <div class="w3-container">
+			   <center>
+			   <br>
+					<b class="huge" style="color:#497daa;" > May 21st Students Application Due </b>
+					<br><hr style="border-color:blue;"<br><br>
+					<b class="huge" style="color:#497daa;"> June 25th-29th 1st Session</b>
+					<br><hr style="border-color:blue;"><br>
+					<b class="huge" style="color:#497daa;"> July 23rd-27th 2nd Session </b>
+					<br><hr style="border-color:blue;"><br>
+					<b class="huge" style="color:#497daa;"> Aug 6th-10th 3rd Session </b>
+				</center>
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>
+          <script src="js/jquery.js"></script>
+          <script src="js/bootstrap.min.js"></script>'
+</body>
+
+</html>

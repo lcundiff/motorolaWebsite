@@ -11,10 +11,6 @@ var mongoose = require('mongoose'),
  */
 var VolunteerSchema = new Schema({
 
-  credentialId: {
-    type: String,
-    required: 'Please create a credential for volunteer and assign this field with credential ID'
-  },
   isAppComplete: {
     type: Boolean,
     default: false,
@@ -35,6 +31,12 @@ var VolunteerSchema = new Schema({
       default: '',
       required: 'Please fill Volunteer name',
       trim: true
+    },
+    firstName: {
+      type: String
+    },
+    lastname: {
+      type: String
     },
     email: {
       type: String
@@ -68,6 +70,9 @@ var VolunteerSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: 'User'
+  },
+  username: {
+    type: String
   },
   active: {
     type: Boolean,
