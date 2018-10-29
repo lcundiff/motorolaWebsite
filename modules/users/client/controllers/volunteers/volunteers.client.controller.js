@@ -26,13 +26,14 @@
     vm.createVolunteer = createVolunteer;
 
     function createVolunteer(isValid){
+      vm.credentials.username = vm.authentication.user.username;
       console.log(vm.credentials);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.volunteerForm');
 
         return false;
       }
-      VolunteerService.createVolunteer(vm.credentials)
+      VolunteerService.createVolunteer(vm.credentials, vm.authentication)
         .then(onVolunteerSubmissionSuccess)
         .catch(onVolunteerSubmissionError);
     }

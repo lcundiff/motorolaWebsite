@@ -18,24 +18,39 @@ var path = require('path'),
  */
 
 exports.create = function(req, res) {
-  console.log("req.body: ",req.body);
-  /*var volunteer = new Volunteer(req.body);
-  console.log("req.volunteer: ", req.volunteer);
-  volunteer.user = req.user;
 
-  volunteer.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-        User.findOneAndUpdate({ _id: req.user}, {roles: req.body.roles},
-        function(err) {
-             if (err) throw err;
-           });
-      res.jsonp(volunteer);
-    }
-  });*/
+
+  User.findOne({ username: req.body.username}).then(function(data){
+    //console.log("data: ",data);
+
+    //console.log("req.body: ",req.body);
+    var volunteer = new Volunteer(req.body);
+
+    volunteer.sessions = req.body.application.sessions;
+    volunteer.areaofexpertise = req.body.application.areaofexpertise;
+    volunteer.roles = req.body.application.roles;
+    volunteer.username = req.body.username;
+    volunteer.user = data._id;
+
+
+    console.log("volunteer: ",volunteer);
+
+    volunteer.save(function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+          User.findOneAndUpdate({ _id: data._id}, {roles: req.body.application.roles},
+          function(err) {
+               if (err) throw err;
+             });
+        res.jsonp(volunteer);
+      }
+    });
+
+
+  });
 };
 
 /**
@@ -113,59 +128,8 @@ exports.listAll = function (req, res) {
 };
 
 exports.updateRank = function(req, res) {
+console.log("updateRank");
 
-  console.log("volId:",req.params.volId);
-  var rank = req.params.rank;
-  var studentId = req.params.studentId;
-  var volId = req.params.volId;
-  var index = -1;
-  var student;
-
-  /*Student.find({ user: studentId }).exec().then(function(response){
-    console.log(response);
-    return new Promise(function(resolve, reject){
-      student = response[0];
-
-      resolve(student);
-    }).then(function(student){
-      console.log("student received: ", student);
-      return new Promise(function(resolve, reject){
-        console.log("in here: ");
-        console.log("student interviewers: ",student.interviewerID);
-        console.log("student interview length: ",student.interviewerID.length);
-        for(var i=0; i<student.interviewerID.length; i++){
-          console.log("Are they equal?: ",volId===student.interviewerID[i].toString());
-          console.log("i: ", i);
-          if(volId === student.interviewerID[i].toString()){
-            index = i;
-            console.log("index: ", index);
-            resolve(index);
-          }
-        }
-      });
-    }).then(function(index){
-      console.log("index here: ", index);
-      return new Promise(function(resolve, reject){
-        student.indivRanks[index] = rank;
-
-        console.log("Rank: ", student.indivRanks[index]);
-        var up_student = student;
-
-        resolve(up_student);
-      });
-    }).then(function(up_student){
-      up_student.save(function(err){
-        if(err){
-          console.log(err);
-        }
-      }).then(function(response){
-        console.log(response);
-        res.jsonp(response);
-      });
-    });
-
-
-  });*/
 };
 
 exports.listDeactivated = function (req, res) {

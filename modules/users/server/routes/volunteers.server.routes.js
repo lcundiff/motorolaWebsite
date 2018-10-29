@@ -26,8 +26,8 @@ module.exports = function(app) {
     .put(volunteers.update)
     .delete(volunteers.delete);
 
-  app.route('/api/volunteers/updateRank/:volId/:studentId/:rank')
-    .get(volunteers.updateRank);
+  /*app.route('/api/volunteers/updateRank/:volId/:studentId/:rank')
+    .get(volunteers.updateRank);*/
 
   // Finish by binding the Volunteer middleware
   app.param('volunteerId', volunteers.volunteerByID);
