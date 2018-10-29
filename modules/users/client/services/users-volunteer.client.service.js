@@ -46,9 +46,7 @@
 
     angular.extend(Volunteers, {
       getVolunteers: function(userId) {
-        return this.get_volunteers({
-          userId: userId
-        }).$promise;
+        return this.get_volunteers().$promise;
       },
       createVolunteer: function(volunteer) {
         return this.create_volunteer(volunteer).$promise;
