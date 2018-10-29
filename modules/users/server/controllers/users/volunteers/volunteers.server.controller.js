@@ -144,6 +144,22 @@ exports.listDeactivated = function (req, res) {
   });
 };
 
+exports.volunteerByUsername = function(req, res){
+  console.log("req.params: ",req.params);
+  console.log("req.params.username: ", req.params.username);
+  Volunteer.findOne({username: req.params.username}).exec().then(function(data){
+    if(data === null){
+      return res.json({
+        status: 404,
+        message: 'Volunteer does not exist.'
+      });
+    }
+    else{
+      res.json(data);
+    }
+  });
+};
+
 /**
  * Volunteer middleware
  */

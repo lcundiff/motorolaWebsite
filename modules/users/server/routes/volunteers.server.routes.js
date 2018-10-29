@@ -21,10 +21,13 @@ module.exports = function(app) {
   app.route('/api/volunteers/deactivated').all(volunteersPolicy.isAllowed)
     .get(volunteers.listDeactivated);
 
-  app.route('/api/volunteers/:volunteerId').all(volunteersPolicy.isAllowed)
+  app.route('/api/volunteers/:userId').all(volunteersPolicy.isAllowed)
     .get(volunteers.read)
     .put(volunteers.update)
     .delete(volunteers.delete);
+
+  app.route('/api/volunteers/getByUser/:username')
+    .get(volunteers.volunteerByUsername);
 
   /*app.route('/api/volunteers/updateRank/:volId/:studentId/:rank')
     .get(volunteers.updateRank);*/

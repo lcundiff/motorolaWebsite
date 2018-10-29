@@ -33,6 +33,10 @@
           method: 'GET',
           url: '/api/volunteers/:userId'
         },
+        get_volunteer_by_username: {
+          method: 'GET',
+          url: '/api/volunteers/getByUser/:username'
+        },
         update_volunteer: {
           method: 'PUT',
           url: '/api/volunteers/:userId'
@@ -60,6 +64,11 @@
       getVolunteer: function(userId) {
         return this.get_volunteer({
           userId: userId
+        }).$promise;
+      },
+      getVolunteerByUsername: function(username) {
+        return this.get_volunteer_by_username({
+          username: username
         }).$promise;
       },
       updateVolunteer: function(userId) {
