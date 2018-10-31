@@ -39,7 +39,7 @@
         },
         update_volunteer: {
           method: 'PUT',
-          url: '/api/volunteers/:userId'
+          url: '/api/volunteers/update/:username'
         },
         delete_volunteer: {
           method: 'DELETE',
@@ -67,14 +67,16 @@
         }).$promise;
       },
       getVolunteerByUsername: function(username) {
+        console.log("username: ",username);
         return this.get_volunteer_by_username({
           username: username
         }).$promise;
       },
-      updateVolunteer: function(userId) {
+      updateVolunteer: function(username, volunteer) {
+        console.log("username: ",username);
         return this.update_volunteer({
-          userId: userId
-        }).$promise;
+          username: username,
+        }, volunteer).$promise;
       },
       deleteVolunteer: function(userid) {
         return this.delete_volunteer({

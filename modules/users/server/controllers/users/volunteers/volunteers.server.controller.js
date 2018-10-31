@@ -67,8 +67,24 @@ exports.read = function(req, res) {
  * Update a Volunteer
  */
 exports.update = function(req, res) {
+
 console.log("update volunteer");
 console.log("req.body: ",req.body);
+var volunteer = new Volunteer(req.body);
+volunteer.sessions = req.body.application.sessions;
+volunteer.areaofexpertise = req.body.application.areaofexpertise;
+volunteer.roles = req.body.application.roles;
+
+console.log("volunteer: ",volunteer);
+
+Volunteer.findOneAndUpdate({username: req.body.username}, {application: req.body.application, sessions: req.body.application.sessions, areaofexpertise: req.body.application.areaofexpertise, roles: req.body.application.roles}, {upsert: false}).then(function(data){
+  console.log("updated data: ",data);
+
+  User.findOneAndUpdate({username: req.body.username}, {roles: req.body.application.roles}, {upsert: false}).then(function(userData){
+    console.log("updated user data: ",userData);
+    res.json({status: '200', message: 'success'});
+  });
+});
 };
 
 /**

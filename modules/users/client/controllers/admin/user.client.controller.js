@@ -16,7 +16,7 @@
     vm.isContextUserSelf = isContextUserSelf;
     console.log("user: ",userId);
 
-    AdminService.retrieveUser(userId).then(async function(data){
+    AdminService.retrieveUser(userId).then(function(data){
 
         console.log(data);
         vm.user = data;

@@ -42,7 +42,7 @@
         <h7> Please fill out all fields before submitting</h7>
         <br>
         <br>
-        <form name="vm.volunteerForm" ng-submit="vm.createVolunteer(vm.volunteerForm.$valid)" class="application" novalidate autocomplete="off">
+        <form name="vm.volunteerForm" class="application" novalidate autocomplete="off">
         <h6 class="w3-text-black"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Volunteer Name:</b></h6>
         <input style="width:30vw; margin-left: 40px;" type="text" ng-model='vm.credentials.application.name' placeholder="" required><br><hr>
         <h6 class="w3-text-black"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i><b>Email:</b></h6>
@@ -51,7 +51,7 @@
         <input style="width:30vw; margin-left: 40px;" type="text" ng-model='vm.credentials.application.phone' placeholder="" required><br><hr>
         <h6 class="w3-text-black"><i class="fa fa-university fa-fw w3-margin-right w3-large"></i><b>Roles in Program: </b></h6>
         <h6 class="w3-text-black"><b>Please choose one:</b></h6>
-        <select style="width:30vw; margin-left: 40px;" id="current_roles" ng-model="vm.credentials.application.roles" placeholder="" required>
+        <select style="width:30vw; margin-left: 40px;" id="current_roles" ng-model="vm.roles" required>
           <option value = 'm'>I would like to be a <b>mentor</b> ONLY</option>
           <option value = 'i'>I would like to be an <b>interviewer</b> ONLY</option>
           <option value = 'mi'>I would like to be BOTH an <b>interviewer</b> AND a <b>mentor</b></option>
@@ -72,13 +72,20 @@
         <h6 class="w3-text-black"><i class="fa fa-university fa-fw w3-margin-right w3-large"></i><b>Mentorship Session Availability:</b></h6>
         <h7 style="margin-left: 40px;">If you would like to be a mentor, please select all sessions that you can attend:</h7><br>
         <div ng-model="vm.credentials.application.sessions" >
-          <input name = "s1" ng-model='vm.credentials.application.sessions[1]' type="checkbox" id = "s1" value="1">Session 1: June 25-29</option><br>
-          <input name = "s2" ng-model='vm.credentials.application.sessions[2]' type="checkbox" id = "s2" value="2">Session 2: July 23-27</option><br>
-          <input name = "s3" ng-model='vm.credentials.application.sessions[3]' type="checkbox" id = "s3" value="3">Session 3: August 6-10</option><br>
+          <input name = "s1" ng-model='vm.sessions_1' type="checkbox" id = "s1" value="1">Session 1: June 25-29</option><br>
+          <input name = "s2" ng-model='vm.sessions_2' type="checkbox" id = "s2" value="2">Session 2: July 23-27</option><br>
+          <input name = "s3" ng-model='vm.sessions_3' type="checkbox" id = "s3" value="3">Session 3: August 6-10</option><br>
         </div>
         <br>
         <!-- <button style="margin-left: 40px;" class="btn btn-primary btn-lg align-center" ng-click='modifyVolunteer();' ng-controller="VolunteersController"  ng-controller="HeaderController">Submit</button> -->
-        <button type="submit" ng-click"vm.createVolunteer(vm/volunteerForm.$valid)">Submit</button>
+            <element ng-switch="vm.updateIsSubmit">
+              <element ng-switch-when="true">
+                <button  class ="btn btn-success btn-lg"  <button type="submit" class="btn btn-primary" ng-click="vm.updateVolunteer(vm.volunteerForm.$valid)">Update Application</button>
+              </element>
+              <element ng-switch-when="false">
+                <button  class ="btn btn-success btn-lg"  <button type="submit" class="btn btn-primary" ng-click"vm.createVolunteer(vm.volunteerForm.$valid)">Save Application</button>
+              </element>
+            </element>
 
         </form>
         </div>

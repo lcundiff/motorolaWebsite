@@ -15,10 +15,10 @@ module.exports = function (app) {
     .get(adminPolicy.isAllowed, admin.list);
 
   // Single user routes
-  app.route('/api/users/:userId')
-    .get(adminPolicy.isAllowed, admin.read)
-    .put(adminPolicy.isAllowed, admin.update)
-    .delete(adminPolicy.isAllowed, admin.delete);
+  app.route('/api/users/user/:userId')
+    .get(admin.read)
+    .put(admin.update)
+    .delete(admin.delete);
 
   app.route('/api/automate/autoMatch').get(admin.autoMatch);
 

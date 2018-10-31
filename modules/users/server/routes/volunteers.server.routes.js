@@ -23,8 +23,10 @@ module.exports = function(app) {
 
   app.route('/api/volunteers/:userId').all(volunteersPolicy.isAllowed)
     .get(volunteers.read)
-    .put(volunteers.update)
     .delete(volunteers.delete);
+
+  app.route('/api/volunteers/update/:username')
+    .put(volunteers.update);
 
   app.route('/api/volunteers/getByUser/:username')
     .get(volunteers.volunteerByUsername);

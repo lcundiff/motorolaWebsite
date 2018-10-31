@@ -12,6 +12,8 @@ var path = require('path'),
  * Show the current user
  */
 exports.read = function (req, res) {
+  console.log("HERE1");
+  console.log("req.model: ",req.model);
   res.json(req.model);
 };
 
@@ -19,6 +21,7 @@ exports.read = function (req, res) {
  * Update a User
  */
 exports.update = function (req, res) {
+  console.log("HERE2");
   var user = req.model;
   console.log("server user: ",user);
 

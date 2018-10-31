@@ -17,5 +17,5 @@ module.exports = function (app) {
 
 
   // Finish by binding the user middleware
-  app.param('userId', students.studentByID);
+  //app.param('userId', students.studentByID);
 };

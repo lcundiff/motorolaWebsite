@@ -16,11 +16,11 @@
       },
       retrieve_user: {
         method: 'GET',
-        url: '/api/users/:userId'
+        url: '/api/users/user/:userId'
       },
       update_user: {
         method: 'PUT',
-        url: '/api/users/:userId'
+        url: '/api/users/user/:userId'
       },
       retrieve_userreqs: {
         method: 'GET',
@@ -59,6 +59,7 @@
         return this.retrieve_users().$promise;
       },
       retrieveUser: function (userId) {
+        console.log("Admin.retriede: ",userId);
         return this.retrieve_user({
           userId: userId
         }).$promise;

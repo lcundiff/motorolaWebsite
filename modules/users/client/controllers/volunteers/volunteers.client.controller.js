@@ -22,8 +22,11 @@
     vm.menu = menuService.getMenu('topbar');
 
     vm.createVolunteer = createVolunteer;
+    vm.updateVolunteer = updateVolunteer;
 
     VolunteerService.getVolunteerByUsername(vm.authentication.user.username).then(function(data){
+      console.log("data: ",data);
+      console.log("data.status: ",data.status);
       if(data.status === undefined){
         console.log("here");
         vm.updateIsSubmit = true;
@@ -31,32 +34,86 @@
         vm.credentials = {};
         vm.credentials.application = {};
         vm.credentials.application = data.application;
+        vm.credentials.application.firstName = vm.authentication.user.displayName;
+        vm.credentials.application.email = vm.authentication.user.email;
+        vm.credentials.application.areaofexpertise = data.application.areaofexpertise;
+
+        console.log("data.roles.length: ",data.roles.length);
+        if(data.application.roles.indexOf("mentor") !== -1 && data.application.roles.indexOf("interviewer") === -1) vm.roles = "m";
+        if(data.application.roles.indexOf("mentor") === -1 && data.application.roles.indexOf("interviewer") !== -1) vm.roles = "i";
+        if(data.application.roles.indexOf("mentor") !== -1 && data.application.roles.indexOf("interviewer") !== -1) vm.roles = "mi";
+
+        if(data.sessions.indexOf("1") !== -1) vm.sessions_1 = true;
+        if(data.sessions.indexOf("2") !== -1) vm.sessions_2 = true;
+        if(data.sessions.indexOf("3") !== -1) vm.sessions_3 = true;
+
+      }
+      else if(data.status===404){
+        vm.updateIsSubmit = false;
+        vm.credentials = {};
+        vm.credentials.application = {};
+        vm.credentials.application.roles = [];
+        vm.credentials.application.sessions = [];
+        vm.credentials.application.firstName = vm.authentication.user.firstName;
+        vm.credentials.application.lastName = vm.authentication.user.lastName;
         vm.credentials.application.name = vm.authentication.user.displayName;
         vm.credentials.application.email = vm.authentication.user.email;
-      }
-      else if(data.status==="404"){
-        console.log("YO");
-        vm.updateIsSubmit = false;
       }
     });
 
     function createVolunteer(isValid){
-      var p1 = Promise.resolve({vm.credentials.username = vm.authentication.user.username});
-      var p2;
-
-      if(vm.application.credentials.roles === "m") p2 = Promise.resolve({vm.application.credentials.roles = ['volunteer', 'mentor']});
-      else if(vm.credentials.application.roles === "i") p2 = Promise.resolve({vm.application.credentials.roles = ['volunteer', 'interviewer']});
-      else if(vm.credentials.application.roles === "mi") p2 = Promise.resolve({vm.application.credentials.roles = ['volunteer', 'interviewer', 'mentor']});
-
       console.log(vm.credentials);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.volunteerForm');
 
         return false;
       }
+      vm.credentials.application.sessions = [];
+
+      var p1 = Promise.resolve(vm.credentials.username = vm.authentication.user.username);
+      var p2;
+
+      if(vm.sessions_1 === true) vm.credentials.application.sessions.push("1");
+      if(vm.sessions_2 === true) vm.credentials.application.sessions.push("2");
+      if(vm.sessions_3 === true) vm.credentials.application.sessions.push("3");
+
+      if(vm.roles === "m") p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'mentor']);
+      else if(vm.roles === "i") p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer']);
+      else if(vm.roles === "mi") p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer', 'mentor']);
 
       Promise.all([p1, p2]).then(function([p1, p2]){
+        console.log("vm.credentials.application: ",vm.credentials.application);
         VolunteerService.createVolunteer(vm.credentials, vm.authentication)
+          .then(onVolunteerSubmissionSuccess)
+          .catch(onVolunteerSubmissionError);
+      });
+    }
+
+    function updateVolunteer(isValid){
+      console.log("IN UPDATE");
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.volunteerForm');
+
+        return false;
+      }
+      var p1 = Promise.resolve(vm.credentials.username = vm.authentication.user.username);
+      var p2;
+
+      vm.credentials.application.sessions = [];
+
+      if(vm.sessions_1 === true) vm.credentials.application.sessions.push("1");
+      if(vm.sessions_2 === true) vm.credentials.application.sessions.push("2");
+      if(vm.sessions_3 === true) vm.credentials.application.sessions.push("3");
+
+      if(vm.roles === "m") p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'mentor']);
+      else if(vm.roles === "i") p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer']);
+      else if(vm.roles === "mi") p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer', 'mentor']);
+
+      Promise.all([p1, p2]).then(function([p1, p2]){
+        if(vm.authentication.roles.indexOf("admin") !== -1) vm.credentials.application.roles.push('admin');
+        console.log("vm.credentials.application: ",vm.credentials.application);
+        console.log("username: ",vm.credentials.username);
+        VolunteerService.updateVolunteer(vm.credentials.username, vm.credentials)
           .then(onVolunteerSubmissionSuccess)
           .catch(onVolunteerSubmissionError);
       });
