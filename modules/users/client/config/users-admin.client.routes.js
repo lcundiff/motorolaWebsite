@@ -60,6 +60,12 @@
         templateUrl: '/modules/users/client/views/admin/applicants-admin.client.view.html',
         controller: 'ApplicantsAdminsController',
         controllerAs: 'vm'
+      })
+      .state('admin.volunteers', {
+        url:'/volunteers',
+        templateUrl: '/modules/users/client/views/admin/volunteers-admin.client.view.html',
+        controller: 'VolunteersAdminsController',
+        controllerAs: 'vm'
       });
     /*  .state('admin.student', {
 

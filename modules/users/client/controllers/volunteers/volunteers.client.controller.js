@@ -110,7 +110,7 @@
       else if(vm.roles === "mi") p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer', 'mentor']);
 
       Promise.all([p1, p2]).then(function([p1, p2]){
-        if(vm.authentication.roles.indexOf("admin") !== -1) vm.credentials.application.roles.push('admin');
+        if(vm.authentication.user.roles.indexOf("admin") !== -1) vm.credentials.application.roles.push('admin');
         console.log("vm.credentials.application: ",vm.credentials.application);
         console.log("username: ",vm.credentials.username);
         VolunteerService.updateVolunteer(vm.credentials.username, vm.credentials)

@@ -9,10 +9,10 @@
 
   // Configuring the Users module
   function menuConfig(menuService) {
-    menuService.addSubMenuItem('topbar', 'student', {
+    /*menuService.addSubMenuItem('topbar', 'student', {
       title: 'Something',
       state: 'student.application'
-    });
+    });*/
 
     menuService.addMenuItem('topbar', {
       title: 'Application',

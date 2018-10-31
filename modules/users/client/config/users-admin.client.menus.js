@@ -22,5 +22,9 @@
       title: 'Applicants',
       state: 'admin.students'
     });
+    menuService.addMenuItem('topbar', {
+      title: 'Volunteers',
+      state: 'admin.volunteers'
+    });
   }
 }());
