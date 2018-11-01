@@ -55,7 +55,7 @@
     }
 
     function listDeactivatedStudents() {
-      StudentService.studentListDeactivated().then(async function(data){
+      StudentService.studentListNonActiveWithoutForms().then(async function(data){
         vm.students = data;
 
         await(vm.buildPager());

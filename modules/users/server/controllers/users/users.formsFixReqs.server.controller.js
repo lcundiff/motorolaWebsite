@@ -72,7 +72,7 @@ exports.sendFormFixEmail = function (req, res, next) {
         name: fields.firstName + ' '+ fields.lastName,
         appName: config.app.title,
         formName: formName,
-        url: baseUrl + '/signup'
+        url: baseUrl + '/authentication/signin'
       }, function (err, emailHTML) {
         console.log('3');
         done(err, emailHTML, fields);

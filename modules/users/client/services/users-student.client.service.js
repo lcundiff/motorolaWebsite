@@ -50,6 +50,16 @@
           method: 'GET',
           isArray: true,
           url: '/api/students/listAccepted'
+        },
+        active_no_forms: {
+          method: 'GET',
+          isArray: true,
+          url: '/api/students/listActiveWithoutForms'
+        },
+        non_active_no_forms: {
+          method: 'GET',
+          isArray: true,
+          url: '/api/students/listNonActiveWithoutForms'
         }
       });
 
@@ -86,6 +96,12 @@
       },
       studentListActive: function(){
         return this.list_active().$promise;
+      },
+      studentListActiveWithoutForms: function(){
+        return this.active_no_forms().$promise;
+      },
+      studentListNonActiveWithoutForms: function(){
+        return this.non_active_no_forms().$promise;
       }
     });
 

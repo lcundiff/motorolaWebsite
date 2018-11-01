@@ -175,6 +175,19 @@ exports.listActive = function (req, res) {
     }
   });
 };
+
+exports.listActiveWithoutForms = function(req, res) {
+  Student.find({active: true, isFormSubmitted: false}).sort('-created').exec().then(function (students) {
+      res.json(students);
+    }, function(err){
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+  });
+};
+
 exports.listDeactivated = function (req, res) {
   console.log("In server list all students");
   Student.find({active: false}).sort('-created').exec().then(function (students) {
@@ -185,6 +198,18 @@ exports.listDeactivated = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     }
+  });
+};
+
+exports.listNonActiveWithoutForms = function(req, res) {
+  Student.find({active: false, isFormSubmitted: false}).sort('-created').exec().then(function (students) {
+      res.json(students);
+    }, function(err){
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
   });
 };
 
