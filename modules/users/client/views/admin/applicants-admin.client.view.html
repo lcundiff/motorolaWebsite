@@ -82,33 +82,6 @@ body, html {
     text-decoration: none;
     cursor: pointer;
 }
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Roboto", sans-serif;
-  }
-
-  h1 {
-    text-align: center;
-    font-family: "Roboto", sans-serif;
-  }
-
-  h2 {
-    text-align: center;
-    font-family: "Roboto", sans-serif;
-  }
-
-  table {
-    width: 20%;
-  }
-  body {
-    background-color: #e6f2ff;
-  }
-
-  .center {
-    text-align:center;
-  }
 
 </style>
 
@@ -123,8 +96,8 @@ body, html {
 
   <div class="" style=" padding-bottom:20em; padding:25px; margin-top: -25px; margin-left: calc(-45vw + 45%); width:100vw; height: 80vh">
     <!--  ACTIVATE and DEACTIVATE Buttons -->
-    <button class="tablink" style="background-color:id='defaultOpen'" ng-click=" vm.listActiveStudents(); openPage('Active', this);" id="defaultOpen">Active Students</button>
-    <button class="tablink" id="defaultOpen" ng-click="vm.listDeactivatedStudents(); openPage('NonActive', this);">Deactivated Students</button>
+    <button class="tablink" style="background-color:id='defaultOpen'" ng-click=" vm.listActiveStudents(); openPage('Active', this);" id="defaultOpen">Active</button>
+    <button class="tablink" id="defaultOpen" ng-click="vm.listDeactivatedStudents(); openPage('NonActive', this);">Deactivated</button>
 	<!-- clear all interviews button -->
 	<!--<button style=" margin-bottom:0.2vw margin-top:0.8vw; width:20vw;" class="btn btn-primary" ng-click="clearData()">Delete All Interviews</button>-->
 
@@ -132,301 +105,128 @@ body, html {
 	<!-- WHITE MAIN SECTION -->
     <div class="w3-container w3-card-2 w3-white table-responsive" style="width: 95vw; height: 65vh; margin-top: 5vw;">
       <div id="Active" class="tabcontent">
-      <div class="row">
-        <center>
-          <span style="margin:10px;">
-          </span>
-		</center>
-
-		<div class="col-md-5" style="">
-			<div class="input-group" id="searchBar">
-			     <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
-			    <input type="text" class="form-control" placeholder="Search" ng-model="query">
-			</div>
-		</div>
-		<div class="col-md-2" style="float:right; margin-right:5vw;">
-			<button style="margin-bottom:3px; width:15vw;" class="btn btn-primary" ng-click="autoAssignInterviews()">Auto-Assign Interviews</button>
-	    </div>
-		<div class="col-md-2" style="float:right; margin-right:5vw;" >
-			<button style="margin-bottom:3px; margin-right:; margin-left:5px; width:15vw;" class="btn btn-primary" ng-click="autoAcceptStudents();">Auto-Accept Applicants</button>
-		</div>
-
-
-	  <!-- table below -->
-
-      <div class="col-md-8" ui-sref-opts="{reload: true}" style="width: 100%; padding-top:-10vw; height: 50vh;">
-          <table class="table table-sm table-hover" style="text-align:center;">
-            <thead class="thead-dark">
-              <tr>
-                <th class="center"><a ng-click="a_sortType = 'application.name'; a_sortReverse = !a_sortReverse">Student<span ng-show="a_sortType == 'application.name'" class="fa fa-caret-down"></span></a></th>
-                <th class="center"><a ng-click="a_sortType = 'application.school'; a_sortReverse = !a_sortReverse">School<span ng-show="a_sortType == 'application.school'" class="fa fa-caret-down"></span></a></th>
-                <th class="center"><a ng-click="a_sortType = 'isAppComplete && isFormSubmitted'; a_sortReverse = !a_sortReverse">Application Completed<span ng-show="a_sortType == 'isAppComplete'" class="fa fa-caret-down"></span></a></th>
-                <th class="center">Interviewer</th>
-                <th class="center"><a ng-click="a_sortType = 'interviewRank[0]'; a_sortReverse = !a_sortReverse">Rank<span ng-show="a_sortType == 'interviewRank[0]'" class="fa fa-caret-down"></span></a></th>
-                <th class="center"><a ng-click="a_sortType = 'mentor'; a_sortReverse = !a_sortReverse">Mentor<span ng-show="a_sortType == 'mentor'" class="fa fa-caret-down"></span></a></th>
-                <th class="center"><a ng-click="a_sortType = 'application.preferredSession1'; a_sortReverse = !a_sortReverse">Preferred Sessions<span ng-show="a_sortType == 'application.preferredSession1'" class="fa fa-caret-down"></span></a></th>
-                <th class="center"><a ng-click="a_sortType = 'timeSlot[0]'; a_sortReverse = !a_sortReverse">Accepted Session<span ng-show="a_sortType == 'timeSlot[0]'" class="fa fa-caret-down"></span></a></th>
-                <!-- <th class="center">Change Slot</th> -->
-                <!-- <th class="center">Update</th> -->
-                <!-- <th class="center"></th> -->
-                <th class="center"></th>
-                <th class="center"></th>
-              </tr>
-            </thead>
-            <!-- <div class="tableWrapper" style="height: 90vh;"> -->
-            <!-- The Modal -->
-            <div id="myModal" class="modal">
-              <!-- Modal content -->
-            <div class="modal-content">
-              <span class="close" ng-click="closeModal('myModal')">&times;</span>
-              <!-- RESUME -->
-                <!-- The Grid -->
-                <div class="w3-row-padding w3-padding-16" ng-model="vm.modal_student">
-                  <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="vm.modal_student.NDAId !== ''" ng-click="view_forms(vm.modal_student.NDAId)">View NDA</button>
-                  <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="vm.modal_student.WaiverId !== ''" ng-click="view_forms(vm.modal_student.WaiverId)">View Waiver</button>
-                  <button style="margin-bottom:8px;" class="btn btn-primary" ng-if="vm.modal_student.letterOfRecommendationId !== ''" ng-click="view_forms(vm.modal_student.letterOfRecommendationId)">View Letter of Recommendation</button>
-                  <br>
-                  <button style="margin-botton: 8px; width:175px;" class="btn btn-danger" ng-click="printResume('resumeContent_1', 'resumeContent_2', 'resumeContent')">Print Resume</button>
-                  <br>
-                  <br>
-                  <!-- Left Column -->
-                  <div id="resumeContent">
-                  <div class="w3-third">
-
-                    <div class="w3-white w3-card-4">
-                      <div class="w3-display-container">
-                        <img ngf-src="vm.vm.modal_student.profileImageURL" style="width:100%" ng-if="vm.modal_student.profileImageURL !== null || vm.modal_student.profileImageURL !== undefined || vm.modal_student.profileImageURL !== ''"alt="Avatar" ngf-drop>
-                        <img src="/modules/users/client/img/profile/Unknown.png" style="width:100%" ng-if="vm.modal_student.profileImageURL === null || vm.modal_student.profileImageURL === undefined || vm.modal_student.profileImageURL === ''"alt="Avatar">
-
-                      </div>
-                      <!-- <div class="w3-display-container">
-                  </div> -->
-                    <div class="w3-container" >
-                      <div  id="resumeContent_1">
-                        <!-- <img src="#" style="width:100%" alt="Avatar"> -->
-                        <!-- <div class="w3-display-bottomleft w3-container w3-text-black"> -->
-                        <!-- <h2>Student Name Here</h2> -->
-                        <!-- </div> -->
-                        <h6 class="w3-text-black"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Student Name:</b></h6>
-                        <p class="w3-text-black">{{vm.modal_student.application.firstName}}</p>
-                        <h6 class="w3-text-black"><i class="fa fa-home fa-fw w3-margin-right w3-large"></i><b>Home Address:</b></h6>
-                        <p class="w3-text-black">{{vm.modal_student.application.address.line_1}} {{vm.modal_student.application.address.line_2}}, {{vm.modal_student.application.address.city}}, {{vm.modal_student.application.address.state}} {{vm.modal_student.application.address.zipcode}}</p>
-                        <h6 class="w3-text-black"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i><b>Email:</b></h6>
-                        <p class="w3-text-black">{{vm.modal_student.application.email}}</p>
-                        <h6 class="w3-text-black"><i class="fa fa-phone fa-fw w3-margin-right w3-large"></i><b>Phone Number:</b></h6>
-                        <p class="w3-text-black">{{vm.modal_student.application.phone}}</p>
-
-                        <h6 class="w3-text-black"><i class="fa fa-university fa-fw w3-margin-right w3-large"></i><b>School:</b></h6>
-                        <p class="w3-text-black">{{vm.modal_student.application.school}}</p>
-
-                        <h6 class="w3-text-black"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Parent Name:</b></h6>
-                        <p class="w3-text-black">{{vm.modal_student.application.parent.name}}</p>
-                        <h6 class="w3-text-black"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i><b>Parent Email:</b></h6>
-                        <p class="w3-text-black">{{vm.modal_student.application.parent.email}}</p>
-                        <hr>
-                        <p class="w3-text-black w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right"></i>Interests</b></p>
-                        <p class="w3-text-black">{{vm.modal_student.interests[0]}}</p>
-                        <p class="w3-text-black">{{vm.modal_student.interests[1]}}</p>
-                        <p class="w3-text-black">{{vm.modal_student.interests[2]}}</p>
-                        <br>
-                      </div>
-                      </div>
-                    </div>
-
-                    <br>
-                    <!-- End Left Column-->
-                  </div>
-
-                  <!-- Right Column -->
-
-                  <div class="w3-twothird">
-                    <div id="resumeContent_2">
-
-                    <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
-                      <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Classes</h2>
-                      <div class="w3-container" ng-repeat="class in vm.modal_student.application.classes">
-                        <h6 class="w3-text-black"><b>Class Title:</b></h6>
-                        <p class="w3-text-black">{{class.title}}</p>
-                        <h6 class="w3-text-black"><b>Grade:</b></h6>
-                        <p class="w3-text-black">{{class.grade}}</p>
-                        <h6 class="w3-text-black"><b>Description:</b></h6>
-                        <p class="w3-text-black">{{class.description}}</p>
-
-                        <hr>
-                      </div>
-                    </div>
-
-                    <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
-                      <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Clubs</h2>
-                      <div class="w3-container" ng-repeat="club in vm.modal_student.application.clubs">
-                        <h6 class="w3-text-black"><b>Club Name:</b></h6>
-                        <p class="w3-text-black">{{club.name}}</p>
-                        <h6 class="w3-text-black"><b>Position:</b></h6>
-                        <p class="w3-text-black">{{club.position}}</p>
-                        <h6 class="w3-text-black"><b>Description:</b></h6>
-                        <p class="w3-text-black">{{club.description}}</p>
-                        <hr>
-                      </div>
-                    </div>
-                    <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
-                      <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Projects</h2>
-                      <div class="w3-container" ng-repeat="project in vm.modal_student.application.projects">
-                        <h6 class="w3-text-black"><b>Project Name:</b></h6>
-                        <p class="w3-text-black">{{project.title}}</p>
-                        <h6 class="w3-text-black"><b>Link:</b></h6>
-                        <p class="w3-text-black">{{project.link}}</p>
-                        <h6 class="w3-text-black"><b>Description:</b></h6>
-                        <p class="w3-text-black">{{project.description}}</p>
-                        <hr>
-                      </div>
-                    </div>
-                    <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
-                      <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Volunteer Experience</h2>
-                      <div class="w3-container" ng-repeat="volWork in vm.modal_student.application.volunteerExperiences">
-                        <h6 class="w3-text-black"><b>Organization:</b></h6>
-                        <form>
-                          <p class="w3-text-black">{{volWork.organizationName}}</p>
-                          <h6 class="w3-text-black"><b>Experience Title:</b></h6>
-                          <p class="w3-text-black">{{volWork.position}}</p>
-                          <h6 class="w3-text-black"><b>Description:</b></h6>
-                          <p class="w3-text-black">{{volWork.description}}</p>
-                          <p class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{volWork.startDate | date: "mediumDate" }} - <span class="w3-tag w3-grey w3-round">{{volWork.endDate | date: "mediumDate"}}</span></p>
-                          <hr>
-                      </div>
-                    </div>
-                    <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
-                      <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Work Experience</h2>
-                      <div class="w3-container" ng-repeat="work in vm.modal_student.application.professionalExperiences">
-                        <h6 class="w3-text-black"><b>Company:</b></h6>
-                        <p class="w3-text-black">{{work.companyName}}</p>
-                        <h6 class="w3-text-black"><b>Job Title:</b></h6>
-                        <p class="w3-text-black">{{work.position}}</p>
-                        <h6 class="w3-text-black"><b>Description:</b></h6>
-                        <p class="w3-text-black">{{work.description}}</p>
-                        <p class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{work.startDate | date: "mediumDate" }} - <span class="w3-tag w3-grey w3-round">{{work.endDate | date: "mediumDate"}}</span></p>
-                        <hr>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                </div> <!--resume-content-->
-                  <!--End Right Column -->
-                </div>
-
-                <!--End Page Container -->
-              </div>
-            <!-- END -->
-            </div>
-
-            <tr ng-repeat="student in vm.students | filter: query | orderBy:a_sortType:a_sortReverse" on-finish-render="fillSlots()">
-              <td><br><a ng-click="openModal(student.username, 'myModal');">{{student.application.firstName}}</a></td>
-              <td><br>{{student.application.school}}</td>
-              <td ng-if="student.isAppComplete && student.isFormSubmitted"><br>true</td>
-              <td ng-if="!student.isAppComplete || !student.isFormSubmitted"><br>false</td>
-              <td><br>{{student.interviewer[0]}}<br>{{student.interviewer[1]}}<br>{{student.interviewer[2]}}
-                <div data-ng-if="student.interviewer.length !== 3" >
-                <!--<select ng-model="chooseMentor">
-                  <option ng-repeat = "volunteer in volunteers | orderBy:v_sortType:v_sortReverse" value = "{{volunteer.user._id}}">{{volunteer.application.name}}</option>
-                </select><br>-->
-
-                <!-- <option ng-repeat="volunteer in volunteers | filter: query | orderBy:v_sortType:v_sortReverse">11</option> -->
-
-                <!-- </ng-repeat> -->
-              <!--  <a class="btn btn-sm btn-danger" style="margin-right:22px;" ng-click="chooseInterviewerToStudent(student.user._id, chooseMentor)"><i class=""></i>
-                    Add Interviewer
-                  </a>-->
-                </div>
-              </td>
-              <td><br>{{student.indivRanks[0]}}<br>{{student.indivRanks[1]}}<br>{{student.indivRanks[2]}}<br><strong>{{"Total: " + student.interviewRank[0]}}</strong></td>
-              <td><br>{{student.mentor}}</td>
-              <td>{{student.application.preferredSession1}}<br>
-              {{student.application.preferredSession2}}<br>
-              {{student.application.preferredSession3}}</td>
-              <td>
-                <br>
-                <form name="sessions">
-                  <select name="selectedOption" ng-model="vm.students[$index].timeSlot[0]" id="{{student.user._id + 'session'}}">
-                      <option value=NA>N/A</option>
-                      <option value=1>1</option>
-                      <option value=2>2</option>
-                      <option value=3>3</option>
-                    </select>
-                </form>
-              </td>
-                <td>
-                  <br>
-                  <div class="margin-top margins">
-                    <a class="btn btn-sm btn-danger" style="margin-right:22px;" data-ng-if="student.mentor !== ''" ng-click="unmatch(student.user._id)"><i class=""></i>
-                        Unmatch
-                      </a>
-                    </div>
-                    </td>
-                    <td>
-					<center>
-                      <div class="col-md-8 margin-top">
-						<a class="btn btn-sm btn-warning" style="margin-left:15px; margin-right:15px;" data-ng-if="student.timeSlot.length > 0 && student.timeSlot[0] !== 'NA'" ng-click="vm.manAcceptStudent($index, student)"><i class="glyphicon glyphicon-edit"></i>
-						  Update
-						</a>
-						<a class="btn btn-sm btn-success" style="margin-top:2px;" data-ng-if="student.timeSlot[0] === undefined || student.timeSlot[0] === null || student.timeSlot[0] === 'NA'" ng-click="vm.manAcceptStudent($index, student)"><i class="glyphicon glyphicon-edit"></i>
-						  Accept
-						</a>
-						<a class="btn btn-sm btn-primary " style="margin-top:2px;" id="myBtn" ng-click="openModal(student.username, 'myModal')"><i class=""></i>
-						      View
-						</a>
-						<a class="btn btn-sm btn-danger" style="margin-top:3px;" data-ng-if="student.active === false" ng-click="vm.activateStudent(student.user, student, $index)" ng-confirm-click="You are about to activate this applicant; doing so will implement this applicant into the system. Would you like to continue?"><i class=""></i>
-							Activate
-						</a>
-						<a class="btn btn-sm btn-danger" style="margin-top:4px;" data-ng-if="student.active === true" ng-click="vm.deactivateStudent(student.user, student, $index)" ng-confirm-click="You are about to deactivate this applicant; doing so will remove this applicant into the system. They will only be able to be viewed from the 'Deactivated' tab above. Would you like to continue?"><i class=""></i>
-							Deactivate
-						</a>
-					  </div>
-					</center>
-                </td>
-              </tr>
-            </table>
+        <div class="row">
+          <h1 style="margin:10px; "></h1>
         </div>
-      </div>
+
+        <div class="row" style="padding:10px;">
+
+          <div class="col-md-12">
+            <div class="input-group" id="searchBar" style="margin-top: 2em">
+              <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
+              <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <section>
+              <div class="list-group">
+                <a ng-repeat="student in vm.pagedItems" class="list-group-item">
+                    <h4 class="list-group-item-text-heading" ng-click="openModal(student.username, 'myModal');" ng-bind-template="{{student.application.firstName}} {{student.application.lastName}} "></h4>
+                    <p class="list-group-item-text small" ng-bind-template="School: {{student.application.school}}"></p>
+                    <br>
+                    <p class="list-group-item-text small pull-right" ng-bind-template="Preferred Interests:"></p>
+                    <p class="list-group-item-text small" ng-bind-template="Preferred Sessions:"></p>
+                    <p class="list-group-item-text small pull-right" ng-bind-template="{{student.application.interests[0]}}"></p>
+                    <p class="list-group-item-text small" ng-bind-template="1. {{student.application.preferredSession1}}"></p>
+                    <p class="list-group-item-text small pull-right" ng-bind-template="{{student.application.interests[1]}}"></p>
+                    <p class="list-group-item-text small" ng-bind-template="2. {{student.application.preferredSession2}}"></p>
+                    <p class="list-group-item-text small pull-right" ng-bind-template="{{student.application.interests[2]}}"></p>
+                    <p class="list-group-item-text small" ng-bind-template="3. {{student.application.preferredSession3}}"></p>
+                    <br> <p class="list-group-item-text small">Choose Session:</p>
+                        <select name="selectedOption" ng-model="student.timeSlot[0]" id="{{student.user._id + 'session'}}">
+                            <option value=NA>N/A</option>
+                            <option value=1>1</option>
+                            <option value=2>2</option>
+                            <option value=3>3</option>
+                          </select>
+                    <br>
+                    <br>
+                      <button "btn btn-primary btn-sm" ng-click="vm.deactivateStudent(student.user, student, $index)">Deactivate</button>
+                      <button "btn btn-primary btn-sm" ng-click="vm.manAcceptStudent($index, student)"><i class="glyphicon glyphicon-edit"></i>Accept</button>
+                </a>
+              </div>
+              <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+            </section>
+          </div>
+        </div>
     </div>
     <!-- Deactivated Students Section -->
     <div id="NonActive" class="tabcontent">
-    <div class="row">
-      <center>
-        <span style="margin:10px;">
-        </span>
-    </center>
+      <div class="row">
+        <h1 style="margin:10px; "></h1>
+      </div>
 
-     <div class="col-md-8" style="padding:10px;">
-    <div class="input-group" id="searchBar">
-         <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
-        <input type="text" class="form-control" placeholder="Search" ng-model="query">
-    </div>
+      <div class="row" style="padding:10px;">
+
+        <div class="col-md-12">
+          <div class="input-group" id="searchBar" style="margin-top: 2em">
+            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
+            <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <section>
+            <div class="list-group">
+              <a ng-repeat="student in vm.pagedItems" class="list-group-item">
+                  <h4 class="list-group-item-text-heading" ng-click="openModal(student.username, 'myModal');" ng-bind-template="{{student.application.firstName}} {{student.application.lastName}} "></h4>
+                  <p class="list-group-item-text small" ng-bind-template="School: {{student.application.school}}"></p>
+                  <br>
+                  <p class="list-group-item-text small pull-right" ng-bind-template="Preferred Interests:"></p>
+                  <p class="list-group-item-text small" ng-bind-template="Preferred Sessions:"></p>
+                  <p class="list-group-item-text small pull-right" ng-bind-template="{{student.application.interests[0]}}"></p>
+                  <p class="list-group-item-text small" ng-bind-template="1. {{student.application.preferredSession1}}"></p>
+                  <p class="list-group-item-text small pull-right" ng-bind-template="{{student.application.interests[1]}}"></p>
+                  <p class="list-group-item-text small" ng-bind-template="2. {{student.application.preferredSession2}}"></p>
+                  <p class="list-group-item-text small pull-right" ng-bind-template="{{student.application.interests[2]}}"></p>
+                  <p class="list-group-item-text small" ng-bind-template="3. {{student.application.preferredSession3}}"></p>
+                  <br>
+                    <button "btn btn-primary btn-sm" ng-click="vm.activateStudent(student.user, student, $index)">Activate</button>
+              </a>
+            </div>
+            <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+          </section>
+        </div>
+      </div>
   </div>
-
-  <!-- The Modal -->
-  <div id="myModal_D" class="modal">
+  </div>
+  <!-- End of Active Applicants Part -->
+  </div>
+  <div id="myModal" class="modal">
     <!-- Modal content -->
   <div class="modal-content">
-    <span class="close" ng-click="closeModal('myModal_D')">&times;</span>
+    <span class="close" ng-click="closeModal('myModal')">&times;</span>
     <!-- RESUME -->
       <!-- The Grid -->
-      <div class="w3-row-padding w3-padding-16">
+      <div class="w3-row-padding w3-padding-16" ng-model="vm.modal_student">
+        <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="vm.modal_student.NDAId !== ''" ng-click="view_forms(vm.modal_student.NDAId)">View NDA</button>
+        <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="vm.modal_student.WaiverId !== ''" ng-click="view_forms(vm.modal_student.WaiverId)">View Waiver</button>
+        <button style="margin-bottom:8px;" class="btn btn-primary" ng-if="vm.modal_student.letterOfRecommendationId !== ''" ng-click="view_forms(vm.modal_student.letterOfRecommendationId)">View Letter of Recommendation</button>
+        <br>
+        <button style="margin-botton: 8px; width:175px;" class="btn btn-danger" ng-click="printResume('resumeContent_1', 'resumeContent_2', 'resumeContent')">Print Resume</button>
+        <br>
+        <br>
         <!-- Left Column -->
+        <div id="resumeContent">
         <div class="w3-third">
+
           <div class="w3-white w3-card-4">
             <div class="w3-display-container">
-              <img ngf-src="vm.modal_student.profileImageURL" style="width:100%" ng-if="vm.modal_student.profileImageURL !== null || vm.modal_student.profileImageURL !== undefined || vm.modal_student.profileImageURL !== ''"alt="Avatar" ngf-drop>
+              <img ngf-src="vm.vm.modal_student.profileImageURL" style="width:100%" ng-if="vm.modal_student.profileImageURL !== null || vm.modal_student.profileImageURL !== undefined || vm.modal_student.profileImageURL !== ''"alt="Avatar" ngf-drop>
               <img src="/modules/users/client/img/profile/Unknown.png" style="width:100%" ng-if="vm.modal_student.profileImageURL === null || vm.modal_student.profileImageURL === undefined || vm.modal_student.profileImageURL === ''"alt="Avatar">
+
             </div>
             <!-- <div class="w3-display-container">
         </div> -->
-          <div class="w3-container">
+          <div class="w3-container" >
+            <div  id="resumeContent_1">
               <!-- <img src="#" style="width:100%" alt="Avatar"> -->
               <!-- <div class="w3-display-bottomleft w3-container w3-text-black"> -->
               <!-- <h2>Student Name Here</h2> -->
               <!-- </div> -->
-
               <h6 class="w3-text-black"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Student Name:</b></h6>
-              <p class="w3-text-black">{{vm.modal_student.application.name}}</p>
+              <p class="w3-text-black">{{vm.modal_student.application.firstName}}</p>
               <h6 class="w3-text-black"><i class="fa fa-home fa-fw w3-margin-right w3-large"></i><b>Home Address:</b></h6>
               <p class="w3-text-black">{{vm.modal_student.application.address.line_1}} {{vm.modal_student.application.address.line_2}}, {{vm.modal_student.application.address.city}}, {{vm.modal_student.application.address.state}} {{vm.modal_student.application.address.zipcode}}</p>
               <h6 class="w3-text-black"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i><b>Email:</b></h6>
@@ -443,8 +243,11 @@ body, html {
               <p class="w3-text-black">{{vm.modal_student.application.parent.email}}</p>
               <hr>
               <p class="w3-text-black w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right"></i>Interests</b></p>
-              <p class="w3-text-black">{{vm.modal_student.interests.toString()}}</p>
+              <p class="w3-text-black">{{vm.modal_student.interests[0]}}</p>
+              <p class="w3-text-black">{{vm.modal_student.interests[1]}}</p>
+              <p class="w3-text-black">{{vm.modal_student.interests[2]}}</p>
               <br>
+            </div>
             </div>
           </div>
 
@@ -453,7 +256,9 @@ body, html {
         </div>
 
         <!-- Right Column -->
+
         <div class="w3-twothird">
+          <div id="resumeContent_2">
 
           <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
             <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Classes</h2>
@@ -478,12 +283,9 @@ body, html {
               <p class="w3-text-black">{{club.position}}</p>
               <h6 class="w3-text-black"><b>Description:</b></h6>
               <p class="w3-text-black">{{club.description}}</p>
-
-
               <hr>
             </div>
           </div>
-
           <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
             <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Projects</h2>
             <div class="w3-container" ng-repeat="project in vm.modal_student.application.projects">
@@ -493,12 +295,9 @@ body, html {
               <p class="w3-text-black">{{project.link}}</p>
               <h6 class="w3-text-black"><b>Description:</b></h6>
               <p class="w3-text-black">{{project.description}}</p>
-
-
               <hr>
             </div>
           </div>
-
           <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
             <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Volunteer Experience</h2>
             <div class="w3-container" ng-repeat="volWork in vm.modal_student.application.volunteerExperiences">
@@ -509,13 +308,10 @@ body, html {
                 <p class="w3-text-black">{{volWork.position}}</p>
                 <h6 class="w3-text-black"><b>Description:</b></h6>
                 <p class="w3-text-black">{{volWork.description}}</p>
-
                 <p class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{volWork.startDate | date: "mediumDate" }} - <span class="w3-tag w3-grey w3-round">{{volWork.endDate | date: "mediumDate"}}</span></p>
-
                 <hr>
             </div>
           </div>
-
           <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
             <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Work Experience</h2>
             <div class="w3-container" ng-repeat="work in vm.modal_student.application.professionalExperiences">
@@ -525,80 +321,19 @@ body, html {
               <p class="w3-text-black">{{work.position}}</p>
               <h6 class="w3-text-black"><b>Description:</b></h6>
               <p class="w3-text-black">{{work.description}}</p>
-
               <p class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{work.startDate | date: "mediumDate" }} - <span class="w3-tag w3-grey w3-round">{{work.endDate | date: "mediumDate"}}</span></p>
               <hr>
             </div>
           </div>
-
         </div>
-
+        </div>
+      </div> <!--resume-content-->
         <!--End Right Column -->
       </div>
 
       <!--End Page Container -->
     </div>
   <!-- END -->
-  </div>
-
-
-
-  <!-- table below -->
-
-    <div class="col-md-8" ui-sref-opts="{reload: true}" style="width: 100%; padding-top:-60px; height: 50vh;">
-      <div class="tableWrapper" style="height: 50vh;">
-        <table class="table table-sm table-hover" style="text-align:center;">
-          <thead class="thead-dark">
-            <tr>
-              <th class="center"><a ng-click="a_sortType = 'application.name'; a_sortReverse = !a_sortReverse">Student<span ng-show="a_sortType == 'application.name'" class="fa fa-caret-down"></span></a></th>
-              <th class="center"><a ng-click="a_sortType = 'application.school'; a_sortReverse = !a_sortReverse">School<span ng-show="a_sortType == 'application.school'" class="fa fa-caret-down"></span></a></th>
-              <th class="center"><a ng-click="a_sortType = 'interviewRank[0]'; a_sortReverse = !a_sortReverse">Rank<span ng-show="a_sortType == 'interviewRank[0]'" class="fa fa-caret-down"></span></a></th>
-              <th class="center"><a ng-click="a_sortType = 'application.preferredSession1'; a_sortReverse = !a_sortReverse">Preferred Sessions<span ng-show="a_sortType == 'application.preferredSession1'" class="fa fa-caret-down"></span></a></th>
-              <!-- <th class="center">Change Slot</th> -->
-              <!-- <th class="center">Update</th> -->
-              <!-- <th class="center"></th> -->
-              <th class="center"></th>
-              <th class="center"></th>
-            </tr>
-          </thead>
-          <!-- <div class="tableWrapper" style="height: 90vh;"> -->
-
-          <tr ng-repeat="student in vm.students | filter: query | orderBy:a_sortType:a_sortReverse">
-            <td><br><a ng-click="openModal(student.username, 'myModal_D');">{{student.application.firstName}}</a></td>
-            <td><br>{{student.application.school}}</td>
-            <td><br>{{student.indivRanks[0]}}<br>{{student.indivRanks[1]}}<br>{{student.indivRanks[2]}}<br><strong>{{"Total: " + student.interviewRank[0]}}</strong></td>
-            <td>{{student.application.preferredSession1}}<br>
-            {{student.application.preferredSession2}}<br>
-            {{student.application.preferredSession3}}</td><!--
-            <td><br><b>{{student.timeSlot[0]}}</b></td> -->
-                  <td>
-                    <br>
-                    <div class="margin-top">
-                  <!--<a class="btn btn-sm btn-warning" style="margin-left:15px; margin-right:15px;" data-ng-if="student.timeSlot.length > 0 && student.timeSlot[0] !== 'NA'" ng-click="manAcceptStudents(student.user._id, selectedOption)"><i class="glyphicon glyphicon-edit"></i>
-                    Update
-                  </a>
-                  <a class="btn btn-sm btn-success" style="margin-top:0px;" data-ng-if="student.timeSlot[0] === undefined || student.timeSlot[0] === null || student.timeSlot[0] === 'NA'" ng-click="manAcceptStudents(student.user._id, selectedOption)"><i class="glyphicon glyphicon-edit"></i>
-                    Accept
-                  </a>-->
-                  <a class="btn btn-sm btn-primary " ng-click="openModal(student.username, 'myModal_D');"><i class=""></i>
-                    View
-                  </a>
-                    <a class="btn btn-sm btn-danger" style="margin-right:22px;" data-ng-if="student.active === false" ng-click="vm.activateStudent(student.user, student, $index)"><i class=""></i>
-                        Activate
-                      </a>
-                      <a class="btn btn-sm btn-danger" style="margin-right:22px;" data-ng-if="student.active === true" ng-click="vm.deactivateStudent(student.user, student, $index)"><i class=""></i>
-                          Deactivate
-                        </a>
-                </div>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
-  <!-- End of Active Applicants Part -->
   </div>
   </body>
 </html>

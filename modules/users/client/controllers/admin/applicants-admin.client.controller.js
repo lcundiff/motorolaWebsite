@@ -6,9 +6,9 @@
     .module('users')
     .controller('ApplicantsAdminsController', ApplicantsAdminsController);
 
-  ApplicantsAdminsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'Notification', 'AdminService', 'UsersService', 'StudentService', /*'VolunteersService', 'AutomateService', 'googleDriveService',*/'$http','$sce'];
+  ApplicantsAdminsController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'AdminService', 'UsersService', 'StudentService', /*'VolunteersService', 'AutomateService', 'googleDriveService',*/'$http','$sce'];
 
-  function ApplicantsAdminsController($scope, $state, $window, Authentication, Notification, AdminService, UsersService, StudentService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
+  function ApplicantsAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
@@ -24,6 +24,7 @@
     vm.manAcceptStudent = manAcceptStudent;
 
     function buildPager() {
+      console.log("HERE IN BP");
       vm.pagedItems = [];
       vm.itemsPerPage = 15;
       vm.currentPage = 1;
@@ -31,13 +32,16 @@
     }
 
     function figureOutItemsToDisplay() {
-      vm.filteredItems = $filter('filter')(vm.users, {
+      console.log("HERE IN FOID");
+      vm.filteredItems = $filter('filter')(vm.students, {
         $: vm.search
       });
       vm.filterLength = vm.filteredItems.length;
       var begin = ((vm.currentPage - 1) * vm.itemsPerPage);
       var end = begin + vm.itemsPerPage;
       vm.pagedItems = vm.filteredItems.slice(begin, end);
+
+      console.log("vm.pagedItems: ",vm.pagedItems);
     }
 
     function pageChanged() {
@@ -45,17 +49,20 @@
     }
 
     function listActiveStudents() {
-      StudentService.studentListActive().then(function(data){
+      StudentService.studentListActive().then(async function(data){
         console.log("data: ",data);
         vm.students = data;
-        console.log("timeSlot: ",vm.students[0].timeSlot[0]);
+
+        await(vm.buildPager());
       });
     }
 
     function listDeactivatedStudents() {
-      StudentService.studentListDeactivated().then(function(data){
+      StudentService.studentListDeactivated().then(async function(data){
         console.log("dat1a: ",data);
         vm.students = data;
+
+        await(vm.buildPager());
       });
     }
 
@@ -327,6 +334,7 @@ function deactivateStudent(user, student, index) {
   student.interviewer = [];
   student.interviewerID = [];
   vm.students.splice(index, 1);
+  vm.pagedItems.splice(index%15, 1);
 
   StudentService.updateStudent(user, student)
   .then(onDeactivationSuccess)
@@ -347,6 +355,7 @@ function onDeactivationSuccess(response) {
 function activateStudent(user, student, index) {
   student.active = true;
   vm.students.splice(index, 1);
+  vm.pagedItems.splice(index%15, 1);
 
   StudentService.updateStudent(user, student)
   .then(onActivationSuccess)

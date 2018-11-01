@@ -23,8 +23,24 @@
       state: 'admin.students'
     });
     menuService.addMenuItem('topbar', {
+      title: 'Forms',
+      state: 'admin.students'
+    })
+    menuService.addMenuItem('topbar', {
       title: 'Volunteers',
       state: 'admin.volunteers'
     });
+    menuService.addMenuItem('topbar', {
+      title: 'Interviews',
+      state: 'admin.students'
+    });
+    menuService.addMenuItem('topbar', {
+      title: 'Match',
+      state: 'admin.students'
+    });
+    menuService.addMenuItem('topbar', {
+      title: 'E-mail',
+      state: 'admin.students'
+    })
   }
 }());
