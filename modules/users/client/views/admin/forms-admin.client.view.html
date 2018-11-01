@@ -131,8 +131,16 @@ body, html {
                     <button style="margin-bottom:8px;" class="btn btn-primary" ng-if="student.letterOfRecommendationId !== ''" ng-click="view_forms(student.letterOfRecommendationId)">View Letter of Recommendation</button>
 
                     <br><br>
-                      <button><i class="glyphicon glyphicon-edit"></i>Approve Forms</button>
-                      <button "btn btn-primary btn-sm" ng-click="vm.deactivateStudent(student.user, student, $index)">Deactivate</button>
+                      <button class="btn btn-primary btn-warning" ng-click="vm.approveForms(student)"><i class="glyphicon glyphicon-edit"></i>Approve Forms</button>
+                      <button class="btn btn-primary btn-warning" ng-click="vm.deactivateStudent(student.user, student, $index)">Deactivate</button>
+
+                      <select ng-model="vm.formFixName">
+                        <option value='NDA'>NDA</option>
+                        <option value='Waiver'>Waiver</option>
+                        <option value='Letter of Recommendation'>Letter of Recommendation</option>
+                        <option value='Resume'>Resume</option>
+                      </select>
+                      <button class="btn btn-primary btn-sm" ng-click="vm.sendFormFixEmail(student, vm.formFixName)">Send Form Fix Email</button>
                 </a>
               </div>
               <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
@@ -169,8 +177,17 @@ body, html {
 
                   <br><br>
                     <button><i class="glyphicon glyphicon-edit"></i>Approve Forms</button>
-                    <button "btn btn-primary btn-sm" ng-click="vm.deactivateStudent(student.user, student, $index)">Deactivate</button>
-              </a>
+                    <button class="btn btn-primary btn-sm" ng-click="vm.deactivateStudent(student.user, student, $index)">Deactivate</button>
+
+
+                    <!--<select ng-model="vm.formFixName">
+                      <option value='NDA'>NDA</option>
+                      <option value='Waiver'>Waiver</option>
+                      <option value='Letter of Recommendation'>Letter of Recommendation</option>
+                      <option value='Resume'>Resume</option>
+                    </select>-->
+
+                </a>
             </div>
             <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
           </section>

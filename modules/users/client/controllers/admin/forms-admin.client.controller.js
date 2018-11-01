@@ -20,12 +20,12 @@
 
     vm.deactivateStudent = deactivateStudent;
     vm.activateStudent = activateStudent;
-
-    vm.manAcceptStudent = manAcceptStudent;
     vm.viewForm = viewForm;
 
+    vm.sendFormFixEmail = sendFormFixEmail;
+    vm.approveForms = approveForms;
+
     function buildPager() {
-      console.log("HERE IN BP");
       vm.pagedItems = [];
       vm.itemsPerPage = 15;
       vm.currentPage = 1;
@@ -33,7 +33,6 @@
     }
 
     function figureOutItemsToDisplay() {
-      console.log("HERE IN FOID");
       vm.filteredItems = $filter('filter')(vm.students, {
         $: vm.search
       });
@@ -41,8 +40,6 @@
       var begin = ((vm.currentPage - 1) * vm.itemsPerPage);
       var end = begin + vm.itemsPerPage;
       vm.pagedItems = vm.filteredItems.slice(begin, end);
-
-      console.log("vm.pagedItems: ",vm.pagedItems);
     }
 
     function pageChanged() {
@@ -51,7 +48,6 @@
 
     function listActiveStudents() {
       StudentService.studentListActive().then(async function(data){
-        console.log("data: ",data);
         vm.students = data;
 
         await(vm.buildPager());
@@ -60,7 +56,6 @@
 
     function listDeactivatedStudents() {
       StudentService.studentListDeactivated().then(async function(data){
-        console.log("dat1a: ",data);
         vm.students = data;
 
         await(vm.buildPager());
@@ -71,10 +66,8 @@
 
     //open modal window that displays the student resume
     $scope.openModal = function(username, docId){
-        console.log("Open Modal id: ",username);
 
         StudentService.getStudentByUsername(username).then(function(data){
-          console.log(data);
           vm.modal_student = data;
           $scope.vm.modal_student = vm.modal_student;
           var modal = document.getElementById(docId);
@@ -94,12 +87,7 @@
 
     function viewForm(fileId) {
 
-      console.log("fileId: ",fileId);
-      console.log("$scope.baseurl: ",$scope.BASEURL);
-      console.log("$scope: ",$scope);
-
       FileService.download('SLRESUME.pdf').then(function(data){
-        console.log("data: ",data);
 
         var file = new Blob([data.data], {
             type: 'application/pdf'
@@ -109,6 +97,40 @@
             window.open(fileURL);
       });
     }
+
+    function approveForms(student){
+      student.isFormSubmitted = true;
+
+      StudentService.updateStudent(student.user, student).then(function(data){
+        console.log("data: ",data);
+      });
+    }
+
+    function sendFormFixEmail(student, formName) {
+      var credentials = {
+        email: student.application.email,
+        firstName: student.application.firstName,
+        lastName: student.application.lastName,
+        formName: formName
+      }
+
+      UsersService.sendFormFixEmail(credentials)
+      .then(onFormFixEmailDeliverySuccess)
+      .catch(onFormFixEmailDeliveryError);
+    }
+
+    function onFormFixEmailDeliverySuccess(response) {
+          // If successful we assign the response to the global user model
+          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Email sent successfully.' });
+          // And redirect to the previous or home page
+          //$state.go($state.previous.state.name || 'home', $state.previous.params);
+        }
+
+    function onFormFixEmailDeliveryError(response) {
+          Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Email send error.', delay: 6000 });
+        }
+
+
 
     //open tab (either active or deactivated students)
     $scope.openPage = function(pageName, elmnt){
@@ -177,138 +199,6 @@
       setTimeout(function(){popup.close(); }, 0);
     };
 
-/*
-
-    $scope.getStudent = function(id) {
-
-      //console.log("we here");
-      //var id = $stateParams.user;
-
-      //var id = '59f7f305e58b4010fc1307f4';
-      console.log(id); //ISSUE: id is undefined
-      StudentsService.read(id).then(function(response) {
-        $scope.student = response.data;
-        console.log($scope.student);
-        //console.log(response.data);
-        console.log("or are we here?");
-      }, function(error) {
-        $scope.error = 'Unable to retrieve student!\n' + error;
-        console.log("nope");
-      });
-    };
-
-    $scope.unmatch = function(id) {
-
-      var v_id;
-      StudentsService.read(id).then(function(response){
-
-        //Ask admin to confirm unmatch action
-        var r = confirm('This will unmatch '+response.data.application.name+' from his/her mentor, '+response.data.mentor+'. Would you like to proceed?');
-
-        //If admin consented to action, unmatch student from mentor
-        if( r === true){
-          v_id = response.data.mentorID;
-          AutomateService.manUnmatch(id, response.data.mentorID).then(function(response){
-
-            VolunteersService.update(response.data, v_id).then(function(response){
-
-              alert('Student successfully unmatched from volunteer.');
-              $state.reload();
-            });
-          });
-       }
-      });
-    };
-
-    /*$scope.autoAssignInterviews = function() {
-
-      //Ask admin to confirm auto assign interviews action
-      var r=confirm('This will automatically assign three different interviewers to each active student. Would you like to proceed?');
-
-      //If admin consented to action, automatically assign interviewers to each active student
-      if(r === true){
-        AutomateService.autoAssignInterviewsAll().then(function(response){
-          if(response.data === 'Not enough volunteers available to complete task'){
-            alert('Not enough volunteers available to complete task. There must be at least three active interviewers to use this feature.');
-          }
-          else{
-            alert('Auto assignation of interviewers complete.');
-            console.log(response);
-            $state.reload();
-          }
-        });
-      }
-    };*/
-
-    function manAcceptStudent(index, student) {
-      console.log("timeSLot: ",vm.students[index].timeSlot[0]);
-      var r;
-      //Ask admin to confirm manual acceptance of student.
-      if(vm.students[index].timeSlot[0] === "NA"){
-        r = confirm('This will rescind the acceptance of the selected student. Would you like to proceed?');
-      }
-      else{
-        r = confirm('This will accept selected student into session '+vm.students[index].timeSlot[0]+'. Would you like to proceed?');
-      }
-
-      //If admin consented, continue with action
-      if(r === true){
-
-        if(vm.students[index].timeSlot[0] === undefined){
-          Notification.error({ message: 'error', title: '<i class="glyphicon glyphicon-remove"></i> Please specify the session.', delay: 6000 });
-        }
-        else {
-          AdminService.manAcceptStudent(vm.students[index].timeSlot[0], student).then(function(response){
-            if(vm.students[index].timeSlot[0] === "NA"){
-              Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student acceptance has been rescinded successfully.' });
-
-            }
-            else{
-              Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student acceptance successful.' });
-
-            }
-          });
-        }
-      }
-    };
-
-/*
-    $scope.autoAcceptStudents = function() {
-
-      var r = confirm('Students with a complete application will be automatically accepted and sorted into the best-fit session. Would you like to proceed?');
-
-      if(r === true){
-        AutomateService.autoAcceptAllStudents().then(function(res){
-          alert('Auto acceptance of students has completed.');
-          $state.reload();
-        });
-      }
-    };
-
-  $scope.addInterviewerToStudent = function(id){
-    AutomateService.replaceInterviewer(id).then(function(response){
-      if(response.data === 'No interviewers available!'){
-        alert('No interviewers currently available to assign to that student.');
-      }
-      else{
-        alert('Interviewer successfully added to student.');
-        $window.location.reload();
-      }
-    })
-  }
-
-  $scope.chooseInterviewerToStudent = function(studentId,mentorId){
-    AutomateService.chooseInterviewer(studentId,mentorId).then(function(response){
-      if(response.data === 'No interviewers available!'){
-        alert('No interviewers currently available to assign to that student.');
-      }
-      else{
-        alert('Interviewer successfully added to student.');
-        $window.location.reload();
-      }
-    })
-  };
-*/
 
 function deactivateStudent(user, student, index) {
   student.active = false;
@@ -353,7 +243,7 @@ function onActivationSuccess(response) {
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
-    function onActivationError(response) {
+function onActivationError(response) {
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Student activation error.', delay: 6000 });
     }
 

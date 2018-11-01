@@ -14,5 +14,6 @@ module.exports = _.extend(
   require('./users/users.password.server.controller'),
   require('./users/users.profile.server.controller'),
   require('./users/users.signuplink.server.controller'),
-  require('./users/user-req.server.controller')
+  require('./users/user-req.server.controller'),
+  require('./users/users.formsFixReqs.server.controller')
 );

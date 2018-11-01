@@ -40,6 +40,10 @@
         method: 'POST',
         url: '/api/auth/sendSignup'
       },
+      send_form_fix_email: {
+        method: 'POST',
+        url: '/api/auth/sendFormFixEmail'
+      },
       signup: {
         method: 'POST',
         url: '/api/auth/signup'
@@ -81,6 +85,10 @@
       },
       sendSignupLink: function(credentials){
         return this.send_signup_link(credentials).$promise;
+      },
+      sendFormFixEmail: function(credentials){
+        console.log("credentials: ",credentials);
+        return this.send_form_fix_email(credentials).$promise;
       },
       userSignup: function (credentials) {
         return this.signup(credentials).$promise;
