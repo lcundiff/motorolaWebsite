@@ -24,7 +24,7 @@
     });
     menuService.addMenuItem('topbar', {
       title: 'Forms',
-      state: 'admin.students'
+      state: 'admin.approveForms'
     })
     menuService.addMenuItem('topbar', {
       title: 'Volunteers',
