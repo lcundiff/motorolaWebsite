@@ -6,9 +6,9 @@
     .module('users')
     .controller('VolunteersAdminsController', VolunteersAdminsController);
 
-  VolunteersAdminsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'Notification', 'AdminService', 'UsersService', 'VolunteerService', /*'VolunteersService', 'AutomateService', 'googleDriveService',*/'$http','$sce'];
+  VolunteersAdminsController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'AdminService', 'UsersService', 'VolunteerService', /*'VolunteersService', 'AutomateService', 'googleDriveService',*/'$http','$sce'];
 
-  function VolunteersAdminsController($scope, $state, $window, Authentication, Notification, AdminService, UsersService, VolunteerService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
+  function VolunteersAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, VolunteerService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
@@ -29,7 +29,7 @@
     }
 
     function figureOutItemsToDisplay() {
-      vm.filteredItems = $filter('filter')(vm.users, {
+      vm.filteredItems = $filter('filter')(vm.volunteers, {
         $: vm.search
       });
       vm.filterLength = vm.filteredItems.length;
@@ -43,17 +43,20 @@
     }
 
     function listActiveVolunteers() {
-      VolunteerService.getVolunteers().then(function(data){
+      VolunteerService.getVolunteers().then(async function(data){
         console.log("data: ",data);
         vm.volunteers = data;
-        console.log("timeSlot: ",vm.Volunteers[0].timeSlot[0]);
+
+        await(vm.buildPager());
       });
     }
 
     function listDeactivatedVolunteers() {
-      VolunteerService.VolunteerListDeactivated().then(function(data){
+      VolunteerService.listDeactivated().then(async function(data){
         console.log("dat1a: ",data);
         vm.volunteers = data;
+
+        await(vm.buildPager());
       });
     }
 
@@ -124,6 +127,7 @@ function deactivateVolunteer(user, volunteer, index) {
   volunteer.interviewee = [];
   volunteer.intervieweeID = [];
   vm.volunteers.splice(index, 1);
+  vm.pagedItems.splice(index%15, 1);
 
   VolunteerService.updateVolunteer(user, volunteer)
   .then(onDeactivationSuccess)
@@ -143,7 +147,8 @@ function onDeactivationSuccess(response) {
 
 function activateVolunteer(user, volunteer, index) {
   volunteer.active = true;
-  vm.Volunteers.splice(index, 1);
+  vm.volunteers.splice(index, 1);
+  vm.pagedItems.splice(index%15, 1);
 
   VolunteerService.updateVolunteer(user, volunteer)
   .then(onActivationSuccess)

@@ -77,7 +77,7 @@ volunteer.roles = req.body.application.roles;
 
 console.log("volunteer: ",volunteer);
 
-Volunteer.findOneAndUpdate({username: req.body.username}, {application: req.body.application, sessions: req.body.application.sessions, areaofexpertise: req.body.application.areaofexpertise, roles: req.body.application.roles}, {upsert: false}).then(function(data){
+Volunteer.findOneAndUpdate({username: req.body.username}, {active: req.body.active, application: req.body.application, sessions: req.body.application.sessions, areaofexpertise: req.body.application.areaofexpertise, roles: req.body.application.roles}, {upsert: false}).then(function(data){
   console.log("updated data: ",data);
 
   User.findOneAndUpdate({username: req.body.username}, {roles: req.body.application.roles}, {upsert: false}).then(function(userData){
