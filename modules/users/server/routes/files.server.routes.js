@@ -6,4 +6,5 @@ module.exports = function (app) {
 
   // Setting up the users profile api
   app.route('/api/files/upload').post(files.uploadFile);
+  app.route('/api/files/get/:filename').get(files.downloadFile);
 };

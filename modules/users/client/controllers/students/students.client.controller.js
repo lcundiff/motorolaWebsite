@@ -60,7 +60,7 @@
 
     function uploadResume(){
       console.log($scope.file.upload);
-      vm.credentials.ResumeId = 'uploads/'+$scope.file.upload.name;
+      vm.credentials.ResumeId = $scope.file.upload.name;
 
       $scope.uploading = true;
       FileService.upload($scope.file).then(function(data){

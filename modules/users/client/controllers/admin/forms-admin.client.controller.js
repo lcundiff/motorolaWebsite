@@ -6,9 +6,9 @@
     .module('users')
     .controller('FormsAdminsController', FormsAdminsController);
 
-  FormsAdminsController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'AdminService', 'UsersService', 'StudentService', /*'VolunteersService', 'AutomateService', 'googleDriveService',*/'$http','$sce'];
+  FormsAdminsController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'AdminService', 'FileService', 'UsersService', 'StudentService', /*'VolunteersService', 'AutomateService', 'googleDriveService',*/'$http','$sce'];
 
-  function FormsAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
+  function FormsAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, FileService, UsersService, StudentService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
@@ -22,6 +22,7 @@
     vm.activateStudent = activateStudent;
 
     vm.manAcceptStudent = manAcceptStudent;
+    vm.viewForm = viewForm;
 
     function buildPager() {
       console.log("HERE IN BP");
@@ -91,40 +92,23 @@
     };
 
 
-    /*$scope.view_forms = function(fileId) {
+    function viewForm(fileId) {
 
-      alert('Opening file... (Click button to continue)');
       console.log("fileId: ",fileId);
-    googleDriveService.getDoc(fileId + '.pdf').then(function(response){
+      console.log("$scope.baseurl: ",$scope.BASEURL);
+      console.log("$scope: ",$scope);
 
+      FileService.download('SLRESUME.pdf').then(function(data){
+        console.log("data: ",data);
 
-         $http.get('./download/' + fileId + '.pdf', { responseType: 'arraybuffer' })
-        .success(function (data) {
-           // alert("hi");
-           console.log(data);
-           // var data ='some data';
-            var file = new Blob([data], {
-                type: 'application/pdf'
-                // type:'image/png'
-            });
-            // var fileURL = URL.createObjectURL(file);
-            // window.open(fileURL);
-
-
-            var url = $window.URL || $window.webkitURL;
-
-            $scope.fileUrl = $sce.trustAsResourceUrl(url.createObjectURL(file));
-            // $scope.fileUrl = window.URL.createObjectURL(file);
-            // console.log($scope.fileUrl)
-            var link = document.createElement('a');
-                link.href = $scope.fileUrl;
-                link.download = fileId;
-                // console.log(link);
-                link.click();
+        var file = new Blob([data.data], {
+            type: 'application/pdf'
+            // type:'image/png'
           });
-
+            var fileURL = URL.createObjectURL(file);
+            window.open(fileURL);
       });
-    }*/
+    }
 
     //open tab (either active or deactivated students)
     $scope.openPage = function(pageName, elmnt){

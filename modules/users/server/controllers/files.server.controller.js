@@ -9,6 +9,8 @@ var path = require('path'),
   multer = require('multer'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
+const uploadFolder = './uploads/';
+
   var storage = multer.diskStorage({
       destination:function(req,file,cb){
           cb(null, './uploads');
@@ -19,10 +21,12 @@ var path = require('path'),
           err.code = 'filetype';
           return cb(err);
         } else {
-          cb(null, Date.now() +'_'+ file.originalname);
+          cb(null, file.originalname);
         }
       }
   });
+
+
 
   var upload = multer({
     storage: storage,
@@ -46,7 +50,15 @@ exports.uploadFile = function(req, res){
       }
     } else {
       //if (!req.file) res.json({ success: false, message: 'No file was selected.'});
-     res.json({success: true, message: 'File successfully uploaded.'});
+     res.json({success: true, message: 'File successfully uploaded.', fileName: ''});
     }
   });
+}
+
+exports.downloadFile = function(req, res){
+  console.log("upload folder: ", uploadFolder);
+  console.log("req: ",req);
+  console.log("req.stack: ",req.stack);
+	var filename = req.params.filename;
+	res.download(uploadFolder + 'SLRESUME.pdf');
 }

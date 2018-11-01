@@ -19,6 +19,10 @@
         transformRequest: angular.identity,
         headers: { 'Content-Type': undefined }
         });
+      },
+      download: function(filename) {
+
+        return $http.get('/api/files/get/' + filename, { responseType: 'arraybuffer' });
       }
     };
 

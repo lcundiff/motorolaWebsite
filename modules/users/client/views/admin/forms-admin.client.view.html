@@ -125,10 +125,10 @@ body, html {
                     <h4 class="list-group-item-text-heading" ng-click="openModal(student.username, 'myModal');" ng-bind-template="{{student.application.firstName}} {{student.application.lastName}} "></h4>
                     <p class="list-group-item-text small" ng-bind-template="School: {{student.application.school}}"></p>
                     <br>
-                    <button style="margin-bottom:8px;" class="btn btn-primary" ng-if="vm.modal_student.ResumeId !== ''" ng-click="view_forms(student.ResumeId)">View Resume</button>
-                    <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="vm.modal_student.NDAId !== ''" ng-click="view_forms(student.NDAId)">View NDA</button>
-                    <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="vm.modal_student.WaiverId !== ''" ng-click="view_forms(student.WaiverId)">View Waiver</button>
-                    <button style="margin-bottom:8px;" class="btn btn-primary" ng-if="vm.modal_student.letterOfRecommendationId !== ''" ng-click="view_forms(student.letterOfRecommendationId)">View Letter of Recommendation</button>
+                    <button style="margin-bottom:8px;" class="btn btn-primary" ng-if="student.ResumeId !== ''" ng-click="vm.viewForm(student.ResumeId)">View Resume</button>
+                    <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="student.NDAId !== '' " ng-click="view_forms(student.NDAId)">View NDA</button>
+                    <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="student.WaiverId !== ''" ng-click="view_forms(student.WaiverId)">View Waiver</button>
+                    <button style="margin-bottom:8px;" class="btn btn-primary" ng-if="student.letterOfRecommendationId !== ''" ng-click="view_forms(student.letterOfRecommendationId)">View Letter of Recommendation</button>
 
                     <br><br>
                       <button><i class="glyphicon glyphicon-edit"></i>Approve Forms</button>
@@ -162,10 +162,10 @@ body, html {
                   <h4 class="list-group-item-text-heading" ng-click="openModal(student.username, 'myModal');" ng-bind-template="{{student.application.firstName}} {{student.application.lastName}} "></h4>
                   <p class="list-group-item-text small" ng-bind-template="School: {{student.application.school}}"></p>
                   <br>
-                  <button style="margin-bottom:8px;" class="btn btn-primary" ng-if="vm.modal_student.ResumeId !== ''" ng-click="view_forms(student.ResumeId)">View Resume</button>
-                  <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="vm.modal_student.NDAId !== ''" ng-click="view_forms(student.NDAId)">View NDA</button>
-                  <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="vm.modal_student.WaiverId !== ''" ng-click="view_forms(student.WaiverId)">View Waiver</button>
-                  <button style="margin-bottom:8px;" class="btn btn-primary" ng-if="vm.modal_student.letterOfRecommendationId !== ''" ng-click="view_forms(student.letterOfRecommendationId)">View Letter of Recommendation</button>
+                  <button style="margin-bottom:8px;" class="btn btn-primary" ng-if="vm.student.ResumeId !== ''" ng-click="view_forms(student.ResumeId)">View Resume</button>
+                  <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="student.NDAId !== ''" ng-click="view_forms(student.NDAId)">View NDA</button>
+                  <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="student.WaiverId !== ''" ng-click="view_forms(student.WaiverId)">View Waiver</button>
+                  <button style="margin-bottom:8px;" class="btn btn-primary" ng-if="student.letterOfRecommendationId !== ''" ng-click="view_forms(student.letterOfRecommendationId)">View Letter of Recommendation</button>
 
                   <br><br>
                     <button><i class="glyphicon glyphicon-edit"></i>Approve Forms</button>
