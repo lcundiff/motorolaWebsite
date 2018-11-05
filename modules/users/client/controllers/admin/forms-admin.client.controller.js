@@ -94,8 +94,17 @@
             type: 'application/pdf'
             // type:'image/png'
           });
-            var fileURL = URL.createObjectURL(file);
-            window.open(fileURL);
+            //var fileURL = URL.createObjectURL(file);
+
+            //window.open(fileURL);
+            $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+            // $scope.fileUrl = window.URL.createObjectURL(file);
+            // console.log($scope.fileUrl)
+            var link = document.createElement('a');
+                link.href = $scope.fileUrl;
+                link.download = fileId;
+                // console.log(link);
+                link.click();
       });
     }
 
