@@ -19,6 +19,7 @@
     vm.uploadNDA = uploadNDA;
     vm.uploadWaiver = uploadWaiver;
     vm.uploadLetterOfRecommendation = uploadLetterOfRecommendation;
+    vm.viewForm = viewForm;
 
     StudentService.getStudentByUsername(vm.authentication.user.username).then(function(data){
       $scope.vm.file = {};
