@@ -62,8 +62,14 @@
         controllerAs: 'vm'
       })
       .state('admin.approveForms', {
-        url:'/student/forms',
+        url:'/admin-forms/student-forms',
         templateUrl: '/modules/users/client/views/admin/forms-admin.client.view.html',
+        controller: 'FormsAdminsController',
+        controllerAs: 'vm'
+      })
+      .state('admin.updateForms', {
+        url:'admin-forms/update-view-forms',
+        templateUrl: '/modules/users/client/views/admin/update-forms-admin.client.view.html',
         controller: 'FormsAdminsController',
         controllerAs: 'vm'
       })

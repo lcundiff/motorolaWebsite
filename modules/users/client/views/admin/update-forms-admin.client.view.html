@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<title>Applicants</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
+<link rel="stylesheet" type="text/css" href="/modules/core/client/css/bootstrap.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+<style>
+/* Set height of body and the document to 100% to enable "full page tabs" */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+.tablink:hover {
+  background-color: #777;
+  padding: 20px;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: black;
+  display: none;
+  height: 100%;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100000 !important;
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+</style>
+
+
+
+<!-- beginning of body -->
+<body>
+  <!-- Banner up top -->
+  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+    <h1 style="font-weight:bold;">Current Forms</h1>
+  </div>
+
+  <div class="" style=" padding-bottom:20em; padding:25px; margin-top: -25px; margin-left: calc(-45vw + 45%); width:100vw; height: 80vh">
+    <!--  ACTIVATE and DEACTIVATE Buttons -->
+    <!-- clear all interviews button -->
+	<!--<button style=" margin-bottom:0.2vw margin-top:0.8vw; width:20vw;" class="btn btn-primary" ng-click="clearData()">Delete All Interviews</button>-->
+
+
+	<!-- WHITE MAIN SECTION -->
+    <div class="w3-container w3-card-2 w3-white table-responsive" style="width: 95vw; height: 65vh; margin-top: 5vw;">
+        <div class="row">
+          <h1 style="margin:10px; "></h1>
+        </div>
+
+        <div class="row" style="padding:10px;">
+
+          <div class="col-md-12">
+            <div class="input-group" id="searchBar" style="margin-top: 2em">
+              <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
+              <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <section>
+              <div class="list-group">
+                <div class="list-group-item">
+                  <button class="btn btn-primary " ng-click="vm.viewForm('NDA.pdf')"><i class="glyphicon glyphicon-edit"></i>View Current NDA</button>
+                  <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadNDA(file);">
+                    <label class="btn btn-success">
+                      Browse
+                      <input type="file" file-model="file.upload" name="myFile">
+                    </label>
+                    <br>
+                    <br>
+                      <button type="submit">Submit New NDA</button>
+                  </form>
+                </div>
+                <div class="list-group-item">
+                  <button class="btn btn-primary" ng-click="vm.viewForm('Waiver.pdf')"><i class="glyphicon glyphicon-edit"></i>View Current Waiver</button>
+                  <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadWaiver(file);">
+                    <label class="btn btn-success">
+                      Browse
+                      <input #i2 type="file" file-model="file.upload" name="myFile">
+                    </label>
+                    <br>
+                    <br>
+                      <button type="submit" onclick="i2.value=''">Submit New Waiver</button>
+                  </form>
+                </div>
+              </div>
+              <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+            </section>
+          </div>
+        </div>
+    <!-- Deactivated Students Section -->
+  </div>
+  <!-- End of Active Applicants Part -->
+  </div>
+  </body>
+</html>

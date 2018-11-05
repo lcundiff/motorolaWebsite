@@ -16,6 +16,14 @@
         data: {
           roles: ['admin']
         }
+      })
+      .state('admin-forms', {
+        abstract: true,
+        url: '/admin-forms',
+        template: '<ui-view/>',
+        data: {
+          roles: ['admin']
+        }
       });
   }
 }());

@@ -278,70 +278,6 @@
     };
 
 
-    $scope.SubmitResume = async function() {
-      console.log("student id: ",Authentication.user._id);
-      console.log("student prior: ");
-      console.log($scope.student);
-      var fd = new FormData();
-
-      var p2 = Promise.resolve(fd.append('myfile', $scope.file.upload1));
-
-      Promise.all([p2]).then(function([p2]){
-        googleDriveService.uploadDocs(fd).then(async function(data){
-          //update student
-          if($scope.student.ResumeId !== ""){
-            /*await (  googleDriveService.deleteDocs($scope.student.ResumeId).then(function(response){
-                console.log("Previous Resume existed. Now deleted.");
-                console.log(response);
-              }));
-          }
-
-          await($scope.student.ResumeId = data.data.id);
-
-          await(StudentsService.update(student, student.user).then(function(response){
-            console.log("yo I'm here 123");
-            console.log("response: ", response);
-
-            alert('File successfully uploaded.');
-
-            $window.location.reload();
-          }));
-
-        });
-      });
-
-
-    };*/
-
-    /*$scope.Submit = function (fileType) {
-
-      //console.log("uploadsubmit called");
-
-      var fd = new FormData();
-      // if
-      // $scope.file.upload.fileType = fileType;
-      if (fileType === "NDA"){
-        fd.append('myfile', $scope.file.upload1);
-      } else if (fileType === "waiver"){
-        fd.append('myfile', $scope.file.upload2);
-      } else if (fileType === "Letter"){
-        fd.append('myfile', $scope.file.upload3);
-      }
-
-      alert("Form is uploading... (Click button to continue)");
-
-       googleDriveService.uploadDocs(fd).then(function (data) {
-
-           $scope.uploading = false;
-           $scope.alert = 'alert alert-success';
-           $scope.message = data.data.message;
-           $scope.file = {};
-
-           updateStudentAfterForms(fileType, data.data.id);
-      });
-
-    };*/
-
     $scope.photoChanged1 = function (files) {
       console.log("files: ",files);
       //if (files.length > 0 && files[0].name.match(/\.(png|jpg|jpeg|pdf|gif)$/)) {
@@ -405,9 +341,9 @@
                  // console.log(link);
                  link.click();
            });
-        });*/
+        });
       });
-    };
+    };*/
 
     $scope.download_Waiver = function(){
       googleDriveService.getWaiver().then(function(resp){

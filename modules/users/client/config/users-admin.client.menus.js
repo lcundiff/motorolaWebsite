@@ -22,10 +22,14 @@
       title: 'Applicants',
       state: 'admin.students'
     });
-    menuService.addMenuItem('topbar', {
-      title: 'Forms',
+    menuService.addSubMenuItem('topbar', 'admin-forms', {
+      title: 'Student Forms',
       state: 'admin.approveForms'
-    })
+    });
+    menuService.addSubMenuItem('topbar', 'admin-forms', {
+      title: 'Upload New Forms',
+      state: 'admin.updateForms'
+    });
     menuService.addMenuItem('topbar', {
       title: 'Volunteers',
       state: 'admin.volunteers'

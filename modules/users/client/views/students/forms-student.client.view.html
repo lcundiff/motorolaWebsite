@@ -31,7 +31,7 @@
                     <h4>Upload Section</h4>
                     <div id="fileSelector">
                       NDA
-                      <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadFile(file);">
+                      <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadNDA(file);">
                         <label class="btn btn-success">
                           Browse
                           <input type="file" file-model="file.upload" name="myFile" ng-disabled="uploading">
@@ -41,7 +41,7 @@
                           <button type="submit">Submit</button>
                       </form>
                       Waiver
-                      <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadFile(file);">
+                      <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadWaiver(file);">
                         <label class="btn btn-success">
                           Browse
                           <input type="file" file-model="file.upload" name="myFile" ng-disabled="uploading">
@@ -51,11 +51,15 @@
                           <button type="submit">Submit</button>
                       </form>
                       Letter of Recommendation
-                      <div ng-repeat="file in file">
-                        <span class='label label-info'>{{file.webkitRelativePath || file.name}}
-                        </span>
-                        <input type="button" value="Open" ng-click="vm.showImage()"/>
-                      </div>
+                      <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadLetterOfRecommendation(file);">
+                        <label class="btn btn-success">
+                          Browse
+                          <input type="file" file-model="file.upload" name="myFile" ng-disabled="uploading">
+                        </label>
+                        <br>
+                        <br>
+                          <button type="submit">Submit</button>
+                      </form>
                     </div>
                     <div>
                       <div ng-show="uploading">

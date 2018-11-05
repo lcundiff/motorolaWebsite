@@ -15,8 +15,10 @@
     vm.authentication = Authentication;
     vm.createStudent = createStudent;
     vm.updateStudent = updateStudent;
-    vm.uploadFile = uploadFile;
     vm.showImage = showImage;
+    vm.uploadNDA = uploadNDA;
+    vm.uploadWaiver = uploadWaiver;
+    vm.uploadLetterOfRecommendation = uploadLetterOfRecommendation;
 
     StudentService.getStudentByUsername(vm.authentication.user.username).then(function(data){
       $scope.vm.file = {};
@@ -32,8 +34,9 @@
       }
     });
 
-    function uploadFile(){
-      console.log("$scope file: ",$scope.file);
+    function uploadNDA(){
+      console.log($scope.file.upload);
+      vm.credentials.NDAId = $scope.file.upload.name;
 
       $scope.uploading = true;
       FileService.upload($scope.file).then(function(data){
@@ -41,6 +44,67 @@
         if(data.data.success){
           $scope.uploading = false;
         }
+      });
+
+      StudentService.updateStudent(vm.credentials.user, vm.credentials)
+        .then(onFormSubmissionSuccess)
+        .catch(onFormSubmissionError);
+    }
+
+    function uploadWaiver(){
+      console.log($scope.file.upload);
+      vm.credentials.WaiverId = $scope.file.upload.name;
+
+      $scope.uploading = true;
+      FileService.upload($scope.file).then(function(data){
+        console.log(data);
+        if(data.data.success){
+          $scope.uploading = false;
+        }
+      });
+
+      StudentService.updateStudent(vm.credentials.user, vm.credentials)
+        .then(onFormSubmissionSuccess)
+        .catch(onFormSubmissionError);
+    }
+
+    function uploadLetterOfRecommendation(){
+      console.log($scope.file.upload);
+      vm.credentials.letterOfRecommendationId = $scope.file.upload.name;
+
+      $scope.uploading = true;
+      FileService.upload($scope.file).then(function(data){
+        console.log(data);
+        if(data.data.success){
+          $scope.uploading = false;
+        }
+      });
+
+      StudentService.updateStudent(vm.credentials.user, vm.credentials)
+        .then(onFormSubmissionSuccess)
+        .catch(onFormSubmissionError);
+    }
+
+    function viewForm(fileId) {
+      console.log("fileId: ",fileId);
+
+      FileService.download(fileId).then(function(data){
+
+        var file = new Blob([data.data], {
+            type: 'application/pdf'
+            // type:'image/png'
+          });
+            //var fileURL = URL.createObjectURL(file);
+
+            //window.open(fileURL);
+            $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+            // $scope.fileUrl = window.URL.createObjectURL(file);
+            // console.log($scope.fileUrl)
+            var link = document.createElement('a');
+                link.href = $scope.fileUrl;
+                link.download = fileId;
+                // console.log(link);
+                link.click();
       });
     }
 

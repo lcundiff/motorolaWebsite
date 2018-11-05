@@ -25,6 +25,9 @@
     vm.sendFormFixEmail = sendFormFixEmail;
     vm.approveForms = approveForms;
 
+    vm.uploadNDA = uploadNDA;
+    vm.uploadWaiver = uploadWaiver;
+
     function buildPager() {
       vm.pagedItems = [];
       vm.itemsPerPage = 15;
@@ -83,6 +86,36 @@
       vm.modal_student = '';
       $scope.vm.modal_student = '';
     };
+
+    function uploadNDA(){
+      console.log($scope.file.upload);
+
+      $scope.uploading = true;
+      FileService.uploadNDA($scope.file)
+      .then(onFormUploadSuccess)
+      .catch(onFormUploadError);
+    }
+
+    function uploadWaiver(){
+      console.log($scope.file.upload);
+      console.log("file: ",$scope.file);
+
+      $scope.uploading = true;
+      FileService.uploadWaiver($scope.file)
+      .then(onFormUploadSuccess)
+      .catch(onFormUploadError);
+    }
+
+    function onFormUploadSuccess(response) {
+      // If successful we assign the response to the global user model
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Form upload successful.' });
+      // And redirect to the previous or home page
+      //$state.go($state.previous.state.name || 'home', $state.previous.params);
+    }
+
+    function onFormUploadError(response) {
+      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Form upload error.', delay: 6000 });
+    }
 
 
     function viewForm(fileId) {

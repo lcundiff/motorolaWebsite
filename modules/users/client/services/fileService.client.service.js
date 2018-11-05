@@ -20,6 +20,28 @@
         headers: { 'Content-Type': undefined }
         });
       },
+      uploadNDA: function(file) {
+        var fd = new FormData();
+        fd.append("myFile", file.upload);
+
+        console.log('Here upload!!');
+
+        return $http.post('/api/files/uploadNDA', fd, {
+        transformRequest: angular.identity,
+        headers: { 'Content-Type': undefined }
+        });
+      },
+      uploadWaiver: function(file) {
+        var fd = new FormData();
+        fd.append("myFile", file.upload);
+
+        console.log('Here upload!!');
+
+        return $http.post('/api/files/uploadWaiver', fd, {
+        transformRequest: angular.identity,
+        headers: { 'Content-Type': undefined }
+        });
+      },
       download: function(filename) {
 
         return $http.get('/api/files/get/' + filename, { responseType: 'arraybuffer' });
