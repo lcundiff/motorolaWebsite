@@ -86,8 +86,9 @@
 
 
     function viewForm(fileId) {
+      console.log("fileId: ",fileId);
 
-      FileService.download('SLRESUME.pdf').then(function(data){
+      FileService.download(fileId).then(function(data){
 
         var file = new Blob([data.data], {
             type: 'application/pdf'

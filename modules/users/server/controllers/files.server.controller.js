@@ -56,9 +56,5 @@ exports.uploadFile = function(req, res){
 }
 
 exports.downloadFile = function(req, res){
-  console.log("upload folder: ", uploadFolder);
-  console.log("req: ",req);
-  console.log("req.stack: ",req.stack);
-	var filename = req.params.filename;
-	res.download(uploadFolder + 'SLRESUME.pdf');
+	res.download(uploadFolder + req.params.filename);
 }
