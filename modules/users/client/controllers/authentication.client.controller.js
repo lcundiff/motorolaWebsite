@@ -88,6 +88,7 @@
       vm.authentication.user = response;
       Notification.info({ message: 'Welcome ' + response.firstName });
       // And redirect to the previous or home page
+      //$state.transitionTo($state.current, {m: response}, { reload: true, inherit: false, notify: true});
       $state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 

@@ -31,7 +31,12 @@
         url: '/',
         templateUrl: '/modules/core/client/views/home.client.view.html',
         controller: 'HomeController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        params: {
+          message: function ($stateParams) {
+            return $stateParams;
+          }
+        }
       })
       .state('not-found', {
         url: '/not-found',
