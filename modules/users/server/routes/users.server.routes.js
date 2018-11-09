@@ -13,7 +13,7 @@ module.exports = function (app) {
   app.route('/api/users/list-userreqs').get(users.listReq);
   app.route('/api/users/get-req/:reqId').get(users.readReq);
   app.route('/api/users/update-req/:reqId').put(users.updateReq);
-  app.route('/api/users/delete-userreq/:id').delete(users.deleteReq);
+  app.route('/api/users/delete-userreq').delete(users.deleteReq);
 
   // Finish by binding the user middleware
   app.param('userId', users.userByID);

@@ -1,27 +1,33 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <section>
-  <div class="page-header">
-    <div class="row">
-      <div class="col-md-4">
-        <h1>User Requests</h1>
-      </div>
-      <div class="col-md-4" style="margin-top: 2em">
-        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-      </div>
-    </div>
+  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+    <h1 style="font-weight:bold;">User Requests</h1>
   </div>
-  <div class="list-group">
+  <br>
+  <div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <div class="container">
+        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+    </div>
+    <br>
+    <div class="container">
+      <div class="list-group">
     <a ng-repeat="userreq in vm.pagedItems" class="list-group-item">
       <h4 class="list-group-item-heading" ng-bind="userreq.firstName + ' ' + userreq.lastName"></h4>
       <!--<p class="list-group-item-text pull-right small" ng-bind="userreq.lastName"></p>-->
       <p class="list-group-item-text pull-right small" ng-bind="userreq.email"></p>
       <br>
       <p class="list-group-item-text">Send Email for Sign-up as:</p>
-      <button type= "submit" ng-click="userreq.roles = ['student']; vm.sendSignupEmail(userreq)">Student</button>
-      <button type= "submit" ng-click="userreq.roles = ['volunteer']; vm.sendSignupEmail(userreq)">Volunteer</button>
-      <button type= "submit" ng-click="userreq.roles = ['admin']; vm.sendSignupEmail(userreq)">Admin</button>
+      <button class="sign-button sign-in-button" type= "submit" ng-click="userreq.roles = ['student']; vm.sendSignupEmail(userreq)">Student</button>
+      <button class="sign-button sign-in-button" type= "submit" ng-click="userreq.roles = ['volunteer']; vm.sendSignupEmail(userreq)">Volunteer</button>
+      <button class="sign-button sign-in-button" type= "submit" ng-click="userreq.roles = ['admin']; vm.sendSignupEmail(userreq)">Admin</button>
+      <button class="sign-button sign-in-button-danger pull-right" type= "submit" ng-click="vm.remove(userreq)">Remove</button>
     </a>
 
   </div>
+</div>
+</div>
+</div>
   <!--<div class="list-group">
     <!--<a ng-repeat="userReq in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
     <a ng-repeat="userReq in vm.pagedItems" class="list-group-item">

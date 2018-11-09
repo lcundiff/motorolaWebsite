@@ -48,6 +48,9 @@ exports.updateReq = function (req, res) {
  * Delete a userreq
  */
 exports.deleteReq = function (req, res) {
+  console.log("deleteReq: ",req.body);
+  console.log("dR: ", req);
+/*  UserReq.deleteOne({username: req.body.username})
   var userreq = req.model;
 
   userreq.remove(function (err) {
@@ -58,7 +61,7 @@ exports.deleteReq = function (req, res) {
     }
 
     res.json(userreq);
-  });
+  });*/
 };
 
 /**

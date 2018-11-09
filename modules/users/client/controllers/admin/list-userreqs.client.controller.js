@@ -5,14 +5,15 @@
     .module('users.admin')
     .controller('ReqListController', ReqListController);
 
-  ReqListController.$inject = ['$scope', '$filter', 'AdminService', 'UsersService', 'Notification'];
+  ReqListController.$inject = ['$scope', '$filter', '$window', 'AdminService', 'UsersService', 'Notification'];
 
-  function ReqListController($scope, $filter, AdminService, UsersService, Notification) {
+  function ReqListController($scope, $filter, $window, AdminService, UsersService, Notification) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
     vm.sendSignupEmail = sendSignupEmail;
+    vm.remove = remove;
 
     AdminService.retrieveUserReqs().then(async function (data) {
       console.log("data: ",data);
@@ -65,6 +66,27 @@
       }, function(err){
         console.log("err: ",err);
       });
+    }
+
+    function remove(userreq) {
+      console.log("userreq: ",userreq);
+
+      if ($window.confirm('Are you sure you want to delete this user request?')) {
+        if (userreq) {
+
+          AdminService.deleteUserReq(userreq).then(function(response){
+            console.log("response");
+          }, function(err){
+            Notification.error({ message: err.data.message, title: '<i class="glyphicon glyphicon-remove"></i> User request deletion error.' });
+          });
+          vm.userreqs.splice(vm.userreqs.indexOf(userreq), 1);
+          console.log("vm.userreqs: ",vm.userreqs);
+          vm.pagedItems.splice(vm.pagedItems.indexOf(userreq), 1);
+          Notification.success('User deleted successfully!');
+        } else {
+          Notification.error({ message: 'Please specify the user request to remove.', title: '<i class="glyphicon glyphicon-remove"></i> User request deletion error.' })
+        }
+      }
     }
   }
 }());

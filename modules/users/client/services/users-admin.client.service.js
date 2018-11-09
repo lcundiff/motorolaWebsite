@@ -34,6 +34,10 @@
         method: 'PUT',
         url: '/api/users/update-req/:reqId'
       },
+      delete_userreq: {
+        method: 'DELETE',
+        url: '/api/users/delete-userreq'
+      },
       man_accept_student: {
         method: 'PUT',
         url: '/api/automate/manAccept/:sessionNum'
@@ -46,6 +50,10 @@
         return this.update_userreq({
           reqId: reqId
         }, userReq).$promise;
+      },
+      deleteUserReq: function(userReq) {
+        console.log("userReq: ",userReq);
+        return this.delete_userreq(userReq).$promise;
       },
       retrieveUserReqs: function () {
         return this.retrieve_userreqs().$promise;

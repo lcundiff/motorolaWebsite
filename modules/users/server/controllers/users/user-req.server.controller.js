@@ -51,16 +51,11 @@ exports.updateReq = function (req, res) {
  * Delete a userreq
  */
 exports.deleteReq = function (req, res) {
-  var userreq = req.model;
-
-  userreq.remove(function (err) {
-    if (err) {
-      return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    }
-
-    res.json(userreq);
+  console.log("deleteReq: ",req.body);
+  console.log("dR: ",req.query);
+  UserReq.deleteOne({_id: req.query._id}).exec().then(function(response){
+    console.log("response: ",response);
+    res.json(response);
   });
 };
 

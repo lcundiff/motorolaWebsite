@@ -21,6 +21,7 @@
 
     vm.remove = remove;
     vm.update = update;
+    vm.cancel = cancel;
 
     AdminService.retrieveUsers().then(async function (data) {
 
@@ -73,15 +74,11 @@
     function remove(user) {
       if ($window.confirm('Are you sure you want to delete this user?')) {
         if (user) {
-          user.$remove();
 
           vm.users.splice(vm.users.indexOf(user), 1);
           Notification.success('User deleted successfully!');
         } else {
-          vm.user.$remove(function () {
-            $state.go('admin.users');
-            Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> User deleted successfully!' });
-          });
+          Notification.error({ message: 'Please specify the user to remove.', title: '<i class="glyphicon glyphicon-remove"></i> User deletion error.' })
         }
       }
     }
@@ -118,6 +115,19 @@
       }, function (errorResponse) {
         Notification.error({ message: errorResponse.data.message, title: '<i class="glyphicon glyphicon-remove"></i> User update error!' });
       });*/
+    }
+
+    function cancel(user){
+
+
+      AdminService.retrieveUser(user._id).then(function(response){
+        vm.user.edit_user = false;
+        vm.user.username = response.username;
+        vm.user.firstName = response.firstName;
+        vm.user.lastName = response.lastName;
+        vm.user.email = response.email;
+        vm.user.roles= response.roles;
+      });
     }
   }
 }());
