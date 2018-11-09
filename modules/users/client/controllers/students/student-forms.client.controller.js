@@ -16,9 +16,12 @@
     vm.createStudent = createStudent;
     vm.updateStudent = updateStudent;
     vm.showImage = showImage;
+
     vm.uploadNDA = uploadNDA;
     vm.uploadWaiver = uploadWaiver;
     vm.uploadLetterOfRecommendation = uploadLetterOfRecommendation;
+    vm.uploadResume = uploadResume;
+    
     vm.viewForm = viewForm;
 
     StudentService.getStudentByUsername(vm.authentication.user.username).then(function(data){
@@ -37,10 +40,10 @@
 
     function uploadNDA(){
       console.log($scope.file.upload);
-      vm.credentials.NDAId = $scope.file.upload.name;
+      vm.credentials.NDAId = "NDA" + "_" + vm.credentials.username;
 
       $scope.uploading = true;
-      FileService.upload($scope.file).then(function(data){
+      FileService.upload($scope.file, vm.credentials.NDAId).then(function(data){
         console.log(data);
         if(data.data.success){
           $scope.uploading = false;
@@ -54,10 +57,10 @@
 
     function uploadWaiver(){
       console.log($scope.file.upload);
-      vm.credentials.WaiverId = $scope.file.upload.name;
+      vm.credentials.WaiverId = "waiver" + "_" + vm.credentials.username;
 
       $scope.uploading = true;
-      FileService.upload($scope.file).then(function(data){
+      FileService.upload($scope.file, vm.credentials.WaiverId).then(function(data){
         console.log(data);
         if(data.data.success){
           $scope.uploading = false;
@@ -71,10 +74,27 @@
 
     function uploadLetterOfRecommendation(){
       console.log($scope.file.upload);
-      vm.credentials.letterOfRecommendationId = $scope.file.upload.name;
+      vm.credentials.letterOfRecommendationId = "letterOfRecommendation" + "_" + vm.credentials.username;
 
       $scope.uploading = true;
-      FileService.upload($scope.file).then(function(data){
+      FileService.upload($scope.file, vm.credentials.letterOfRecommendationId).then(function(data){
+        console.log(data);
+        if(data.data.success){
+          $scope.uploading = false;
+        }
+      });
+
+      StudentService.updateStudent(vm.credentials.user, vm.credentials)
+        .then(onFormSubmissionSuccess)
+        .catch(onFormSubmissionError);
+    }
+
+    function uploadResume(){
+      console.log($scope.file.upload);
+      vm.credentials.ResumeId = "Resume" + "_" + vm.credentials.username;
+
+      $scope.uploading = true;
+      FileService.upload($scope.file, vm.credentials.ResumeId).then(function(data){
         console.log(data);
         if(data.data.success){
           $scope.uploading = false;

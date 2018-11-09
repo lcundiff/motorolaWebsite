@@ -21,7 +21,7 @@ const uploadFolder = './uploads/';
           err.code = 'filetype';
           return cb(err);
         } else {
-          cb(null, file.originalname);
+          cb(null, req.params.filename);
         }
       }
   });
@@ -79,10 +79,10 @@ const uploadFolder = './uploads/';
 
 
 exports.uploadFile = function(req, res){
-  console.log("req: ",req);
   console.log("req.body: ",req.body);
   console.log("req.file: ",req.file);
   console.log("req.files: ",req.files);
+  console.log("req.params: ",req.params.filename);
   upload(req, res, function(err){
     if (err) {
       if(err.code === 'LIMIT_FILE_SIZE') res.json({ success: false, message: 'File size is too large. Max limit is 10MB.'});

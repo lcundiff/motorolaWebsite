@@ -9,13 +9,13 @@
 
   function FileService($http) {
     var methods = {
-      upload: function(file) {
+      upload: function(file, filename) {
         var fd = new FormData();
         fd.append("myFile", file.upload);
 
         console.log('Here upload!!');
 
-        return $http.post('/api/files/upload', fd, {
+        return $http.post('/api/files/upload/' + filename, fd, {
         transformRequest: angular.identity,
         headers: { 'Content-Type': undefined }
         });
@@ -38,6 +38,16 @@
         console.log('Here upload!!');
 
         return $http.post('/api/files/uploadWaiver', fd, {
+        transformRequest: angular.identity,
+        headers: { 'Content-Type': undefined }
+        });
+      },
+      uploadFile: function(file, filename){
+        var fd = new FormData();
+        fd.append("myFile", file.upload);
+
+        console.log('Here upload!!');
+        return $http.post('/api/files/uploadFile' + filename, fd, {
         transformRequest: angular.identity,
         headers: { 'Content-Type': undefined }
         });
