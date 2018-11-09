@@ -2,79 +2,89 @@
 <title>Application</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-  html,
-  body,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Roboto", sans-serif;
-  }
+#myCarousel {
+  margin-left: 50px;
+  margin-right: 50px;
+}
 
-  .w3-sidebar {
-    z-index: 3;
-    width: 250px;
-    top: 43px;
-    bottom: 0;
-    height: inherit;
-  }
+.item img {
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  .bot-pad {
-    margin-bottom: 25px;
-  }
+.selected img {
+	opacity:0.5;
+}
 
-  .align-right {
-    float: right;
-  }
+.carousel-caption {
+    position: relative;
+    left: auto;
+    right: auto;
+}
 
-  .inline {
-    display: inline;
-  }
+.carousel-control.left,
+.carousel-control.right {
+  background: none;
+  border: none;
+}
 
-  .w3-text-black {
-    font-family: 'Roboto', sans-serif;
-  }
+.carousel-control.left {
+  margin-left: -25px;
+}
 
-  .w3-text-grey {
-    font-family: 'Roboto', sans-serif;
-  }
+.carousel-control.right {
+  margin-right: -25px;
+}
 
-  .roboto {
-    font-family: 'Roboto', sans-serif;
-  }
+.carousel-control {
+  width: 0%;
+}
+
+
+.glyphicon-chevron-left, .glyphicon-chevron-right {
+  color: grey;
+  font-size: 40px;
+}
 </style>
 
-<body class="w3-light-grey">
+<body>
   <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
     <center>
       <h2 style="font-weight:bold;"> <strong>Your Application:</strong> </h2>
     </center>
   </div>
-  <!-- Overlay effect when opening sidebar on small screens -->
-  <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-
   <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
-  <div class="w3-main " style="">
+
+
+
     <form name="vm.studentForm" ng-submit="vm.createStudent(vm.studentForm.$valid)" class="application" novalidate autocomplete="off">
     <!-- The Grid -->
 
-    <!-- herehrherherhe -->
-    <div class="w3-row-padding w3-padding-64">
+    <!--BEGIN CARD-->
+<!-- START CAROUSEL -->
+<!--<div id="myCarousel" class="carousel slide" data-ride="carousel">-->
+<div id="myCarousel" class="carousel slide">
+  <div class="jumbotron jumbotron-fluid text-center" style="background-color: #e2e6e9; height: 100%;">
+<!-- Indicators -->
+<ol class="carousel-indicators">
+<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+<li data-target="#myCarousel" data-slide-to="1"></li>
+<li data-target="#myCarousel" data-slide-to="2"></li>
+<li data-target="#myCarousel" data-slide-to="3"></li>
+<li data-target="#myCarousel" data-slide-to="4"></li>
+<li data-target="#myCarousel" data-slide-to="5"></li>
+<li data-target="#myCarousel" data-slide-to="6"></li>
+<li data-target="#myCarousel" data-slide-to="7"></li>
+<li data-target="#myCarousel" data-slide-to="8"></li>
 
-    <div class="w3-white w3-card-4" style="padding-bottom:125px; padding-top: 20px">
+</ol>
 
-    <div class="row padder" style="padding-bottom:2em;" >
-
-
-			<div class="column">
-        <h6 style="color:black; ">Browse for your form and click submit!</h6>
+<!-- START SLIDE -->
+  <div class="container">
+<div class="carousel-inner">
+      <div class="item active">
+			<div class="col-xs-6">
         <div class="form-group" show-errors>
           <label for="firstName">First Name</label>
           <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.credentials.application.firstName" placeholder="First Name" required autofocus>
@@ -97,10 +107,17 @@
             <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
           </div>
         </div>
+        <div class="form-group" show-errors>
+          <label for="phone">Phone</label>
+          <input type="phone" id="phone" name="phone" class="form-control" ng-model="vm.credentials.application.phone" placeholder="Phone" required>
+          <div ng-messages="vm.studentForm.phone.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Phone is required.</p>
+          </div>
+    		</div>
         </div>
 
 
-        <div class="column">
+        <div class="col-xs-6">
           <div class="form-group" show-errors>
             <label for="homeAddress1">Home Address Line 1</label>
             <input type="text" id="homeAddress1" name="homeAddress1" class="form-control" ng-model="vm.credentials.application.address.line_1" placeholder="Address Line 1" required>
@@ -131,18 +148,14 @@
           </div>
           </div>
 
+    <!-- END CARD -->
+  </div>
 
-      </div>
-	</div> <br><hr>
-	<div class="row padder" style="margin-bottom:-2em;">
-		<div class="column" style = "width:28%; margin-left:15px">
-      <label for="phone">Phone</label>
-      <input type="phone" id="phone" name="phone" class="form-control" ng-model="vm.credentials.application.phone" placeholder="Phone" required>
-      <div ng-messages="vm.studentForm.phone.$error" role="alert">
-        <p class="help-block error-text" ng-message="required">Phone is required.</p>
-      </div>
-		</div>
-		<div class="column" >
+
+    <!-- BEGIN CARD -->
+  <div class="item">
+
+		<div class="col-xs-6 col-xs-offset-3" >
       <label for="parentName">Parent Name</label>
       <input type="text" id="parentName" name="parentName" class="form-control" ng-model="vm.credentials.application.parent.name" placeholder="Parent Name" required>
       <div ng-messages="vm.studentForm.parentName.$error" role="alert">
@@ -161,15 +174,16 @@
         <p class="help-block error-text" ng-message="required">Parent phone is required.</p>
       </div>
 		</div>
-	</div>
-			<br><hr><br>
 
-	<div class="row padder" style="padding-bottom:2em;" >
+<!-- END CARD -->
 
-	<div class="column" style = "width:28%; margin-left:15px">
+</div>
+
+<div class="item">
+	<div class="col-xs-6">
 				<h6 class="w3-text-black"><i class="fa fa-university fa-fw w3-margin-right w3-xlarge w3-text-blue"></"></i><b>School<span style="color:red;">*</span></b></h6>
 
-			  <select name = "school" ng-model="vm.credentials.application.school" required>
+			  <select name = "school" style="width: 80%" ng-model="vm.credentials.application.school" required>
 			  <option value="">---Please select---</option>
 		      <option value = "Anderson Boyd HS"> Anderson Boyd High School</option>
 			  <option value = "American Heritage HS"> American Heritage High School</option>
@@ -232,11 +246,10 @@
 			  <option value = "William T. Dwyer HS"> William T. Dwyer High School</option>
               <option value = "Not listed"> Not listed </option>
 			  </select>
-		      <h7 style="color:gray; margin-left:35px; "> * If your school is not listed, please</h7><br>
-			  <h7 style="color:gray; margin-left:40px;"> contact 954-907-5808 </h7>
-		</div>
+        <br>
+		      <h7> * If your school is not listed, please</h7><br>
+			  <h7> contact 954-907-5808 </h7>
 
-		<div class="column" >
 				<h6 class="w3-text-black"><i class="fa fa-asterisk fa-fw w3-margin-right w3-xlarge w3-text-blue"></i><b>Mentorship Area of Interest<span style="color:red;">*</span></b></h6>
 				<br>
 				<select style="width:15vw; margin-left:40px;" name="student_interests_1" class="form-control" ng-model="vm.credentials.application.interests[0]" required>
@@ -279,10 +292,10 @@
             </div>
 
 	<!-- SESSION PREFERENCE -->
-		<div class="column" >
+		<div class="col-xs-6" >
 				<h6 class="w3-text-black"><i class="fa fa-clock-o fa-fw w3-margin-right w3-xlarge w3-text-blue" ></i><b>Session Date Preferences<span style="color:red;">*</span></b></h6>
 				<br>
-				<select style="width:15vw; margin-left:40px;" ng-model="vm.credentials.application.preferredSession1" name="app_session1" ng-required = true>
+				<select style="width:80%;" ng-model="vm.credentials.application.preferredSession1" name="app_session1" ng-required = true>
 				  <option value = "1"> Session1 (6/25/18 - 6/29/18)</option>
 				  <option value = "2"> Session2 (7/23/18 - 7/27/18)</option>
 				  <option value = "3"> Session3 (8/6/18 - 8/10/18)</option>
@@ -290,7 +303,7 @@
 				</select>
         <center> <h7 style = "color:gray;">1st Choice</h7></center>
 				<br>
-				<select style="width:15vw; margin-left:40px;" ng-model="vm.credentials.application.preferredSession2" name="app_session2" ng-required = true>
+				<select style="width:80%;" ng-model="vm.credentials.application.preferredSession2" name="app_session2" ng-required = true>
 				  <option value = "1"> Session1 (6/25/18 - 6/29/18)</option>
 				  <option value = "2"> Session2 (7/23/18 - 7/27/18)</option>
 				  <option value = "3"> Session3 (8/6/18 - 8/10/18)</option>
@@ -298,7 +311,7 @@
 				</select>
         <center> <h7 style = "color:gray;">2nd Choice</h7></center>
 				<br>
-				<select style="width:15vw; margin-left:40px;" ng-model="vm.credentials.application.preferredSession3" name="app_session3" ng-required = true>
+				<select style="width:80%;" ng-model="vm.credentials.application.preferredSession3" name="app_session3" ng-required = true>
 				  <option value = "1"> Session1 (6/25/18 - 6/29/18)</option>
 				  <option value = "2"> Session2 (7/23/18 - 7/27/18)</option>
 				  <option value = "3"> Session3 (8/6/18 - 8/10/18)</option>
@@ -306,16 +319,14 @@
 				</select>
         <center> <h7 style = "color:gray;">3rd Choice</h7></center>
 		</div>
-          </div>
-		  </div>
-        </div>
-        <br>
+
+  </div>
 
 
 
       <!-- 2nd Section -->
 
-        <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+  <div class="item">
           <h2 class="w3-text-grey text-center w3-padding-16"><i class="fa fa-university fa-fw w3-margin-right xxw3-large w3-text-blue"></i>Relevant Classes</h2>
           <p><center><font size="2"color="grey">Enter 1-2 relevant classes that relate to your Mentorship Area of Interests.</font></center></p>
           <div class="w3-container" ng-repeat="class in vm.credentials.application.classes">
@@ -356,9 +367,11 @@
             <button type="button" style=" "class="btn btn-success btn-lg" ng-click="vm.addClasses()">Save</button>
 
           </div>
-        </div>
 
-        <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+      <!-- END CARD -->
+      </div>
+
+  <div class="item">
           <h2 class="w3-text-grey text-center w3-padding-16"><i class="fa fa-suitcase  fa-fw w3-margin-right w3-xxlarge w3-text-blue"></i>Relevant Clubs</h2>
         <p><center><font size="2"color="grey">Enter 1-2 relevant clubs that relate to your Mentorship Area of Interests.</font></center></p>
           <div class="w3-container" ng-repeat="club in vm.credentials.application.clubs">
@@ -400,7 +413,7 @@
           </div>
         </div>
 
-        <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+        <div class="item">
           <h2 class="w3-text-grey text-center w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right text-center w3-xxlarge w3-text-blue"></i>Projects</h2>
           <p><center><font size="2"color="grey">Enter 1-2 relevant projects that relate to your Mentorship Area of Interests.</font></center></p>
           <div class="w3-container" ng-repeat="project in vm.credentials.application.projects">
@@ -430,7 +443,7 @@
             <hr>
           </div>
 
-          <div class="w3-container" style="padding-bottom:40px;">
+
             <h6 class="w3-text-black"><b>Project Name:</b></h6>
             <form><input type="text" style="width:35vw" ng-model='vm.projectTitle'><br></form>
             <h6 class="w3-text-black"><b>Link:</b></h6>
@@ -439,11 +452,9 @@
             <form><textarea rows="6" cols="70" type="text" ng-model='vm.projectDescription' style="width:35vw"></textarea></form>
             <hr>
             <button type="button" class="btn btn-success btn-lg" ng-click="vm.addProjects()">Save</button>
-
           </div>
-        </div>
 
-        <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+    <div class="item">
           <h2 class="w3-text-grey text-center text-center w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-blue"></i>Volunteer Experience</h2>
           <p><center><font size="2"color="grey">Please enter any volunteer experiences that you have participated in.</font></center></p>
           <div class="w3-container" ng-repeat="volWork in vm.credentials.application.volunteerExperiences">
@@ -485,7 +496,6 @@
               <hr>
           </div>
 
-          <div class="w3-container" style="padding-bottom:40px;">
             <h6 class="w3-text-black"><b>Organization:</b></h6>
             <form><input type="text" style="width:35vw" ng-model='vm.VolunteerOrganizationName'><br></form>
             <h6 class="w3-text-black"><b>Experience Title:</b></h6>
@@ -503,9 +513,8 @@
 
             </hr>
           </div>
-        </div>
 
-        <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+    <div class="item">
           <h2 class="w3-text-grey text-center w3-padding-16"><i class="fa fa-suitcase fa-fw  w3-xxlarge w3-text-blue"></i>Work Experience</h2>
         <p><center><font size="2"color="grey">Please enter any work experiences that you have had.</font></center></p>
           <div class="w3-container" ng-repeat="work in vm.credentials.application.professionalExperiences">
@@ -561,54 +570,61 @@
             <button type="button" class="btn btn-success btn-lg" ng-click="vm.addProfessionalExperiences()">Save</button>
           </div>
         </div>
-<!-- this is sunnys code to show files submitted
-        <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
-          <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw text-center w3-margin-right w3-xxlarge w3-text-blue"></i>Files Submitted</h2>
-          <div class="w3-container" ng-repeat="file in student_Forms">
-            <h6 class="w3-text-black"><b>File Name:</b></h6>
-            <p class="w3-text-black">{{file.name}}</p>
-            <h6 class="w3-text-black"><b>File ID:</b></h6>
-            <p class="w3-text-black">{{file.id}}</p>
-            <hr>
-          </div>
-        </div>
--->
 
-	<!--   {{myForm.app_phone.$valid}}
-      {{myForm.parent_name.$valid}}
-      {{myForm.parent_email.$valid}}
-      {{myForm.app_line_1.$valid}}
-      {{myForm.app_city.$valid}}
-      {{myForm.app_state.$valid}}
-      {{myForm.app_school.$valid}}
-      {{myForm.app_zipcode.$valid}} -->
-      <div class="w3-container w3-card-2 w3-white w3-margin-bottom" style="padding:20px;">
-        <div class="w3-container w3-card-2 w3-white w3-margin-bottom" style="padding:20px;">
+
+        <div class="item">
+          <div class="col-xs-6 col-xs-offset-3">
           Resume Upload
           <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadResume(file);">
-                     <label class="btn btn-success">
+                     <label class="sign-button sign-in-button sign-in-button-sm" style="position: relative;">
                        Browse
-                       <input type="file" file-model="file.upload" name="myFile" ng-disabled="uploading">
+                       <input type="file" style="z-index:2; opacity:0;"file-model="file.upload" name="myFile" ng-disabled="uploading">
                      </label>
                      <br>
                      <br>
-          <button type="submit">Submit</button>
+          <button class="sign-button sign-in-button sign-in-button-sm" type="submit">Submit</button>
           </form>
-       </div>
-  	 </div>
+          <br>
+          <br>
+          <div ng-if="vm.credentials.ResumeId !== ''">
+            <button class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewResume(vm.credentials.ResumeId)">Review Resume</button>
+          </div>
+          <br>
+          <br>
+        </div>
+        </div>
 
-	  <div class="w3-container w3-card-2 w3-white w3-margin-bottom" style="padding:20px;">
+      </div>
+    </div>
+
+    </div>
+
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+  </div>
+
+
+	  <div class="jumbotron jumbotron-fluid text-center" style="background-color: #e2e6e9; height: 100%; margin-left:50px; margin-right:50px;">
+      <div class="container">
         <element ng-switch="vm.submitIsUpdate">
           <element ng-switch-when="true">
-            <button  class ="btn btn-success btn-lg"  <button type="submit" class="btn btn-primary" ng-click="vm.updateStudent(vm.studentForm.$valid)">Update Application</button>
+            <button  class ="sign-button sign-in-button"  <button type="submit" class="btn btn-primary" ng-click="vm.updateStudent(vm.studentForm.$valid)">Update Application</button>
           </element>
           <element ng-switch-when="false">
-            <button  class ="btn btn-success btn-lg"  <button type="submit" class="btn btn-primary" ng-click="vm.createStudent(vm.studentForm.$valid)">Save Application</button>
+            <button  class ="sign-button sign-in-button"  <button type="submit" class="btn btn-primary" ng-click="vm.createStudent(vm.studentForm.$valid)">Save Application</button>
           </element>
         </element>
+      </div>
 	 </div>
     </form>
   </form>
+  <!--END CAROUSEL HERE-->
   </div>
 
 
