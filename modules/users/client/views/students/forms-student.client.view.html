@@ -91,11 +91,11 @@
 
         <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
             <div class="col-sm-7">NDA</div>
-            <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm('NDA.pdf')">Download</button></div>
+            <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm('NDA.pdf')"><i class="glyphicon glyphicon-circle-arrow-down" style="heiht:100%"></i></button></div>
         </div>
         <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
             <div class="col-sm-7">Waiver</div>
-            <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm('Waiver.pdf')">Download</button></div>
+            <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm('Waiver.pdf')"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button></div>
         </div>
       </div>
     </div>
@@ -116,12 +116,12 @@
 
             <div class="col-xs-6">
             <label class="sign-button sign-in-button sign-in-button-sm" style="height:100%; width: 100%">
-              <center><h5 style="font-family: 'Lato', sans-serif; font-wight: bold;">Browse</h5></center>
+              <center><i class="glyphicon glyphicon-folder-open" style="height:100%"></i></center>
               <input type="file" style="z-index:2; opacity:0; height:0; width:0;"file-model="file.upload" name="myFile" ng-disabled="uploading">
             </label>
           </div>
           <div class="col-xs-6">
-            <button class="sign-button sign-in-button-warning sign-in-button-sm" style="width:100%" type="submit"><center><h5 style="font-family: 'Lato', sans-serif; font-wight: bold;">Submit</h5></center></button>
+            <button class="sign-button sign-in-button-warning sign-in-button-sm" style="width:100%" type="submit"><center><h5 style="font-family: 'Lato', sans-serif; font-wight: bold;"><i class="glyphicon glyphicon-circle-arrow-up" style="height:100%"></i></h5></center></button>
           </div>
           </form>
         </div>
@@ -135,12 +135,12 @@
 
               <div class="col-xs-6">
               <label class="sign-button sign-in-button sign-in-button-sm" style="height: 100%; width: 100%;">
-                <h5 style="font-family: 'Lato', sans-serif; font-wight: bold;">Browse</h5>
+                <i class="glyphicon glyphicon-folder-open" style="height:100%"></i>
                 <input type="file" style="z-index:2; opacity:0; height:0; width: 0;"file-model="file.upload" name="myFile" ng-disabled="uploading">
               </label>
             </div>
             <div class="col-xs-6">
-              <button class="sign-button sign-in-button-warning sign-in-button-sm" style="height: 100%;width: 100%;"type="submit"><h5 style="font-family: 'Lato', sans-serif; font-wight: bold;">Submit</h5></button>
+              <button class="sign-button sign-in-button-warning sign-in-button-sm" style="height: 100%;width: 100%;"type="submit"><h5 style="font-family: 'Lato', sans-serif; font-wight: bold;"><i class="glyphicon glyphicon-circle-arrow-up" style="height:100%"></i></h5></button>
             </div>
           </form>
         </div>
@@ -154,36 +154,38 @@
             <br>
             <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadLetterOfRecommendation(file);">
               <div class="col-xs-6">
-              <label class="sign-in-button sign-in-button-sm" style="width: 100%">
-                Browse
+              <label class="sign-button sign-in-button sign-in-button-sm" style="width: 100%">
+                <center><i class="glyphicon glyphicon-folder-open" style="height:100%"></i></center>
                 <input type="file" style="z-index:2; opacity:0; height:0; width:0;"file-model="file.upload" name="myFile" ng-disabled="uploading">
               </label>
             </div>
-              <br>
               <div class="col-xs-6">
-              <button class="sign-in-button-warning sign-in-button-sm" style="width: 100%"type="submit">Submit</button>
+              <button class="sign-button sign-in-button-warning sign-in-button-sm" style="width: 100%"type="submit"><h5 style="font-family: 'Lato', sans-serif; font-wight: bold;"><i class="glyphicon glyphicon-circle-arrow-up" style="height:100%"></i></h5></button>
+            </div>
             </div>
           </form>
         </center>
         </div>
-      </div>
       <div class="col-xs-6">
         <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
         <center>
           Resume
-
+        </center>
         <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadResume(file);">
-          <label class="sign-in-button sign-in-button-sm" style="width: 100%">
-            Browse
-            <input type="file" style="z-index:2; opacity:0;"file-model="file.upload" name="myFile" ng-disabled="uploading">
+          <div class="col-xs-6">
+          <label class="sign-button sign-in-button sign-in-button-sm" style="width: 100%">
+            <center><i class="glyphicon glyphicon-folder-open" style="height:100%"></i></center>
+            <input type="file" style="z-index:2; opacity:0; height: 0; width: 0;"file-model="file.upload" name="myFile" ng-disabled="uploading">
           </label>
-          <button class="sign-in-button-warning sign-in-button-sm" style="width: 100%"type="submit">Submit</button>
+        </div>
+        <div class="col-xs-6">
+          <button class="sign-button sign-in-button-warning sign-in-button-sm" style="width: 100%"type="submit"><h5 style="font-family: 'Lato', sans-serif; font-wight: bold;"><i class="glyphicon glyphicon-circle-arrow-up" style="height:100%"></i></h5></button>
+        </div>
       </form>
-    </center>
     </div>
     </div>
   </div>
-</div>
+  </div>
 </div>
 </div>
 <div class="item">
@@ -193,19 +195,19 @@
 
     <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
         <div class="col-sm-7">NDA</div>
-        <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.NDAId)">Download</button></div>
+        <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.NDAId)"><i class="glyphicon glyphicon-eye-open" style="height:100%"></i></button></div>
     </div>
     <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
         <div class="col-sm-7">Waiver</div>
-        <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.WaiverId)">Download</button></div>
+        <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.WaiverId)"><i class="glyphicon glyphicon-eye-open" style="height:100%"></i></button></div>
     </div>
     <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
         <div class="col-sm-7">Letter of Recommendation</div>
-        <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.letterOfRecommendationId)">Download</button></div>
+        <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.letterOfRecommendationId)"><i class="glyphicon glyphicon-eye-open" style="height:100%"></i></button></div>
     </div>
     <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
         <div class="col-sm-7">Resume</div>
-        <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.ResumeId)">Download</button></div>
+        <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.ResumeId)"><i class="glyphicon glyphicon-eye-open" style="height:100%"></i></button></div>
     </div>
   </div>
 </div>
