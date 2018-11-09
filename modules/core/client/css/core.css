@@ -83,3 +83,43 @@ a:hover .header-profile-image {
 .sign-in-button:active {
   transform: translateY(4px);
 }
+
+.sign-in-button-danger {
+    background-color: transparent;
+    color: red;
+    border: 1px solid red;
+    width: 20%;
+}
+
+.sign-in-button-danger-sm {
+  width: 40%;
+}
+.sign-in-button-danger:hover {
+    background-color: red;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.sign-in-button-danger:active {
+  transform: translateY(4px);
+}
+
+.sign-in-button-warning {
+    background-color: transparent;
+    color: #9933ff;
+    border: 1px solid #9933ff;
+    width: 20%;
+}
+
+.sign-in-button-warning-sm {
+  width: 40%;
+}
+.sign-in-button-warning:hover {
+    background-color: #9933ff;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.sign-in-button-warning:active {
+  transform: translateY(4px);
+}

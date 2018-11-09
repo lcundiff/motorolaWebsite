@@ -136,5 +136,6 @@ exports.uploadWaiver = function(req, res){
 }
 
 exports.downloadFile = function(req, res){
+  console.log("JERE");
 	res.download(uploadFolder + req.params.filename);
 }

@@ -20,7 +20,7 @@
     vm.remove = remove;
 
     vm.uploadResume = uploadResume;
-    vm.viewResume = viewResume;
+    //vm.viewResume = viewResume;
 
     vm.addClasses = addClasses;
     vm.editClass = editClass;
@@ -76,7 +76,8 @@
         .catch(onResumeSubmissionError);
     }
 
-    function viewResume(fileId) {
+
+    $scope.viewResume = function(fileId) {
       console.log("fileId: ",fileId);
 
       FileService.download(fileId).then(function(data){
@@ -234,6 +235,8 @@
 
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.studentForm');
+        Notification.error({ message: 'Review form for errors.', title: '<i class="glyphicon glyphicon-remove"></i> Fields in form are either missing information or are incorrect.', delay: 6000 });
+
 
         return false;
       }
@@ -245,6 +248,8 @@
     function updateStudent(isValid){
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.studentForm');
+        console.log("NOT VALID");
+        Notification.error({ message: 'Review form for errors.', title: '<i class="glyphicon glyphicon-remove"></i> Fields in form are either missing information or are incorrect.', delay: 6000 });
 
         return false;
       }

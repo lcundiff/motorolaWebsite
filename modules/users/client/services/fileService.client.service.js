@@ -43,6 +43,8 @@
         });
       },
       download: function(filename) {
+        console.log("HERE YO");
+        console.log("filename: ", filename);
 
         return $http.get('/api/files/get/' + filename, { responseType: 'arraybuffer' });
       }
