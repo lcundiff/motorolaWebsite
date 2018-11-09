@@ -21,95 +21,195 @@
   <link href="../css/plugins/morris.css" rel="stylesheet">
   <!-- Custom Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <style>
+  #myCarousel {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
 
+  .item img {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .selected img {
+  	opacity:0.5;
+  }
+
+  .carousel-caption {
+      position: relative;
+      left: auto;
+      right: auto;
+  }
+
+  .carousel-control.left,
+  .carousel-control.right {
+    border: none;
+  }
+
+  .carousel-control.left {
+    margin-left: -25px;
+  }
+
+  .carousel-control.right {
+    margin-right: -25px;
+  }
+
+  .carousel-control {
+    width: 0%;
+  }
+
+
+  .glyphicon-chevron-left, .glyphicon-chevron-right {
+    color: #e2e6e9;
+    font-size: 40px;
+  }
+  </style>
+</head>
 <body>
-  <!--<div class="row">-->
-        <!--<div class="col-md-8">-->
-          <div class="row card w3-third">
-              <h4>1. Download:</h4>
+  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+    <center>
+      <h2 style="font-weight:bold;"> <strong>Files</strong> </h2>
+    </center>
+  </div>
+  <br>
+  <br>
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
 
-              <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
-                  <div class="col-sm-7">NDA</div>
-                  <div class="col-sm-5" style="text-align:center;"><button type="button" class="btn btn-primary" ng-click="vm.viewForm('NDA.pdf')">Download</button></div>
-              </div>
-              <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
-                  <div class="col-sm-7">Waiver</div>
-                  <div class="col-sm-5" style="text-align:center;"><button type="button" class="btn btn-primary" ng-click="vm.viewForm('Waiver.pdf')">Download</button></div>
-              </div>
-          </div>
-            <div class="row card w3-third">
-                <div class="col-sm-12">
-                    <h4>2. Upload:</h4>
-                    <div id="fileSelector">
-                      <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
-                          <div class="col-sm-7">NDA</div>
-                      <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadNDA(file);">
-                        <label class="btn btn-success">
-                          Browse
-                          <input type="file" file-model="file.upload" name="myFile" ng-disabled="uploading">
-                        </label>
-                          <button type="submit" class="btn btn-warning pull-right">Submit</button>
-                      </form>
-                    </div>
-                    <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
-                        <div class="col-sm-7">Waiver</div>
-                        <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadWaiver(file);">
-                        <label class="btn btn-success">
-                          Browse
-                          <input type="file" file-model="file.upload" name="myFile" ng-disabled="uploading">
-                        </label>
-                        <br>
-                        <br>
-                          <button type="submit">Submit</button>
-                      </form>
-                    </div>
-                    <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
-                      <div class="col-sm-7">Letter of Recommendation</div>
-                      <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadLetterOfRecommendation(file);">
-                        <label class="btn btn-success">
-                          Browse
-                          <input type="file" file-model="file.upload" name="myFile" ng-disabled="uploading">
-                        </label>
-                        <br>
-                        <br>
-                          <button type="submit">Submit</button>
-                      </form>
-                    </div>
-                    </div>
-                    <div>
-                      <div ng-show="uploading">
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <div class="jumbotron jumbotron-fluid">
+        <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">1. Download:</h3>
+        <br>
 
-                    </div>
-                </div>
-            </div>
-
+        <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+            <div class="col-sm-7">NDA</div>
+            <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm('NDA.pdf')">Download</button></div>
         </div>
-        <div class="row card w3-third">
-            <div class="col-sm-12">
-                <h4>3. Verify:</h4>
-                <div id="fileSelector">
-                  <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
-                      <div class="col-sm-7">NDA</div>
-                      <button class="btn btn-primary btn-success" ng-click="vm.viewForm(vm.credentials.NDAId)">View</button>
-                </div>
-                <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
-                    <div class="col-sm-7">Waiver</div>
-                    <button class="btn btn-primary btn-success" ng-click="vm.viewForm(vm.credentials.WaiverId)">View</button>
-                </div>
-                <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
-                  <div class="col-sm-7">Letter of Recommendation</div>
-                  <button class="btn btn-primary btn-success" ng-click="vm.viewForm(vm.credentials.letterOfRecommendationId)">View</button>
-                </div>
-                </div>
-                <div>
-                  <div ng-show="uploading">
-
-                </div>
-            </div>
+        <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+            <div class="col-sm-7">Waiver</div>
+            <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm('Waiver.pdf')">Download</button></div>
         </div>
-
+      </div>
     </div>
-        <div class="col-md-2"></div>
+
+    <div class="item">
+      <div class="jumbotron jumbotron-fluid">
+        <h4>2. Upload:</h4>
+        <br>
+
+        <div id="fileSelector">
+          <div class="container">
+          <div class="col-xs-6">
+            <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+              <center>
+              NDA
+          <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadNDA(file);">
+            <label class="sign-in-button sign-in-button-sm" style="width: 100%">
+              <center>Browse</center>
+              <input type="file" style="z-index:2; opacity:0; height:5%; width:5%;"file-model="file.upload" name="myFile" ng-disabled="uploading">
+            </label>
+            <br>
+            <button class="sign-in-button-warning sign-in-button-sm" style="width:100%" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+          <center>
+            Waiver
+            <br>
+            <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadWaiver(file);">
+              <label class="sign-in-button sign-in-button-sm" style="width: 100%">
+                Browse
+                <input type="file" style="z-index:2; opacity:0;"file-model="file.upload" name="myFile" ng-disabled="uploading">
+              </label>
+              <br>
+              <button class="sign-in-button-warning sign-in-button-sm" style="width: 100%"type="submit">Submit</button>
+          </form>
+        </center>
+        </div>
+      </div>
+  </div>
+  <div class="container">
+      <div class="col-xs-6">
+        <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+          <center>
+            Letter of Recommendation
+            <br>
+            <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadLetterOfRecommendation(file);">
+              <label class="sign-in-button sign-in-button-sm" style="width: 100%">
+                Browse
+                <input type="file" style="z-index:2; opacity:0;"file-model="file.upload" name="myFile" ng-disabled="uploading">
+              </label>
+              <br>
+              <button class="sign-in-button-warning sign-in-button-sm" style="width: 100%"type="submit">Submit</button>
+          </form>
+        </center>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+        <center>
+          Resume
+
+        <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadLetterOfRecommendation(file);">
+          <label class="sign-in-button sign-in-button-sm" style="width: 100%">
+            Browse
+            <input type="file" style="z-index:2; opacity:0;"file-model="file.upload" name="myFile" ng-disabled="uploading">
+          </label>
+          <button class="sign-in-button-warning sign-in-button-sm" style="width: 100%"type="submit">Submit</button>
+      </form>
+    </center>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="item">
+  <div class="jumbotron jumbotron-fluid">
+    <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">3. Verify:</h3>
+    <br>
+
+    <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+        <div class="col-sm-7">NDA</div>
+        <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.NDAId)">Download</button></div>
+    </div>
+    <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+        <div class="col-sm-7">Waiver</div>
+        <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.WaiverId)">Download</button></div>
+    </div>
+    <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+        <div class="col-sm-7">Letter of Recommendation</div>
+        <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.letterOfRecommendationId)">Download</button></div>
+    </div>
+    <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+        <div class="col-sm-7">Resume</div>
+        <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.ResumeId)">Download</button></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
     <!--</div>-->
 <!--</div>-->
 </body>
