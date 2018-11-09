@@ -1,21 +1,153 @@
 <section>
-  <div class="page-header">
-    <div class="row">
-      <div class="col-md-4">
-        <h1>Users</h1>
-      </div>
-      <div class="col-md-4" style="margin-top: 2em">
-        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-      </div>
-    </div>
+  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+    <h1 style="font-weight:bold;">Users</h1>
   </div>
+  <br>
+  <div class="container">
+  <div class="col-xs-12 col-md-8">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+  </div>
+  <br>
+    <div class="container">
   <div class="list-group">
-    <a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
-      <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
+    <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
+    <a ng-repeat="user in vm.pagedItems" ng-click="vm.displayUser(user); user_selected = true;" class="list-group-item">
+      <h4 class="list-group-item-heading" ng-bind="user.displayName"></h4>
       <p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
-      <p class="list-group-item-text" ng-bind="user.email"></p>
+      <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
     </a>
   </div>
+</div>
+<div class="container">
+  <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+</div>
+</div>
+</div>
+<div class="col-xs-6 col-md-4">
+  <div class="jumbotron jumbotron fluid">
+    <div class="container">
+      <center>
+      <div ng-switch="vm.selected_user">
+        <div ng-switch-when=true>
+          <div class="container">
+
+            <div class="row">
+              <div class="row">
+                <div class="col-md-3"><strong>User: </strong></div>
+                <div ng-switch="vm.user.edit_user">
+                  <div ng-switch-when=false>
+                    <div class="col-md-6" ng-bind="vm.user.username"></div>
+                  </div>
+                  <div ng-switch-when=true>
+                    <div class="col-md-8">
+                      <form><input type="text" class="form-control" ng-model='vm.user.username' placeholder="Username"><br></form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr/>
+                <div class="row">
+                  <div class="col-md-3"><strong>First: </strong></div>
+                  <div ng-switch="vm.user.edit_user">
+                    <div ng-switch-when=false>
+                  <div class="col-md-6" ng-bind="vm.user.firstName"></div>
+                  </div>
+                  <div ng-switch-when=true>
+                    <div class="col-md-8">
+                    <form><input type="text" class="form-control" ng-model='vm.user.firstName' placeholder="First Name"><br></form>
+                  </div>
+                  </div>
+                </div>
+                </div>
+            <hr/>
+            <div class="row">
+              <div class="col-md-3"><strong>Last: </strong></div>
+              <div ng-switch="vm.user.edit_user">
+                <div ng-switch-when=false>
+                  <div class="col-md-6" ng-bind="vm.user.lastName"></div>
+                </div>
+                  <div ng-switch-when=true>
+                    <div class="col-md-8">
+                    <form><input type="text" class="form-control" ng-model='vm.user.lastName' placeholder="Last Name"><br></form>
+                  </div>
+                  </div>
+            </div>
+          </div>
+            <hr/>
+            <div class="row">
+              <div class="col-md-3"><strong>Email: </strong></div>
+              <div ng-switch="vm.user.edit_user">
+                <div ng-switch-when=false>
+                  <div class="col-md-6" ng-bind="vm.user.email"></div>
+                </div>
+                <div ng-switch-when=true>
+                  <div class="col-md-8">
+                  <form><input type="text" class="form-control" ng-model='vm.user.email' placeholder="Email"><br></form>
+                </div>
+                </div>
+            </div>
+          </div>
+            <hr/>
+            <!--<div class="row">
+              <div class="col-md-3"><strong>Provider</strong></div>
+              <div class="col-md-6" ng-bind="vm.user.provider"></div>
+            </div>-->
+            <!--<div class="row">
+              <div class="col-md-6" ng-bind="vm.user.created"></div>
+            </div>
+            <hr/>-->
+            <div class="row">
+              <div class="col-md-3"><strong>Roles: </strong></div>
+              <div ng-switch="vm.user.edit_user">
+                <div ng-switch-when=false>
+                  <div class="col-md-6" ng-bind="vm.user.roles"></div>
+                </div>
+                <div ng-switch-when=true>
+                  <div class="col-md-8">
+                    <form><input class="form-control" type="text" name="roles" ng-model="vm.user.roles" id="roles" ng-list required /></form>
+                </div>
+                </div>
+            </div>
+          </div>
+            <br>
+            <div ng-switch="vm.user.edit_user">
+              <div ng-switch-when="false">
+                <div class="row">
+                  <a class="sign-button sign-in-button-warning" ng-click="vm.editUser(vm.selected_user)">
+                    <!--<a class="sign-button sign-in-button" ui-sref="admin.user-edit({userId: vm.user._id})"-->
+                    <i class="glyphicon glyphicon-pencil"></i>
+                  </a>
+                  <a class="sign-button sign-in-button-danger" ng-click="vm.remove(vm.selected_user)" ng-if="!vm.isContextUserSelf()">
+                    <i class="glyphicon glyphicon-trash"></i>
+                  </a>
+                </div>
+              </div>
+              <div ng-switch-when=true>
+                <div class="row">
+                  <a class="sign-button sign-in-button" ng-click="vm.update()">
+                    <i class="glyphicon glyphicon-ok"></i>
+                  </a>
+                  <a class="sign-button sign-in-button-danger" ng-click="vm.cancel()">
+                    <i class="glyphicon glyphicon-remove"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div ng-switch-when="false">
+      Click on a user to view their information.
+    </div>
+    </div>
+  </center>
+  </div>
+</div>
+</div>
+
+</div>
   <!--<div class="list-group">
     <!--<a ng-repeat="userReq in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
     <a ng-repeat="userReq in vm.pagedItems" class="list-group-item">
@@ -25,5 +157,4 @@
     </a>
   </div>-->
 
-  <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
 </section>
