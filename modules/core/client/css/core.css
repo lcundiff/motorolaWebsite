@@ -37,9 +37,11 @@ a:hover .header-profile-image {
 }
 .has-error .help-block.error-text {
   display: block;
+  font-size: 15px;
 }
 .has-error .help-inline.error-text {
   display: inline;
+  font-size: 15px;
 }
 
 .divider {
