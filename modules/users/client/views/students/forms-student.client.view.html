@@ -116,12 +116,12 @@
 
             <div class="col-xs-6">
             <label class="sign-button sign-in-button sign-in-button-sm" style="height:100%; width: 100%">
-              <center>Browse</center>
+              <center><h5 style="font-family: 'Lato', sans-serif; font-wight: bold;">Browse</h5></center>
               <input type="file" style="z-index:2; opacity:0; height:0; width:0;"file-model="file.upload" name="myFile" ng-disabled="uploading">
             </label>
           </div>
           <div class="col-xs-6">
-            <button class="sign-button sign-in-button-warning sign-in-button-sm" style="width:100%" type="submit"><center>Submit</center></button>
+            <button class="sign-button sign-in-button-warning sign-in-button-sm" style="width:100%" type="submit"><center><h5 style="font-family: 'Lato', sans-serif; font-wight: bold;">Submit</h5></center></button>
           </div>
           </form>
         </div>
@@ -153,12 +153,16 @@
             Letter of Recommendation
             <br>
             <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadLetterOfRecommendation(file);">
+              <div class="col-xs-6">
               <label class="sign-in-button sign-in-button-sm" style="width: 100%">
                 Browse
-                <input type="file" style="z-index:2; opacity:0;"file-model="file.upload" name="myFile" ng-disabled="uploading">
+                <input type="file" style="z-index:2; opacity:0; height:0; width:0;"file-model="file.upload" name="myFile" ng-disabled="uploading">
               </label>
+            </div>
               <br>
+              <div class="col-xs-6">
               <button class="sign-in-button-warning sign-in-button-sm" style="width: 100%"type="submit">Submit</button>
+            </div>
           </form>
         </center>
         </div>
