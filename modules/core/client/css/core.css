@@ -42,6 +42,11 @@ a:hover .header-profile-image {
   display: inline;
 }
 
+.divider {
+  width: 2px;
+  margin: 6px 0;
+  background: blue;
+}
 .sign-button {
   background-color: transparent; /* Green */
   border-radius: 100px;
@@ -62,6 +67,10 @@ a:hover .header-profile-image {
     color: #005DAA;
     border: 1px solid #005DAA;
     width: 20%;
+}
+
+.sign-in-button-sm {
+  width: 40%;
 }
 .sign-in-button:hover {
     background-color: #005DAA;

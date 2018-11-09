@@ -1,6 +1,23 @@
 <div>
-  <h3 class="col-xs-12 text-center">Or with your account</h3>
-  <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <div class="jumbotron jumbotron-fluid text-center" style="background-color: #e2e6e9">
+    <div class="row">
+      <!--<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">-->
+        <center>
+        <img class="img-responsive text-center" src="/modules/core/client/img/idea-sharing-filled.png" style="height: 100px;">
+      </center>
+      <!--</div>-->
+    </div>
+    <br>
+    <div class="row">
+      <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">CAREERS MENTORING AND SHADOWING PROGRAM</h3>
+    </div>
+</div>
+  <div class="jumbotron jumbotron-fluid" style="background-color: #e2e6e9">
+    <div class="container">
+
+  <div class="col-xs-6">
+    <h4 style="font-family: 'Lato', sans-serif; font-wight: bold;">Sign in</h4>
     <form name="vm.userForm" ng-submit="vm.signin(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
         <div class="form-group" show-errors>
@@ -21,15 +38,21 @@
           </div>
         </div>
         <div class="text-center form-group">
-          <button type="submit" class="btn btn-primary">Sign in</button>
-          &nbsp; or&nbsp;
-          <a ui-sref="signup.studentrequest">Request Sign-up</a>
+          <button type="submit" class="sign-button sign-in-button sign-in-button-sm">Sign in</button>
         </div>
         <div class="text-center forgot-password">
           <a ui-sref="password.forgot">Forgot your password?</a>
         </div>
-        <br />
       </fieldset>
     </form>
+</div>
+<div class="col-xs-6">
+  <center>
+    <h4 style="font-family: 'Lato', sans-serif; font-wight: normal;">Don't have an account?</h4>
+      <button class="sign-button sign-in-button sign-in-button-sm" ui-sref="signup.studentrequest">Request Sign up</button>
+  </center>
+</div>
+
   </div>
+</div>
 </div>
