@@ -52,14 +52,12 @@ exports.delete = function (req, res) {
   var user = req.model;
 
   if(user.roles.indexOf('volunteer') !== -1){
-    console.log("THERE A VOL");
     Volunteer.deleteOne({username: user.username}).exec().then(function(response){
       console.log(response);
     });
   }
 
   if(user.roles.indexOf('student') !== -1){
-    console.log("THERE A STUDENT");
     Student.deleteOne({username: user.username}).exec().then(function(response){
       console.log(response);
     })

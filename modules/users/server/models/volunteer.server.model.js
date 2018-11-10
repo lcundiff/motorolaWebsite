@@ -26,12 +26,6 @@ var VolunteerSchema = new Schema({
   interviewee_count: Number,
 
   application: {
-    name: {
-      type: String,
-      default: '',
-      required: 'Please fill Volunteer name',
-      trim: true
-    },
     firstName: {
       type: String
     },

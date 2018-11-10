@@ -5,9 +5,9 @@
     .module('users')
     .controller('AuthenticationController', AuthenticationController);
 
-  AuthenticationController.$inject = ['$scope', '$state', 'UsersService', '$location', '$window', 'Authentication', 'PasswordValidator', 'Notification'];
+  AuthenticationController.$inject = ['$scope', '$state', 'UsersService', 'StudentService', 'VolunteerService', '$location', '$window', 'Authentication', 'PasswordValidator', 'Notification'];
 
-  function AuthenticationController($scope, $state, UsersService, $location, $window, Authentication, PasswordValidator, Notification) {
+  function AuthenticationController($scope, $state, UsersService, StudentService, VolunteerService, $location, $window, Authentication, PasswordValidator, Notification) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -72,6 +72,35 @@
     // Authentication Callbacks
 
     function onUserSignupSuccess(response) {
+      console.log("signup response: ",response);
+      if(response.roles.indexOf('student') !== -1){
+        console.log("THERE A STU");
+
+        var student = {};
+        student.user = response._id;
+        student.username = response.username;
+        student.firstName = response.firstName;
+        student.lastName = response.lastName;
+        student.email = response.email;
+
+        StudentService.createStudent(student).then(function(response){
+          console.log("response");
+        });
+      }
+      if(response.roles.indexOf('volunteer') !== -1){
+        console.log("THERE A VOL");
+
+        var volunteer = {};
+        volunteer.user = response._id;
+        volunteer.username = response.username;
+        volunteer.firstName = response.firstName;
+        volunteer.lastName = response.lastname;
+        volunteer.email = response.email;
+
+        VolunteerService.createVolunteer(volunteer).then(function(response){
+
+        });
+      }
       // If successful we assign the response to the global user model
       vm.authentication.user = response;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });

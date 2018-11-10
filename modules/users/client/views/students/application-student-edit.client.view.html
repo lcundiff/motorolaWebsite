@@ -86,7 +86,7 @@
   <div class="container">
 <div class="carousel-inner">
       <div class="item active">
-        <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Personal Information</h3>
+        <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Personal Information<span style="color:red;">*</span></h3>
         <br>
 			<div class="col-xs-6">
         <div class="form-group" show-errors>
@@ -172,7 +172,7 @@
 
 		<div class="col-xs-6 col-xs-offset-3" >
 
-      <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Parent Information</h3>
+      <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Parent Information<span style="color:red;">*</span></h3>
       <br>
       <!-- <label for="parentName">Parent Name</label> -->
       <div class="form-group" show-errors>
@@ -204,10 +204,95 @@
 </div>
 
 <div class="item">
+
+  <div class="col-xs-6 col-xs-offset-3">
+
+    <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Emergency Contact Information<span style="color:red;">*</span></h3>
+    <br>
+  </div>
+    <!-- <label for="parentName">Parent Name</label> -->
+    <div class="container">
+      <div class="col-xs-6">
+    <div class="form-group" show-errors>
+    <input type="text" id="parentName" name="parentName" class="form-control" ng-model="vm.credentials.application.emergency.name" placeholder="Name" required>
+    <div ng-messages="vm.studentForm.parentName.$error" role="alert">
+      <p class="help-block error-text" ng-message="required">Emergency contact name is required.</p>
+    </div>
+  </div>
+
+    <!-- <label for="parentEmail">Parent E-mail</label> -->
+    <div class="form-group" show-errors>
+    <input type="text" id="parentEmail" name="parentEmail" class="form-control" ng-model="vm.credentials.application.emergency.email" placeholder="Email" required>
+    <div ng-messages="vm.studentForm.parentEmail.$error" role="alert">
+      <p class="help-block error-text" ng-message="required">Emergency contact e-mail is required.</p>
+    </div>
+  </div>
+
+    <!-- <label for="parentPhone">Parent Phone</label> -->
+    <div class="form-group" show-errors>
+    <input type="text" id="parentPhone" name="parentPhone" class="form-control" ng-model="vm.credentials.application.emergency.phone" placeholder="Phone" required>
+    <div ng-messages="vm.studentForm.parentPhone.$error" role="alert">
+      <p class="help-block error-text" ng-message="required">Emergency contact phone is required.</p>
+    </div>
+  </div>
+</div>
+<div class="col-xs-6">
+  <div class="form-group" show-errors>
+  <!--  <label for="homeAddress1">Home Address Line 1</label>-->
+    <input type="text" id="homeAddress1" name="emergency_homeAddress1" class="form-control" ng-model="vm.credentials.application.emergency.address.line_1" placeholder="Address Line 1" required>
+    <div ng-messages="vm.studentForm.emergency_homeAddress1.$error" role="alert">
+      <p class="help-block error-text" ng-message="required">Address Line 1 is required.</p>
+    </div>
+  </div>
+
+  <!--  <label for="homeAddress2">Home Address Line 2</label>-->
+  <div class="form-group" show-errors>
+    <input type="text" id="homeAddress2" name="homeAddress2" class="form-control" ng-model="vm.credentials.application.emergency.address.line_2" placeholder="Address Line 2">
+  </div>
+</div>
+<div class="row">
+  <div class="container">
+<div class="col-xs-6 col-sm-3">
+  <div class="form-group" show-errors>
+  <!--  <label for="city">City</label>-->
+    <input type="text" id="city" name="emergency_city" class="form-control" ng-model="vm.credentials.application.emergency.address.city" placeholder="City" required>
+    <div ng-messages="vm.studentForm.emergency_city.$error" role="alert">
+      <p class="help-block error-text" ng-message="required">City is required.</p>
+    </div>
+  </div>
+</div>
+<div class="col-xs-6 col-sm-3">
+   <!--<label for="state">State</label>-->
+  <div class="form-group" show-errors>
+    <input type="text" id="state" name="emergency_state" class="form-control" ng-model="vm.credentials.application.emergency.address.state" placeholder="State" required>
+    <div ng-messages="vm.studentForm.emergency_state.$error" role="alert">
+      <p class="help-block error-text" ng-message="required">State is required.</p>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!--  <label for="state">Zipcode</label>-->
+<div class="col-xs-6 col-xs-offset-6">
+<div class="form-group" show-errors>
+    <input type="text" id="zipcode" name="emergency_zipcode" class="form-control" ng-model="vm.credentials.application.emergency.address.zipcode" placeholder="Zipcode" required>
+    <div ng-messages="vm.studentForm.emergency_zipcode.$error" role="alert">
+      <p class="help-block error-text" ng-message="required">Zipcode is required.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- END CARD -->
+
+</div>
+
+<div class="item">
   <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">School<span style="color:red;">*</span></h3>
   <br>
 	<div class="col-xs-6 col-xs-offset-3">
-
+    <div class="form-group" show-errors>
 			  <select name = "school" class="form-control" ng-model="vm.credentials.application.school" required>
 			  <option value="">---Please select---</option>
 		      <option value = "Anderson Boyd HS"> Anderson Boyd High School</option>
@@ -271,10 +356,14 @@
 			  <option value = "William T. Dwyer HS"> William T. Dwyer High School</option>
               <option value = "Not listed"> Not listed </option>
 			  </select>
+        <div ng-messages="vm.studentForm.school.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">School is required.</p>
+        </div>
         <br>
 		      <h7> * If your school is not listed, please</h7><br>
 			  <h7> contact 954-907-5808 </h7>
       </div>
+    </div>
     </div>
 
     <div class="item">
@@ -282,6 +371,7 @@
       <br>
 
     	<div class="col-xs-6 col-xs-offset-3">
+        <div class="form-group" show-errors>
 				<select name="student_interests_1" class="form-control" ng-model="vm.credentials.application.interests[0]" required>
 				  <option value = "Electrical Engineering / Design">Electrical Engineering / Design</option>
 				  <option value = "Mechanical Engineering / Design">Mechanical Engineering / Design</option>
@@ -293,7 +383,12 @@
 				  <option value = "Product Life Cycle Management">Product Life Cycle Management</option>
 				</select>
 				<center><h7 style = "color:gray;">1st Interest</h7></center>
+        <div ng-messages="vm.studentForm.student_interests_1.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">First choice is required.</p>
+        </div>
+      </div>
 				<br>
+        <div class="form-group" show-errors>
 				<select name="student_interests_2" class="form-control" ng-model="vm.credentials.application.interests[1]" required>
 				  <option value = "Electrical Engineering / Design">Electrical Engineering / Design</option>
 				  <option value = "Mechanical Engineering / Design">Mechanical Engineering / Design</option>
@@ -305,7 +400,12 @@
 				  <option value = "Product Life Cycle Management">Product Life Cycle Management</option>
 				</select>
 				<center><h7 style = "color:gray;">2nd Interest</h7></center>
+        <div ng-messages="vm.studentForm.student_interests_2.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">Second choice is required.</p>
+        </div>
+      </div>
 				<br>
+        <div class="form-group" show-errors>
 				<select name="student_interests_3" class="form-control" ng-model="vm.credentials.application.interests[2]" required>
 				  <option value = "Electrical Engineering / Design">Electrical Engineering / Design</option>
 				  <option value = "Mechanical Engineering / Design">Mechanical Engineering / Design</option>
@@ -317,6 +417,10 @@
 				  <option value = "Product Life Cycle Management">Product Life Cycle Management</option>
 				</select>
 				<center> <h7 style = "color:gray;">3rd Interest</h7></center>
+        <div ng-messages="vm.studentForm.student_interests_3.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">Third choice is required.</p>
+        </div>
+      </div>
       </div>
     </div>
 
@@ -326,6 +430,7 @@
     <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Session Date Preferences<span style="color:red;">*</span></h3>
     <br>
 		<div class="col-xs-6 col-xs-offset-3">
+      <div class="form-group" show-errors>
 				<select class="form-control" ng-model="vm.credentials.application.preferredSession1" name="app_session1" required>
 				  <option value = "1"> Session1 (6/25/18 - 6/29/18)</option>
 				  <option value = "2"> Session2 (7/23/18 - 7/27/18)</option>
@@ -333,7 +438,12 @@
 				  <option value = "N/A"> N/A</option>
 				</select>
         <center> <h7 style = "color:gray;">1st Choice</h7></center>
+        <div ng-messages="vm.studentForm.app_session1.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">First choice is required.</p>
+        </div>
+      </div>
 				<br>
+        <div class="form-group" show-errors>
 				<select class="form-control" ng-model="vm.credentials.application.preferredSession2" name="app_session2"required>
 				  <option value = "1"> Session1 (6/25/18 - 6/29/18)</option>
 				  <option value = "2"> Session2 (7/23/18 - 7/27/18)</option>
@@ -341,7 +451,12 @@
 				  <option value = "N/A"> N/A</option>
 				</select>
         <center> <h7 style = "color:gray;">2nd Choice</h7></center>
+        <div ng-messages="vm.studentForm.app_session2.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">Second choice is required.</p>
+        </div>
+      </div>
 				<br>
+        <div class="form-group" show-errors>
 				<select class="form-control" ng-model="vm.credentials.application.preferredSession3" name="app_session3" required>
 				  <option value = "1"> Session1 (6/25/18 - 6/29/18)</option>
 				  <option value = "2"> Session2 (7/23/18 - 7/27/18)</option>
@@ -349,6 +464,10 @@
 				  <option value = "N/A"> N/A</option>
 				</select>
         <center> <h7 style = "color:gray;">3rd Choice</h7></center>
+        <div ng-messages="vm.studentForm.app_session3.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">Third choice is required.</p>
+        </div>
+      </div>
 		</div>
 
   </div>
@@ -718,7 +837,7 @@
             <button type="submit" class="sign-button sign-in-button" ng-click="vm.updateStudent(vm.studentForm.$valid)">Update Application</button>
           </element>
           <element ng-switch-when="false">
-            <button type="submit" class="sign-button sign-in-button" ng-click="vm.createStudent(vm.studentForm.$valid)">Save Application</button>
+            <button type="submit" class="sign-button sign-in-button" ng-click="vm.updateStudent(vm.studentForm.$valid)">Save Application</button>
           </element>
         </element>
       </div>

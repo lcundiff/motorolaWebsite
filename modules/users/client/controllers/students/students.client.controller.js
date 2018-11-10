@@ -46,8 +46,15 @@
       if(data.message === undefined){
         $scope.vm.credentials = data;
         $scope.vm.credentials.application = data.application;
-        $scope.vm.submitIsUpdate = true;
-        console.log("userid check: ",$scope.vm.credentials);
+
+        if(!data.isAppComplete){
+          $scope.vm.submitIsUpdate = false;
+        }
+        else{
+
+          $scope.vm.submitIsUpdate = true;
+        }
+
       }
       else{
         $scope.vm.credentials = {};
@@ -55,7 +62,7 @@
         $scope.vm.credentials.application.firstName = vm.authentication.user.firstName;
         $scope.vm.credentials.application.lastName = vm.authentication.user.lastName;
         $scope.vm.credentials.application.email = vm.authentication.user.email;
-        $scope.vm.submitIsUpdate = true;
+        $scope.vm.submitIsUpdate = false;
       }
     });
 
@@ -253,6 +260,9 @@
 
         return false;
       }
+      vm.credentials.isAppComplete = true;
+      vm.submitIsUpdate = true;
+
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
         .then(onStudentSubmissionSuccess)
         .catch(onStudentSubmissionError);

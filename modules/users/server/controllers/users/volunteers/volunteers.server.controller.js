@@ -19,18 +19,16 @@ var path = require('path'),
 
 exports.create = function(req, res) {
 
-
-  User.findOne({ username: req.body.username}).then(function(data){
     //console.log("data: ",data);
 
     //console.log("req.body: ",req.body);
     var volunteer = new Volunteer(req.body);
 
-    volunteer.sessions = req.body.application.sessions;
-    volunteer.areaofexpertise = req.body.application.areaofexpertise;
-    volunteer.roles = req.body.application.roles;
-    volunteer.username = req.body.username;
-    volunteer.user = data._id;
+    volunteer.application.firstName = req.body.firstName;
+    volunteer.application.lastname = req.body.lastName;
+    volunteer.application.email = req.body.email;
+    volunteer.application.user = req.body.user;
+    volunteer.application.username = req.body.username;
 
 
     console.log("volunteer: ",volunteer);
@@ -49,8 +47,6 @@ exports.create = function(req, res) {
       }
     });
 
-
-  });
 };
 
 /**

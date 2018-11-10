@@ -67,6 +67,34 @@ var StudentSchema = new Schema({
         type: String
       }
     },
+    emergency: {
+      name: {
+        type: String
+      },
+      email: {
+        type: String
+      },
+      phone: {
+        type: String
+      },
+      address: {
+        line_1: {
+          type: String
+        },
+        line_2: {
+          type: String
+        },
+        city: {
+          type: String
+        },
+        state: {
+          type: String
+        },
+        zipcode: {
+          type: String
+        }
+      }
+    },
     preferredSession1: {
       type: String
     },
@@ -82,7 +110,7 @@ var StudentSchema = new Schema({
     clubs: [],
     professionalExperiences: [],
     volunteerExperiences: [],
-    interests: [],
+    interests: []
   },
   interviewer: [],
   interviewerID: [],
@@ -106,14 +134,20 @@ var StudentSchema = new Schema({
   },
 
   isAppComplete : {
-    type: Boolean
-    //default: false,
-
+    type: Boolean,
+    default: false,
+    required: true
   },
 
    isFormSubmitted:{
      type:Boolean,
      default:false
+   },
+
+   areFormsStudentApproved:{
+     type:Boolean,
+     default:false,
+     required: true
    },
 
    isLetterofRecommendationSubmitted:{
