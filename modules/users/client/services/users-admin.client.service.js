@@ -18,6 +18,10 @@
         method: 'GET',
         url: '/api/users/user/:userId'
       },
+      delete_user: {
+        method: 'DELETE',
+        url: '/api/users/user/:userId'
+      },
       update_user: {
         method: 'PUT',
         url: '/api/users/user/:userId'
@@ -74,6 +78,11 @@
       },
       updateUser: function(userId, user) {
         return this.update_user({
+          userId: userId
+        }, user).$promise;
+      },
+      deleteUser: function(userId, user) {
+        return this.delete_user({
           userId: userId
         }, user).$promise;
       },

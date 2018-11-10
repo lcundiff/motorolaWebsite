@@ -43,9 +43,11 @@ exports.update = function (req, res) {
  * Delete a user
  */
 exports.delete = function (req, res) {
-  var user = req.model;
+  console.log('req.query: ',req.query);
+  console.log('req.body: ',req.body);
+  res.json(req.model);
 
-  user.remove(function (err) {
+  /*user.remove(function (err) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
@@ -53,7 +55,7 @@ exports.delete = function (req, res) {
     }
 
     res.json(user);
-  });
+  });*/
 };
 
 /**

@@ -6,6 +6,8 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
+  Student = mongoose.model('Student'),
+  Volunteer = mongoose.model('Volunteer'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
@@ -46,7 +48,22 @@ exports.update = function (req, res) {
  * Delete a user
  */
 exports.delete = function (req, res) {
+  console.log("req.model: ", req.model);
   var user = req.model;
+
+  if(user.roles.indexOf('volunteer') !== -1){
+    console.log("THERE A VOL");
+    Volunteer.deleteOne({username: user.username}).exec().then(function(response){
+      console.log(response);
+    });
+  }
+
+  if(user.roles.indexOf('student') !== -1){
+    console.log("THERE A STUDENT");
+    Student.deleteOne({username: user.username}).exec().then(function(response){
+      console.log(response);
+    })
+  }
 
   user.remove(function (err) {
     if (err) {

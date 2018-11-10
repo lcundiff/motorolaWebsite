@@ -5,9 +5,9 @@
     .module('users.admin')
     .controller('UserListController', UserListController);
 
-  UserListController.$inject = ['$scope', '$filter', 'AdminService', 'Notification'];
+  UserListController.$inject = ['$scope', '$filter', '$window', 'AdminService', 'Notification'];
 
-  function UserListController($scope, $filter, AdminService, Notification) {
+  function UserListController($scope, $filter, $window, AdminService, Notification) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
@@ -74,8 +74,15 @@
     function remove(user) {
       if ($window.confirm('Are you sure you want to delete this user?')) {
         if (user) {
+          console.log("user: ",user);
+          console.log("user._id: ",user._id);
 
+          AdminService.deleteUser(user._id, user).then(function(response){
+            console.log("delete response: ",response);
+          })
           vm.users.splice(vm.users.indexOf(user), 1);
+          vm.pagedItems.splice(vm.pagedItems.indexOf(user), 1);
+          vm.selected_user = false;
           Notification.success('User deleted successfully!');
         } else {
           Notification.error({ message: 'Please specify the user to remove.', title: '<i class="glyphicon glyphicon-remove"></i> User deletion error.' })
