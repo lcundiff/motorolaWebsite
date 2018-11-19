@@ -23,8 +23,8 @@ exports.requestLink = function (req, res) {
       if (req.body.email) {
 
         var email = Promise.resolve(String(req.body.email).toLowerCase());
-        var firstName = Promise.resolve(String(req.body.firstName).toLowerCase());
-        var lastName = Promise.resolve(String(req.body.lastName).toLowerCase());
+        var firstName = Promise.resolve(String(req.body.firstName));
+        var lastName = Promise.resolve(String(req.body.lastName));
 
         Promise.all([email, firstName, lastName]).then(async function([ue, uf, ul]){
           var userReq = new UserReq();
@@ -61,8 +61,8 @@ exports.signupLink = function (req, res, next) {
       if (req.body.email) {
 
         var email = Promise.resolve(String(req.body.email).toLowerCase());
-        var firstName = Promise.resolve(String(req.body.firstName).toLowerCase());
-        var lastName = Promise.resolve(String(req.body.lastName).toLowerCase());
+        var firstName = Promise.resolve(String(req.body.firstName));
+        var lastName = Promise.resolve(String(req.body.lastName));
 
         var signupLinkToken = Promise.resolve(token);
         var signupLinkExpires = Promise.resolve(Date.now() + (3600000*24)); // 1 hour
@@ -108,7 +108,7 @@ exports.signupLink = function (req, res, next) {
       var mailOptions = {
         to: user.email,
         from: config.mailer.from,
-        subject: 'Student Sign-up',
+        subject: 'IMPORTANT: MSI Career Mentoring and Shadowing Program Sign-Up',
         html: emailHTML
       };
       smtpTransport.sendMail(mailOptions, function (err) {

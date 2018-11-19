@@ -30,6 +30,8 @@ SignupController.$inject = ['$scope', '$stateParams', 'UsersService', '$location
         return false;
       }
 
+      console.log("askForSignUp credentials: ", vm.credentials);
+
       UsersService.signupRequest(vm.credentials)
         .then(onRequestSignupSuccess)
         .catch(onRequestSignupError);

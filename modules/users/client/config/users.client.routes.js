@@ -64,6 +64,13 @@
         controller: 'AuthenticationController',
         controllerAs: 'vm'
       })
+      .state('authentication.signup-invalid', {
+        url:'/signup/invalid',
+        templateUrl: '/modules/users/client/views/authentication/signup-invalid.client.view.html',
+        data: {
+          pageTitle: 'Signup Link Invalid'
+        }
+      })
       .state('authentication.signup', {
         url: '/signup/:token',
         templateUrl: '/modules/users/client/views/authentication/signup-student.client.view.html',

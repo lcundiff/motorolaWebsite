@@ -10,14 +10,14 @@
   function menuConfig(menuService) {
 
     menuService.addMenu('account', {
-      roles: ['user']
+      roles: ['admin', 'volunteer', 'student']
     });
 
     menuService.addMenuItem('account', {
       title: '',
       state: 'settings',
       type: 'dropdown',
-      roles: ['user']
+      roles: ['admin', 'volunteer', 'student']
     });
 
     menuService.addSubMenuItem('account', 'settings', {

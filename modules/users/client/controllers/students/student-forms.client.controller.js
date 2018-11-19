@@ -21,8 +21,12 @@
     vm.uploadWaiver = uploadWaiver;
     vm.uploadLetterOfRecommendation = uploadLetterOfRecommendation;
     vm.uploadResume = uploadResume;
-    
+
     vm.viewForm = viewForm;
+    vm.approveNDA = approveNDA;
+    vm.approveWaiver = approveWaiver;
+    vm.approveLetterOfRecommendation = approveLetterOfRecommendation;
+    vm.approveResume = approveResume;
 
     StudentService.getStudentByUsername(vm.authentication.user.username).then(function(data){
       $scope.vm.file = {};
@@ -37,6 +41,38 @@
         $scope.vm.submitIsUpdate = true;
       }
     });
+    function approveNDA(student){
+      student.isNDASubmitted = true;
+
+      StudentService.updateStudent(student.user, student)
+        .then(onFormApprovalSuccess)
+        .catch(onFormApprovalError);
+
+    }
+
+    function approveWaiver(student){
+      student.isWaiverSubmitted = true;
+
+      StudentService.updateStudent(student.user, student)
+        .then(onFormApprovalSuccess)
+        .catch(onFormApprovalError);
+    }
+
+    function approveLetterOfRecommendation(student){
+      student.isLetterofRecommendationSubmitted = true;
+
+      StudentService.updateStudent(student.user, student)
+        .then(onFormApprovalSuccess)
+        .catch(onFormApprovalError);
+    }
+
+    function approveResume(student){
+      student.isResumeSubmitted = true;
+
+      StudentService.updateStudent(student.user, student)
+        .then(onFormApprovalSuccess)
+        .catch(onFormApprovalError);
+    }
 
     function uploadNDA(){
       console.log($scope.file.upload);
@@ -214,6 +250,18 @@ function showImage() {
 
     function onFormSubmissionError(response) {
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Form submission error.', delay: 6000 });
+    }
+
+    function onFormApprovalSuccess(response) {
+      // If successful we assign the response to the global user model
+      vm.authentication.student = response;
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Form approval successful.' });
+      // And redirect to the previous or home page
+      //$state.go($state.previous.state.name || 'home', $state.previous.params);
+    }
+
+    function onFormApprovalError(response) {
+      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Form approval error.', delay: 6000 });
     }
 }
 

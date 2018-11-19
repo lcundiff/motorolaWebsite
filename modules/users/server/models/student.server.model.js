@@ -144,6 +144,12 @@ var StudentSchema = new Schema({
      default:false
    },
 
+   areFormsAdminApproved:{
+     type:Boolean,
+     default:false,
+     required: true
+   },
+
    areFormsStudentApproved:{
      type:Boolean,
      default:false,
@@ -155,15 +161,41 @@ var StudentSchema = new Schema({
      default:false
    },
 
+   isLetterofRecommendationAdminApproved: {
+     tyle: Boolean,
+     default: false
+   },
+
    isNDASubmitted: {
       type:Boolean,
       default:false
+   },
+
+   isNDAAdminApproved: {
+     type: Boolean,
+     default: false
+   },
+
+   isResumeSubmitted: {
+      type:Boolean,
+      default:false
+   },
+
+   isResumeAdminApproved: {
+     type: Boolean,
+     default: false
    },
 
    isWaiverSubmitted: {
      type:Boolean,
      default:false
     },
+
+    isWaiverAdminApproved: {
+      type: Boolean,
+      default: false
+    },
+    
   active: {
       type: Boolean,
       default: true,
