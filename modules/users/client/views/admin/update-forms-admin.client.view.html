@@ -88,68 +88,59 @@ body, html {
 
 
 <!-- beginning of body -->
-<body>
-  <!-- Banner up top -->
+<section>
   <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
-    <h1 style="font-weight:bold;">Current Forms</h1>
+    <h1 style="font-weight:bold;">Update Forms</h1>
   </div>
-
-  <div class="" style=" padding-bottom:20em; padding:25px; margin-top: -25px; margin-left: calc(-45vw + 45%); width:100vw; height: 80vh">
-    <!--  ACTIVATE and DEACTIVATE Buttons -->
-    <!-- clear all interviews button -->
-	<!--<button style=" margin-bottom:0.2vw margin-top:0.8vw; width:20vw;" class="btn btn-primary" ng-click="clearData()">Delete All Interviews</button>-->
-
-
-	<!-- WHITE MAIN SECTION -->
-    <div class="w3-container w3-card-2 w3-white table-responsive" style="width: 95vw; height: 65vh; margin-top: 5vw;">
-        <div class="row">
-          <h1 style="margin:10px; "></h1>
-        </div>
-
-        <div class="row" style="padding:10px;">
-
-          <div class="col-md-12">
-            <div class="input-group" id="searchBar" style="margin-top: 2em">
-              <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
-              <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-            </div>
+  <br>
+  <div class="jumbotron jumbotron-fluid">
+  <div class="container">
+      <div class="list-group">
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">NDA</h4>
+      <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+      <!--<p class="list-group-item-text pull-right small" ng-bind="userreq.lastName"></p>-->
+        <form method="post" enctype="multipart/form-data">
+          <div class="col-xs-4 col-md-4">
+            <label class="sign-button sign-in-button" style="width:100%">
+              <center><i class="glyphicon glyphicon-folder-open" style="height:100% width:100%"></i></center>
+              <input type="file" id="nda_upload" style="z-index:2; opacity:0; height:0; width:0;" file-model="file.upload" name="myFile" ng-disabled="uploading">
+            </label>
           </div>
-
-          <div class="col-md-12">
-            <section>
-              <div class="list-group">
-                <div class="list-group-item">
-                  <button class="btn btn-primary " ng-click="vm.viewForm('NDA.pdf')"><i class="glyphicon glyphicon-edit"></i>View Current NDA</button>
-                  <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadNDA(file);">
-                    <label class="btn btn-success">
-                      Browse
-                      <input type="file" file-model="file.upload" name="myFile">
-                    </label>
-                    <br>
-                    <br>
-                      <button type="submit">Submit New NDA</button>
-                  </form>
-                </div>
-                <div class="list-group-item">
-                  <button class="btn btn-primary" ng-click="vm.viewForm('Waiver.pdf')"><i class="glyphicon glyphicon-edit"></i>View Current Waiver</button>
-                  <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadWaiver(file);">
-                    <label class="btn btn-success">
-                      Browse
-                      <input #i2 type="file" file-model="file.upload" name="myFile">
-                    </label>
-                    <br>
-                    <br>
-                      <button type="submit" onclick="i2.value=''">Submit New Waiver</button>
-                  </form>
-                </div>
-              </div>
-              <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
-            </section>
+          <div class="col-xs-4 col-md-4">
+            <button class="sign-button sign-in-button-warning" style="width:100%" ng-click="vm.uploadNDA(file)"><center><i class="glyphicon glyphicon-circle-arrow-up"></i></center></button>
           </div>
-        </div>
-    <!-- Deactivated Students Section -->
+      </form>
+      <div class="col-xs-4 col-md-4">
+        <button class="sign-button sign-in-button" style="width:100%" type= "submit" ng-click="vm.viewForm('NDA.pdf')">View</button>
+      </div>
+    </div>
   </div>
-  <!-- End of Active Applicants Part -->
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">Waiver</h4>
+
+      <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+      <!--<p class="list-group-item-text pull-right small" ng-bind="userreq.lastName"></p>-->
+        <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadWaiver(file);">
+          <div class="col-xs-4 col-md-4">
+            <label class="sign-button sign-in-button" style="width:100%">
+              <center><i class="glyphicon glyphicon-folder-open" style="height:100% width:100%"></i></center>
+              <input type="file" id="waiver_upload" style="z-index:2; opacity:0; height:0; width:0;" file-model="file.upload" name="myFile" ng-disabled="uploading">
+            </label>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <button class="sign-button sign-in-button-warning" style="width:100%" type="submit"><center><i class="glyphicon glyphicon-circle-arrow-up"></i></center></button>
+          </div>
+      </form>
+      <div class="col-xs-4 col-md-4">
+        <button class="sign-button sign-in-button" style="width:100%" type= "submit" ng-click="vm.viewForm('Waiver.pdf')">View</button>
+      </div>
+    </div>
   </div>
-  </body>
+
+  </div>
+</div>
+</div>
+</section>
+
 </html>
