@@ -325,6 +325,26 @@ body, html {
               <br />
               <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
               <button ng-if="vm.user.ResumeId !== null || vm.user.ResumeId !== '' " ng-click="vm.viewForm(vm.user.ResumeId)" class="btn btn-primary">View Resume</button>
+              <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+              <div class="row">
+                <div class="container">
+                <center><b>Accept</b></center>
+                <br />
+              </div>
+              <div class="container">
+              <select ng-model="vm.sessionType">
+                <option value="">Not Accepted</option>
+                <option value="NA">Remove</option>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+              </select>
+            </div>
+            <div class="container">
+              <br>
+            <button class="btn btn-primary btn-sm" ng-click="vm.manAcceptStudent(vm.user, vm.sessionType)">Accept</button>
+          </div>
+          </div>
             </center>
           </div>
 

@@ -28,6 +28,8 @@
 
     vm.selected_user = false;
 
+    vm.manAcceptStudent = manAcceptStudent;
+
     function buildPager() {
       console.log("HERE IN BP");
       vm.pagedItems = [];
@@ -38,6 +40,8 @@
 
     function displayStudent(user){
       vm.user = user;
+      if(user.timeSlot === []) vm.sessionType = "";
+      else vm.sessionType = user.timeSlot[0];
 
       console.log(vm.user);
 
@@ -288,37 +292,38 @@
       }
     };*/
 
-    function manAcceptStudent(index, student) {
-      console.log("timeSLot: ",vm.students[index].timeSlot[0]);
-      var r;
-      //Ask admin to confirm manual acceptance of student.
-      if(vm.students[index].timeSlot[0] === "NA"){
-        r = confirm('This will rescind the acceptance of the selected student. Would you like to proceed?');
+    function manAcceptStudent(student, session) {
+      if(session === "NA" || session === ""){
+        student.timeSlot = [];
+
+        StudentService.updateStudent(student.user, student)
+        .then(onRescindSuccess)
+        .catch(onRescindError);
       }
       else{
-        r = confirm('This will accept selected student into session '+vm.students[index].timeSlot[0]+'. Would you like to proceed?');
-      }
+        student.timeSlot[0] = session;
 
-      //If admin consented, continue with action
-      if(r === true){
-
-        if(vm.students[index].timeSlot[0] === undefined){
-          Notification.error({ message: 'error', title: '<i class="glyphicon glyphicon-remove"></i> Please specify the session.', delay: 6000 });
-        }
-        else {
-          AdminService.manAcceptStudent(vm.students[index].timeSlot[0], student).then(function(response){
-            if(vm.students[index].timeSlot[0] === "NA"){
-              Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student acceptance has been rescinded successfully.' });
-
-            }
-            else{
-              Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student acceptance successful.' });
-
-            }
-          });
-        }
+        StudentService.updateStudent(student.user, student)
+        .then(onAcceptanceSuccess)
+        .catch(onAcceptanceError);
       }
     };
+
+    function onAcceptanceSuccess(response) {
+        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student has been accepted into selected session.' });
+    }
+
+    function onAcceptanceError(response) {
+      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> There was an error when accepting student into selected session.', delay: 6000 });
+    }
+
+    function onRescindSuccess(response) {
+        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student has been rescinded from the program.' });
+    }
+
+    function onRescindError(response) {
+      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> There was an error when rescinding acceptance of selected student.', delay: 6000 });
+    }
 
 /*
     $scope.autoAcceptStudents = function() {
