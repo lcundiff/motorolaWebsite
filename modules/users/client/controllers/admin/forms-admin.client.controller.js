@@ -28,6 +28,10 @@
     vm.uploadNDA = uploadNDA;
     vm.uploadWaiver = uploadWaiver;
 
+    vm.displayUser = displayUser;
+
+    vm.selected_user = false;
+
     function buildPager() {
       vm.pagedItems = [];
       vm.itemsPerPage = 15;
@@ -49,9 +53,18 @@
       vm.figureOutItemsToDisplay();
     }
 
+    function displayUser(user){
+      vm.user = user;
+
+      console.log(vm.user);
+
+      vm.selected_user = true;
+    }
+
     function listActiveStudents() {
       StudentService.studentListActive().then(async function(data){
         vm.students = data;
+        vm.selected_user = false;
 
         await(vm.buildPager());
       });
@@ -142,10 +155,14 @@
     }
 
     function approveForms(student){
-      student.isFormSubmitted = true;
+      student.areFormsAdminApproved = true;
 
       StudentService.updateStudent(student.user, student).then(function(data){
         console.log("data: ",data);
+        vm.selected_user = false;
+        vm.user = null;
+        vm.students.splice(vm.students.indexOf(student), 1);
+        vm.pagedItems.splice(vm.students.indexOf(student), 1);
       });
     }
 

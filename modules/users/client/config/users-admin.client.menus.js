@@ -45,6 +45,10 @@
     menuService.addMenuItem('topbar', {
       title: 'E-mail',
       state: 'admin.students'
-    })
+    });
+    menuService.addMenuItem('topbar', {
+      title: 'CSV',
+      state: 'admin.students'
+    });
   }
 }());

@@ -8,11 +8,5 @@
   menuConfig.$inject = ['menuService'];
 
   function menuConfig(menuService) {
-    menuService.addMenuItem('topbar', {
-      title: 'Student',
-      state: 'student',
-      type: 'dropdown',
-      roles: ['student']
-    });
   }
 }());
