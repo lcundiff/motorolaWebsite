@@ -6,9 +6,9 @@
     .module('users')
     .controller('ApplicantsAdminsController', ApplicantsAdminsController);
 
-  ApplicantsAdminsController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'AdminService', 'UsersService', 'StudentService', /*'VolunteersService', 'AutomateService', 'googleDriveService',*/'$http','$sce'];
+  ApplicantsAdminsController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'AdminService', 'UsersService', 'StudentService', 'FileService', /*'VolunteersService', 'AutomateService', 'googleDriveService',*/'$http','$sce'];
 
-  function ApplicantsAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
+  function ApplicantsAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService, FileService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
@@ -22,6 +22,11 @@
     vm.activateStudent = activateStudent;
 
     vm.manAcceptStudent = manAcceptStudent;
+    vm.displayStudent = displayStudent;
+
+    vm.viewForm = viewForm;
+
+    vm.selected_user = false;
 
     function buildPager() {
       console.log("HERE IN BP");
@@ -29,6 +34,37 @@
       vm.itemsPerPage = 15;
       vm.currentPage = 1;
       vm.figureOutItemsToDisplay();
+    }
+
+    function displayStudent(user){
+      vm.user = user;
+
+      console.log(vm.user);
+
+      vm.selected_user = true;
+    }
+
+    function viewForm(fileId) {
+      console.log("fileId: ",fileId);
+
+      FileService.download(fileId).then(function(data){
+
+        var file = new Blob([data.data], {
+            type: 'application/pdf'
+            // type:'image/png'
+          });
+            //var fileURL = URL.createObjectURL(file);
+
+            //window.open(fileURL);
+            $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+            // $scope.fileUrl = window.URL.createObjectURL(file);
+            // console.log($scope.fileUrl)
+            var link = document.createElement('a');
+                link.href = $scope.fileUrl;
+                link.download = fileId;
+                // console.log(link);
+                link.click();
+      });
     }
 
     function figureOutItemsToDisplay() {
@@ -69,16 +105,12 @@
     //open confirm box when admin performs action
 
     //open modal window that displays the student resume
-    $scope.openModal = function(username, docId){
-        console.log("Open Modal id: ",username);
-
-        StudentService.getStudentByUsername(username).then(function(data){
-          console.log(data);
-          vm.modal_student = data;
+    $scope.openModal = function(student, docId){
+          console.log(student);
+          vm.modal_student = student;
           $scope.vm.modal_student = vm.modal_student;
           var modal = document.getElementById(docId);
           modal.style.display = "block";
-        });
     };
 
     $scope.closeModal = function(docId){
