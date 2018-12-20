@@ -241,7 +241,7 @@ body, html {
         <div class="list-group">
           <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
           <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="list-group-item">
-            <h4 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h4>
+            <h4 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h4><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
             <h5 class="pull-right" ng-bind-template="{{student.application.school}}"></h5>
             <br />
           </a>

@@ -40,6 +40,7 @@
 
     function displayStudent(user){
       vm.user = user;
+      console.log(user.timeSlot.length);
       if(user.timeSlot === []) vm.sessionType = "";
       else vm.sessionType = user.timeSlot[0];
 
