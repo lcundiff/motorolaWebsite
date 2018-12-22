@@ -116,11 +116,11 @@ exports.getStudentByUsername = function(req, res){
  */
 exports.update = function(req, res) {
 
-  var student = new Student(req.body);
+  //var student = new Student(req.body);
+console.log(req.body);
+  //console.log("YOYO: ",student);
 
-  console.log("YOYO: ",student);
-
-  Student.findOneAndUpdate({username: student.username}, student, {upsert: false}).then(function(data){
+  Student.findOneAndUpdate({user: req.body.user}, req.body, {upsert: false}).then(function(data){
     console.log("YOYO DATA: ",data);
 
     res.json(data);

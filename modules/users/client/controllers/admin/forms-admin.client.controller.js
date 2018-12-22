@@ -23,7 +23,11 @@
     vm.viewForm = viewForm;
 
     vm.sendFormFixEmail = sendFormFixEmail;
-    vm.approveForms = approveForms;
+
+    vm.approveLetterOfRecommendation = approveLetterOfRecommendation;
+    vm.approveResume = approveResume;
+    vm.approveWaiver = approveWaiver;
+    vm.approveNDA = approveNDA;
 
     vm.uploadNDA = uploadNDA;
     vm.uploadWaiver = uploadWaiver;
@@ -166,16 +170,72 @@
       });
     }
 
-    function approveForms(student){
-      student.areFormsAdminApproved = true;
+    function approveNDA(student){
+      vm.user.isNDAAdminApproved = true;
 
-      StudentService.updateStudent(student.user, student).then(function(data){
-        console.log("data: ",data);
-        vm.selected_user = false;
-        vm.user = null;
-        vm.students.splice(vm.students.indexOf(student), 1);
-        vm.pagedItems.splice(vm.students.indexOf(student), 1);
+      StudentService.updateStudent(student.user, vm.user).then(function(data){
+        console.log(data);
+        onFormApprovalSuccess('NDA', (student.application.firstName+' '+student.application.lastName));
+        approveForms(student);
+      })
+    }
+
+    function approveWaiver(student){
+      vm.user.isWaiverAdminApproved = true;
+
+      StudentService.updateStudent(student.user, vm.user).then(function(data){
+        console.log(data);
+        onFormApprovalSuccess('Waiver', (student.application.firstName+' '+student.application.lastName));
+        approveForms(student);
       });
+    }
+
+    function approveLetterOfRecommendation(student){
+      vm.user.isLetterofRecommendationAdminApproved = true;
+
+      console.log("before: ",vm.user);
+      StudentService.updateStudent(student.user, vm.user).then(function(data){
+        console.log("data: ",data);
+        onFormApprovalSuccess('Letter of Recommendation', (student.application.firstName+' '+student.application.lastName));
+        approveForms(student);
+      });
+    }
+
+    function approveResume(student){
+      vm.user.isResumeAdminApproved = true;
+
+      StudentService.updateStudent(student.user, vm.user).then(function(data){
+        console.log("data: ", data);
+        onFormApprovalSuccess('Resume', (student.application.firstName+' '+student.application.lastName));
+        approveForms(student);
+      });
+    }
+
+    function approveForms(student){
+      if(student.isResumeAdminApproved === true && student.isLetterofRecommendationAdminApproved === true && student.isNDAAdminApproved === true && student.isWaiverAdminApproved === true){
+        student.areFormsAdminApproved = true;
+
+
+        StudentService.updateStudent(student.user, student).then(function(data){
+          console.log("data: ",data);
+          vm.selected_user = false;
+          vm.user = null;
+          vm.students.splice(vm.students.indexOf(student), 1);
+          vm.pagedItems.splice(vm.students.indexOf(student), 1);
+          onFormCompletionSuccess(data);
+        });
+      }
+    }
+
+    function onFormApprovalSuccess(formName, studentName) {
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> The '+formName+' form belonging to '+studentName+' has been approved.' });
+    }
+
+    function onFormCompletionSuccess(response) {
+      // If successful we assign the response to the global user model
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> All of the forms applicable to this student have been approved.' });
+      // And redirect to the previous or home page
+      //$state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
     function sendFormFixEmail(student, formName) {

@@ -156,14 +156,14 @@ var StudentSchema = new Schema({
      required: true
    },
 
-   isLetterofRecommendationSubmitted:{
-     type: Boolean,
-     default:false
-   },
-
    isLetterofRecommendationAdminApproved: {
      tyle: Boolean,
      default: false
+   },
+
+   isLetterofRecommendationSubmitted:{
+     type: Boolean,
+     default:false
    },
 
    isNDASubmitted: {
@@ -195,7 +195,7 @@ var StudentSchema = new Schema({
       type: Boolean,
       default: false
     },
-    
+
   active: {
       type: Boolean,
       default: true,

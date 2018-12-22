@@ -168,7 +168,7 @@ body, html {
              <button class="btn btn-primary" style="width:100%" ng-if="student.ResumeId !== ''" ng-click="vm.viewForm(vm.user.NDAId)">View</button>
            </div>
            <div class="col-xs-6">
-             <button class="btn btn-primary btn-warning" style="width:100%" ng-click="vm.approveForms(student)">Approve</button>
+             <button class="btn btn-primary btn-warning" style="width:100%" ng-click="vm.approveNDA(vm.user)">Approve</button>
           </div>
         </div>
         <br>
@@ -180,7 +180,7 @@ body, html {
             <button class="btn btn-primary" style="width:100%" ng-if="student.ResumeId !== ''" ng-click="vm.viewForm(vm.user.WaiverId)">View</button>
           </div>
           <div class="col-xs-6">
-            <button class="btn btn-primary btn-warning" style="width:100%" ng-click="vm.approveForms(student)">Approve</button>
+            <button class="btn btn-primary btn-warning" style="width:100%" ng-click="vm.approveWaiver(vm.user)">Approve</button>
          </div>
        </div>
        <br>
@@ -192,7 +192,7 @@ body, html {
            <button class="btn btn-primary" style="width:100%" ng-if="student.ResumeId !== ''" ng-click="vm.viewForm(vm.user.ResumeId)">View</button>
          </div>
          <div class="col-xs-6">
-           <button class="btn btn-primary btn-warning" style="width:100%" ng-click="vm.approveForms(student)">Approve</button>
+           <button class="btn btn-primary btn-warning" style="width:100%" ng-click="vm.approveResume(vm.user)">Approve</button>
         </div>
       </div>
       <br>
@@ -201,10 +201,10 @@ body, html {
          <center>Letter of Recommendation<i class="glyphicon glyphicon-ok" ng-if="vm.user.isLetterofRecommendationSubmitted === true && vm.user.isLetterofRecommendationAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isLetterofRecommendationSubmitted === true && vm.user.isLetterofRecommendationAdminApproved === true" style="color:green"></i></center>
          <br>
          <div class="col-xs-6">
-           <button class="btn btn-primary" style="width:100%" ng-if="student.ResumeId !== ''" ng-click="vm.viewForm(vm.user.letterOfRecommendationId)">View</button>
+           <button class="btn btn-primary" style="width:100%" ng-if="student.letterOfRecommendationId !== ''" ng-click="vm.viewForm(vm.user.letterOfRecommendationId)">View</button>
          </div>
          <div class="col-xs-6">
-           <button class="btn btn-primary btn-warning" style="width:100%" ng-click="vm.approveForms(student)">Approve</button>
+           <button class="btn btn-primary btn-warning" style="width:100%" ng-click="vm.approveLetterOfRecommendation(vm.user)">Approve</button>
         </div>
       </div>
       <br>
