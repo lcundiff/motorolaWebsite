@@ -365,6 +365,7 @@
 */
 
 function deactivateStudent(user, student, index) {
+  vm.selected_user = false;
   student.active = false;
   student.timeSlot = [];
   student.mentor = "";
@@ -391,6 +392,7 @@ function onDeactivationSuccess(response) {
     }
 
 function activateStudent(user, student, index) {
+  vm.selected_user = false;
   student.active = true;
   vm.students.splice(index, 1);
   vm.pagedItems.splice(index%15, 1);
