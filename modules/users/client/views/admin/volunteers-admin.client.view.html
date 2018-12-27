@@ -1,16 +1,27 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <title>Applicants</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
+<link rel="stylesheet" type="text/css" href="/modules/core/client/css/bootstrap.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 
 <style>
+/* Set height of body and the document to 100% to enable "full page tabs" */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+
 /* Style tab links */
 .tablink {
   background-color: #555;
@@ -73,195 +84,159 @@
     text-decoration: none;
     cursor: pointer;
 }
+
 </style>
 
-<body>
-  <div style="background-color:#003d66 ; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+<section>
+  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
     <h1 style="font-weight:bold;">Volunteers</h1>
-    <!-- <hr> -->
   </div>
-  <!--<div class="" style=" padding-bottom:20em; padding:25px; margin-top: -25px; margin-left: calc(-45vw + 45%); width:100vw; height: 80vh">-->
-  <div style="padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;">
-      <!--   <div class="w3-twothird w3-container"> -->
-      <button class="tablink" id="defaultOpen"  ng-click="vm.listActiveVolunteers(); openPage('Active_Volunteers', this);" id="defaultOpen">Active</button>
-      <button class="tablink" id="defaultOpen"  ng-click="vm.listDeactivatedVolunteers(); openPage('NonActive_Volunteers', this);">Deactivated</button>
+  <br>
+  <div class="col-xs-12 col-md-8">
+  <div class="jumbotron">
+  <div class="container">
+    <ul class="nav nav-tabs">
+      <li role="presentation" ><a data-toggle="tab" href="#activeForms" ng-click="vm.listActiveVolunteers();">Active</a></li>
+      <li role="presentation"><a data-toggle="tab" href="#inactiveForms" ng-click="vm.listDeactivatedVolunteers();">Inactive</a></li>
+    </ul>
+    <br>
 
-      <div class="w3-container w3-card-2 w3-white table-responsive" style="width:100%; height: 65vh; margin-top: 30px;">
-        <div id="Active_Volunteers" class="tabcontent">
-
-        <div class="row">
-          <h1 style="margin:10px; "></h1>
+    <div class="tab-content">
+      <div id="activeForms" class="tab-pane fade">
+        <div class="container">
+          <div class="container">
+          <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
         </div>
-
-        <div class="row" style="padding:10px;">
-
-          <div class="col-md-12">
-            <div class="input-group" id="searchBar" style="margin-top: 2em">
-              <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
-              <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-            </div>
-          </div>
-
-          <div class="col-md-12">
-            <section>
-              <div class="list-group">
-                <a ng-repeat="volunteer in vm.pagedItems" ng-click="openModal(volunteer.username, 'Modal_AV');" class="list-group-item">
-                    <h4 class="list-group-item-text-heading" ng-bind="volunteer.application.name"></h4>
-                    <br>
-                    <p class="list-group-item-text small pull-right" ng-bind="volunteer.roles"></p>
-                    <p class="list-group-item-text small" ng-bind="volunteer.application.areaofexpertise"></p>
-                    <p class="list-group-item-text small pull-right" ng-bind="volunteer.sessions"></p>
-                    <p class="list-group-item-text small" ng-bind="volunteer.application.email"></p>
-                    <p class="list-group-item-text small" ng-bind="volunteer.application.phone"></p>
-                    <br>
-                  <button "btn btn-primary btn-sm" ng-click="vm.deactivateVolunteer(volunteer.user, volunteer, $index)">Deactivate</button>
-                </a>
-              </div>
-              <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
-            </section>
-          </div>
+        <br>
+          <div class="container">
+        <div class="list-group">
+          <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
+          <a ng-repeat="volunteer in vm.pagedItems" ng-click="vm.displayVolunteer(volunteer); user_selected = true;" class="list-group-item">
+            <h4 class="list-group-item-heading" ng-bind-template="{{volunteer.user.displayName}}"></h4>
+            <br />
+          </a>
+        </div>
+        </div>
+        <div class="container">
+        <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
         </div>
       </div>
-
-      <!--NonActive Tab starts here-->
-      <div id="NonActive_Volunteers" class="tabcontent">
-
-                <div class="row">
-                  <h1 style="margin:10px; "></h1>
-                </div>
-
-                <div class="row" style="padding:10px;">
-
-                  <div class="col-md-12">
-                    <div class="input-group" id="searchBar" style="margin-top: 2em">
-                      <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
-                      <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-                    </div>
-                  </div>
-
-                  <div class="col-md-12">
-                    <section>
-                      <div class="list-group">
-                        <a ng-repeat="volunteer in vm.pagedItems" ng-click="openModal(volunteer.username, 'Modal_AV');" class="list-group-item">
-                            <h4 class="list-group-item-text-heading" ng-bind="volunteer.application.name"></h4>
-                            <br>
-                            <p class="list-group-item-text small pull-right" ng-bind="volunteer.roles"></p>
-                            <p class="list-group-item-text small" ng-bind="volunteer.application.areaofexpertise"></p>
-                            <p class="list-group-item-text small pull-right" ng-bind="volunteer.sessions"></p>
-                            <p class="list-group-item-text small" ng-bind="volunteer.application.email"></p>
-                            <p class="list-group-item-text small" ng-bind="volunteer.application.phone"></p>
-                            <br>
-                          <button "btn btn-primary btn-sm" ng-click="vm.activateVolunteer(volunteer.user, volunteer, $index)">Activate</button>
-                        </a>
-                      </div>
-                      <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
-                    </section>
-                  </div>
-                </div>
-    </div>
-
+      </div>
+      <div id="inactiveForms" class="tab-pane fade">
+        <div class="container">
+          <div class="container">
+          <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+        </div>
+        <br>
+          <div class="container">
+        <div class="list-group">
+          <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
+          <a ng-repeat="volunteer in vm.pagedItems" ng-click="vm.displayVolunteer(volunteer); user_selected = true;" class="list-group-item">
+            <h4 class="list-group-item-heading" ng-bind-template="{{volunteer.user.displayName}}"></h4>
+            <br />
+          </a>
+        </div>
+        </div>
+        <div class="container">
+        <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+        </div>
+      </div>
       </div>
     </div>
-    <div id="Modal_AV" class="modal">
-      <!-- Modal content -->
-    <div class="modal-content">
-      <span class="close" ng-click="closeModal('Modal_AV')">&times;</span>
-      <!-- RESUME -->
-      <div class="w3-main" >
-      <div class="w3-row w3-padding-16">
-          <div ng-show="error" class="text-danger">
-            <strong ng-bind="error"></strong>
-          </div>
-
-
-          <div class="w3-third">
-            <div class="w3-white w3-card-4">
-              <div class="w3-display-container" style="width:100%">
-                <img ngf-src="vm.modal_vol.profileImageURL" style="width:100%" ng-if="vm.modal_vol.profileImageURL !== null || vm.modal_vol.profileImageURL !== undefined || vm.modal_vol.profileImageURL !== ''"alt="Avatar" ngf-drop>
-                <img src="/modules/users/client/img/profile/Unknown.png" style="width:100%" ng-if="vm.modal_vol.profileImageURL === null || vm.modal_vol.profileImageURL === undefined || vm.modal_vol.profileImageURL === ''"alt="Avatar">
-              </div>
-            </div>
-          </div>
-
-          <div class="w3-twothird">
-            <div class="w3-container w3-margin-bottom">
-
-              <!-- <div ng-show="student"> -->
-              <h6 class="w3-text-black-"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Volunteer Name:</b> &nbsp; {{vm.modal_vol.application.name}}</h6>
-              <br>
-              <h6 class="w3-text-black"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Roles in Program:</b> &nbsp; {{vm.modal_vol.roles.toString()}}</h6>
-              <br>
-              <h6 class="w3-text-black"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i><b>Email:</b> &nbsp; {{vm.modal_vol.application.email}}</h6>
-              <br>
-              <h6 class="w3-text-black"><i class="fa fa-phone fa-fw w3-margin-right w3-large"></i><b>Phone Number:</b> &nbsp; {{vm.modal_vol.application.phone}}</h6>
-              <br>
-              <h6 class="w3-text-black"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Area of Expertise:</b> &nbsp; {{vm.modal_vol.areaofexpertise}}</h6>
-
-
-              <br>
-              <br>
-          </div>
-        </div>
-        </div><br>
+    <!--START -->
 
 
 
 
-        <!-- End Left Column-->
-      </div>
-      </div>
+
     <!-- END -->
-    </div>
-    <div id="Modal_DV" class="modal">
-      <!-- Modal content -->
-    <div class="modal-content">
-      <span class="close" ng-click="closeModal_V('Modal_DV')">&times;</span>
-      <!-- RESUME -->
-      <div class="w3-main" >
-      <div class="w3-row w3-padding-16">
-          <div ng-show="error" class="text-danger">
-            <strong ng-bind="error"></strong>
-          </div>
 
+    <!-- END2 -->
 
-          <div class="w3-third">
-            <div class="w3-white w3-card-4">
-              <div class="w3-display-container" style="width:100%">
-                <img ngf-src="vm.modal_vol.profileImageURL" style="width:100%" ng-if="vm.modal_vol.profileImageURL !== null || vm.modal_vol.profileImageURL !== undefined || vm.modal_vol.profileImageURL !== ''"alt="Avatar" ngf-drop>
-                <img src="/modules/users/client/img/profile/Unknown.png" style="width:100%" ng-if="vm.modal_vol.profileImageURL === null || vm.modal_vol.profileImageURL === undefined || vm.modal_vol.profileImageURL === ''"alt="Avatar">
-              </div>
+  </div>
+</div>
+</div>
+<div class="col-xs-6 col-md-4">
+<div class="jumbotron jumbotron fluid" >
+  <div class="container">
+    <center>
+    <div ng-switch="vm.selected_user">
+      <div ng-switch-when=true>
+        <div class="container">
+
+          <div class="row">
+            <div class="row">
+              <center>
+                  <div ng-bind-template="{{vm.user.user.displayName}}"></div>
+                </center>
             </div>
+          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+          <div class="row">
+            <center>
+              <h6 style="font-weight: bold;">Roles</h6>
+              <div ng-bind-template="{{vm.user.roles.toString()}}"></div>
+            </center>
           </div>
+          <div class="row">
+            <center>
+              <h6 style="font-weight: bold;">Area of Expertise</h6>
+              <div ng-bind-template="{{vm.user.areaofexpertise}}"></div>
+            </center>
+          </div>
+          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+          <div class="row">
+            <center>
+              <h6 style="font-weight: bold;">Sessions</h6>
+              <div ng-bind-template="Sessions {{vm.user.sessions.toString()}}"></div>
+            </center>
+          </div>
+          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
 
-          <div class="w3-twothird">
-            <div class="w3-container w3-margin-bottom">
-
-              <!-- <div ng-show="student"> -->
-              <h6 class="w3-text-black-"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Volunteer Name:</b> &nbsp; {{vm.modal_vol.application.name}}</h6>
-              <br>
-              <h6 class="w3-text-black"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Roles in Program:</b> &nbsp; {{vm.modal_vol.roles.toString()}}</h6>
-              <br>
-              <h6 class="w3-text-black"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i><b>Email:</b> &nbsp; {{vm.modal_vol.application.email}}</h6>
-              <br>
-              <h6 class="w3-text-black"><i class="fa fa-phone fa-fw w3-margin-right w3-large"></i><b>Phone Number:</b> &nbsp; {{vm.modal_vol.application.phone}}</h6>
-              <br>
-              <h6 class="w3-text-black"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Area of Expertise:</b> &nbsp; {{vm.modal_vol.areaofexpertise}}</h6>
-
-
-              <br>
-              <br>
+          <div class="row">
+            <element ng-switch="vm.user.active">
+              <element ng-switch-when="true">
+                <button class="btn btn-primary" ng-click="vm.deactivateVolunteer(vm.user.username, vm.user, $index)">Deactivate</button>
+              </element>
+              <element ng-switch-when="false">
+                <button class="btn btn-primary" ng-click="vm.activateVolunteer(vm.user.username, vm.user, $index)">Activate</button>
+            </element>
           </div>
         </div>
-        </div><br>
 
+          <!--  <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="student.NDAId !== '' " ng-click="vm.viewForm(vm.user.NDAId)">View NDA</button>
+            <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="student.WaiverId !== ''" ng-click="vm.viewForm(vm.user.WaiverId)">View Waiver</button>
+            <button style="margin-bottom:8px;" class="btn btn-primary" ng-if="student.letterOfRecommendationId !== ''" ng-click="vm.viewForm(vm.user.letterOfRecommendationId)">View Letter of Recommendation</button>
 
+            <button class="btn btn-primary btn-warning" ng-click="vm.approveForms(student)"><i class="glyphicon glyphicon-edit"></i>Approve Forms</button>
+            <button class="btn btn-primary btn-warning" ng-click="vm.deactivateStudent(student.user, student, $index)">Deactivate</button>
 
-
-        <!-- End Left Column-->
+            <select ng-model="vm.formFixName">
+              <option value='NDA'>NDA</option>
+              <option value='Waiver'>Waiver</option>
+              <option value='Letter of Recommendation'>Letter of Recommendation</option>
+              <option value='Resume'>Resume</option>
+            </select>
+            <button class="btn btn-primary btn-sm" ng-click="vm.sendFormFixEmail(vm.user, vm.formFixName)">Send Form Fix Email</button>-->
+          <br>
       </div>
-      </div>
-    <!-- END -->
     </div>
-</body>
+  <div ng-switch-when="false">
+    Click on a volunteer to view their information.
+  </div>
+  </div>
+</center>
+</div>
+</div>
+</div>
+  <!--<div class="list-group">
+    <!--<a ng-repeat="userReq in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
+    <a ng-repeat="userReq in vm.pagedItems" class="list-group-item">
+      <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
+      <!--<p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
+      <p class="list-group-item-text" ng-bind="user.email"></p>
+    </a>
+  </div>-->
+
+</section>
 
 </html>

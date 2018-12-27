@@ -146,7 +146,7 @@ console.log("updateRank");
 };
 
 exports.listDeactivated = function (req, res) {
-  Volunteer.find({active:false}).sort('-created').exec(function (err, volunteers) {
+  Volunteer.find({active:false}).sort('-created').populate('user', 'displayName').exec(function (err, volunteers) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

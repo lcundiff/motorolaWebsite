@@ -10,6 +10,9 @@
 
   function VolunteersAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, VolunteerService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
     var vm = this;
+
+    vm.selected_user = false;
+
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
@@ -20,6 +23,16 @@
 
     vm.deactivateVolunteer = deactivateVolunteer;
     vm.activateVolunteer = activateVolunteer;
+
+    vm.displayVolunteer = displayVolunteer;
+
+    function displayVolunteer(user){
+      vm.user = user;
+
+      console.log(vm.user);
+
+      vm.selected_user = true;
+    }
 
     function buildPager() {
       vm.pagedItems = [];
@@ -121,6 +134,7 @@
   $scope.anyChecked = false;
 
 function deactivateVolunteer(user, volunteer, index) {
+  vm.selected_user = false;
   volunteer.active = false;
   volunteer.mentee = [];
   volunteer.menteeID = [];
@@ -146,6 +160,7 @@ function onDeactivationSuccess(response) {
     }
 
 function activateVolunteer(user, volunteer, index) {
+  vm.selected_user = false;
   volunteer.active = true;
   vm.volunteers.splice(index, 1);
   vm.pagedItems.splice(index%15, 1);
