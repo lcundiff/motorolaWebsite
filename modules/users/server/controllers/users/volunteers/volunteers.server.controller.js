@@ -28,6 +28,7 @@ exports.create = function(req, res) {
     volunteer.application.lastname = req.body.lastName;
     volunteer.application.email = req.body.email;
     volunteer.application.user = req.body.user;
+    volunteer.application.address = req.body.address;
     volunteer.application.username = req.body.username;
 
 

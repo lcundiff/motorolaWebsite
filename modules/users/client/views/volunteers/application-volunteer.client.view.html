@@ -32,65 +32,189 @@
         <!-- Dashboard <small>student</small> -->
       </h1>
   </div>
+  <form name="vm.volunteerForm" ng-submit="vm.createStudent(vm.volunteerForm.$valid)" class="application" novalidate autocomplete="off">
+  <div id="myCarousel" class="carousel slide" data-interval="false">
+    <div class="jumbotron jumbotron-fluid text-center" style="background-color: #e2e6e9; height: 100%;">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+  <li data-target="#myCarousel" data-slide-to="1"></li>
+  <li data-target="#myCarousel" data-slide-to="2"></li>
+  <li data-target="#myCarousel" data-slide-to="3"></li>
+  </ol>
+
+  <!-- START SLIDE -->
   <div class="container">
+  <div class="carousel-inner">
+        <div class="item active">
+          <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Personal Information<span style="color:red;">*</span></h3>
+          <br>
+  			<div class="col-xs-6">
+          <div class="form-group" show-errors>
+          <!--  <label for="firstName">First Name</label>-->
+            <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.credentials.application.firstName" placeholder="First Name" required autofocus>
+            <div ng-messages="vm.volunteerForm.firstName.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">First name is required.</p>
+            </div>
+          </div>
+          <div class="form-group" show-errors>
+          <!--  <label for="lastName">Last Name</label>-->
+            <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.credentials.application.lastName" placeholder="Last Name" required>
+            <div ng-messages="vm.volunteerForm.lastName.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Last name is required.</p>
+            </div>
+          </div>
+          <div class="form-group" show-errors>
+          <!--  <label for="email">Email</label>-->
+            <input type="email" id="email" name="email" class="form-control" ng-model="vm.credentials.application.email" placeholder="Email" lowercase required>
+            <div ng-messages="vm.volunteerForm.email.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Email address is required.</p>
+              <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
+            </div>
+          </div>
+          <div class="form-group" show-errors>
+          <!--  <label for="phone">Phone</label>-->
+            <input type="phone" id="phone" name="phone" class="form-control" ng-model="vm.credentials.application.phone" placeholder="Phone" required>
+            <div ng-messages="vm.volunteerForm.phone.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Phone is required.</p>
+            </div>
+      		</div>
+          </div>
 
 
-    <div class="w3-row w3-padding-64">
-      <!--   <div class="w3-twothird w3-container"> -->
-      <div class="w3-container w3-card-2 w3-white w3-margin-bottom" style="margin-left: 150px; margin-right: 150px; padding-left: 70px; padding-right: 70px; padding-top: 20px; padding-bottom: 70px;">
-        <h1 style="padding-left: 0px;"> Volunteer Application </h1>
-        <h7> Please fill out all fields before submitting</h7>
-        <br>
-        <br>
-        <form name="vm.volunteerForm" class="application" novalidate autocomplete="off">
-        <h6 class="w3-text-black"><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i><b>Volunteer Name:</b></h6>
-        <input style="width:30vw; margin-left: 40px;" type="text" ng-model='vm.credentials.application.name' placeholder="" required><br><hr>
-        <h6 class="w3-text-black"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i><b>Email:</b></h6>
-        <input style="width:30vw; margin-left: 40px;" type="email" ng-model='vm.credentials.application.email' placeholder="" required><br><hr>
-        <h6 class="w3-text-black"><i class="fa fa-phone fa-fw w3-margin-right w3-large"></i><b>Phone Number:</b></h6>
-        <input style="width:30vw; margin-left: 40px;" type="text" ng-model='vm.credentials.application.phone' placeholder="" required><br><hr>
-        <h6 class="w3-text-black"><i class="fa fa-university fa-fw w3-margin-right w3-large"></i><b>Roles in Program: </b></h6>
-        <h6 class="w3-text-black"><b>Please choose one:</b></h6>
-        <select style="width:30vw; margin-left: 40px;" id="current_roles" ng-model="vm.roles" required>
+          <div class="col-xs-6">
+            <div class="form-group" show-errors>
+            <!--  <label for="homeAddress1">Home Address Line 1</label>-->
+              <input type="text" id="homeAddress1" name="homeAddress1" class="form-control" ng-model="vm.credentials.application.address.line_1" placeholder="Address Line 1" required>
+              <div ng-messages="vm.volunteerForm.homeAddress1.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Address Line 1 is required.</p>
+              </div>
+            </div>
+
+            <!--  <label for="homeAddress2">Home Address Line 2</label>-->
+            <div class="form-group" show-errors>
+              <input type="text" id="homeAddress2" name="homeAddress2" class="form-control" ng-model="vm.credentials.application.address.line_2" placeholder="Address Line 2">
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+            <div class="form-group" show-errors>
+            <!--  <label for="city">City</label>-->
+              <input type="text" id="city" name="city" class="form-control" ng-model="vm.credentials.application.address.city" placeholder="City" required>
+              <div ng-messages="vm.volunteerForm.city.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">City is required.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+             <!--<label for="state">State</label>-->
+            <div class="form-group" show-errors>
+              <input type="text" id="state" name="state" class="form-control" ng-model="vm.credentials.application.address.state" placeholder="State" required>
+              <div ng-messages="vm.volunteerForm.state.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">State is required.</p>
+              </div>
+            </div>
+          </div>
+
+        <!--  <label for="state">Zipcode</label>-->
+        <div class="col-xs-6">
+          <div class="form-group" show-errors>
+              <input type="text" id="zipcode" name="zipcode" class="form-control" ng-model="vm.credentials.application.address.zipcode" placeholder="Zipcode" required>
+              <div ng-messages="vm.volunteerForm.zipcode.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Zipcode is required.</p>
+              </div>
+            </div>
+          </div>
+      <!-- END CARD -->
+    </div>
+
+
+      <!-- BEGIN CARD -->
+    <div class="item">
+      <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Program Roles<span style="color:red;">*</span></h3>
+      <br>
+      <div class="form-group" show-errors>
+        <center>
+        <select class="form-control" style="width:50%" name="current_roles" id="current_roles" ng-model="vm.roles" required>
           <option value = 'm'>I would like to be a <b>mentor</b> ONLY</option>
           <option value = 'i'>I would like to be an <b>interviewer</b> ONLY</option>
           <option value = 'mi'>I would like to be BOTH an <b>interviewer</b> AND a <b>mentor</b></option>
-        </select><br><hr>
-        <h6 class="w3-text-black"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-black"></i>Area of Expertise:</b></h6>
-        <h7 style="margin-left: 40px;">If you would like to be a mentor, please select your area of expertise:</h7>
-        <select style="width:30vw; margin-left: 40px;" ng-model="vm.credentials.application.areaofexpertise" required>
-            <option value = "Electrical Engineering / Design">Electrical Engineering / Design</option>
-            <option value = "Mechanical Engineering / Design">Mechanical Engineering / Design</option>
-            <option value = "Software Engineering Development">Software Engineering Development</option>
-            <option value = "Industrial / User Interface / Research Design">Industrial / User Interface / Research Design</option>
-            <option value = "Program Management">Program Management</option>
-            <option value = "Marketing">Marketing</option>
-            <option value = "Business">Business</option>
-            <option value = "Product Life Cycle Management">Product Life Cycle Management</option>
-            <option value = "Other">Other</option>
-          </select><br><hr>
-        <h6 class="w3-text-black"><i class="fa fa-university fa-fw w3-margin-right w3-large"></i><b>Mentorship Session Availability:</b></h6>
-        <h7 style="margin-left: 40px;">If you would like to be a mentor, please select all sessions that you can attend:</h7><br>
-        <div ng-model="vm.credentials.application.sessions" >
-          <input name = "s1" ng-model='vm.sessions_1' type="checkbox" id = "s1" value="1">Session 1: June 25-29</option><br>
-          <input name = "s2" ng-model='vm.sessions_2' type="checkbox" id = "s2" value="2">Session 2: July 23-27</option><br>
-          <input name = "s3" ng-model='vm.sessions_3' type="checkbox" id = "s3" value="3">Session 3: August 6-10</option><br>
+        </select>
+        <div ng-messages="vm.volunteerForm.current_roles.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">Role choice is required.</p>
         </div>
-        <br>
-        <!-- <button style="margin-left: 40px;" class="btn btn-primary btn-lg align-center" ng-click='modifyVolunteer();' ng-controller="VolunteersController"  ng-controller="HeaderController">Submit</button> -->
-            <element ng-switch="vm.updateIsSubmit">
-              <element ng-switch-when="true">
-                <button  class ="btn btn-success btn-lg"  <button type="submit" class="btn btn-primary" ng-click="vm.updateVolunteer(vm.volunteerForm.$valid)">Update Application</button>
-              </element>
-              <element ng-switch-when="false">
-                <button  class ="btn btn-success btn-lg"  <button type="submit" class="btn btn-primary" ng-click"vm.createVolunteer(vm.volunteerForm.$valid)">Save Application</button>
-              </element>
-            </element>
-
-        </form>
-        </div>
+      </center>
+      </div>
     </div>
+
+  <div class="item">
+    <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Mentorship Area of Interest<span style="color:red;">*</span></h3>
+    <br>
+    <div class="form-group" show-errors>
+      <center>
+      <select class="form-control" style="width:50%" name="area_of_interest" ng-model="vm.credentials.application.areaofexpertise" required>
+        <option value = "Electrical Engineering / Design">Electrical Engineering / Design</option>
+        <option value = "Mechanical Engineering / Design">Mechanical Engineering / Design</option>
+        <option value = "Software Engineering Development">Software Engineering Development</option>
+        <option value = "Industrial / User Interface / Research Design">Industrial / User Interface / Research Design</option>
+        <option value = "Program Management">Program Management</option>
+        <option value = "Marketing">Marketing</option>
+        <option value = "Business">Business</option>
+        <option value = "Product Life Cycle Management">Product Life Cycle Management</option>
+        <option value = "Other">Other</option>
+      </select>
+      <div ng-messages="vm.volunteerForm.area_of_interest.$error" role="alert">
+        <p class="help-block error-text" ng-message="required">Role choice is required.</p>
+      </div>
+    </center>
+    </div>
+  </div>
+
+  <div class="item">
+    <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Program Roles<span style="color:red;">*</span></h3>
+    <br>
+    <div class="form-group" show-errors>
+    <center>
+    <div ng-model="vm.credentials.application.sessions" >
+      <input name = "s1" ng-model='vm.sessions_1' type="checkbox" id = "s1" value="1">Session 1: June 25-29</option><br>
+      <input name = "s2" ng-model='vm.sessions_2' type="checkbox" id = "s2" value="2">Session 2: July 23-27</option><br>
+      <input name = "s3" ng-model='vm.sessions_3' type="checkbox" id = "s3" value="3">Session 3: August 6-10</option><br>
+    </div>
+  </center>
+  </div>
+</div>
+
+
+
         </div>
+        <hr>
+      </div>
+
+      </div>
+
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev" style="width:7%">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next" style="width:7%">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    </div>
+
+    <div class="jumbotron jumbotron-fluid text-center" style="background-color: #e2e6e9;">
+      <div class="container">
+        <element ng-switch="vm.updateIsSubmit">
+          <element ng-switch-when="true">
+            <button  button type="submit" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.updateVolunteer(vm.volunteerForm.$valid)">Update Application</button>
+          </element>
+          <element ng-switch-when="false">
+            <button  button type="submit" class="sign-button sign-in-button sign-in-button-sm" ng-click"vm.createVolunteer(vm.volunteerForm.$valid)">Save Application</button>
+          </element>
+        </element>
+      </div>
+	 </div>
+  </form>
+
 
 </body>
 

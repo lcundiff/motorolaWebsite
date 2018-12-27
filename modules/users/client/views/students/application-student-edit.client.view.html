@@ -677,7 +677,7 @@
                 <element ng-switch-when="false">  <p class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{volWork.startDate | date: "mediumDate" }} - <span class="w3-tag w3-grey w3-round">{{volWork.endDate | date: "mediumDate"}}</span></p></element>
                 <element ng-switch-when="true">
                   <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>Start Date:</b></h6>
-                  <form><input type="date" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vm.credentials.application.volunteerExperiences[$index].startDate'></input><br></form>
+                  <form><input type="date" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vm.credentials.application.volunteerExperiences[$index].startDate' placeholder='mm/dd/yyyy'></input><br></form>
                   <!--  <h6 class="w3-text-black"><b> Do you still work here?<b></h6> <form><input type="radio"-->
                   <h6 class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>End Date:</b></h6>
                   <form><input type="date" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ng-model='vm.credentials.application.volunteerExperiences[$index].endDate'></input><br></form>

@@ -30,18 +30,26 @@
       if(data.status === undefined){
         console.log("here");
         vm.updateIsSubmit = true;
+        vm.isMentor = false;
 
         vm.credentials = {};
         vm.credentials.application = {};
         vm.credentials.application = data.application;
-        vm.credentials.application.firstName = vm.authentication.user.displayName;
+        vm.credentials.application.firstName = vm.authentication.user.firstName;
+        vm.credentials.application.lastName = vm.authentication.user.lastName;
         vm.credentials.application.email = vm.authentication.user.email;
         vm.credentials.application.areaofexpertise = data.application.areaofexpertise;
 
         console.log("data.roles.length: ",data.roles.length);
-        if(data.application.roles.indexOf("mentor") !== -1 && data.application.roles.indexOf("interviewer") === -1) vm.roles = "m";
+        if(data.application.roles.indexOf("mentor") !== -1 && data.application.roles.indexOf("interviewer") === -1){
+          vm.roles = "m";
+          vm.isMentor = true;
+        }
         if(data.application.roles.indexOf("mentor") === -1 && data.application.roles.indexOf("interviewer") !== -1) vm.roles = "i";
-        if(data.application.roles.indexOf("mentor") !== -1 && data.application.roles.indexOf("interviewer") !== -1) vm.roles = "mi";
+        if(data.application.roles.indexOf("mentor") !== -1 && data.application.roles.indexOf("interviewer") !== -1){
+          vm.roles = "mi";
+          vm.isMentor = true;
+        }
 
         if(data.sessions.indexOf("1") !== -1) vm.sessions_1 = true;
         if(data.sessions.indexOf("2") !== -1) vm.sessions_2 = true;
@@ -56,7 +64,6 @@
         vm.credentials.application.sessions = [];
         vm.credentials.application.firstName = vm.authentication.user.firstName;
         vm.credentials.application.lastName = vm.authentication.user.lastName;
-        vm.credentials.application.name = vm.authentication.user.displayName;
         vm.credentials.application.email = vm.authentication.user.email;
       }
     });

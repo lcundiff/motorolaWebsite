@@ -16,5 +16,17 @@
       roles: ['volunteer']
     });
 
+    menuService.addMenuItem('topbar', {
+      title: 'Interviews',
+      state: 'volunteer.application',
+      roles: ['interviewer']
+    });
+
+    menuService.addMenuItem('topbar', {
+      title: 'Mentorship',
+      state: 'volunteer.application',
+      roles: ['mentor']
+    });
+
   }
 }());

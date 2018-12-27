@@ -39,7 +39,21 @@ var VolunteerSchema = new Schema({
       type: String
     },
     address: {
-      type: String
+      line_1: {
+        type: String
+      },
+      line_2: {
+        type: String
+      },
+      city: {
+        type: String
+      },
+      state: {
+        type: String
+      },
+      zipcode: {
+        type: String
+      }
     },
 
     areaofexpertise: {
