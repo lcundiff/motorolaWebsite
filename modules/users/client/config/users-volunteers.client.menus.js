@@ -18,13 +18,13 @@
 
     menuService.addMenuItem('topbar', {
       title: 'Interviews',
-      state: 'volunteer.application',
+      state: 'volunteer.interviews',
       roles: ['interviewer']
     });
 
     menuService.addMenuItem('topbar', {
       title: 'Mentorship',
-      state: 'volunteer.application',
+      state: 'volunteer.mentorship',
       roles: ['mentor']
     });
 

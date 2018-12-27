@@ -15,6 +15,18 @@
         templateUrl: '/modules/users/client/views/volunteers/application-volunteer.client.view.html',
         controller: 'VolunteerController',
         controllerAs: 'vm'
+      })
+      .state('volunteer.mentorship', {
+        url: '/volunteer/mentorship',
+        templateUrl: '/modules/users/client/views/volunteers/mentorship-volunteer.client.view.html',
+        controller: 'VolunteerController',
+        controllerAs: 'vm'
+      })
+      .state('volunteer.interviews', {
+        url: '/volunteer/interviews',
+        templateUrl: '/modules/users/client/views/volunteers/interview-volunteer.client.view.html',
+        controller: 'VolunteerController',
+        controllerAs: 'vm'
       });
     /*  .state('student.', {
         url: '/users/:userId',

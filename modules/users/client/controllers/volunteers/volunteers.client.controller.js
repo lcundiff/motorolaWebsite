@@ -84,15 +84,86 @@
       if(vm.sessions_2 === true) vm.credentials.application.sessions.push("2");
       if(vm.sessions_3 === true) vm.credentials.application.sessions.push("3");
 
-      if(vm.roles === "m") p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'mentor']);
-      else if(vm.roles === "i") p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer']);
-      else if(vm.roles === "mi") p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer', 'mentor']);
+      if(vm.roles === "m") {
+        menuService.addMenuItem('topbar', {
+          title: 'Mentorship',
+          state: 'volunteer.mentorship',
+          roles: ['mentor']
+        });
+
+        p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'mentor']);
+
+
+      }
+      else if(vm.roles === "i"){
+        menuService.addMenuItem('topbar', {
+          title: 'Interviews',
+          state: 'volunteer.interviews',
+          roles: ['interviewer']
+        });
+
+        p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer']);
+      }
+      else if(vm.roles === "mi"){
+        menuService.addMenuItem('topbar', {
+          title: 'Mentorship',
+          state: 'volunteer.mentorship',
+          roles: ['mentor']
+        });
+        menuService.addMenuItem('topbar', {
+          title: 'Interviews',
+          state: 'volunteer.interviews',
+          roles: ['interviewer']
+        });
+
+        p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer', 'mentor']);
+      }
 
       Promise.all([p1, p2]).then(function([p1, p2]){
         console.log("vm.credentials.application: ",vm.credentials.application);
         VolunteerService.createVolunteer(vm.credentials, vm.authentication)
           .then(onVolunteerSubmissionSuccess)
           .catch(onVolunteerSubmissionError);
+      });
+    }
+
+    function updateMenu(roles){
+      console.log("vm.authentication in updateMenu: ",vm.authentication);
+      console.log("2: ",Authentication);
+      console.log($window.user.roles);
+      var p1 = Promise.resolve(menuService.removeMenuItem('topbar', 'volunteer.mentorship'));
+      var p2 = Promise.resolve(menuService.removeMenuItem('topbar', 'volunteer.interviews'));
+
+      Promise.all([p1, p2]).then(function([p1, p2]){
+      if(roles === "m"){
+        console.log("IN M");
+        menuService.addMenuItem('topbar', {
+          title: 'Mentorship',
+          state: 'volunteer.mentorship',
+          roles: ['mentor']
+        });
+      }
+      else if(roles === "i"){
+        console.log("IN I");
+        menuService.addMenuItem('topbar', {
+          title: 'Interviews',
+          state: 'volunteer.interviews',
+          roles: ['interviewer']
+        });
+      }
+      else if(roles === "mi"){
+        console.log("IN MI");
+        menuService.addMenuItem('topbar', {
+          title: 'Mentorship',
+          state: 'volunteer.mentorship',
+          roles: ['mentor']
+        });
+        menuService.addMenuItem('topbar', {
+          title: 'Interviews',
+          state: 'volunteer.interviews',
+          roles: ['interviewer']
+        });
+      }
       });
     }
 
@@ -112,9 +183,18 @@
       if(vm.sessions_2 === true) vm.credentials.application.sessions.push("2");
       if(vm.sessions_3 === true) vm.credentials.application.sessions.push("3");
 
-      if(vm.roles === "m") p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'mentor']);
-      else if(vm.roles === "i") p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer']);
-      else if(vm.roles === "mi") p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer', 'mentor']);
+      if(vm.roles === "m") {
+        $window.user.roles = ['volunteer', 'mentor'];
+        p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'mentor']);
+      }
+      else if(vm.roles === "i"){
+        $window.user.roles = ['volunteer', 'interviewer']
+        p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer']);
+      }
+      else if(vm.roles === "mi"){
+        $window.user.roles = ['volunteer', 'interviewer', 'mentor'];
+        p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer', 'mentor']);
+      }
 
       Promise.all([p1, p2]).then(function([p1, p2]){
         if(vm.authentication.user.roles.indexOf("admin") !== -1) vm.credentials.application.roles.push('admin');
@@ -128,6 +208,8 @@
 
     function onVolunteerSubmissionSuccess(response) {
       // If successful we assign the response to the global user model
+      updateMenu(vm.roles);
+
       vm.authentication.student = response;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Volunteer submission successful.' });
       // And redirect to the previous or home page
