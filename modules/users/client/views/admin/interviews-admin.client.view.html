@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<title>Applicants</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
+<link rel="stylesheet" type="text/css" href="/modules/core/client/css/bootstrap.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<style>
+/* Set height of body and the document to 100% to enable "full page tabs" */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+.tablink:hover {
+  background-color: #777;
+  padding: 20px;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: black;
+  display: none;
+  height: 100%;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100000 !important;
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+</style>
+
+<section>
+  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+    <h1 style="font-weight:bold;">Interviews</h1>
+  </div>
+  <br>
+
+  <div class="col-xs-12 col-md-6">
+  <div class="jumbotron">
+  <div class="container">
+    <ul class="nav nav-tabs">
+      <li role="presentation" ><a data-toggle="tab" href="#activeForms" ng-click="vm.listActiveStudents();">Active</a></li>
+      <li role="presentation"><a data-toggle="tab" href="#inactiveForms" ng-click="vm.listDeactivatedStudents();">Inactive</a></li>
+    </ul>
+    <br>
+
+    <div class="tab-content">
+      <div id="activeForms" class="tab-pane fade">
+        <div class="container">
+          <div class="container">
+          <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+        </div>
+        <br>
+          <div class="container">
+        <div class="list-group">
+          <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
+          <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="list-group-item">
+            <h4 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h4><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
+            <h5 class="pull-right" ng-bind-template="{{student.application.school}}"></h5>
+            <br />
+          </a>
+        </div>
+        </div>
+        <div class="container">
+        <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+        </div>
+      </div>
+      </div>
+      <div id="inactiveForms" class="tab-pane fade">
+        <div class="container">
+          <div class="container">
+          <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+        </div>
+        <br>
+          <div class="container">
+        <div class="list-group">
+          <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
+          <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="list-group-item">
+            <h4 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h4><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
+            <h5 class="pull-right" ng-bind-template="{{student.application.school}}"></h5>
+            <br />
+          </a>
+        </div>
+        </div>
+        <div class="container">
+        <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+        </div>
+      </div>
+      </div>
+    </div>
+    <!--START -->
+
+
+
+
+
+    <!-- END -->
+
+    <!-- END2 -->
+
+  </div>
+</div>
+</div>
+<div class="col-xs-12 col-md-6">
+<div class="jumbotron jumbotron fluid" >
+  <div class="container">
+    <center>
+    <div ng-switch="vm.selected_user">
+      <div ng-switch-when=true>
+        <div class="container">
+
+          <div class="row">
+            <div class="row">
+              <center>
+                  <div ng-bind-template="{{vm.user.application.firstName}} {{vm.user.application.lastName}}"></div>
+                </center>
+            </div>
+          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+          <div class="row">
+            <h6 style="font-weight: bold;">Interviewer 1</h6>
+          </div>
+          <div class="row">
+            <center>
+            <div class="col-xs-8 col-md-8">
+              <select style="width:100%"ng-model="vm.user.interviewer[0]">
+                <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user}}">{{volunteer.user.displayName}}</option>
+              </select>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <button class="btn btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewer[0], 0)">Set</button>
+            </div>
+            </center>
+          </div>
+          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+          <div class="row">
+            <h6 style="font-weight: bold;">Interviewer 2</h6>
+          </div>
+          <div class="row">
+            <center>
+            <div class="col-xs-8 col-md-8">
+              <select style="width:100%"ng-model="vm.user.interviewer[1]">
+                <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user}}">{{volunteer.user.displayName}}</option>
+              </select>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <button class="btn btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewer[1], 1)">Set</button>
+            </div>
+            </center>
+          </div>
+          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+          <div class="row">
+            <h6 style="font-weight: bold;">Interviewer 3</h6>
+          </div>
+          <div class="row">
+            <center>
+            <div class="col-xs-8 col-md-8">
+              <select style="width:100%"ng-model="vm.user.interviewer[2]">
+                <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user}}">{{volunteer.user.displayName}}</option>
+              </select>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <button class="btn btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewer[2], 2)">Set</button>
+            </div>
+            </center>
+          </div>
+          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+
+          <div class="row">
+            <center>
+              <h6 style="font-weight: bold;">Interview Rankings</h6>
+              <div ng-if="vm.user.indivRanks[0] === null && vm.user.indivRanks[1] === null && vm.user.indivRanks[2] === null">No rankings have been posted yet.</div>
+              <div ng-if="vm.user.indivRanks[0] !== null"><div ng-bind-template="1. {{vm.user.indivRanks[0]}}"></div></div>
+              <div ng-if="vm.user.indivRanks[1] !== null"><div ng-bind-template="2. {{vm.user.indivRanks[1]}}"></div></div>
+              <div ng-if="vm.user.indivRanks[2] !== null"><div ng-bind-template="3. {{vm.user.indivRanks[2]}}"></div></div>
+              <div ng-if="vm.user.indivRanks[0] !== null && vm.user.indivRanks[1] !== null && vm.user.indivRanks[2] !== null"><div ng-bind-template="Total: {{()}}"></div></div>
+            </center>
+          </div>
+        </element>
+          <element ng-switch-when=false>
+          </element>
+
+
+          <!--<div class="row">
+            <div class="col-md-3"><strong>Provider</strong></div>
+            <div class="col-md-6" ng-bind="vm.user.provider"></div>
+          </div>-->
+          <!--<div class="row">
+            <div class="col-md-6" ng-bind="vm.user.created"></div>
+          </div>
+          <hr/>-->
+        </div>
+
+          <!--  <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="student.NDAId !== '' " ng-click="vm.viewForm(vm.user.NDAId)">View NDA</button>
+            <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="student.WaiverId !== ''" ng-click="vm.viewForm(vm.user.WaiverId)">View Waiver</button>
+            <button style="margin-bottom:8px;" class="btn btn-primary" ng-if="student.letterOfRecommendationId !== ''" ng-click="vm.viewForm(vm.user.letterOfRecommendationId)">View Letter of Recommendation</button>
+
+            <button class="btn btn-primary btn-warning" ng-click="vm.approveForms(student)"><i class="glyphicon glyphicon-edit"></i>Approve Forms</button>
+            <button class="btn btn-primary btn-warning" ng-click="vm.deactivateStudent(student.user, student, $index)">Deactivate</button>
+
+            <select ng-model="vm.formFixName">
+              <option value='NDA'>NDA</option>
+              <option value='Waiver'>Waiver</option>
+              <option value='Letter of Recommendation'>Letter of Recommendation</option>
+              <option value='Resume'>Resume</option>
+            </select>
+            <button class="btn btn-primary btn-sm" ng-click="vm.sendFormFixEmail(vm.user, vm.formFixName)">Send Form Fix Email</button>-->
+          <br>
+      </div>
+    </div>
+  <div ng-switch-when="false">
+    Click on a student to view their information.
+  </div>
+  </div>
+</center>
+</div>
+</div>
+</div>
+  <!--<div class="list-group">
+    <!--<a ng-repeat="userReq in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
+    <a ng-repeat="userReq in vm.pagedItems" class="list-group-item">
+      <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
+      <!--<p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
+      <p class="list-group-item-text" ng-bind="user.email"></p>
+    </a>
+  </div>-->
+
+</section>
+
+</html>
