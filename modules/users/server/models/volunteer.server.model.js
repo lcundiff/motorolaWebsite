@@ -29,7 +29,7 @@ var VolunteerSchema = new Schema({
     firstName: {
       type: String
     },
-    lastname: {
+    lastName: {
       type: String
     },
     email: {

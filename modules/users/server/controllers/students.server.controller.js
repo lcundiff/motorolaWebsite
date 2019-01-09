@@ -47,6 +47,8 @@ exports.create = function(req, res) {
   student.indivRanks = [null, null, null];
   student.interviewRank = [null, null, null];
   student.interviewerID = [null, null, null];
+  student.isLetterofRecommendationSubmitted = false;
+  student.isLetterofRecommendationAdminApproved = false;
 
   student.save(function(err) {
     if (err) {

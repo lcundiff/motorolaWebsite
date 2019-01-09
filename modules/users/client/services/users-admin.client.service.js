@@ -49,10 +49,17 @@
       auto_accept: {
         method: 'PUT',
         url: '/api/automate/autoAcceptAllStudents'
+      },
+      auto_assign_interviews: {
+        method: 'PUT',
+        url: '/api/automate/autoAssignInterviews'
       }
     });
 
     angular.extend(Admins, {
+      autoAssignInterviews: function () {
+        return this.auto_assign_interviews().$promise;
+      },
       autoAccept: function () {
         return this.auto_accept().$promise;
       },

@@ -33,6 +33,8 @@ module.exports = function (app) {
   app.route('/api/automate/manMatch').put(admin.manMatch);
   app.route('/api/automate/manUnmatch').put(admin.manUnmatch);
 
+  app.route('/api/automate/autoAssignInterviews').put(admin.autoAssignInterviews);
+
   // Finish by binding the user middleware
   app.param('userId', admin.userByID);
 };

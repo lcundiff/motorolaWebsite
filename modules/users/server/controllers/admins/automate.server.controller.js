@@ -17,51 +17,6 @@ var path = require('path'),
 * Auto Functionality
 */
 
-function assignOneInterviewStudent(student, n){
-  var v;
-  if(student.interviewer.length < n){
-    return new Promise(function(resolve,reject){
-      Volunteer.find({ roles: "interviewer", active: true, user: { $nin: student.interviewerID } }).sort({interviewee_count: 1}).exec().then(function(volunteers){
-        if(volunteers.length === 0){
-          resolve('No interviewers available!');
-        }
-        else{
-          v = volunteers[0];
-          console.log("A101:");
-          console.log("v.user: ", v.user);
-          console.log(volunteers[0]);
-
-          student.interviewer.push(v.application.name);
-          student.interviewerID.push(v.user);
-
-          var v0 = false;
-
-          for(var i=0; i<v.interviewee.length; i++){
-            if(v.interviewee[i].user === student.user) v0 = true;
-          }
-
-          if(v0 === false){
-            v.interviewee_count = v.interviewee_count + 1;
-            v.interviewee.push(student.application.name);
-            v.intervieweeID.push(student.user);
-          }
-
-          student.save(function(err){
-            if(err) console.log(err);
-          }).then(function(response){
-            v.save(function(err){
-              if(err) console.log(err);
-            }).then(function(response){
-              resolve(student);
-            })
-          });
-        }
-
-      });
-    });
-  }
-};
-
 function chooseOneInterviewStudent(student,interviewer){
   var v;
   if(student.interviewer.length < 3){
@@ -146,18 +101,18 @@ function autoAssignInterviewsStudent(student, n){
     return new Promise(function(res, rej){
       Volunteer.find({roles: "interviewer", active: true}).sort({interviewee_count: 1}).exec().then(function(volunteers){
         console.log("volunteerslength: ",volunteers.length);
-        if(volunteers.length > 1){
+        console.log("volunteers: ",volunteers);
+        if(volunteers.length > 0){
           console.log("A505");
         return new Promise(function(resolve, reject){
-          student.indivRanks = ['Not Ranked', 'Not Ranked', 'Not Ranked'];
-          student.interviewRank = [];
+          student.indivRanks = [null, null, null];
+          student.interviewRank = [null, null, null];
           if(n===3){
-            student.interviewer = [volunteers[0].application.name, volunteers[1].application.name, volunteers[2].application.name];
-            student.interviewerID = [volunteers[0].user, volunteers[1].user, volunteers[2].user];
+            student.interviewer = [volunteers[0].user, volunteers[1].user, volunteers[2].user];
+
           }
           else if(n==2){
-             student.interviewer = [volunteers[0].application.name, volunteers[1].application.name];
-            student.interviewerID = [volunteers[0].user, volunteers[1].user];
+             student.interviewer = [volunteers[0].user];
           }
 
           student.save(function(err){
@@ -169,11 +124,11 @@ function autoAssignInterviewsStudent(student, n){
             //var v2 = false;
 
             for(var i=0; i<volunteers[0].interviewee.length; i++){
-              if(volunteers[0].interviewee[i].user === student.user) v0 = true;
+              if(volunteers[0].interviewee[i] === student.user) v0 = true;
             }
-            for(var i=0; i<volunteers[1].interviewee.length; i++){
-              if(volunteers[1].interviewee[i].user === student.user) v1 = true;
-            }
+            /*for(var i=0; i<volunteers[1].interviewee.length; i++){
+              if(volunteers[1].interviewee[i] === student.user) v1 = true;
+            }*/
             if(n===3){
               for(var i=0; i<volunteers[2].interviewee.length; i++){
                if(volunteers[2].interviewee[i].user === student.user) v2 = true;
@@ -185,7 +140,7 @@ function autoAssignInterviewsStudent(student, n){
               volunteers[0].interviewee.push(student.application.name);
               volunteers[0].intervieweeID.push(student.user);
             }
-            if(v1 === false){
+            /*if(v1 === false){
               volunteers[1].interviewee_count = volunteers[1].interviewee_count + 1;
               volunteers[1].interviewee.push(student.application.name);
               volunteers[1].intervieweeID.push(student.user);
@@ -194,7 +149,7 @@ function autoAssignInterviewsStudent(student, n){
               volunteers[2].interviewee_count = volunteers[2].interviewee_count + 1;
               volunteers[2].interviewee.push(student.application.name);
               volunteers[2].intervieweeID.push(student.user);
-            }
+            }*/
 
             resolve(volunteers);
 
@@ -229,8 +184,8 @@ function clearInterviewData(){
     if(volunteers.length > 0){
     volunteers.forEach(function(volunteer){
       return new Promise(function(resolve, reject){
-        volunteer.interviewee = [];
-        volunteer.intervieweeID = [];
+        volunteer.interviewee = [null, null, null];
+        volunteer.intervieweeID = [null, null, null];
         volunteer.interviewee_count = 0;
 
         resolve(volunteer);
@@ -257,9 +212,94 @@ exports.clearData = function(req,res){
 /*
 SUPER FUNCTION AUTO ASSIGN INTERVIEWSS
 */
+
+function assignOneInterviewStudent(student, n, numInterviewers){
+  var v;
+    return new Promise(function(resolve,reject){
+      Volunteer.find({ roles: "interviewer", active: true, user: { $nin: student.interviewer } }).sort({interviewee_count: 1}).exec().then(function(volunteers){
+        if(volunteers.length === 0){
+          console.log("YE");
+          resolve('No interviewers available!');
+        }
+        else if(volunteers.length > 0 && volunteers.length < numInterviewers){
+          v = volunteers[0];
+          console.log("A101:");
+          console.log("v.user: ", v.user);
+          console.log(volunteers[0]);
+
+          student.interviewerID[0] = v.user;
+
+          var v0 = false;
+
+          for(var i=0; i<v.interviewee.length; i++){
+            if(v.interviewee[i] === student.user) v0 = true;
+          }
+
+          if(v0 === false){
+            v.interviewee_count = v.interviewee_count + 1;
+            v.interviewee.push(student.application.firstName+" "+student.application.lastName);
+            v.intervieweeID.push(student.user);
+          }
+
+          Student.findOneAndUpdate({user: student.user}, student, {upsert: false}).then(function(response){
+            console.log(response);
+
+            Volunteer.findOneAndUpdate({user: v.user}, v, {upsert: false}).then(function(response){
+              resolve(student);
+            });
+          });
+        
+        }
+        else if(volunteers.length > 0 && volunteers.length >= numInterviewers){
+          v0 = volunteers[0];
+          v1 = volunteers[1];
+          student.interviewerID[0] = v0.user;
+          student.interviewerID[1] = v1.user;
+
+          var v0B = false;
+          var v1B = false;
+
+          for(var i=0; i<v0.interviewee.length; i++){
+            if(v0.interviewee[i].user === student.user) v0B = true;
+          }
+
+          for(var i=0; i<v1.interviewee.length; i++){
+            if(v1.interviewee[i].user === student.user) v1B = true;
+          }
+
+          if(v0B === false){
+            v0.interviewee_count = v0.interviewee_count + 1;
+            v0.interviewee.push(student.application.firstName+" "+student.application.lastName);
+            v0.intervieweeID.push(student.user);
+          }
+          if(v1B === false){
+            v1.interviewee_count = v1.interviewee_count + 1;
+            v1.interviewee.push(student.application.firstName+" "+student.application.lastName);
+            v1.intervieweeID.push(student.user);
+          }
+
+          student.save(function(err){
+            if(err) console.log(err);
+          }).then(function(response){
+            v0.save(function(err){
+              if(err) console.log(err);
+            }).then(function(response){
+              v1.save(function(err){
+                if(err) console.log(err);
+              }).then(function(response){
+                resolve(student);
+              });
+            });
+          });
+        }
+
+      });
+    });
+};
+
 exports.autoAssignInterviews = function(req, res){
   clearInterviewData();
-  Student.find({ active: true, isFormSubmitted: true, isAppComplete: true }).exec().then(function(students){
+  Student.find({ active: true }).exec().then(function(students){
     return new Promise(function(resolve, reject){
       if(students.length > 0){
         return new Promise(function(rs, rj){
@@ -267,7 +307,20 @@ exports.autoAssignInterviews = function(req, res){
           //loop for synchronous events
           var loop = function(count){
             console.log("students[count]: ",students[count].user);
-            autoAssignInterviewsStudent(students[count], 2).then(function(message){
+            assignOneInterviewStudent(students[count], 2, 2).then(function(message){
+              if(message === 'No interviewers available!'){
+                resolve(message);
+              }
+              else{
+                if(message.user !== undefined){
+                  message.save();
+                }
+                count = count + 1;
+                if(count < students.length) loop(count);
+                else resolve(message);
+              }
+            });
+            /*autoAssignInterviewsStudent(students[count], 2).then(function(message){
               if(message === 'Not enough volunteers available to complete task'){
                 console.log("entered No Volunteers available")
                 resolve(message);
@@ -280,19 +333,23 @@ exports.autoAssignInterviews = function(req, res){
 
                 loop(count);
               }
-            });
+            });*/
           }
 
           loop(0);
 
         }).then(function(message){
           console.log("A203");
+          console.log(message);
           resolve(message);
         });
     }
-    resolve('Success');
+    else{
+      resolve('No Students');
+    }
   }).then(function(message){
     console.log("A304");
+    console.log(message);
     res.json(message);
   });
   });

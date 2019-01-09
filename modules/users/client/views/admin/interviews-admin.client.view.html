@@ -163,6 +163,13 @@ body, html {
 <div class="jumbotron jumbotron fluid" >
   <div class="container">
     <center>
+      <button class="btn btn-primary" ng-click="vm.autoAssignInterviews()">Auto-Assign Interviews</button>
+    </center>
+  </div>
+</div>
+<div class="jumbotron jumbotron fluid" >
+  <div class="container">
+    <center>
     <div ng-switch="vm.selected_user">
       <div ng-switch-when=true>
         <div class="container">
@@ -180,8 +187,8 @@ body, html {
           <div class="row">
             <center>
             <div class="col-xs-8 col-md-8">
-              <select style="width:100%"ng-model="vm.user.interviewer[0]">
-                <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user}}">{{volunteer.user.displayName}}</option>
+              <select style="width:100%"ng-model="vm.user.interviewerID[0]">
+                <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
               </select>
             </div>
             <div class="col-xs-4 col-md-4">
@@ -196,8 +203,8 @@ body, html {
           <div class="row">
             <center>
             <div class="col-xs-8 col-md-8">
-              <select style="width:100%"ng-model="vm.user.interviewer[1]">
-                <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user}}">{{volunteer.user.displayName}}</option>
+              <select style="width:100%"ng-model="vm.user.interviewerID[1]">
+                <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
               </select>
             </div>
             <div class="col-xs-4 col-md-4">
@@ -212,8 +219,8 @@ body, html {
           <div class="row">
             <center>
             <div class="col-xs-8 col-md-8">
-              <select style="width:100%"ng-model="vm.user.interviewer[2]">
-                <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user}}">{{volunteer.user.displayName}}</option>
+              <select style="width:100%"ng-model="vm.user.interviewerID[2]">
+                <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
               </select>
             </div>
             <div class="col-xs-4 col-md-4">

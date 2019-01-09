@@ -40,10 +40,6 @@ exports.create = function(req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-          User.findOneAndUpdate({ _id: data._id}, {roles: req.body.application.roles},
-          function(err) {
-               if (err) throw err;
-             });
         res.jsonp(volunteer);
       }
     });
@@ -111,6 +107,7 @@ exports.list = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      console.log(volunteers);
       res.jsonp(volunteers);
     }
   });

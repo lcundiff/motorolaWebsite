@@ -28,6 +28,26 @@
     vm.selected_user = false;
 
     vm.addInterviewer = addInterviewer;
+    vm.autoAssignInterviews = autoAssignInterviews;
+
+    function autoAssignInterviews() {
+      AdminService.autoAssignInterviews()
+      .then(onAutoAssignInterviewsSuccess)
+      .catch(onAutoAssignInterviewsFailure);
+    }
+
+    function onAutoAssignInterviewsSuccess(response){
+      // If successful we assign the response to the global user model
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Auto Assignation of Interviews complete.' });
+      // And redirect to the previous or home page
+      //$state.go($state.previous.state.name || 'home', $state.previous.params);
+    }
+    function onAutoAssignInterviewsFailure(response){
+      // If successful we assign the response to the global user model
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Auto Assignation of Interviews failed.' });
+      // And redirect to the previous or home page
+      //$state.go($state.previous.state.name || 'home', $state.previous.params);
+    }
 
     function buildPager() {
       console.log("HERE IN BP");
@@ -89,15 +109,15 @@
     }
 
     function listActiveStudents() {
-      StudentService.studentListActive().then(async function(data){
+      StudentService.studentListActive().then(function(data){
         console.log("data: ",data);
         vm.students = data;
 
-        VolunteerService.getVolunteers().then(async function(data){
+        VolunteerService.getVolunteers().then(function(data){
           console.log("data: ",data);
           vm.volunteers = data;
 
-          await(vm.buildPager());
+          vm.buildPager();
         });
       });
     }
