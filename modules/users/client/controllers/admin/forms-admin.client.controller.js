@@ -42,7 +42,6 @@
       vm.currentPage = 1;
       vm.figureOutItemsToDisplay();
     }
-
     function figureOutItemsToDisplay() {
       vm.filteredItems = $filter('filter')(vm.students, {
         $: vm.search
@@ -73,11 +72,12 @@
         await(vm.buildPager());
       });
     }
-
+    listActiveStudents(); 
+      
     function listDeactivatedStudents() {
       StudentService.studentListNonActiveWithoutForms().then(async function(data){
         vm.students = data;
-
+        //vm.selected_user = false;
         await(vm.buildPager());
       });
     }

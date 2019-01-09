@@ -93,36 +93,44 @@ body, html {
   </div>
   <br>
   <div class="col-xs-12 col-md-8">
-  <div class="jumbotron">
-  <div class="container">
-    <ul class="nav nav-tabs">
-      <li role="presentation" ><a data-toggle="tab" href="#activeForms" ng-click="vm.listActiveStudents();">Active</a></li>
-      <li role="presentation"><a data-toggle="tab" href="#inactiveForms" ng-click="vm.listInactiveStudents();">Inactive</a></li>
+  <div class="jumbotron ">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class = "nav-item active" role="presentation" ><a class="nav-link" data-toggle="tab" href="#activeForms" ng-click="vm.listActiveStudents();">Active</a></li>
+      <li class= "nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#inactiveForms" ng-click="vm.listInactiveStudents();">Inactive</a></li>
     </ul>
     <br>
-
+    
     <div class="tab-content">
-      <div id="activeForms" class="tab-pane fade">
+      <div id="activeForms" class="tab-pane fade in active">
         <div class="container">
           <div class="container">
           <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-        </div>
+          </div>
         <br>
           <div class="container">
+            <div class="list-group">
+              <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
+              <a ng-repeat="user in vm.pagedItems" ng-click="vm.displayUser(user); user_selected = true;" class="list-group-item">
+                <h4 class="list-group-item-heading" ng-bind-template="{{user.application.firstName}}  {{user.application.lastName}}"></h4>
+              </a>
+            </div>
+          </div>
+          <div class="container">
+            <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+          </div>
+       </div>
+      </div>
+    <div id="inactiveForms" class="tab-pane fade">
+      <div class="container">
+        <div class="container">
+          <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+        </div>
+        <br>
         <div class="list-group">
-          <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
           <a ng-repeat="user in vm.pagedItems" ng-click="vm.displayUser(user); user_selected = true;" class="list-group-item">
             <h4 class="list-group-item-heading" ng-bind-template="{{user.application.firstName}}  {{user.application.lastName}}"></h4>
-          </a>
+          </a>      
         </div>
-        </div>
-        <div class="container">
-        <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
-        </div>
-      </div>
-      </div>
-      <div id="inactiveForms" class="tab-pane fade">
-        YOO
       </div>
     </div>
     <!--START -->
@@ -410,4 +418,8 @@ body, html {
     </div>
   <!-- END -->
   </div>
+
+
 </html>
+
+
