@@ -36,7 +36,7 @@
     });
     menuService.addMenuItem('topbar', {
       title: 'Interviews',
-      state: 'admin.students'
+      state: 'admin.interviews'
     });
     menuService.addMenuItem('topbar', {
       title: 'Match',

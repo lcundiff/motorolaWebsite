@@ -61,6 +61,12 @@
         controller: 'ApplicantsAdminsController',
         controllerAs: 'vm'
       })
+      .state('admin.interviews', {
+        url:'/interviews',
+        templateUrl: '/modules/users/client/views/admin/interviews-admin.client.view.html',
+        controller: 'InterviewsAdminsController',
+        controllerAs: 'vm'
+      })
       .state('admin.approveForms', {
         url:'/admin-forms/student-forms',
         templateUrl: '/modules/users/client/views/admin/forms-admin.client.view.html',

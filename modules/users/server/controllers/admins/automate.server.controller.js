@@ -474,7 +474,9 @@ exports.manUnmatch = function(req, res){
 function checkTimeSlotAvailability(session){
   return new Promise(function(resolve, reject){
     Volunteer.find( {sessions: session, roles: "mentor", active: true} ).count().then(function(v_count){
+      console.log("v_count: ",v_count);
       Student.find({ timeSlot: session, active: true }).count().then(function(s_count){
+        console.log("s_count: ",s_count);
         if((2*v_count)-s_count > 0){
           resolve(true);
         }
@@ -550,12 +552,15 @@ function autoAcceptStudent(student){
 };
 
 exports.autoAcceptAllStudents = function(req, res){
-    Student.find({ timeSlot: {$size: 0},  interviewRank: {$size: 1}, isAppComplete: true, isFormSubmitted: true, active: true }).sort({"interviewRank": -1}).exec().then(function(students){
+    Student.find({ timeSlot: {$size: 0},  /*interviewRank: {$size: 1},*/ isAppComplete: true, areFormsAdminApproved: true, active: true }).sort({"interviewRank": -1}).exec().then(function(students){
+      console.log("students: ",students);
       return new Promise(function(resolve, reject){
         if(students.length > 0){
           return new Promise(function(rs, rj){
             var loop = function(count){
+              console.log("in loop");
               autoAcceptStudent(students[count]).then(function(message){
+                console.log("message", message);
                 if(count === students.length-1){
                   resolve(message);
                 }

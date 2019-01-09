@@ -43,21 +43,10 @@ exports.create = function(req, res) {
   student.application.email = req.body.email;
   student.application.firstName = req.body.firstName;
   student.application.lastName = req.body.lastName;
-  //student.application = req.body.application;
-  //student.locationChoice = req.body.locationChoice;
-//  student.interviewForms = req.body.interviewForms;
-  //student.timeSlots = req.body.timeSlots;
-  //student.isAppComplete = req.body.isAppComplete;
-  //student.isFormSubmitted = req.body.isFormSubmitted;
-  //student.isLetterofRecommendationSubmitted = req.body.isLetterofRecommendationSubmitted;
-  //student.interests = req.body.application.interests;
-  //student.mentor = req.body.mentor;
-  //student.mentorID = req.body.mentorID;
-//  student.indivRanks = req.body.indivRanks;
-//  student.NDAId = req.body.NDAId;
-//student.WaiverId = req.body.WaiverId;
-//  student.letterOfRecommendationId = req.body.letterOfRecommendationId;
-//  student.resumeId = req.body.resumeId;
+  student.interviewer = [null, null, null];
+  student.indivRanks = [null, null, null];
+  student.interviewRank = [null, null, null];
+  student.interviewerID = [null, null, null];
 
   student.save(function(err) {
     if (err) {

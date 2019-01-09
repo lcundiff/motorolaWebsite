@@ -45,10 +45,17 @@
       man_accept_student: {
         method: 'PUT',
         url: '/api/automate/manAccept/:sessionNum'
+      },
+      auto_accept: {
+        method: 'PUT',
+        url: '/api/automate/autoAcceptAllStudents'
       }
     });
 
     angular.extend(Admins, {
+      autoAccept: function () {
+        return this.auto_accept().$promise;
+      },
       updateUserReq: function(reqId, userReq) {
         console.log('here');
         return this.update_userreq({

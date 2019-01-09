@@ -30,6 +30,8 @@
 
     vm.manAcceptStudent = manAcceptStudent;
 
+    vm.autoAccept = autoAccept;
+
     function buildPager() {
       console.log("HERE IN BP");
       vm.pagedItems = [];
@@ -49,6 +51,20 @@
       vm.selected_user = true;
     }
 
+    function autoAccept() {
+      AdminService.autoAccept()
+      .then(onAutoAcceptSuccess)
+      .catch(onAutoAcceptError);
+    }
+
+    function onAutoAcceptSuccess(response){
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Students have been automatically accepted into the program.' });
+    }
+
+    function onAutoAcceptError(response){
+      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> There was an error when auto-accepting students into the program.', delay: 6000 });
+
+    }
     function viewForm(fileId) {
       console.log("fileId: ",fileId);
 
