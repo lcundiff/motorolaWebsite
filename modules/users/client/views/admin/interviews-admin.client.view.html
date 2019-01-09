@@ -94,7 +94,14 @@ body, html {
   <br>
 
   <div class="col-xs-12 col-md-6">
-  <div class="jumbotron">
+    <div class="jumbotron jumbotron fluid" >
+      <div class="container">
+        <center>
+          <button class="btn btn-primary" ng-click="vm.autoAssignInterviews()">Auto-Assign Interviews</button>
+        </center>
+      </div>
+    </div>
+  <div class="jumbotron jumobtron fluid">
   <div class="container">
     <ul class="nav nav-tabs">
       <li role="presentation" ><a data-toggle="tab" href="#activeForms" ng-click="vm.listActiveStudents();">Active</a></li>
@@ -160,13 +167,6 @@ body, html {
 </div>
 </div>
 <div class="col-xs-12 col-md-6">
-<div class="jumbotron jumbotron fluid" >
-  <div class="container">
-    <center>
-      <button class="btn btn-primary" ng-click="vm.autoAssignInterviews()">Auto-Assign Interviews</button>
-    </center>
-  </div>
-</div>
 <div class="jumbotron jumbotron fluid" >
   <div class="container">
     <center>
