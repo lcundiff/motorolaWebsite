@@ -53,10 +53,17 @@
       auto_assign_interviews: {
         method: 'PUT',
         url: '/api/automate/autoAssignInterviews'
+      },
+      auto_match: {
+        method: 'PUT',
+        url: '/api/automate/autoMatch/:sessionNum'
       }
     });
 
     angular.extend(Admins, {
+      autoMatch: function (sessionNum) {
+        return this.auto_match({sessionNum: sessionNum}, null).$promise;
+      },
       autoAssignInterviews: function () {
         return this.auto_assign_interviews().$promise;
       },

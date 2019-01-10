@@ -145,3 +145,20 @@ a:hover .header-profile-image {
 .sign-in-button-verify:active {
   transform: translateY(4px);
 }
+
+.list-group-item-1 {
+
+}
+
+.list-group-item-1
+.list-group-item-1 {
+  background-color: #005DAA;
+  color: white;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.list-group-item-2 {
+  background-color: #005DAA;
+  color: white;
+}

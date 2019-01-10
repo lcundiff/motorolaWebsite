@@ -248,7 +248,7 @@ function assignOneInterviewStudent(student, n, numInterviewers){
               resolve(student);
             });
           });
-        
+
         }
         else if(volunteers.length > 0 && volunteers.length >= numInterviewers){
           v0 = volunteers[0];
@@ -641,10 +641,10 @@ exports.autoAcceptAllStudents = function(req, res){
 
 function autoMatchStudent(s, m, m_count){
     return new Promise(async function(rs, rj){
-      await (s.mentor = m.application.name);
+      await (s.mentor = m.application.firstName + " " + m.application.lastName);
       await (s.mentorID = m.user);
       await (s.mentor_email = m.application.email);
-      await (m.mentee.push(s.application.name));
+      await (m.mentee.push(s.application.firstName + " " + s.application.lastName));
       await (m.menteeID.push(s.user));
       await (m[m_count] = m[m_count] + 1);
       rs([s, m]);
@@ -652,13 +652,14 @@ function autoMatchStudent(s, m, m_count){
       var a = Promise.resolve(s.save());
       var b = Promise.resolve(m.save());
       Promise.all([a,b]).then(async function([a,b]){
-        //console.log("a: ",a);
-      //  console.log("b: ",b);
+        console.log("a: ",a);
+        console.log("b: ",b);
       });
     });
 };
 
 exports.autoMatch = function(req, res){
+  console.log("req.body: ",req.body);
   return new Promise(async function(rs, rj){
     var mentee_count;
 
@@ -675,10 +676,10 @@ exports.autoMatch = function(req, res){
       var ma_mentors = Promise.resolve(Volunteer.find({sessions: session, roles: "mentor", areaofexpertise: "Marketing", [m_count]: {$lt: 2}, active: true}).sort({[m_count]: 1}).exec());
       var bu_mentors = Promise.resolve(Volunteer.find({sessions: session, roles: "mentor", areaofexpertise: "Business", [m_count]: {$lt: 2}, active: true}).sort({[m_count]: 1}).exec());
       var lc_mentors = Promise.resolve(Volunteer.find({sessions: session, roles: "mentor", areaofexpertise: "Product Life Cycle Management", [m_count]: {$lt: 2}, active: true}).sort({[m_count]: 1}).exec());
-      var students = Promise.resolve(Student.find({"mentor": "", "isAppComplete": true, "active": true, "interviewRank": {"$size": 1}, "timeSlot.0": session}).sort({"interviewRank.0": -1}).exec());
+      var students = Promise.resolve(Student.find({"mentor": "", "active": true, "timeSlot.0": session}).sort().exec());
 
     Promise.all([ee_mentors, me_mentors, sd_mentors, ui_mentors, pm_mentors, ma_mentors, bu_mentors, lc_mentors, students]).then(async function([ee, me, sd, ui, pm, ma, bu, lc, s]){
-
+      console.log("s: ", s);
       var mentor_hashmap = {
         "Electrical Engineering / Design": ee,
         "Mechanical Engineering / Design": me,
@@ -691,13 +692,16 @@ exports.autoMatch = function(req, res){
       }
 
       await (mentor_hashmap);
-      var unmatched;
+      var unmatched = [];
 
       if(s.length > 0){
           var loop = async function(count){
+            console.log("student: ",s[count]);
+            if(s[count].application.interests.length > 0){
+              console.log("HERE");
             var matched;
             var m;
-            if(mentor_hashmap[s[count].interests[0]].length > 0){
+            if(mentor_hashmap[s[count].interests[0]] !== undefined && mentor_hashmap[s[count].interests[0]].length > 0){
               console.log("selected: ",mentor_hashmap[s[count].interests[0]][0]);
               await(m = mentor_hashmap[s[count].interests[0]][0]);
               await(mentor_hashmap[s[count].interests[0]].shift());
@@ -707,7 +711,7 @@ exports.autoMatch = function(req, res){
                 await(mentor_hashmap[s[count].interests[0]].push(m));
               }
             }
-            else if(mentor_hashmap[s[count].interests[1]].length > 0){
+            else if(mentor_hashmap[s[count].interests[1]] !== undefined && mentor_hashmap[s[count].interests[1]].length > 0){
               console.log("selected: ",mentor_hashmap[s[count].interests[1]][0]);
               await(m = mentor_hashmap[s[count].interests[1]][0]);
               await(mentor_hashmap[s[count].interests[1]].shift());
@@ -717,7 +721,7 @@ exports.autoMatch = function(req, res){
                 await(mentor_hashmap[s[count].interests[1]].push(m));
               }
             }
-            else if(mentor_hashmap[s[count].interests[2]].length > 0){
+            else if(mentor_hashmap[s[count].interests[2]] !== undefined && mentor_hashmap[s[count].interests[2]].length > 0){
               console.log("selected: ",mentor_hashmap[s[count].interests[2]][0]);
               await(m = mentor_hashmap[s[count].interests[2]][0]);
               await(mentor_hashmap[s[count].interests[2]].shift());
@@ -744,6 +748,7 @@ exports.autoMatch = function(req, res){
               count = count + 1;
               loop(count);
             }
+          }
     }
     await loop(0);
   }
@@ -768,7 +773,7 @@ exports.autoMatch = function(req, res){
           res.json('Success');
         }
       }
-      await(loop(0));
+      loop(0);
   }
     else{
       res.json('Success');

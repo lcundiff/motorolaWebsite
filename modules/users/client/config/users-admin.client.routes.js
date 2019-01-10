@@ -67,6 +67,12 @@
         controller: 'InterviewsAdminsController',
         controllerAs: 'vm'
       })
+      .state('admin.match', {
+        url:'/match',
+        templateUrl: '/modules/users/client/views/admin/match-admin.client.view.html',
+        controller: 'MatchAdminsController',
+        controllerAs: 'vm'
+      })
       .state('admin.approveForms', {
         url:'/admin-forms/student-forms',
         templateUrl: '/modules/users/client/views/admin/forms-admin.client.view.html',

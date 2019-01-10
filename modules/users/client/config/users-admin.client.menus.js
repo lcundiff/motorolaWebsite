@@ -40,11 +40,7 @@
     });
     menuService.addMenuItem('topbar', {
       title: 'Match',
-      state: 'admin.students'
-    });
-    menuService.addMenuItem('topbar', {
-      title: 'E-mail',
-      state: 'admin.students'
+      state: 'admin.match'
     });
     menuService.addMenuItem('topbar', {
       title: 'CSV',
