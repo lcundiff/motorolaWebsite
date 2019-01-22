@@ -104,15 +104,15 @@ body, html {
   <div class="jumbotron jumobtron fluid">
   <div class="container">
     <ul class="nav nav-tabs">
-      <li role="presentation" ><a data-toggle="tab" href="#activeForms" ng-click="vm.listActiveStudents();">Active</a></li>
+      <li class = "nav-item active" role="presentation" ><a data-toggle="tab" href="#activeForms" ng-click="vm.listActiveStudents();">Active</a></li>
       <li role="presentation"><a data-toggle="tab" href="#inactiveForms" ng-click="vm.listDeactivatedStudents();">Inactive</a></li>
     </ul>
     <br>
 
     <div class="tab-content">
-      <div id="activeForms" class="tab-pane fade">
+      <div id="activeForms" class="tab-pane fade in active">
         <div class="container">
-          <div class="container">
+          <div data-ng-init = "vm.listActiveStudents();" class="container">
           <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
         </div>
         <br>

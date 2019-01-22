@@ -81,7 +81,7 @@
         await(vm.buildPager());
       });
     }
-
+    
     //open confirm box when admin performs action
 
     //open modal window that displays the student resume

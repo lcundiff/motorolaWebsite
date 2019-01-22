@@ -96,14 +96,14 @@ body, html {
   <div class="jumbotron ">
     <ul class="nav nav-tabs" role="tablist">
       <li class = "nav-item active" role="presentation" ><a class="nav-link" data-toggle="tab" href="#activeForms" ng-click="vm.listActiveStudents();">Active</a></li>
-      <li class= "nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#inactiveForms" ng-click="vm.listInactiveStudents();">Inactive</a></li>
+      <li class= "nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#inactiveForms" ng-click="vm.listDeactivatedStudents();">Inactive</a></li>
     </ul>
     <br>
     
     <div class="tab-content">
       <div id="activeForms" class="tab-pane fade in active">
         <div class="container">
-          <div class="container">
+          <div data-ng-init = "vm.listActiveStudents();" >
           <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
           </div>
         <br>
