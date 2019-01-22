@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
 <link rel="stylesheet" type="text/css" href="/modules/core/client/css/bootstrap.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- mainly effects font size/shape/color --> <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -88,8 +88,8 @@ body, html {
 </style>
 
 <section>
-  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
-    <h1 style="font-weight:bold;">Applicants</h1>
+  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top:-4rem; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+    <h1 style="font-weight:bold; margin-left: 2rem;">Applicants</h1>
   </div>
   <br>
   <!-- The Modal -->
@@ -222,10 +222,12 @@ body, html {
             <!-- END -->
             </div>
   <div class="col-xs-12 col-md-8">
-    <div class="jumbotron">
-      <center>
-      <button class="btn btn-primary" ng-click="vm.autoAccept()">Auto Accept Students</button>
-    </center>
+    <div class="jumbotron jumbotron fluid">
+      <div class="container">
+        <center>
+          <button class="sign-button sign-in-button" ng-click="vm.autoAccept()">Auto Accept Students</button>
+        </center>
+      </div>
     </div>
   <div class="jumbotron">
   <div class="container">

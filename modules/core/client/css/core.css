@@ -68,7 +68,6 @@ a:hover .header-profile-image {
     background-color: transparent;
     color: #005DAA;
     border: 1px solid #005DAA;
-    width: 20%;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
