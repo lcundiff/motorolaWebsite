@@ -60,21 +60,12 @@
     }
 
     function onAutoMatchSuccess(response) {
+      vm.listActiveStudents();
           // If successful we assign the response to the global user model
           Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Auto-match was successful.' });
           // And redirect to the previous or home page
           //$state.go($state.previous.state.name || 'home', $state.previous.params);
-          StudentService.studentListActive().then(function(data){
-            console.log("data: ",data);
-            vm.students = data;
 
-            VolunteerService.getVolunteers().then(function(data){
-              console.log("data: ",data);
-              vm.volunteers = data;
-
-              vm.buildPager();
-            });
-          });
         }
 
     function onAutoMatchError(response) {
@@ -97,7 +88,7 @@
         else volunteer.mentee_count_sess_3++;
       }
 
-      if(student.mentorID.includes(volunteer.user._id)){
+      if(student.mentorID === volunteer.user._id){
         Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> This mentor has already been paired to this student.', title: 'Error', delay: 6000 });
         deSelectStudent(student);
         deSelectVolunteer(volunteer);
@@ -134,8 +125,9 @@
 
       volunteer.mentee.splice(volunteer.mentee.indexOf(student.user), 1);
       volunteer.menteeID.splice(volunteer.menteeID.indexOf(student.application.firstName + " " + student.application.lastName), 1);
-      student.mentor = "";
-      student.mentorID = "";
+      student.mentor = null;
+      student.mentorID = null;
+      student.mentor_email = null;
 
       StudentService.updateStudent(student.user, student).then(function(response){
         deSelectStudent(student);
@@ -150,6 +142,7 @@
     }
 
     function onMatchSuccess(response) {
+      vm.listActiveStudents();
           // If successful we assign the response to the global user model
           Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Matching of pair was successful.' });
           // And redirect to the previous or home page
