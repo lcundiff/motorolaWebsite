@@ -47,8 +47,27 @@ exports.create = function(req, res) {
   student.indivRanks = [null, null, null];
   student.interviewRank = [null, null, null];
   student.interviewerID = [null, null, null];
+  student.mentor = null;
+  student.mentorID = null;
+  student.mentor_email = null;
+  student.track = null;
+  student.ResumeId = null;
+  student.letterOfRecommendationId = null;
+  student.WaiverId = null;
+  student.NDAId = null;
   student.isLetterofRecommendationSubmitted = false;
   student.isLetterofRecommendationAdminApproved = false;
+  student.isWaiverSubmitted = false;
+  student.isWaiverAdminApproved = false;
+  student.isNDASubmitted = false;
+  student.isNDAAdminApproved = false;
+  student.isResumeSubmitted = false;
+  student.isResumeAdminApproved = false;
+  student.isAppComplete = false;
+  student.isFormSubmitted = false;
+  student.areFormsAdminApproved = false;
+  student.areFormsStudentApproved = false;
+  student.active = true;
 
   student.save(function(err) {
     if (err) {

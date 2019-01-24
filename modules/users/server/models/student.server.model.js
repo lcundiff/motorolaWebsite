@@ -118,19 +118,23 @@ var StudentSchema = new Schema({
   indivRanks: [],
 
   letterOfRecommendationId : {
-    type: String
+    type: String,
+    default: null
   },
 
   WaiverId : {
-    type: String
+    type: String,
+    default: null
   },
 
   NDAId : {
-    type: String
+    type: String,
+    default: null
   },
 
   ResumeId : {
-    type: String
+    type: String,
+    default: null
   },
 
   isAppComplete : {
@@ -141,7 +145,8 @@ var StudentSchema = new Schema({
 
    isFormSubmitted:{
      type:Boolean,
-     default:false
+     default:false,
+     required: true
    },
 
    areFormsAdminApproved:{
@@ -157,43 +162,51 @@ var StudentSchema = new Schema({
    },
 
    isLetterofRecommendationAdminApproved: {
-     tyle: Boolean,
-     default: false
+     type:Boolean,
+     default:false,
+     required: true
    },
 
    isLetterofRecommendationSubmitted:{
      type: Boolean,
-     default:false
+     default:false,
+     required: true
    },
 
    isNDASubmitted: {
       type:Boolean,
-      default:false
+      default:false,
+      required: true
    },
 
    isNDAAdminApproved: {
      type: Boolean,
-     default: false
+     default: false,
+     required: true
    },
 
    isResumeSubmitted: {
       type:Boolean,
-      default:false
+      default:false,
+      required: true
    },
 
    isResumeAdminApproved: {
      type: Boolean,
-     default: false
+     default: false,
+     required: true
    },
 
    isWaiverSubmitted: {
      type:Boolean,
-     default:false
+     default:false,
+     required: true
     },
 
     isWaiverAdminApproved: {
       type: Boolean,
-      default: false
+      default: false,
+      required: true
     },
 
   active: {
@@ -207,16 +220,20 @@ var StudentSchema = new Schema({
   interests: [],
   forms: [],
   track: {
-    type: String
+    type: String,
+    default: null
   },
   mentor: {
-    type: String
+    type: String,
+    default: null
   },
   mentor_email: {
-    type: String
+    type: String,
+    default: null
   },
   mentorID: {
-    type: String
+    type: String,
+    default: null
   },
   created: {
     type: Date,
@@ -230,7 +247,8 @@ var StudentSchema = new Schema({
     ref: 'User'
   },
   username: {
-    type: String
+    type: String,
+    required: true
   },
   signup_link: {
     type: String,

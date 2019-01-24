@@ -83,6 +83,8 @@
 
 
     function manMatch(student, volunteer) {
+      console.log(student);
+      console.log(volunteer);
       if(student.timeSlot.length < 0){
         Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> This student has not been accepted into a session.', title: 'Error', delay: 6000 });
         deSelectStudent(student);

@@ -676,7 +676,7 @@ exports.autoMatch = function(req, res){
       var ma_mentors = Promise.resolve(Volunteer.find({sessions: session, roles: "mentor", areaofexpertise: "Marketing", [m_count]: {$lt: 2}, active: true}).sort({[m_count]: 1}).exec());
       var bu_mentors = Promise.resolve(Volunteer.find({sessions: session, roles: "mentor", areaofexpertise: "Business", [m_count]: {$lt: 2}, active: true}).sort({[m_count]: 1}).exec());
       var lc_mentors = Promise.resolve(Volunteer.find({sessions: session, roles: "mentor", areaofexpertise: "Product Life Cycle Management", [m_count]: {$lt: 2}, active: true}).sort({[m_count]: 1}).exec());
-      var students = Promise.resolve(Student.find({"mentor": "", "active": true, "timeSlot.0": session}).sort().exec());
+      var students = Promise.resolve(Student.find({"mentor": null, "active": true, "timeSlot.0": session}).sort().exec());
 
     Promise.all([ee_mentors, me_mentors, sd_mentors, ui_mentors, pm_mentors, ma_mentors, bu_mentors, lc_mentors, students]).then(async function([ee, me, sd, ui, pm, ma, bu, lc, s]){
       console.log("s: ", s);
@@ -743,6 +743,7 @@ exports.autoMatch = function(req, res){
             await(mentor_hashmap);
             await(matched);
             if(matched === true){
+              console.log("MATCHED = TRUE");
               await(autoMatchStudent(s[count], m, m_count));
             }
             if(count === s.length-1){

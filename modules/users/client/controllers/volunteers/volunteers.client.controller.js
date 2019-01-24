@@ -76,6 +76,7 @@
         return false;
       }
       vm.credentials.application.sessions = [];
+      vm.credentials.active = true;
 
       var p1 = Promise.resolve(vm.credentials.username = vm.authentication.user.username);
       var p2;
