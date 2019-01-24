@@ -76,9 +76,9 @@ exports.update = function(req, res) {
 console.log("update volunteer");
 console.log("req.body: ",req.body);
 var volunteer = new Volunteer(req.body);
-volunteer.sessions = req.body.application.sessions;
-volunteer.areaofexpertise = req.body.application.areaofexpertise;
-volunteer.roles = req.body.application.roles;
+req.body.sessions = req.body.application.sessions;
+req.body.areaofexpertise = req.body.application.areaofexpertise;
+req.body.roles = req.body.application.roles;
 
 console.log("volunteer: ",volunteer);
 
