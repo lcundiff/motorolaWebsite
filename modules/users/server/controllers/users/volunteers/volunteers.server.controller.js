@@ -82,7 +82,7 @@ volunteer.roles = req.body.application.roles;
 
 console.log("volunteer: ",volunteer);
 
-Volunteer.findOneAndUpdate({username: req.body.username}, {mentee_count_sess_1: req.body.mentee_count_sess_1, mentee_count_sess_2: req.body.mentee_count_sess_2, mentee_count_sess_3: req.body.mentee_count_sess_3, mentee: req.body.mentee, menteeID: req.body.menteeID, active: req.body.active, application: req.body.application, sessions: req.body.application.sessions, areaofexpertise: req.body.application.areaofexpertise, roles: req.body.application.roles}, {upsert: false}).then(function(data){
+Volunteer.findOneAndUpdate({username: req.body.username}, req.body, {upsert: false}).then(function(data){
   console.log("updated data: ",data);
 
   User.findOneAndUpdate({username: req.body.username}, {roles: req.body.application.roles}, {upsert: false}).then(function(userData){
