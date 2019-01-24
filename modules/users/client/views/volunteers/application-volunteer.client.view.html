@@ -18,11 +18,61 @@
   h6 {
     font-family: "Roboto", sans-serif;
   }
+
+  #myCarousel {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+
+  .item img {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .selected img {
+  	opacity:0.5;
+  }
+
+  .carousel-caption {
+      position: relative;
+      left: auto;
+      right: auto;
+  }
+
+  .carousel-control.left,
+  .carousel-control.right {
+    border: none;
+  }
+
+  .carousel-control.left {
+    margin-left: -25px;
+  }
+
+  .carousel-control.right {
+    margin-right: -25px;
+  }
+
+  .carousel-control {
+    width: 0%;
+  }
+
+
+  .glyphicon-chevron-left, .glyphicon-chevron-right {
+    color: grey;
+    font-size: 40px;
+  }
+
+  .jumbotron {
+    posistion:relative;
+    z-index: 2;
+    box-shadow: 0 4px 16px -6px grey;
+    background-color: white;
+  }
 </style>
 
 <body>
   <!-- The Grid -->
-  <div style="background-color:#003d66 ; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+  <div style="background-color:#003d66 ; color:white; padding:25px; margin-top:-50px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
     <!-- <h1 class ="col-lg-4" style="margin-left:10vw"> -->
     <h1>
       <!-- <h1 class ="col-lg-8"> -->
@@ -32,15 +82,16 @@
         <!-- Dashboard <small>student</small> -->
       </h1>
   </div>
+  <br />
   <form name="vm.volunteerForm" ng-submit="vm.createStudent(vm.volunteerForm.$valid)" class="application" novalidate autocomplete="off">
   <div id="myCarousel" class="carousel slide" data-interval="false">
-    <div class="jumbotron jumbotron-fluid text-center" style="background-color: #e2e6e9; height: 100%;">
+    <div class="jumbotron jumbotron-fluid text-center" style="background-color: white; height: 100%;">
   <!-- Indicators -->
   <ol class="carousel-indicators">
-  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-  <li data-target="#myCarousel" data-slide-to="1"></li>
-  <li data-target="#myCarousel" data-slide-to="2"></li>
-  <li data-target="#myCarousel" data-slide-to="3"></li>
+  <li style="background-color: grey;" data-target="#myCarousel" data-slide-to="0" class="active"></li>
+  <li style="background-color: grey;" data-target="#myCarousel" data-slide-to="1"></li>
+  <li style="background-color: grey;" data-target="#myCarousel" data-slide-to="2"></li>
+  <li style="background-color: grey;" data-target="#myCarousel" data-slide-to="3"></li>
   </ol>
 
   <!-- START SLIDE -->
@@ -191,17 +242,17 @@
 
       </div>
 
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev" style="width:7%">
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev" >
       <span class="glyphicon glyphicon-chevron-left"></span>
       <span class="sr-only">Previous</span>
     </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next" style="width:7%">
+    <a class="right carousel-control" href="#myCarousel" data-slide="next" >
       <span class="glyphicon glyphicon-chevron-right"></span>
       <span class="sr-only">Next</span>
     </a>
     </div>
 
-    <div class="jumbotron jumbotron-fluid text-center" style="background-color: #e2e6e9;">
+    <div class="jumbotron text-center" style="margin-left:50px; margin-right:50px;">
       <div class="container">
         <element ng-switch="vm.updateIsSubmit">
           <element ng-switch-when="true">
@@ -213,6 +264,7 @@
         </element>
       </div>
 	 </div>
+
   </form>
 
 

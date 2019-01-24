@@ -43,13 +43,21 @@
 
 
 .glyphicon-chevron-left, .glyphicon-chevron-right {
-  color: #e2e6e9;
+  color: grey;
   font-size: 40px;
 }
+
+.jumbotron {
+  posistion:relative;
+  z-index: 2;
+  box-shadow: 0 4px 16px -6px grey;
+}
+
+
 </style>
 
 <body>
-  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top:-50px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
     <center>
       <h2 style="font-weight:bold;"> <strong>Your Application</strong> </h2>
     </center>
@@ -66,19 +74,19 @@
 <!-- START CAROUSEL -->
 <!--<div id="myCarousel" class="carousel slide" data-ride="carousel">-->
 <div id="myCarousel" class="carousel slide" data-interval="false">
-  <div class="jumbotron jumbotron-fluid text-center" style="background-color: #e2e6e9; height: 100%;">
+  <div class="jumbotron jumbotron-fluid text-center" style="background-color: white; height: 100%;">
 <!-- Indicators -->
 <ol class="carousel-indicators">
-<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-<li data-target="#myCarousel" data-slide-to="1"></li>
-<li data-target="#myCarousel" data-slide-to="2"></li>
-<li data-target="#myCarousel" data-slide-to="3"></li>
-<li data-target="#myCarousel" data-slide-to="4"></li>
-<li data-target="#myCarousel" data-slide-to="5"></li>
-<li data-target="#myCarousel" data-slide-to="6"></li>
-<li data-target="#myCarousel" data-slide-to="7"></li>
-<li data-target="#myCarousel" data-slide-to="8"></li>
-<li data-target="#myCarousel" data-slide-to="9"></li>
+<li style="background-color: grey;" data-target="#myCarousel" data-slide-to="0" class="active"></li>
+<li style="background-color: grey;" data-target="#myCarousel" data-slide-to="1"></li>
+<li style="background-color: grey;" data-target="#myCarousel" data-slide-to="2"></li>
+<li style="background-color: grey;" data-target="#myCarousel" data-slide-to="3"></li>
+<li style="background-color: grey;" data-target="#myCarousel" data-slide-to="4"></li>
+<li style="background-color: grey;" data-target="#myCarousel" data-slide-to="5"></li>
+<li style="background-color: grey;" data-target="#myCarousel" data-slide-to="6"></li>
+<li style="background-color: grey;" data-target="#myCarousel" data-slide-to="7"></li>
+<li style="background-color: grey;" data-target="#myCarousel" data-slide-to="8"></li>
+<li style="background-color: grey;" data-target="#myCarousel" data-slide-to="9"></li>
 
 </ol>
 
@@ -830,7 +838,7 @@
   </div>
 
 
-	  <div class="jumbotron jumbotron-fluid text-center" style="background-color: #e2e6e9; height: 100%; margin-left:50px; margin-right:50px;">
+	  <div class="jumbotron jumbotron-fluid text-center" style="background-color: white; height: 100%; margin-left:50px; margin-right:50px;">
       <div class="container">
         <element ng-switch="vm.submitIsUpdate">
           <element ng-switch-when="true">

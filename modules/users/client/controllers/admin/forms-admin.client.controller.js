@@ -17,9 +17,6 @@
     vm.listActiveStudents = listActiveStudents;
     vm.listDeactivatedStudents = listDeactivatedStudents;
     vm.students;
-
-    vm.deactivateStudent = deactivateStudent;
-    vm.activateStudent = activateStudent;
     vm.viewForm = viewForm;
 
     vm.sendFormFixEmail = sendFormFixEmail;
@@ -72,8 +69,8 @@
         await(vm.buildPager());
       });
     }
-    listActiveStudents(); 
-      
+    listActiveStudents();
+
     function listDeactivatedStudents() {
       StudentService.studentListNonActiveWithoutForms().then(async function(data){
         vm.students = data;
@@ -81,7 +78,7 @@
         await(vm.buildPager());
       });
     }
-    
+
     //open confirm box when admin performs action
 
     //open modal window that displays the student resume
@@ -220,8 +217,6 @@
           console.log("data: ",data);
           vm.selected_user = false;
           vm.user = null;
-          vm.students.splice(vm.students.indexOf(student), 1);
-          vm.pagedItems.splice(vm.students.indexOf(student), 1);
           onFormCompletionSuccess(data);
         });
       }
@@ -331,21 +326,6 @@
       setTimeout(function(){popup.close(); }, 0);
     };
 
-
-function deactivateStudent(user, student, index) {
-  student.active = false;
-  student.timeSlot = [];
-  student.mentor = "";
-  student.mentorID = "";
-  student.interviewer = [];
-  student.interviewerID = [];
-  vm.students.splice(index, 1);
-  vm.pagedItems.splice(index%15, 1);
-
-  StudentService.updateStudent(user, student)
-  .then(onDeactivationSuccess)
-  .catch(onDeactivationError);
-};
 
 function onDeactivationSuccess(response) {
       // If successful we assign the response to the global user model

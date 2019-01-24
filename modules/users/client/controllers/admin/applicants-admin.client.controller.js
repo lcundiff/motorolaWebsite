@@ -58,6 +58,8 @@
     }
 
     function onAutoAcceptSuccess(response){
+      vm.selected_user = false;
+      vm.listActiveStudents();
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Students have been automatically accepted into the program.' });
     }
 
@@ -388,8 +390,8 @@ function deactivateStudent(user, student, index) {
   student.mentorID = "";
   student.interviewer = [];
   student.interviewerID = [];
-  vm.students.splice(index, 1);
-  vm.pagedItems.splice(index%15, 1);
+  //vm.students.splice(index, 1);
+  //vm.pagedItems.splice(index, 1);
 
   StudentService.updateStudent(user, student)
   .then(onDeactivationSuccess)
@@ -397,6 +399,7 @@ function deactivateStudent(user, student, index) {
 };
 
 function onDeactivationSuccess(response) {
+    vm.listActiveStudents();
       // If successful we assign the response to the global user model
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student deactivation successful.' });
       // And redirect to the previous or home page
@@ -419,6 +422,7 @@ function activateStudent(user, student, index) {
 };
 
 function onActivationSuccess(response) {
+      vm.listDeactivatedStudents();
       // If successful we assign the response to the global user model
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student activation successful.' });
       // And redirect to the previous or home page

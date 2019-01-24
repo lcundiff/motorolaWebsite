@@ -37,6 +37,8 @@
     }
 
     function onAutoAssignInterviewsSuccess(response){
+      vm.selected_user = false;
+      vm.listActiveStudents();
       // If successful we assign the response to the global user model
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Auto Assignation of Interviews complete.' });
       // And redirect to the previous or home page

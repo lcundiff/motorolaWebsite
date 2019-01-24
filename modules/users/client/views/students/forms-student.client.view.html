@@ -48,13 +48,20 @@
 
 
   .glyphicon-chevron-left, .glyphicon-chevron-right {
-    color: #e2e6e9;
+    color: grey;
     font-size: 40px;
+  }
+
+  .jumbotron {
+    posistion:relative;
+    z-index: 2;
+    box-shadow: 0 4px 16px -6px grey;
+    background-color: white;
   }
   </style>
 </head>
 <body>
-  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top: -50px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
     <center>
       <h2 style="font-weight:bold;"> <strong>Forms</strong> </h2>
     </center>
@@ -64,9 +71,9 @@
   <div id="myCarousel" class="carousel slide" data-interval="false">
   <!-- Indicators -->
   <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li style="background-color: grey;" data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li style="background-color: grey;" data-target="#myCarousel" data-slide-to="1"></li>
+    <li style="background-color: grey;" data-target="#myCarousel" data-slide-to="2"></li>
   </ol>
 
   <!-- Wrapper for slides -->
@@ -76,11 +83,11 @@
         <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">1. Download:</h3>
         <br>
 
-        <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+        <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
             <div class="col-sm-7">NDA</div>
             <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm('NDA.pdf')"><i class="glyphicon glyphicon-circle-arrow-down" style="heiht:100%"></i></button></div>
         </div>
-        <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+        <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
             <div class="col-sm-7">Waiver</div>
             <div class="col-sm-5" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm('Waiver.pdf')"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button></div>
         </div>
@@ -95,7 +102,7 @@
         <div id="fileSelector">
           <div class="container">
           <div class="col-xs-6">
-            <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+            <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
               <center>
               NDA
             </center>
@@ -114,7 +121,7 @@
         </div>
       </div>
       <div class="col-xs-6">
-        <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+        <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
           <center>
             Waiver
           </center>
@@ -135,7 +142,7 @@
   </div>
   <div class="container">
       <div class="col-xs-6">
-        <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+        <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
           <center>
             Letter of Recommendation
             <br>
@@ -154,7 +161,7 @@
         </center>
         </div>
       <div class="col-xs-6">
-        <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+        <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
         <center>
           Resume
         </center>
@@ -180,23 +187,23 @@
     <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">3. Verify:</h3>
     <br>
 
-    <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+    <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
         <div class="col-xs-12 col-sm-6 col-lg-8">NDA<i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isNDASubmitted === true && vm.credentials.isNDAAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isNDASubmitted === true && vm.credentials.isNDAAdminApproved === true" style="color:green"></i></div>
         <div class="col-xs-6 col-lg-4" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.NDAId)"><i class="glyphicon glyphicon-eye-open" style="height:100%"></i></button>
         <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveNDA(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up" style="height:100%"></i></button></div>
     </div>
-    <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+    <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
         <div class="col-xs-12 col-sm-6 col-lg-8">Waiver<i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isWaiverSubmitted === true && vm.credentials.isWaiverAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isWaiverSubmitted === true && vm.credentials.isWaiverAdminApproved === true" style="color:green"></i></div>
         <div class="col-xs-6 col-lg-4" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.WaiverId)"><i class="glyphicon glyphicon-eye-open" style="height:100%"></i></button>
         <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveWaiver(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up" style="height:100%"></i></button></div>
     </div>
-    <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+    <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
         <div class="col-xs-12 col-sm-6 col-lg-8">Letter of Recommendation<i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isLetterofRecommendationSubmitted === true && vm.credentials.isLetterofRecommendationAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isLetterofRecommendationSubmitted === true && vm.credentials.isLetterofRecommendationAdminApproved === true" style="color:green"></i></div>
         <div class="col-xs-6 col-lg-4" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.letterOfRecommendationId)"><i class="glyphicon glyphicon-eye-open" style="height:100%"></i></button>
           <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveLetterOfRecommendation(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up" style="height:100%"></i></button>
         </div>
     </div>
-    <div class="row" style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+    <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
         <div class="col-xs-12 col-sm-6 col-lg-8">Resume<i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isResumeSubmitted === true && vm.credentials.isResumeAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isResumeSubmitted === true && vm.credentials.isResumeAdminApproved === true" style="color:green"></i></div>
         <div class="col-xs-6 col-lg-4" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.ResumeId)"><i class="glyphicon glyphicon-eye-open" style="height:100%"></i></button>
         <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveResume(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up" style="height:100%"></i></button></div>
