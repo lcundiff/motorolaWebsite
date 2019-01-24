@@ -215,8 +215,6 @@
 
         StudentService.updateStudent(student.user, student).then(function(data){
           console.log("data: ",data);
-          vm.selected_user = false;
-          vm.user = null;
           onFormCompletionSuccess(data);
         });
       }
