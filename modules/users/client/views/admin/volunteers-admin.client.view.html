@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
 <link rel="stylesheet" type="text/css" href="/modules/core/client/css/bootstrap.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -88,23 +88,23 @@ body, html {
 </style>
 
 <section>
-  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
-    <h1 style="font-weight:bold;">Volunteers</h1>
+  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top:-4rem; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+    <h1 style="font-weight:bold; margin-left: 2rem;">Volunteers</h1>
   </div>
   <br>
   <div class="col-xs-12 col-md-8">
   <div class="jumbotron">
   <div class="container">
     <ul class="nav nav-tabs">
-      <li role="presentation" ><a data-toggle="tab" href="#activeForms" ng-click="vm.listActiveVolunteers();">Active</a></li>
+      <li class = "nav-item active" role="presentation" ><a data-toggle="tab" href="#activeForms" ng-click="vm.listActiveVolunteers();">Active</a></li>
       <li role="presentation"><a data-toggle="tab" href="#inactiveForms" ng-click="vm.listDeactivatedVolunteers();">Inactive</a></li>
     </ul>
     <br>
 
     <div class="tab-content">
-      <div id="activeForms" class="tab-pane fade">
+      <div id="activeForms" class="tab-pane fade in active">
         <div class="container">
-          <div class="container">
+          <div data-ng-init = "vm.listActiveVolunteers();" class="container">
           <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
         </div>
         <br>

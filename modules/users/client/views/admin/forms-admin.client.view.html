@@ -88,22 +88,22 @@ body, html {
 </style>
 
 <section>
-  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
-    <h1 style="font-weight:bold;">Forms</h1>
+  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top:-4rem; margin-left: calc(50% - 50vw); width:100vw;" class="container">
+    <h1 style="font-weight:bold; margin-left: 2rem;">Forms</h1>
   </div>
   <br>
   <div class="col-xs-12 col-md-8">
   <div class="jumbotron ">
     <ul class="nav nav-tabs" role="tablist">
       <li class = "nav-item active" role="presentation" ><a class="nav-link" data-toggle="tab" href="#activeForms" ng-click="vm.listActiveStudents();">Active</a></li>
-      <li class= "nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#inactiveForms" ng-click="vm.listInactiveStudents();">Inactive</a></li>
+      <li class= "nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#inactiveForms" ng-click="vm.listDeactivatedStudents();">Inactive</a></li>
     </ul>
     <br>
     
     <div class="tab-content">
       <div id="activeForms" class="tab-pane fade in active">
         <div class="container">
-          <div class="container">
+          <div data-ng-init = "vm.listActiveStudents();" >
           <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
           </div>
         <br>
