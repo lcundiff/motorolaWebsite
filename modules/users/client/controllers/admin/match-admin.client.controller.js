@@ -82,6 +82,14 @@
         deSelectVolunteer(volunteer);
         return;
       }
+      else if(student === null || student === undefined){
+        Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> Please select a student to match.', title: 'Error', delay: 6000 });
+        return;
+      }
+      else if(volunteer === null || volunteer === undefined){
+        Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> Please select a volunteer to match.', title: 'Error', delay: 6000 });
+        return;
+      }
       else{
         if(student.timeSlot[0] === "1") volunteer.mentee_count_sess_1++;
         else if(student.timeSlot[0] === "2") volunteer.mentee_count_sess_2++;
@@ -177,11 +185,13 @@
     }
 
     function selectStudent(user, el){
+      console.log(vm.is_student_selected);
       if(vm.is_student_selected === false){
         vm.neutralBackgroundColor = document.getElementById(user.user).style.backgroundColor;
       }
       if(vm.is_student_selected === true){
-        document.getElementById(vm.selected_student.user).style.backgroundColor = document.getElementById(user.user).style.backgroundColor;
+        deSelectStudent(user);
+        return;
       }
       document.getElementById(user.user).style.backgroundColor = "#CCEFFF";
       vm.selected_student = user;
@@ -202,7 +212,8 @@
       }
       console.log(user);
       if(vm.is_volunteer_selected === true){
-        document.getElementById(vm.selected_volunteer.user._id).style.backgroundColor = document.getELementById(user.user._id).style.backgroundColor;
+        deSelectVolunteer(user);
+        return;
       }
       document.getElementById(user.user._id).style.backgroundColor = "#CCEFFF";
       vm.selected_volunteer = user;
