@@ -60,6 +60,7 @@
 
       // Add submenu items
       if (options.items) {
+        
         options.items.forEach(function (subMenuItem) {
           service.addSubMenuItem(menuId, options.state, subMenuItem);
         });

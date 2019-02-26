@@ -67,6 +67,7 @@
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> There was an error when auto-accepting students into the program.', delay: 6000 });
 
     }
+    // download pdf form
     function viewForm(fileId) {
       console.log("fileId: ",fileId);
 
@@ -89,7 +90,76 @@
                 link.click();
       });
     }
+    // download CSV
+    $scope.downloadCSV = function() {      
+        // get student info
+        StudentService.studentList().then(function(data){
+          
+          var Students = data;
+          console.log(Students)
+          var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW";
+          var content = "";
+          // creates and formats student data on a CSV sheet
+          Students.forEach(function(student) {
+            console.log("student object data: ", student)
+            content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," +
+              "\"" + student.application.phone + "\"" + "," + "\"" + /* student.application.address.city+" , "+ student.application.address.state+" "+student.application.address.zipcode +*/
+             /* "\"" + "," + "\"" + */ student.application.school + "\"" + "," + "\"" + student.interviewer[0] +", "+student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
+          });
 
+          content = header + "\n" + content;
+       
+        console.log("form data: ",content);
+        
+        var file = new Blob([data.data], {
+            responseType: 'arraybuffer',
+            data: content,
+            mimeType: "text/csv",
+            headers: {
+                'Content-type': 'text/csv',
+                'Accept': 'text/csv'
+            }
+        });
+        // file has been created
+        console.log(file);
+        $scope.file = file;
+        $scope.file.upload = '.csv';
+        $scope.uploading = true;  
+        
+        FileService.upload($scope.file, 'All_Students_CSV').then(function(data){            
+            console.log("UPLOADING", data);
+            if(data.data.success){
+                $scope.uploading = false;
+            }
+        });  
+        
+        FileService.download('All_Students_CSV.csv').then(function(data){
+        console.log("ABOUT TO DOWNLOAD");
+
+            //var fileURL = URL.createObjectURL(file);
+
+            //window.open(fileURL);
+            
+            $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+            // $scope.fileUrl = window.URL.createObjectURL(file);
+            // console.log($scope.fileUrl)
+            
+            var link = document.createElement('a');
+                link.href = $scope.fileUrl;
+                link.download = 'All_Students_CSV.csv';
+                // console.log(link);
+                link.click();
+        });          
+          
+          
+        },
+        function(error) {
+          $scope.error = 'Unable to retrieve students!\n' + error;
+        });
+        
+
+    }
+    
     function figureOutItemsToDisplay() {
       console.log("HERE IN FOID");
       vm.filteredItems = $filter('filter')(vm.students, {
@@ -109,7 +179,7 @@
 
     function listActiveStudents() {
       StudentService.studentListActive().then(async function(data){
-        console.log("data: ",data);
+        console.log("active students: ",data);
         vm.students = data;
 
         await(vm.buildPager());
@@ -393,6 +463,7 @@ function deactivateStudent(user, student, index) {
   //vm.students.splice(index, 1);
   //vm.pagedItems.splice(index, 1);
 
+
   StudentService.updateStudent(user, student)
   .then(onDeactivationSuccess)
   .catch(onDeactivationError);
@@ -410,15 +481,15 @@ function onDeactivationSuccess(response) {
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Student deactivation error.', delay: 6000 });
     }
 
-function activateStudent(user, student, index) {
-  vm.selected_user = false;
-  student.active = true;
-  vm.students.splice(index, 1);
-  vm.pagedItems.splice(index%15, 1);
+    function activateStudent(user, student, index) {
+      vm.selected_user = false;
+      student.active = true;
+      vm.students.splice(index, 1);
+      vm.pagedItems.splice(index%15, 1);
 
-  StudentService.updateStudent(user, student)
-  .then(onActivationSuccess)
-  .catch(onActivationError);
+      StudentService.updateStudent(user, student)
+      .then(onActivationSuccess)
+      .catch(onActivationError);
 };
 
 function onActivationSuccess(response) {
@@ -432,6 +503,8 @@ function onActivationSuccess(response) {
     function onActivationError(response) {
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Student activation error.', delay: 6000 });
     }
+    
+   
 
 }
 
