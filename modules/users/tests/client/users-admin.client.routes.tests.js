@@ -88,7 +88,7 @@
 
           // Ignore parent template gets on state transition
           $httpBackend.whenGET('/modules/users/client/views/admin/list-users.client.view.html').respond(200);
-          $httpBackend.whenGET('/modules/core/client/views/home.client.view.html').respond(200);
+          $httpBackend.whenGET('/modules/core/client/views/dashboard-admin.client.view').respond(200);
 
           $state.go('admin.users');
           $rootScope.$digest();
@@ -96,7 +96,7 @@
 
         it('Should remove trailing slash', inject(function ($state, $location, $rootScope, $templateCache) {
           $templateCache.put('/modules/users/client/views/admin/list-users.client.view.html', '');
-          $templateCache.put('/modules/core/client/views/home.client.view.html', '');
+          $templateCache.put('/modules/core/client/views/dashboard-admin.client.view', '');
 
           $location.path('admin/users/');
           $rootScope.$digest();

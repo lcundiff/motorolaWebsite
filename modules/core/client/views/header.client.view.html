@@ -6,9 +6,11 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" ui-sref='home' style="margin-bottom:8px;">
-        <img alt="Brand" src="/modules/core/client/img/symbol1.png" style="height: 30px;">
-        <br/>
+    <a class="navbar-brand" ng-hide="vm.authentication.user"  ui-sref='home' style="">
+        <img alt="Motorola Solutions" src="/modules/core/client/img/symbol1.png" class="img-responsive"style="height:130%">
+      </a>
+    <a class="navbar-brand" ng-show="vm.authentication.user"  ui-sref='dash' style="">
+        <img alt="Motorola Solutions" src="/modules/core/client/img/symbol1.png" class="img-responsive"style="height:130%">
       </a>
   </div>
   <nav class="navbar-collapse" uib-collapse="!vm.isCollapsed" role="navigation">
@@ -26,7 +28,7 @@
 
     <ul class="nav navbar-nav navbar-right" ng-hide="vm.authentication.user">
       <li ui-sref-active="active">
-        <a ui-sref="signup.studentrequest">Request Sign Up</a>
+        <a ui-sref="signup.studentrequest">Request Admin Sign Up</a>
       </li>
       <li class="divider-vertical"></li>
       <li ui-sref-active="active">
