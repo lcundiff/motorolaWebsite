@@ -6,9 +6,9 @@
     .module('users')
     .controller('ApplicantsAdminsController', ApplicantsAdminsController);
 
-  ApplicantsAdminsController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'AdminService', 'UsersService', 'StudentService', 'FileService', /*'VolunteersService', 'AutomateService', 'googleDriveService',*/'$http','$sce'];
+  ApplicantsAdminsController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'AdminService', 'UsersService', 'StudentService', 'FileService', 'VolunteerService',/* 'AutomateService', 'googleDriveService',*/'$http','$sce'];
 
-  function ApplicantsAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService, FileService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
+  function ApplicantsAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService, FileService, VolunteerService, /*AutomateService, googleDriveService,*/$http, $sce) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
@@ -91,75 +91,96 @@
       });
     }
     // download CSV
-    $scope.downloadCSV = function() {      
+    $scope.downloadAllCSV = function() {      
         // get student info
+        var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW\n";
+        var content = "";
+        //$scope.StudentService.studentListActive().then(function(data){
         StudentService.studentList().then(function(data){
           
-          var Students = data;
-          console.log(Students)
-          var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW";
-          var content = "";
-          // creates and formats student data on a CSV sheet
-          Students.forEach(function(student) {
+          var Students = data;          
+
+          Students.forEach(function(student) { // creates and formats student data on a CSV sheet
             console.log("student object data: ", student)
             content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," +
               "\"" + student.application.phone + "\"" + "," + "\"" + /* student.application.address.city+" , "+ student.application.address.state+" "+student.application.address.zipcode +*/
              /* "\"" + "," + "\"" + */ student.application.school + "\"" + "," + "\"" + student.interviewer[0] +", "+student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
           });
-
+          
           content = header + "\n" + content;
-       
-        console.log("form data: ",content);
-        
-        var file = new Blob([data.data], {
-            responseType: 'arraybuffer',
-            data: content,
-            mimeType: "text/csv",
-            headers: {
-                'Content-type': 'text/csv',
-                'Accept': 'text/csv'
-            }
-        });
-        // file has been created
-        console.log(file);
-        $scope.file = file;
-        $scope.file.upload = '.csv';
-        $scope.uploading = true;  
-        
-        FileService.upload($scope.file, 'All_Students_CSV').then(function(data){            
-            console.log("UPLOADING", data);
-            if(data.data.success){
-                $scope.uploading = false;
-            }
-        });  
-        
         FileService.download('All_Students_CSV.csv').then(function(data){
         console.log("ABOUT TO DOWNLOAD");
-
-            //var fileURL = URL.createObjectURL(file);
-
-            //window.open(fileURL);
-            
-            $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-            // $scope.fileUrl = window.URL.createObjectURL(file);
-            // console.log($scope.fileUrl)
-            
+            //var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
             var link = document.createElement('a');
-                link.href = $scope.fileUrl;
+                link.href = 'data:attachment/csv,' +  encodeURIComponent(content);
                 link.download = 'All_Students_CSV.csv';
-                // console.log(link);
                 link.click();
-        });          
-          
-          
+        });                    
         },
         function(error) {
           $scope.error = 'Unable to retrieve students!\n' + error;
         });
-        
-
     }
-    
+    $scope.downloadVolunteersCSV = function() {      
+        // get volunteer info
+        var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW\n";
+        var content = "";
+        //$scope.StudentService.studentListActive().then(function(data){
+        VolunteerService.getAllVolunteers().then(function(data){
+          
+          var Volunteers = data;          
+
+          Volunteers.forEach(function(volunteer) { // creates and formats volunteer data on a CSV sheet
+            console.log("volunteer object data: ", volunteer)
+            content = "\"" + volunteer.application.firstName + "\"" + "," + "\"" + volunteer.application.email + "\"" + "," +
+              "\"" + volunteer.application.phone + "\"" + "," + "\"" + /* volunteer.application.address.city+" , "+ volunteer.application.address.state+" "+student.application.address.zipcode +*/
+             /* "\"" + "," + "\"" + */ volunteer.application.school +"\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
+          });
+          
+          content = header + "\n" + content;
+        FileService.download('All_Students_CSV.csv').then(function(data){
+        console.log("ABOUT TO DOWNLOAD");
+            //var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+            var link = document.createElement('a');
+                link.href = 'data:attachment/csv,' +  encodeURIComponent(content);
+                link.download = 'All_Students_CSV.csv';
+                link.click();
+        });                    
+        },
+        function(error) {
+          $scope.error = 'Unable to retrieve students!\n' + error;
+        });
+    }
+    $scope.downloadActiveCSV = function() {      
+        // get student info
+        var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW\n";
+        var content = "";
+        //$scope.StudentService.studentListActive().then(function(data){
+        StudentService.studentListActive().then(function(data){
+          
+          var Students = data;          
+
+          Students.forEach(function(student) { // creates and formats student data on a CSV sheet
+            console.log("student object data: ", student)
+            content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," +
+              "\"" + student.application.phone + "\"" + "," + "\"" + /* student.application.address.city+" , "+ student.application.address.state+" "+student.application.address.zipcode +*/
+             /* "\"" + "," + "\"" + */ student.application.school + "\"" + "," + "\"" + student.interviewer[0] +", "+student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
+          });
+          
+          content = header + "\n" + content;
+        FileService.download('All_Students_CSV.csv').then(function(data){
+        console.log("ABOUT TO DOWNLOAD");
+            //var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+            var link = document.createElement('a');
+                link.href = 'data:attachment/csv,' +  encodeURIComponent(content);
+                link.download = 'All_Students_CSV.csv';
+                link.click();
+        });                    
+        },
+        function(error) {
+          $scope.error = 'Unable to retrieve students!\n' + error;
+        });
+    }    
     function figureOutItemsToDisplay() {
       console.log("HERE IN FOID");
       vm.filteredItems = $filter('filter')(vm.students, {
