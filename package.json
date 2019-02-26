@@ -17,7 +17,7 @@
   "scripts": {
     "update": "npm update && npm prune && npm run bower",
     "clean": "rm -rf node_modules/ public/lib/",
-    "deploy": "gcloud preview app deploy app.yaml --promote",
+    "deploy": "gcloud app deploy app.yaml --promote",
     "reinstall": "npm cache clean && npm run clean && npm install",
     "start": "node server.js",
     "start:prod": "gulp prod",
