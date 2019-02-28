@@ -1,29 +1,9 @@
-<!DOCTYPE html>
-<html>
-<title>Request Sign up</title>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
-<link rel="stylesheet" type="text/css" href="/modules/core/client/css/bootstrap.css">
-<!-- mainly effects font size/shape/color --> <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 .jumbotron {
   posistion:relative;
   z-index: 2;
   box-shadow: 0 4px 16px -6px grey;
 }
-fieldset {
-    border: 0;
-}
-body {
-background-image:url('/modules/core/client/img/mot6.png');
-}
-
 </style>
 <section class="row">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
@@ -46,12 +26,12 @@ background-image:url('/modules/core/client/img/mot6.png');
   <div class="col-xs-6">
     <h4 style="font-family: 'Lato', sans-serif; font-wight: bold;">Request Sign-up Access</h4>
     <form name="vm.signupReqForm" ng-submit="vm.askForSignup(vm.signupReqForm.$valid)" class="form-horizontal" novalidate autocomplete="off">
-      <fieldset >
+      <fieldset>
         <div class="form-group" show-errors>
-          <label for="firstName" style= "margin:5px;" class="text-center">First Name </label><input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.credentials.firstName">
-          <label for="lastName" style= "margin:5px;" class="text-center">Last Name </label><input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.credentials.lastName">
+          <label for="firstName" class="text-center">First Name </label><input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.credentials.firstName">
+          <label for="lastName" class="text-center">Last Name </label><input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.credentials.lastName">
 
-          <label for="email" style= "margin:5px;" class="text-center">Email </label><input type="text" id="email" name="email" class="form-control" ng-model="vm.credentials.email" lowercase required autofocus>
+          <label for="email" class="text-center">Email </label><input type="text" id="email" name="email" class="form-control" ng-model="vm.credentials.email" lowercase required autofocus>
           <div ng-messages="vm.signupReqForm.email.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Enter an email.</p>
           </div>

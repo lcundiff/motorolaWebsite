@@ -24,7 +24,6 @@
 
     // If user is signed in then redirect back home
     if (vm.authentication.user) {
-       
       $location.path('/');
     }
 
@@ -37,14 +36,13 @@
       Promise.all([p1]).then(function([p1]){
         if (!isValid) {
           $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
-          console.log("not valid user") 
+
           return false;
         }
 
-        UsersService.userSignup()
+        UsersService.userSignup(vm.credentials)
           .then(onUserSignupSuccess)
           .catch(onUserSignupError);
-        console.log("valid user") 
       });
     }
 
@@ -107,7 +105,7 @@
       vm.authentication.user = response;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
       // And redirect to the previous or home page
-      $state.go(/*$state.previous.state.name || */'dash', $state.previous.params);
+      $state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
     function onUserSignupError(response) {
@@ -120,7 +118,7 @@
       Notification.info({ message: 'Welcome ' + response.firstName });
       // And redirect to the previous or home page
       //$state.transitionTo($state.current, {m: response}, { reload: true, inherit: false, notify: true});
-      $state.go(/*$state.previous.state.name || */'dash', $state.previous.params);
+      $state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
     function onUserSigninError(response) {
