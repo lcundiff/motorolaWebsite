@@ -48,6 +48,10 @@
         method: 'POST',
         url: '/api/auth/signup'
       },
+      student_signup: {
+        method: 'POST',
+        url: '/api/auth/signup/student'
+      },
       signin: {
         method: 'POST',
         url: '/api/auth/signin'
@@ -92,6 +96,9 @@
       },
       userSignup: function (credentials) {
         return this.signup(credentials).$promise;
+      },
+      studentSignup: function (credentials) {
+        return this.student_signup(credentials).$promise;
       },
       userSignin: function (credentials) {
         return this.signin(credentials).$promise;

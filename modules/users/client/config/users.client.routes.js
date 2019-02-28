@@ -71,9 +71,18 @@
           pageTitle: 'Signup Link Invalid'
         }
       })
-      .state('authentication.signup', {
-        url: '/signup/:token',
+      .state('authentication.student-signup', {
+        url: '/signup',
         templateUrl: '/modules/users/client/views/authentication/signup-student.client.view.html',
+        controller: 'AuthenticationController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Signup'
+        }
+      })
+      .state('authentication.volunteer-signup', {
+        url: '/signup/:token',
+        templateUrl: '/modules/users/client/views/authentication/signup-volunteer.client.view.html',
         controller: 'AuthenticationController',
         controllerAs: 'vm',
         data: {
@@ -142,7 +151,7 @@
         controller: 'AuthenticationController',
         controllerAs: 'vm'
       })*/
-      .state('signup.studentrequest', {
+      .state('signup.request', {
         url: '/request_signup',
         templateUrl: '/modules/users/client/views/authentication/request-signup.client.view.html',
         controller: 'SignupController',

@@ -12,6 +12,7 @@
 
     vm.authentication = Authentication;
     vm.getPopoverMsg = PasswordValidator.getPopoverMsg;
+    vm.studentSignUp = studentSignUp;
     vm.signup = signup;
     vm.signin = signin;
     vm.callOauthProvider = callOauthProvider;
@@ -44,6 +45,20 @@
           .then(onUserSignupSuccess)
           .catch(onUserSignupError);
       });
+    }
+
+    function studentSignUp(isValid) {
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
+
+        return false;
+      }
+
+      vm.credentials.roles = ['student'];
+
+      UsersService.studentSignup(vm.credentials)
+      .then(onUserSigninSuccess)
+      .catch(onUserSigninError);
     }
 
     function signin(isValid) {

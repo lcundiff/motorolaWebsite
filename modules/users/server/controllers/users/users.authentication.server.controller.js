@@ -19,6 +19,35 @@ var noReturnUrls = [
 /**
  * Signup
  */
+ exports.studentSignup = function (req, res) {
+   var user = new User(req.body);
+
+   user.provider = 'local';
+   user.displayName = user.firstName + ' ' + user.lastName;
+
+   console.log(user);
+
+   user.save(function (err) {
+     if (err) {
+       return res.status(422).send({
+         message: errorHandler.getErrorMessage(err)
+       });
+     } else {
+       // Remove sensitive data before login
+       user.password = undefined;
+       user.salt = undefined;
+
+       req.login(user, function (err) {
+         if (err) {
+           res.status(400).send(err);
+         } else {
+           res.json(user);
+         }
+       });
+     }
+   });
+ };
+
 exports.signup = function (req, res) {
   // For security measurement we remove the roles from the req.body object
   console.log("req: ",req.body);
