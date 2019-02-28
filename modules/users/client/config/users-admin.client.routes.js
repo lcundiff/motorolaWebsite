@@ -90,6 +90,12 @@
         templateUrl: '/modules/users/client/views/admin/volunteers-admin.client.view.html',
         controller: 'VolunteersAdminsController',
         controllerAs: 'vm'
+      })
+      .state('admin.csv', {
+        url:'/csv',
+        templateUrl: '/modules/users/client/views/admin/csv-admin.client.view.html',
+        controller: 'ApplicantsAdminsController',
+        controllerAs: 'vm'
       });
     /*  .state('admin.student', {
 

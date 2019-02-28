@@ -44,7 +44,7 @@
     });
     menuService.addMenuItem('topbar', {
       title: 'CSV',
-      state: 'admin.students'
+      state: 'admin.csv'
     });
   }
 }());

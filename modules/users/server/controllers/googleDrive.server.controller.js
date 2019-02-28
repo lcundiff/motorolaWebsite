@@ -302,7 +302,8 @@ exports.updateByUpload = function(req, res) {
         console.log('err = ' + err);
         res.json({ success: false, message: 'File was not able to be uploaded' });
       }
-    } else {
+    } 
+    else {
         // jwtClient.authorize(function(err, tokens) {
           // console.log("2(2)");
     if (err) {

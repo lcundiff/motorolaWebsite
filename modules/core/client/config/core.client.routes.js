@@ -38,6 +38,17 @@
           }
         }
       })
+      .state('dash', {
+        url: '/user',
+        templateUrl: '/modules/users/client/views/admin/dashboard-admin.client.view.html',
+        controller: 'ApplicantsAdminsController',
+        controllerAs: 'vm',
+        params: {
+          message: function ($stateParams) {
+            return $stateParams;
+          }
+        }
+      })
       .state('not-found', {
         url: '/not-found',
         templateUrl: '/modules/core/client/views/404.client.view.html',

@@ -6,9 +6,9 @@
     .module('users')
     .controller('ApplicantsAdminsController', ApplicantsAdminsController);
 
-  ApplicantsAdminsController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'AdminService', 'UsersService', 'StudentService', 'FileService', /*'VolunteersService', 'AutomateService', 'googleDriveService',*/'$http','$sce'];
+  ApplicantsAdminsController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'AdminService', 'UsersService', 'StudentService', 'FileService', 'VolunteerService',/* 'AutomateService', 'googleDriveService',*/'$http','$sce'];
 
-  function ApplicantsAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService, FileService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
+  function ApplicantsAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService, FileService, VolunteerService, /*AutomateService, googleDriveService,*/$http, $sce) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
@@ -67,6 +67,7 @@
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> There was an error when auto-accepting students into the program.', delay: 6000 });
 
     }
+    // download pdf form
     function viewForm(fileId) {
       console.log("fileId: ",fileId);
 
@@ -89,7 +90,97 @@
                 link.click();
       });
     }
+    // download CSV
+    $scope.downloadAllCSV = function() {      
+        // get student info
+        var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW\n";
+        var content = "";
+        //$scope.StudentService.studentListActive().then(function(data){
+        StudentService.studentList().then(function(data){
+          
+          var Students = data;          
 
+          Students.forEach(function(student) { // creates and formats student data on a CSV sheet
+            console.log("student object data: ", student)
+            content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," +
+              "\"" + student.application.phone + "\"" + "," + "\"" + /* student.application.address.city+" , "+ student.application.address.state+" "+student.application.address.zipcode +*/
+             /* "\"" + "," + "\"" + */ student.application.school + "\"" + "," + "\"" + student.interviewer[0] +", "+student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
+          });
+          
+          content = header + "\n" + content;
+        FileService.download('All_Students_CSV.csv').then(function(data){
+        console.log("ABOUT TO DOWNLOAD");
+            //var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+            var link = document.createElement('a');
+                link.href = 'data:attachment/csv,' +  encodeURIComponent(content);
+                link.download = 'All_Students_CSV.csv';
+                link.click();
+        });                    
+        },
+        function(error) {
+          $scope.error = 'Unable to retrieve students!\n' + error;
+        });
+    }
+    $scope.downloadVolunteersCSV = function() {      
+        // get volunteer info
+        var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW\n";
+        var content = "";
+        //$scope.StudentService.studentListActive().then(function(data){
+        VolunteerService.getAllVolunteers().then(function(data){
+          
+          var Volunteers = data;          
+
+          Volunteers.forEach(function(volunteer) { // creates and formats volunteer data on a CSV sheet
+            console.log("volunteer object data: ", volunteer)
+            content = "\"" + volunteer.application.firstName + "\"" + "," + "\"" + volunteer.application.email + "\"" + "," +
+              "\"" + volunteer.application.phone + "\"" + "," + "\"" + /* volunteer.application.address.city+" , "+ volunteer.application.address.state+" "+student.application.address.zipcode +*/
+             /* "\"" + "," + "\"" + */ volunteer.application.school +"\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
+          });
+          
+          content = header + "\n" + content;
+        FileService.download('All_Students_CSV.csv').then(function(data){
+        console.log("ABOUT TO DOWNLOAD");
+            //var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+            var link = document.createElement('a');
+                link.href = 'data:attachment/csv,' +  encodeURIComponent(content);
+                link.download = 'All_Students_CSV.csv';
+                link.click();
+        });                    
+        },
+        function(error) {
+          $scope.error = 'Unable to retrieve students!\n' + error;
+        });
+    }
+    $scope.downloadActiveCSV = function() {      
+        // get student info
+        var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW\n";
+        var content = "";
+        //$scope.StudentService.studentListActive().then(function(data){
+        StudentService.studentListActive().then(function(data){
+          
+          var Students = data;          
+
+          Students.forEach(function(student) { // creates and formats student data on a CSV sheet
+            console.log("student object data: ", student)
+            content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," +
+              "\"" + student.application.phone + "\"" + "," + "\"" + /* student.application.address.city+" , "+ student.application.address.state+" "+student.application.address.zipcode +*/
+             /* "\"" + "," + "\"" + */ student.application.school + "\"" + "," + "\"" + student.interviewer[0] +", "+student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
+          });
+          
+          content = header + "\n" + content;
+        FileService.download('All_Students_CSV.csv').then(function(data){
+        console.log("ABOUT TO DOWNLOAD");
+            //var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+            var link = document.createElement('a');
+                link.href = 'data:attachment/csv,' +  encodeURIComponent(content);
+                link.download = 'All_Students_CSV.csv';
+                link.click();
+        });                    
+        },
+        function(error) {
+          $scope.error = 'Unable to retrieve students!\n' + error;
+        });
+    }    
     function figureOutItemsToDisplay() {
       console.log("HERE IN FOID");
       vm.filteredItems = $filter('filter')(vm.students, {
@@ -109,7 +200,7 @@
 
     function listActiveStudents() {
       StudentService.studentListActive().then(async function(data){
-        console.log("data: ",data);
+        console.log("active students: ",data);
         vm.students = data;
 
         await(vm.buildPager());
@@ -393,6 +484,7 @@ function deactivateStudent(user, student, index) {
   //vm.students.splice(index, 1);
   //vm.pagedItems.splice(index, 1);
 
+
   StudentService.updateStudent(user, student)
   .then(onDeactivationSuccess)
   .catch(onDeactivationError);
@@ -410,15 +502,15 @@ function onDeactivationSuccess(response) {
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Student deactivation error.', delay: 6000 });
     }
 
-function activateStudent(user, student, index) {
-  vm.selected_user = false;
-  student.active = true;
-  vm.students.splice(index, 1);
-  vm.pagedItems.splice(index%15, 1);
+    function activateStudent(user, student, index) {
+      vm.selected_user = false;
+      student.active = true;
+      vm.students.splice(index, 1);
+      vm.pagedItems.splice(index%15, 1);
 
-  StudentService.updateStudent(user, student)
-  .then(onActivationSuccess)
-  .catch(onActivationError);
+      StudentService.updateStudent(user, student)
+      .then(onActivationSuccess)
+      .catch(onActivationError);
 };
 
 function onActivationSuccess(response) {
@@ -432,6 +524,8 @@ function onActivationSuccess(response) {
     function onActivationError(response) {
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Student activation error.', delay: 6000 });
     }
+    
+   
 
 }
 

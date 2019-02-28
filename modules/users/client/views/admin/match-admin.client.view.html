@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
-<title>Applicants</title>
+<title>Matching</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
 <link rel="stylesheet" type="text/css" href="/modules/core/client/css/bootstrap.css">
+<!-- mainly effects font size/shape/color --> <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- mainly effects font shape/color/size --> <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 
 
@@ -20,7 +20,6 @@
 body, html {
   height: 100%;
   margin: 0;
-  font-family: "Roboto", sans-serif;
 }
 
 /* Style tab links */
@@ -104,9 +103,9 @@ body, html {
     <div class="jumbotron jumbotron fluid" >
       <div class="container">
         <center>
-          <button class="sign-button sign-in-button sign-in-button" ng-click="vm.autoMatch()">Auto-Match</button>
-          <button class="sign-button sign-in-button-warning sign-in-button-warning" ng-click="vm.manMatch(vm.selected_student, vm.selected_volunteer)">Match Pair</button>
-          <button class="sign-button sign-in-button-danger sign-in-button-danger" ng-click="vm.manUnmatch(vm.selected_student, vm.selected_volunteer)">Unmatch Pair</button>
+          <button class="sign-button sign-in-button" ng-click="vm.autoMatch()">Auto-Match</button>
+          <button class="sign-button sign-in-button-warning" ng-click="vm.manMatch(vm.selected_student, vm.selected_volunteer)">Match Pair</button>
+          <button class="sign-button sign-in-button-danger" ng-click="vm.manUnmatch(vm.selected_student, vm.selected_volunteer)">Unmatch Pair</button>
         </center>
       </div>
     </div>

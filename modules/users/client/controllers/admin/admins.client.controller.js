@@ -235,7 +235,7 @@
     $scope.listStudent = function() {
       $scope.active_students = [];
       //get all the students, then bind it to the scope
-      StudentsService.getAll().then(function(response) {
+      StudentService.studentListActive().then(function(response) {
           $scope.students = response.data;
 
       }, function(error) {
@@ -263,7 +263,7 @@
     function getModalStudent(id){
       console.log(id); //ISSUE: id is undefined
       console.log("Inside get Modal");
-      StudentsService.read(id).then(function(response) {
+      StudentService.read(id).then(function(response) {
         $scope.modal_student = response.data;
         console.log($scope.modal_student);
         //console.log(response.data);
@@ -280,10 +280,9 @@
 
       //console.log("we here");
       //var id = $stateParams.user;
-
       //var id = '59f7f305e58b4010fc1307f4';
       console.log(id); //ISSUE: id is undefined
-      StudentsService.read(id).then(function(response) {
+      StudentService.read(id).then(function(response) {
         $scope.student = response.data;
         console.log($scope.student);
         //console.log(response.data);
@@ -298,7 +297,7 @@
     /*$scope.exportStudents = function() {
       console.log("here");
 
-      StudentsService.getAll()
+      StudentService.getAll()
         .then(function(response) {
           var students = response.data;
           var header = "Name, Email, Phone, Address, School, Grade";
@@ -365,14 +364,14 @@
     $scope.exportStudents = function() {
       // console.log("here");
 
-      StudentsService.getAll()
+      StudentService.getAll()
         .then(function(response) {
           var students = response.data;
           var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW";
           var content = "";
 
           // creates and formats student data on a CSV sheet
-          students.forEach(function(student) {
+          Students.forEach(function(student) {
             content = "\"" + student.application.name + "\"" + "," + "\"" + student.application.email + "\"" + "," +
               "\"" + student.application.phone + "\"" + "," + "\"" + student.application.address.line_1+" "+student.application.address.line_2+", "+student.application.address.city+" , "+student.application.address.state+" "+student.application.address.zipcode +
               "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.interviewer[0] +", "+student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
@@ -518,7 +517,7 @@
 
     $scope.exportStudents_accepted = function() {
 
-      StudentsService.listAccepted()
+      StudentService.listAccepted()
         .then(function(response) {
           var students = response.data;
           var header = "Student Name, Student Email, Student Phone, Parent Name, Parent Email, Parent Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW";
@@ -706,7 +705,7 @@
     $scope.unmatch = function(id) {
 
       var v_id;
-      StudentsService.read(id).then(function(response){
+      StudentService.read(id).then(function(response){
 
         //Ask admin to confirm unmatch action
         var r = confirm('This will unmatch '+response.data.application.name+' from his/her mentor, '+response.data.mentor+'. Would you like to proceed?');
@@ -842,7 +841,7 @@
 
   $scope.listDeactivatedStudents = function () {
     console.log("entered Deactivated Students list");
-    StudentsService.listDeactivated().then(function(response){
+    StudentService.listDeactivated().then(function(response){
       console.log("entered here");
         $scope.deactivated_students = response.data;
         console.log("Deactivated students:", response.data);
@@ -881,7 +880,7 @@
           console.log("menteeID: ",volunteer.menteeID);
           volunteer.menteeID.forEach(function(s_id){
             console.log("s_id",s_id);
-            StudentsService.read(s_id).then(function (response){
+            StudentService.read(s_id).then(function (response){
               var s = response.data;
               console.log("in here, response data: ",response.data);
 
@@ -939,7 +938,7 @@
             for(var ind = 0; ind < s_ids.length; ind++ ){
               console.log("ind: ",ind);
               console.log(s_ids[ind]);
-              StudentsService.read(s_ids[ind]).then(function(response){
+              StudentService.read(s_ids[ind]).then(function(response){
                 console.log(response.data);
                 var s = response.data;
 
@@ -949,7 +948,7 @@
                     s.interviewerID.splice(i, 1);
                     s.interviewer.splice(i, 1);
 
-                    StudentsService.update(s, s.user).then(function(stu){
+                    StudentService.update(s, s.user).then(function(stu){
                         if(ind === s_ids.length){
                           console.log("RESOLVE TIME");
                           resolve(volunteer);
@@ -1038,7 +1037,7 @@ $scope.deactivateStudent = function (id) {
   new Promise(function (resolve, reject) {
     console.log($scope.volunteer);
 
-    StudentsService.read(id).then(function (response){
+    StudentService.read(id).then(function (response){
       console.log("in here, response data: ",response.data);
       student = response.data;
 
@@ -1092,7 +1091,7 @@ $scope.deactivateStudent = function (id) {
       student.interviewerID = [];
       student.interviewer = [];
 
-      StudentsService.update(student, student.user).then(function (response) {
+      StudentService.update(student, student.user).then(function (response) {
         console.log("student was successfully deactivated", response.data);
         console.log(response.data.active);
 
@@ -1106,7 +1105,7 @@ $scope.deactivateStudent = function (id) {
     });
   }
   else{
-    StudentsService.update(student, student.user).then(function (response) {
+    StudentService.update(student, student.user).then(function (response) {
       console.log("student was successfully deactivated", response.data);
       console.log(response.data.active);
 
@@ -1127,7 +1126,7 @@ $scope.activateStudent = function (id) {
   new Promise(function (resolve, reject) {
     console.log($scope.volunteer);
 
-    StudentsService.read(id).then(function (response){
+    StudentService.read(id).then(function (response){
       var student = response.data;
 
       var r = confirm('You are about to activate '+student.application.name+'. Would you like to proceed?');
@@ -1147,7 +1146,7 @@ $scope.activateStudent = function (id) {
     return new Promise(function(resolve, reject){
       console.log("active: ",student.active);
 
-        StudentsService.update(student, student.user).then(function (response) {
+        StudentService.update(student, student.user).then(function (response) {
           console.log("student was successfully activated", response.data);
           console.log(response.data.active);
 

@@ -1,12 +1,35 @@
+<!DOCTYPE html>
+<html>
+<title>Home</title>
+<meta charset="UTF-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
+<link rel="stylesheet" type="text/css" href="/modules/core/client/css/bootstrap.css">
+<!-- mainly effects font size/shape/color --> <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
+body {
+background-image:url('/modules/core/client/img/mot6.png');
+}
 .jumbotron {
   posistion:relative;
   z-index: 2;
   box-shadow: 0 4px 16px -6px grey;
+  background-color: white;
+
+}
+html {
+  font-family: "Roboto", sans-serif;
+}
 }
 </style>
-<section>
+<body style="">
+<section >
+
   <div class="jumbotron jumbotron-fluid text-center" style="background-color: white">
   <div class="container text-center" >
     <div class="row">
@@ -14,7 +37,6 @@
       <center>
         <img class="img-responsive text-center" src="/modules/core/client/img/idea-sharing-filled.png" style="padding-top:4em; height: 10em;">
       </center>
-      <!--</div>-->
     </div>
     <br>
     <div class="row">
@@ -23,8 +45,8 @@
     <br>
     <br>
     <center>
-      <button class="sign-button sign-in-button" ui-sref="signup.studentrequest">Request to Sign up</button>
       <button class="sign-button sign-in-button" ui-sref="authentication.signin">Sign in</button>
+      <button class="sign-button sign-in-button" ui-sref="authentication.signup">Student Sign up</button>
     </center>
     <br>
     <br>
@@ -34,11 +56,12 @@
     <br>
     <br>
 </div>
-</div>
 
-  <div class="jumbotron jumbotron-fluid text-center" style="background-color: white">
+
+  <!-- Carousel of pictures -->
+      <!-- need better pictures    
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <!-- Indicators -->
+
       <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -47,8 +70,9 @@
         <li data-target="#myCarousel" data-slide-to="4"></li>
         <li data-target="#myCarousel" data-slide-to="5"></li>
       </ol>
-
-      <!-- Wrapper for slides -->
+      
+      
+      
       <div class="carousel-inner">
         <div class="item active">
           <img src="/modules/core/client/img/mot.PNG" alt="mot.png" style="width:100%;">
@@ -68,10 +92,11 @@
 
         <div class="item">
           <img src="/modules/core/client/img/mot6.JPG" alt="Chicago" style="width:100%;">
+        
         </div>
       </div>
-
-      <!-- Left and right controls -->
+     
+      <!-- Left and right controls 
       <a class="left carousel-control" href="#myCarousel" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left"></span>
         <span class="sr-only">Previous</span>
@@ -80,6 +105,8 @@
         <span class="glyphicon glyphicon-chevron-right"></span>
         <span class="sr-only">Next</span>
       </a>
+  -->
   </div>
-  </div>
+ 
 </section>
+</body> 
