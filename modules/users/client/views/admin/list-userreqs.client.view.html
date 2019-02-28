@@ -36,7 +36,6 @@ body, html {
       <p class="list-group-item-text pull-right small" ng-bind="userreq.email"></p>
       <br>
       <p class="list-group-item-text">Send Email for Sign-up as:</p>
-      <button class="sign-button sign-in-button" type= "submit" ng-click="userreq.roles = ['student']; vm.sendSignupEmail(userreq)">Student</button>
       <button class="sign-button sign-in-button" type= "submit" ng-click="userreq.roles = ['volunteer']; vm.sendSignupEmail(userreq)">Volunteer</button>
       <button class="sign-button sign-in-button" type= "submit" ng-click="userreq.roles = ['admin']; vm.sendSignupEmail(userreq)">Admin</button>
       <button class="sign-button sign-in-button-danger pull-right" type= "submit" ng-click="vm.remove(userreq)">Remove</button>
