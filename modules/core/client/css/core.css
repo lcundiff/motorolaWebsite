@@ -1,3 +1,6 @@
+@import "https://fonts.googleapis.com/css?family=Lato";
+@import "https://www.w3schools.com/w3css/4/w3.css";
+
 .content {
   margin-top: 50px;
 }
@@ -192,7 +195,7 @@ a:hover .header-profile-image {
 body, html {
   height: 100%;
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 /* Style tab links */

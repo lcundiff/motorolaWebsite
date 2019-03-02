@@ -23,10 +23,10 @@
   <div class="jumbotron jumbotron-fluid" style="background-color: white">
     <div class="container">
 
-  <div class="col-xs-6">
+  <div class="col-xs-6" style ="border-right: 1px solid #ddd;">
     <h4 style="font-family: 'Lato', sans-serif; font-wight: bold;">Sign in</h4>
-    <form name="vm.userForm" ng-submit="vm.signin(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
-      <fieldset>
+    <form name="vm.userForm" ng-submit="vm.signin(vm.userForm.$valid)" style="border: 0px;" class="signin" novalidate autocomplete="off">
+      <fieldset style="border: 0px;">
         <div class="form-group" show-errors>
           <uib-alert type="danger" ng-show="vm.error" class="text-center text-danger">
             <span ng-bind="vm.error"></span>
