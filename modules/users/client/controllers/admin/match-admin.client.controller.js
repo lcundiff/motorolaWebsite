@@ -189,9 +189,12 @@
       if(vm.is_student_selected === false){
         vm.neutralBackgroundColor = document.getElementById(user.user).style.backgroundColor;
       }
-      if(vm.is_student_selected === true){
+      else if(vm.is_student_selected === true && vm.selected_student === user){
         deSelectStudent(user);
         return;
+      }
+      else if(vm.is_student_selected === true && vm.selected_student !== user){
+        deSelectStudent(vm.selected_student);
       }
       document.getElementById(user.user).style.backgroundColor = "#CCEFFF";
       vm.selected_student = user;
@@ -210,11 +213,14 @@
       if(vm.is_volunteer_selected === false){
         vm.neutralBackgroundColor = document.getElementById(user.user._id).style.backgroundColor;
       }
-      console.log(user);
-      if(vm.is_volunteer_selected === true){
+      else if(vm.is_volunteer_selected === true && vm.selected_volunteer === user){
         deSelectVolunteer(user);
         return;
       }
+      else if(vm.is_volunteer_selected === true && vm.selected_volunteer !== user){
+        deSelectVolunteer(vm.selected_volunteer);
+      }
+
       document.getElementById(user.user._id).style.backgroundColor = "#CCEFFF";
       vm.selected_volunteer = user;
       vm.is_volunteer_selected = true;

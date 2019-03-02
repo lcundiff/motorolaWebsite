@@ -4,21 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- mainly effects font size/shape/color --> <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-/* Set height of body and the document to 100% to enable "full page tabs" */
-body, html {
-  font-family: "Roboto", sans-serif;
-}
-.jumbotron {
-  posistion:relative;
-  z-index: 2;
-  box-shadow: 0 4px 16px -6px grey;
-  background-color: white;
-}
 
-
-</style>
-</style>
 <section>
   <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top:-4rem; margin-left: calc(50% - 50vw); width:100vw;" class="container">
     <h1 style="font-weight:bold; margin-left:2rem;">Users</h1>
@@ -27,32 +13,25 @@ body, html {
   <div class="container">
   <div class="col-xs-12 col-md-8">
   <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-    <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-  </div>
+  <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
   <br>
-    <div class="container">
   <div class="list-group">
     <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
     <a ng-repeat="user in vm.pagedItems" ng-click="vm.displayUser(user); user_selected = true;" class="list-group-item">
-      <h4 class="list-group-item-heading" ng-bind="user.displayName"></h4>
-      <p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
-      <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
+      <h5 class="list-group-item-heading" ng-bind="user.displayName"></h5>
+      <h6 class="pull-right" ng-bind="user.roles"></h6>
+      <h6 class="list-group-item-heading" ng-bind="user.username"></h6>
     </a>
   </div>
-</div>
-<div class="container">
   <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
-</div>
+
 </div>
 </div>
 <div class="col-xs-12 col-md-4">
   <div class="jumbotron jumbotron fluid">
-    <div class="container">
       <center>
       <div ng-switch="vm.selected_user">
         <div ng-switch-when=true>
-          <div class="container">
 
             <div class="row">
               <div class="row">
@@ -133,38 +112,39 @@ body, html {
             </div>
           </div>
             <br>
+            <br>
+            <div class="container">
             <div ng-switch="vm.user.edit_user">
               <div ng-switch-when="false">
                 <div class="row">
-                  <a class="sign-button sign-in-button-warning" ng-click="vm.editUser(vm.selected_user)">
+                  <a class="btn btn-warning" ng-click="vm.editUser(vm.selected_user)">
                     <!--<a class="sign-button sign-in-button" ui-sref="admin.user-edit({userId: vm.user._id})"-->
                     <i class="glyphicon glyphicon-pencil"></i>
                   </a>
-                  <a class="sign-button sign-in-button-danger" ng-click="vm.remove(vm.user)" ng-if="!vm.isContextUserSelf()">
+                  <a class="btn btn-danger" ng-click="vm.remove(vm.user)" ng-if="!vm.isContextUserSelf()">
                     <i class="glyphicon glyphicon-trash"></i>
                   </a>
                 </div>
               </div>
               <div ng-switch-when=true>
                 <div class="row">
-                  <a class="sign-button sign-in-button" ng-click="vm.update()">
+                  <a class="btn btn-primary" ng-click="vm.update()">
                     <i class="glyphicon glyphicon-ok"></i>
                   </a>
-                  <a class="sign-button sign-in-button-danger" ng-click="vm.cancel(vm.user)">
+                  <a class="btn btn-danger" ng-click="vm.cancel(vm.user)">
                     <i class="glyphicon glyphicon-remove"></i>
                   </a>
                 </div>
               </div>
             </div>
+          </div>
         </div>
-      </div>
     </div>
     <div ng-switch-when="false">
       Click on a user to view their information.
     </div>
     </div>
   </center>
-  </div>
 </div>
 </div>
 

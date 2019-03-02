@@ -4,18 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- mainly effects font size/shape/color --> <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-/* Set height of body and the document to 100% to enable "full page tabs" */
-body, html {
-  font-family: "Roboto", sans-serif;
-}
-.jumbotron {
-  posistion:relative;
-  z-index: 2;
-  box-shadow: 0 4px 16px -6px grey;
-  background-color: white;
-}
-</style>
 
 <section>
   <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top:-4rem; margin-left: calc(50% - 50vw); width:100vw;" class="container">
@@ -24,28 +12,25 @@ body, html {
   <br>
   <div class="jumbotron jumbotron-fluid">
   <div>
-    <div class="container">
+    <div class="row">
         <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
     </div>
     <br>
-    <div class="container">
-      <div class="list-group">
+      <div class="row list-group">
     <a ng-repeat="userreq in vm.pagedItems" class="list-group-item">
-      <h4 class="list-group-item-heading" ng-bind="userreq.firstName + ' ' + userreq.lastName"></h4>
+      <h5 class="list-group-item-heading" ng-bind="userreq.firstName + ' ' + userreq.lastName"></h5>
       <!--<p class="list-group-item-text pull-right small" ng-bind="userreq.lastName"></p>-->
-      <p class="list-group-item-text pull-right small" ng-bind="userreq.email"></p>
+      <h6 class="list-group-item-text pull-right" ng-bind="userreq.email"></h6>
       <br>
-      <p class="list-group-item-text">Send Email for Sign-up as:</p>
-      <button class="sign-button sign-in-button" type= "submit" ng-click="userreq.roles = ['volunteer']; vm.sendSignupEmail(userreq)">Volunteer</button>
-      <button class="sign-button sign-in-button" type= "submit" ng-click="userreq.roles = ['admin']; vm.sendSignupEmail(userreq)">Admin</button>
-      <button class="sign-button sign-in-button-danger pull-right" type= "submit" ng-click="vm.remove(userreq)">Remove</button>
+      <h6 class="list-group-item-text">Send Email for Sign-up as:</h6>
+      <button class="btn btn-primary" type= "submit" ng-click="userreq.roles = ['volunteer']; vm.sendSignupEmail(userreq)">Volunteer</button>
+      <button class="btn btn-primary" type= "submit" ng-click="userreq.roles = ['admin']; vm.sendSignupEmail(userreq)">Admin</button>
+      <button class="btn btn-danger pull-right" type= "submit" ng-click="vm.remove(userreq)">Remove</button>
     </a>
-
   </div>
-</div>
-<div class="container">
-<uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
-</div>
+  <div class="row">
+    <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+  </div>
 </div>
 
 </div>

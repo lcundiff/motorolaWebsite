@@ -4,34 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- mainly effects font size/shape/color --> <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-/* Set height of body and the document to 100% to enable "full page tabs" */
-body, html {
-  font-family: "Roboto", sans-serif;
-}
-
-.jumbotron {
-  posistion:relative;
-  z-index: 2;
-  box-shadow: 0 4px 16px -6px grey;
-  background-color: white;
-}
-</style>
 
 <section>
   <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top:-4rem; margin-left: calc(50% - 50vw); width:100vw;" class="container">
     <h1 style="font-weight:bold; margin-left: 2rem;">Interviews</h1>
   </div>
-  <br>
-
+  <nav role="navigation" class="navbar navbar-custom navbar-static-top" style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);">
+    <div class="container-fluid">
+    <center>
+    <button class="btn btn-custom navbar-btn toolbar-button"  ng-click="vm.autoAssignInterviews()">Auto-Assign Interviews</button>
+  </center>
+</div>
+</nav>
   <div class="col-xs-12 col-md-8">
-    <div class="jumbotron jumbotron fluid" >
-      <div class="container">
-        <center>
-          <button class="sign-button sign-in-button"  ng-click="vm.autoAssignInterviews()">Auto-Assign Interviews</button>
-        </center>
-      </div>
-    </div>
   <div class="jumbotron jumobtron fluid">
   <div class="container">
     <ul class="nav nav-tabs">
@@ -42,46 +27,35 @@ body, html {
 
     <div class="tab-content">
       <div id="activeForms" class="tab-pane fade in active">
-        <div class="container">
-          <div data-ng-init = "vm.listActiveStudents();" class="container">
+          <div data-ng-init = "vm.listActiveStudents();">
           <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
         </div>
         <br>
-          <div class="container">
         <div class="list-group">
           <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
           <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="list-group-item">
-            <h4 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h4><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
-            <h5 class="pull-right" ng-bind-template="{{student.application.school}}"></h5>
-            <br />
+            <h5 ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h5><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
+            <h6 class="pull-right" ng-bind-template="{{student.application.school}}"></h6>
           </a>
         </div>
-        </div>
-        <div class="container">
+        <div>
         <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
         </div>
-      </div>
       </div>
       <div id="inactiveForms" class="tab-pane fade">
-        <div class="container">
-          <div class="container">
           <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-        </div>
         <br>
-          <div class="container">
         <div class="list-group">
           <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
           <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="list-group-item">
-            <h4 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h4><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
-            <h5 class="pull-right" ng-bind-template="{{student.application.school}}"></h5>
+            <h6 class="list-group-item-text" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h6><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
+            <h6 class="pull-right" ng-bind-template="{{student.application.school}}"></h6>
             <br />
           </a>
         </div>
-        </div>
-        <div class="container">
+        <div>
         <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
         </div>
-      </div>
       </div>
     </div>
     <!--START -->

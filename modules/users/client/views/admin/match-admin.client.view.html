@@ -3,189 +3,61 @@
 <title>Applicants</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
-<link rel="stylesheet" type="text/css" href="/modules/core/client/css/bootstrap.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- mainly effects font shape/color/size --> <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-
-
-
-<style>
-/* Set height of body and the document to 100% to enable "full page tabs" */
-body, html {
-  height: 100%;
-  margin: 0;
-  font-family: "Roboto", sans-serif;
-}
-
-/* Style tab links */
-.tablink {
-  background-color: #555;
-  color: white;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-size: 17px;
-  width: 25%;
-}
-
-.tablink:hover {
-  background-color: #777;
-  padding: 20px;
-}
-
-/* Style the tab content (and add height:100% for full page content) */
-.tabcontent {
-  color: black;
-  display: none;
-  height: 100%;
-}
-
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 100000 !important;
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-/* The Close Button */
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.jumbotron {
-  posistion:relative;
-  z-index: 2;
-  box-shadow: 0 4px 16px -6px grey;
-  background-color: white;
-}
-
-</style>
-
 <section>
   <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top:-4rem; margin-left: calc(50% - 50vw); width:100vw;" class="container">
     <h1 style="font-weight:bold; margin-left: 2rem;">Match</h1>
   </div>
-  <br>
-  <div class="col-xs-12 col-md-12">
-    <div class="jumbotron jumbotron fluid" >
-      <div class="container">
-        <center>
-          <button class="sign-button sign-in-button sign-in-button" ng-click="vm.autoMatch()">Auto-Match</button>
-          <button class="sign-button sign-in-button-warning sign-in-button-warning" ng-click="vm.manMatch(vm.selected_student, vm.selected_volunteer)">Match Pair</button>
-          <button class="sign-button sign-in-button-danger sign-in-button-danger" ng-click="vm.manUnmatch(vm.selected_student, vm.selected_volunteer)">Unmatch Pair</button>
-        </center>
-      </div>
-    </div>
-  </div>
+  <nav role="navigation" class="navbar navbar-custom navbar-static-top" style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);">
+    <div class="container-fluid">
+    <center>
+      <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.autoMatch()">Auto-Match</button>
+      <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.manMatch(vm.selected_student, vm.selected_volunteer)">Match Pair</button>
+      <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.manUnmatch(vm.selected_student, vm.selected_volunteer)">Unmatch Pair</button>
+    </center>
+</div>
+</nav>
+
   <div class="col-xs-12 col-md-6">
   <div class="jumbotron jumobtron fluid">
-  <div class="container">
-          <div class="container">
+      <div class="row">
           <input class="form-control" type="text" ng-model="vm.search_student" placeholder="Find Student" ng-change="vm.figureOutItemsToDisplay_students()" />
         </div>
         <br>
-          <div class="container">
-        <div class="list-group list-group-item-1">
+        <div class="row">
+        <div class="list-group">
           <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
           <a ng-repeat="student in vm.pagedItems_students" ng-click="vm.selectStudent(student, this);" class="list-group-item" id="{{student.user}}">
-            <h4 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h4><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
-            <h5 class="pull-right" ng-bind-template="{{student.mentor}}"></h5>
-            <br />
+            <h5 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h5><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
+            <h6 ng-bind-template="{{student.mentor}}"></h6>
           </a>
         </div>
-        </div>
-        <div class="container">
+      </div>
+      <div class="row">
         <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged_students()"></uib-pagination>
-        </div>
-    <!--START -->
-
-
-
-
-
-    <!-- END -->
-
-    <!-- END2 -->
-
-  </div>
+      </div>
 </div>
 </div>
 <div class="col-xs-12 col-md-6">
 <div class="jumbotron jumobtron fluid">
-<div class="container">
-        <div class="container">
+        <div class="row">
         <input class="form-control" type="text" ng-model="vm.search_volunteer" placeholder="Find Mentor" ng-change="vm.figureOutItemsToDisplay_volunteers()" />
       </div>
       <br>
-        <div class="container">
+        <div class="row">
       <div class="list-group">
         <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
         <a ng-repeat="volunteer in vm.pagedItems_volunteers" ng-click="vm.selectVolunteer(volunteer, this);" class="list-group-item" id="{{volunteer.user._id}}">
-          <h4 class="list-group-item-heading" ng-bind-template="{{volunteer.application.firstName}}  {{volunteer.application.lastName}}"></h4><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
-          <h5 class="pull-right" ng-bind-template="{{volunteer.mentee.toString()}}"></h5>
-          <br />
+          <h5 class="list-group-item-heading" ng-bind-template="{{volunteer.application.firstName}}  {{volunteer.application.lastName}}"></h5><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
+          <h6 ng-bind-template="{{volunteer.mentee.toString()}}"></h6>
         </a>
       </div>
       </div>
-      <div class="container">
+      <div class="row">
       <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged_volunteers()"></uib-pagination>
       </div>
-  <!--START -->
-
-
-
-
-
-  <!-- END -->
-
-  <!-- END2 -->
-
 </div>
 </div>
-</div>
-  <!--<div class="list-group">
-    <!--<a ng-repeat="userReq in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
-    <a ng-repeat="userReq in vm.pagedItems" class="list-group-item">
-      <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
-      <!--<p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
-      <p class="list-group-item-text" ng-bind="user.email"></p>
-    </a>
-  </div>-->
-
 </section>
 
 </html>
