@@ -9,14 +9,24 @@
   <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top:-4rem; margin-left: calc(50% - 50vw); width:100vw;" class="container">
     <h1 style="font-weight:bold; margin-left:2rem;">User Requests</h1>
   </div>
-  <br>
+  <nav role="navigation" class="navbar navbar-custom navbar-static-top" style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);">
+    <div class="container-fluid">
+    <center>
+    <form class="navbar-form navbar-right" role="search">
+      <div class="input-group">
+        <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+        <span class="input-group-btn">
+        <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search=''; vm.figureOutItemsToDisplay();"><i class="glyphicon glyphicon-remove"></i></button>
+      </span>
+    </form>
+  </div>
+
+  </center>
+</div>
+</nav>
   <div class="jumbotron jumbotron-fluid">
   <div>
-    <div class="row">
-        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-    </div>
-    <br>
-      <div class="row list-group">
+      <div class="list-group">
     <a ng-repeat="userreq in vm.pagedItems" class="list-group-item">
       <h5 class="list-group-item-heading" ng-bind="userreq.firstName + ' ' + userreq.lastName"></h5>
       <!--<p class="list-group-item-text pull-right small" ng-bind="userreq.lastName"></p>-->
@@ -28,7 +38,7 @@
       <button class="btn btn-danger pull-right" type= "submit" ng-click="vm.remove(userreq)">Remove</button>
     </a>
   </div>
-  <div class="row">
+  <div>
     <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
   </div>
 </div>

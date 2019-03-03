@@ -91,14 +91,14 @@
       });
     }
     // download CSV
-    $scope.downloadAllCSV = function() {      
+    $scope.downloadAllCSV = function() {
         // get student info
         var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW\n";
         var content = "";
         //$scope.StudentService.studentListActive().then(function(data){
         StudentService.studentList().then(function(data){
-          
-          var Students = data;          
+
+          var Students = data;
 
           Students.forEach(function(student) { // creates and formats student data on a CSV sheet
             console.log("student object data: ", student)
@@ -106,7 +106,7 @@
               "\"" + student.application.phone + "\"" + "," + "\"" + /* student.application.address.city+" , "+ student.application.address.state+" "+student.application.address.zipcode +*/
              /* "\"" + "," + "\"" + */ student.application.school + "\"" + "," + "\"" + student.interviewer[0] +", "+student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
           });
-          
+
           content = header + "\n" + content;
         FileService.download('All_Students_CSV.csv').then(function(data){
         console.log("ABOUT TO DOWNLOAD");
@@ -115,20 +115,20 @@
                 link.href = 'data:attachment/csv,' +  encodeURIComponent(content);
                 link.download = 'All_Students_CSV.csv';
                 link.click();
-        });                    
+        });
         },
         function(error) {
           $scope.error = 'Unable to retrieve students!\n' + error;
         });
     }
-    $scope.downloadVolunteersCSV = function() {      
+    $scope.downloadVolunteersCSV = function() {
         // get volunteer info
         var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW\n";
         var content = "";
         //$scope.StudentService.studentListActive().then(function(data){
         VolunteerService.getAllVolunteers().then(function(data){
-          
-          var Volunteers = data;          
+
+          var Volunteers = data;
 
           Volunteers.forEach(function(volunteer) { // creates and formats volunteer data on a CSV sheet
             console.log("volunteer object data: ", volunteer)
@@ -136,7 +136,7 @@
               "\"" + volunteer.application.phone + "\"" + "," + "\"" + /* volunteer.application.address.city+" , "+ volunteer.application.address.state+" "+student.application.address.zipcode +*/
              /* "\"" + "," + "\"" + */ volunteer.application.school +"\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
           });
-          
+
           content = header + "\n" + content;
         FileService.download('All_Students_CSV.csv').then(function(data){
         console.log("ABOUT TO DOWNLOAD");
@@ -145,20 +145,20 @@
                 link.href = 'data:attachment/csv,' +  encodeURIComponent(content);
                 link.download = 'All_Students_CSV.csv';
                 link.click();
-        });                    
+        });
         },
         function(error) {
           $scope.error = 'Unable to retrieve students!\n' + error;
         });
     }
-    $scope.downloadActiveCSV = function() {      
+    $scope.downloadActiveCSV = function() {
         // get student info
         var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW\n";
         var content = "";
         //$scope.StudentService.studentListActive().then(function(data){
         StudentService.studentListActive().then(function(data){
-          
-          var Students = data;          
+
+          var Students = data;
 
           Students.forEach(function(student) { // creates and formats student data on a CSV sheet
             console.log("student object data: ", student)
@@ -166,7 +166,7 @@
               "\"" + student.application.phone + "\"" + "," + "\"" + /* student.application.address.city+" , "+ student.application.address.state+" "+student.application.address.zipcode +*/
              /* "\"" + "," + "\"" + */ student.application.school + "\"" + "," + "\"" + student.interviewer[0] +", "+student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
           });
-          
+
           content = header + "\n" + content;
         FileService.download('All_Students_CSV.csv').then(function(data){
         console.log("ABOUT TO DOWNLOAD");
@@ -175,12 +175,12 @@
                 link.href = 'data:attachment/csv,' +  encodeURIComponent(content);
                 link.download = 'All_Students_CSV.csv';
                 link.click();
-        });                    
+        });
         },
         function(error) {
           $scope.error = 'Unable to retrieve students!\n' + error;
         });
-    }    
+    }
     function figureOutItemsToDisplay() {
       console.log("HERE IN FOID");
       vm.filteredItems = $filter('filter')(vm.students, {
@@ -524,8 +524,8 @@ function onActivationSuccess(response) {
     function onActivationError(response) {
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Student activation error.', delay: 6000 });
     }
-    
-   
+
+
 
 }
 

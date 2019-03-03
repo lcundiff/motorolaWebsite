@@ -59,6 +59,7 @@
       VolunteerService.getVolunteers().then(async function(data){
         console.log("data: ",data);
         vm.volunteers = data;
+        vm.selected_user = false;
 
         await(vm.buildPager());
       });
@@ -68,6 +69,7 @@
       VolunteerService.listDeactivated().then(async function(data){
         console.log("dat1a: ",data);
         vm.volunteers = data;
+        vm.selected_user = false;
 
         await(vm.buildPager());
       });

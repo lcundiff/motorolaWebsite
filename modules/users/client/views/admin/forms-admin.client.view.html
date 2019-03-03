@@ -11,47 +11,49 @@
   <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top:-4rem; margin-left: calc(50% - 50vw); width:100vw;" class="container">
     <h1 style="font-weight:bold; margin-left: 2rem;">Forms</h1>
   </div>
-  <br>
+  <nav role="navigation" class="navbar navbar-custom navbar-static-top" style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);">
+    <div class="container-fluid">
+    <center>
+    <form class="navbar-form navbar-right" role="search">
+      <div class="input-group">
+        <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+        <span class="input-group-btn">
+        <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search=''; vm.figureOutItemsToDisplay();"><i class="glyphicon glyphicon-remove"></i></button>
+      </span>
+    </form>
+  </div>
+
+  </center>
+</div>
+</nav>
   <div class="col-xs-12 col-md-8">
   <div class="jumbotron ">
     <ul class="nav nav-tabs" role="tablist">
       <li class = "nav-item active" role="presentation" ><a class="nav-link" data-toggle="tab" href="#activeForms" ng-click="vm.listActiveStudents();">Active</a></li>
       <li class= "nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#inactiveForms" ng-click="vm.listDeactivatedStudents();">Inactive</a></li>
     </ul>
-    <br>
-
     <div class="tab-content">
       <div id="activeForms" class="tab-pane fade in active">
-        <div class="container">
-          <div data-ng-init = "vm.listActiveStudents();" >
-          <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-          </div>
-        <br>
-          <div>
+          <div data-ng-init = "vm.listActiveStudents();" />
+          <br />
+
             <div class="list-group">
               <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
               <a ng-repeat="user in vm.pagedItems" ng-click="vm.displayUser(user); user_selected = true;" class="list-group-item">
                 <h4 class="list-group-item-heading" ng-bind-template="{{user.application.firstName}}  {{user.application.lastName}}"></h4>
               </a>
             </div>
-          </div>
           <div>
             <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
           </div>
        </div>
-      </div>
     <div id="inactiveForms" class="tab-pane fade">
-      <div class="container">
-        <div class="container">
-          <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-        </div>
         <br>
         <div class="list-group">
           <a ng-repeat="user in vm.pagedItems" ng-click="vm.displayUser(user); user_selected = true;" class="list-group-item">
             <h4 class="list-group-item-heading" ng-bind-template="{{user.application.firstName}}  {{user.application.lastName}}"></h4>
           </a>
         </div>
-      </div>
     </div>
     <!--START -->
 

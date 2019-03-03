@@ -68,12 +68,12 @@
 
         await(vm.buildPager());
       });
-    }
-    listActiveStudents();
+    };
 
     function listDeactivatedStudents() {
       StudentService.studentListNonActiveWithoutForms().then(async function(data){
         vm.students = data;
+        vm.selected_user = false;
         //vm.selected_user = false;
         await(vm.buildPager());
       });

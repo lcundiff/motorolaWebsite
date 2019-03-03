@@ -13,6 +13,15 @@
     <div class="container-fluid">
     <center>
     <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.autoAccept()">Auto Accept Students</button>
+    <form class="navbar-form navbar-right" role="search">
+      <div class="input-group">
+        <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+        <span class="input-group-btn">
+        <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search=''; vm.figureOutItemsToDisplay();"><i class="glyphicon glyphicon-remove"></i></button>
+      </span>
+    </form>
+  </div>
+
   </center>
 </div>
 </nav>
@@ -155,10 +164,7 @@
 
     <div class="tab-content">
       <div id="activeForms" class="tab-pane fade in active">
-          <div data-ng-init = "vm.listActiveStudents();">
-          <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-        </div>
-        <br>
+          <div data-ng-init = "vm.listActiveStudents();" />
           <div class="list-group">
             <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
             <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="list-group-item">
@@ -170,8 +176,6 @@
       </div>
 
       <div id="inactiveForms" class="tab-pane fade">
-          <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-        <br>
           <div class="list-group">
             <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
             <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="list-group-item">

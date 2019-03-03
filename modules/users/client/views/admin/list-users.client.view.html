@@ -9,12 +9,23 @@
   <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top:-4rem; margin-left: calc(50% - 50vw); width:100vw;" class="container">
     <h1 style="font-weight:bold; margin-left:2rem;">Users</h1>
   </div>
-  <br>
-  <div class="container">
+  <nav role="navigation" class="navbar navbar-custom navbar-static-top" style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);">
+    <div class="container-fluid">
+    <center>
+    <form class="navbar-form navbar-right" role="search">
+      <div class="input-group">
+        <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+        <span class="input-group-btn">
+        <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search=''; vm.figureOutItemsToDisplay();"><i class="glyphicon glyphicon-remove"></i></button>
+      </span>
+    </form>
+  </div>
+
+  </center>
+</div>
+</nav>
   <div class="col-xs-12 col-md-8">
-  <div class="jumbotron jumbotron-fluid">
-  <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-  <br>
+  <div class="jumbotron">
   <div class="list-group">
     <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
     <a ng-repeat="user in vm.pagedItems" ng-click="vm.displayUser(user); user_selected = true;" class="list-group-item">
@@ -148,7 +159,6 @@
 </div>
 </div>
 
-</div>
   <!--<div class="list-group">
     <!--<a ng-repeat="userReq in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
     <a ng-repeat="userReq in vm.pagedItems" class="list-group-item">

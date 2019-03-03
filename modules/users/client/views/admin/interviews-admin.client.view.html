@@ -13,6 +13,13 @@
     <div class="container-fluid">
     <center>
     <button class="btn btn-custom navbar-btn toolbar-button"  ng-click="vm.autoAssignInterviews()">Auto-Assign Interviews</button>
+    <form class="navbar-form navbar-right" role="search">
+      <div class="input-group">
+        <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+        <span class="input-group-btn">
+        <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search=''; vm.figureOutItemsToDisplay();"><i class="glyphicon glyphicon-remove"></i></button>
+      </span>
+    </form>
   </center>
 </div>
 </nav>
@@ -23,13 +30,9 @@
       <li class = "nav-item active" role="presentation" ><a data-toggle="tab" href="#activeForms" ng-click="vm.listActiveStudents();">Active</a></li>
       <li role="presentation"><a data-toggle="tab" href="#inactiveForms" ng-click="vm.listDeactivatedStudents();">Inactive</a></li>
     </ul>
-    <br>
-
     <div class="tab-content">
       <div id="activeForms" class="tab-pane fade in active">
-          <div data-ng-init = "vm.listActiveStudents();">
-          <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-        </div>
+
         <br>
         <div class="list-group">
           <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
@@ -43,7 +46,6 @@
         </div>
       </div>
       <div id="inactiveForms" class="tab-pane fade">
-          <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
         <br>
         <div class="list-group">
           <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
@@ -58,16 +60,6 @@
         </div>
       </div>
     </div>
-    <!--START -->
-
-
-
-
-
-    <!-- END -->
-
-    <!-- END2 -->
-
   </div>
 </div>
 </div>
@@ -148,33 +140,8 @@
         </element>
           <element ng-switch-when=false>
           </element>
-
-
-          <!--<div class="row">
-            <div class="col-md-3"><strong>Provider</strong></div>
-            <div class="col-md-6" ng-bind="vm.user.provider"></div>
-          </div>-->
-          <!--<div class="row">
-            <div class="col-md-6" ng-bind="vm.user.created"></div>
-          </div>
-          <hr/>-->
         </div>
-
-          <!--  <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="student.NDAId !== '' " ng-click="vm.viewForm(vm.user.NDAId)">View NDA</button>
-            <button style="margin-bottom:8px; width:175px;" class="btn btn-primary" ng-if="student.WaiverId !== ''" ng-click="vm.viewForm(vm.user.WaiverId)">View Waiver</button>
-            <button style="margin-bottom:8px;" class="btn btn-primary" ng-if="student.letterOfRecommendationId !== ''" ng-click="vm.viewForm(vm.user.letterOfRecommendationId)">View Letter of Recommendation</button>
-
-            <button class="btn btn-primary btn-warning" ng-click="vm.approveForms(student)"><i class="glyphicon glyphicon-edit"></i>Approve Forms</button>
-            <button class="btn btn-primary btn-warning" ng-click="vm.deactivateStudent(student.user, student, $index)">Deactivate</button>
-
-            <select ng-model="vm.formFixName">
-              <option value='NDA'>NDA</option>
-              <option value='Waiver'>Waiver</option>
-              <option value='Letter of Recommendation'>Letter of Recommendation</option>
-              <option value='Resume'>Resume</option>
-            </select>
-            <button class="btn btn-primary btn-sm" ng-click="vm.sendFormFixEmail(vm.user, vm.formFixName)">Send Form Fix Email</button>-->
-          <br>
+<br>
       </div>
     </div>
   <div ng-switch-when="false">
@@ -185,14 +152,6 @@
 </div>
 </div>
 </div>
-  <!--<div class="list-group">
-    <!--<a ng-repeat="userReq in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
-    <a ng-repeat="userReq in vm.pagedItems" class="list-group-item">
-      <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
-      <!--<p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
-      <p class="list-group-item-text" ng-bind="user.email"></p>
-    </a>
-  </div>-->
 
 </section>
 

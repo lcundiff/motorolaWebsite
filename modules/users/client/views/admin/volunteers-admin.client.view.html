@@ -8,21 +8,30 @@
   <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top:-4rem; margin-left: calc(50% - 50vw); width:100vw;" class="container">
     <h1 style="font-weight:bold; margin-left: 2rem;">Volunteers</h1>
   </div>
-  <br>
+  <nav role="navigation" class="navbar navbar-custom navbar-static-top" style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);">
+    <div class="container-fluid">
+    <center>
+    <form class="navbar-form navbar-right" role="search">
+      <div class="input-group">
+        <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+        <span class="input-group-btn">
+        <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search=''; vm.figureOutItemsToDisplay();"><i class="glyphicon glyphicon-remove"></i></button>
+      </span>
+    </form>
+  </div>
+  </center>
+</div>
+</nav>
   <div class="col-xs-12 col-md-8">
   <div class="jumbotron">
     <ul class="nav nav-tabs">
       <li class = "nav-item active" role="presentation" ><a data-toggle="tab" href="#activeForms" ng-click="vm.listActiveVolunteers();">Active</a></li>
       <li role="presentation"><a data-toggle="tab" href="#inactiveForms" ng-click="vm.listDeactivatedVolunteers();">Inactive</a></li>
     </ul>
-    <br>
-
+    <br />
     <div class="tab-content">
       <div id="activeForms" class="tab-pane fade in active">
-          <div data-ng-init = "vm.listActiveVolunteers();">
-          <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-        </div>
-        <br>
+          <div data-ng-init = "vm.listActiveVolunteers();" />
         <div class="list-group">
           <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
           <a ng-repeat="volunteer in vm.pagedItems" ng-click="vm.displayVolunteer(volunteer); user_selected = true;" class="list-group-item">
@@ -32,8 +41,6 @@
         <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
       </div>
       <div id="inactiveForms" class="tab-pane fade">
-          <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-        <br>
         <div class="list-group">
           <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
           <a ng-repeat="volunteer in vm.pagedItems" ng-click="vm.displayVolunteer(volunteer); user_selected = true;" class="list-group-item">
@@ -57,7 +64,7 @@
                   <div ng-bind-template="{{vm.user.user.displayName}}"></div>
                 </center>
             </div>
-          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+          <hr class="section-divider" />
           <div class="row">
             <center>
               <h6 style="font-weight: bold;">Roles</h6>
@@ -70,14 +77,14 @@
               <div ng-bind-template="{{vm.user.areaofexpertise}}"></div>
             </center>
           </div>
-          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+          <hr class="section-divider" />
           <div class="row">
             <center>
               <h6 style="font-weight: bold;">Sessions</h6>
               <div ng-bind-template="Sessions {{vm.user.sessions.toString()}}"></div>
             </center>
           </div>
-          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+          <hr class="section-divider" />
 
           <div class="row">
             <element ng-switch="vm.user.active">

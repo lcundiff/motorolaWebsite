@@ -262,6 +262,7 @@ body, html {
 }
 
 .jumbotron {
+  padding: 16px !important;
   posistion:relative;
   z-index: 2;
   box-shadow: 0 4px 16px -6px grey;
