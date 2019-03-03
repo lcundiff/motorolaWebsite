@@ -128,21 +128,21 @@
             <div ng-switch="vm.user.edit_user">
               <div ng-switch-when="false">
                 <div class="row">
-                  <a class="btn btn-warning" ng-click="vm.editUser(vm.selected_user)">
+                  <a class="selection-btn selection-btn-primary" ng-click="vm.editUser(vm.selected_user)">
                     <!--<a class="sign-button sign-in-button" ui-sref="admin.user-edit({userId: vm.user._id})"-->
                     <i class="glyphicon glyphicon-pencil"></i>
                   </a>
-                  <a class="btn btn-danger" ng-click="vm.remove(vm.user)" ng-if="!vm.isContextUserSelf()">
+                  <a class="selection-btn selection-btn-danger" ng-click="vm.remove(vm.user)" ng-if="!vm.isContextUserSelf()">
                     <i class="glyphicon glyphicon-trash"></i>
                   </a>
                 </div>
               </div>
               <div ng-switch-when=true>
                 <div class="row">
-                  <a class="btn btn-primary" ng-click="vm.update()">
+                  <a class="selection-btn selection-btn-verify" ng-click="vm.update()">
                     <i class="glyphicon glyphicon-ok"></i>
                   </a>
-                  <a class="btn btn-danger" ng-click="vm.cancel(vm.user)">
+                  <a class="selection-btn selection-btn-danger" ng-click="vm.cancel(vm.user)">
                     <i class="glyphicon glyphicon-remove"></i>
                   </a>
                 </div>

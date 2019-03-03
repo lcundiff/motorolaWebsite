@@ -32,8 +32,8 @@
     </ul>
     <div class="tab-content">
       <div id="activeForms" class="tab-pane fade in active">
-
-        <br>
+        <div data-ng-init = "vm.listActiveStudents();" />
+        <br />
         <div class="list-group">
           <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
           <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="list-group-item">
@@ -84,12 +84,12 @@
           <div class="row">
             <center>
             <div class="col-xs-8 col-md-8">
-              <select style="width:100%"ng-model="vm.user.interviewerID[0]">
+              <select class="form-control" style="width:100%"ng-model="vm.user.interviewerID[0]">
                 <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
               </select>
             </div>
             <div class="col-xs-4 col-md-4">
-              <button class="btn btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewer[0], 0)">Set</button>
+              <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewer[0], 0)">Set</button>
             </div>
             </center>
           </div>
@@ -100,12 +100,12 @@
           <div class="row">
             <center>
             <div class="col-xs-8 col-md-8">
-              <select style="width:100%"ng-model="vm.user.interviewerID[1]">
+              <select class="form-control" style="width:100%"ng-model="vm.user.interviewerID[1]">
                 <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
               </select>
             </div>
             <div class="col-xs-4 col-md-4">
-              <button class="btn btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewer[1], 1)">Set</button>
+              <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewer[1], 1)">Set</button>
             </div>
             </center>
           </div>
@@ -116,12 +116,12 @@
           <div class="row">
             <center>
             <div class="col-xs-8 col-md-8">
-              <select style="width:100%"ng-model="vm.user.interviewerID[2]">
+              <select class="form-control" style="width:100%"ng-model="vm.user.interviewerID[2]">
                 <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
               </select>
             </div>
             <div class="col-xs-4 col-md-4">
-              <button class="btn btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewer[2], 2)">Set</button>
+              <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewer[2], 2)">Set</button>
             </div>
             </center>
           </div>

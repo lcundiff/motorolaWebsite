@@ -95,10 +95,10 @@
            <center>NDA<i class="glyphicon glyphicon-ok" ng-if="vm.user.isNDASubmitted === true && vm.user.isNDAAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isNDASubmitted === true && vm.user.isNDAAdminApproved === true" style="color:green"></i></center>
            <br>
            <div class="col-xs-6">
-             <button class="btn btn-primary" style="width:100%" ng-if="student.ResumeId !== ''" ng-click="vm.viewForm(vm.user.NDAId)">View</button>
+             <button class="selection-btn selection-btn-primary" style="width:100%" ng-if="student.ResumeId !== ''" ng-click="vm.viewForm(vm.user.NDAId)">View</button>
            </div>
            <div class="col-xs-6">
-             <button class="btn btn-primary btn-warning" style="width:100%" ng-click="vm.approveNDA(vm.user)">Approve</button>
+             <button class="selection-btn selection-btn-verify" style="width:100%" ng-click="vm.approveNDA(vm.user)">Approve</button>
           </div>
         </div>
         <br>
@@ -107,10 +107,10 @@
           <center>Waiver<i class="glyphicon glyphicon-ok" ng-if="vm.user.isWaiverSubmitted === true && vm.user.isWaiverAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isWaiverSubmitted === true && vm.user.isWaiverAdminApproved === true" style="color:green"></i></center>
           <br>
           <div class="col-xs-6">
-            <button class="btn btn-primary" style="width:100%" ng-if="student.ResumeId !== ''" ng-click="vm.viewForm(vm.user.WaiverId)">View</button>
+            <button class="selection-btn selection-btn-primary" style="width:100%" ng-if="student.ResumeId !== ''" ng-click="vm.viewForm(vm.user.WaiverId)">View</button>
           </div>
           <div class="col-xs-6">
-            <button class="btn btn-primary btn-warning" style="width:100%" ng-click="vm.approveWaiver(vm.user)">Approve</button>
+            <button class="selection-btn selection-btn-verify" style="width:100%" ng-click="vm.approveWaiver(vm.user)">Approve</button>
          </div>
        </div>
        <br>
@@ -119,10 +119,10 @@
          <center>Resume<i class="glyphicon glyphicon-ok" ng-if="vm.user.isResumeSubmitted === true && vm.user.isResumeAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isResumeSubmitted === true && vm.user.isResumeAdminApproved === true" style="color:green"></i></center>
          <br>
          <div class="col-xs-6">
-           <button class="btn btn-primary" style="width:100%" ng-if="student.ResumeId !== ''" ng-click="vm.viewForm(vm.user.ResumeId)">View</button>
+           <button class="selection-btn selection-btn-primary" style="width:100%" ng-if="student.ResumeId !== ''" ng-click="vm.viewForm(vm.user.ResumeId)">View</button>
          </div>
          <div class="col-xs-6">
-           <button class="btn btn-primary btn-warning" style="width:100%" ng-click="vm.approveResume(vm.user)">Approve</button>
+           <button class="selection-btn selection-btn-verify" style="width:100%" ng-click="vm.approveResume(vm.user)">Approve</button>
         </div>
       </div>
       <br>
@@ -131,10 +131,10 @@
          <center>Letter of Recommendation<i class="glyphicon glyphicon-ok" ng-if="vm.user.isLetterofRecommendationSubmitted === true && vm.user.isLetterofRecommendationAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isLetterofRecommendationSubmitted === true && vm.user.isLetterofRecommendationAdminApproved === true" style="color:green"></i></center>
          <br>
          <div class="col-xs-6">
-           <button class="btn btn-primary" style="width:100%" ng-if="student.letterOfRecommendationId !== ''" ng-click="vm.viewForm(vm.user.letterOfRecommendationId)">View</button>
+           <button class="selection-btn selection-btn-primary" style="width:100%" ng-if="student.letterOfRecommendationId !== ''" ng-click="vm.viewForm(vm.user.letterOfRecommendationId)">View</button>
          </div>
          <div class="col-xs-6">
-           <button class="btn btn-primary btn-warning" style="width:100%" ng-click="vm.approveLetterOfRecommendation(vm.user)">Approve</button>
+           <button class="selection-btn selection-btn-verify" style="width:100%" ng-click="vm.approveLetterOfRecommendation(vm.user)">Approve</button>
         </div>
       </div>
       <br>
@@ -153,7 +153,7 @@
     </div>
     <div class="container">
       <br>
-    <button class="btn btn-primary btn-sm" ng-click="vm.sendFormFixEmail(vm.user, vm.formFixName)">Send Email</button>
+    <button class="selection-btn selection-btn-primary" ng-click="vm.sendFormFixEmail(vm.user, vm.formFixName)">Send Email</button>
   </div>
   </div>
 

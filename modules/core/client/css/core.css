@@ -87,18 +87,97 @@ a:hover .header-profile-image {
 
 .file-upload-button-submit {
     background-color: transparent;
-    color: #9933ff;
-    border: 1px solid #9933ff;
+    color: green;
+    border: 1px solid green;
     width: 20%;
 }
 
 .file-upload-button-submit:hover {
-    background-color: #9933ff;
+    background-color: green;
     color: white;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .file-upload-button-submit:active {
+  transform: translateY(4px);
+}
+
+.selection-btn {
+  background-color: transparent; /* Green */
+  border-radius: 50px;
+  border: 1px solid;
+  padding: 6px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 3px 3px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.selection-btn-primary {
+  background-color: transparent;
+  color: #005DAA;
+  border: 1px solid #005DAA;
+}
+
+.selection-btn-primary:hover {
+    background-color: #005DAA;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.selection-btn-primary:active {
+  transform: translateY(4px);
+}
+
+.selection-btn-danger {
+    background-color: transparent;
+    color: #ba3107;
+    border: 1px solid #ba3107;
+}
+
+.selection-btn-danger:hover {
+    background-color: #ba3107;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.selection-btn-danger:active {
+  transform: translateY(4px);
+}
+
+.selection-btn-warning {
+    background-color: transparent;
+    color: #e5ac32;
+    border: 1px solid #e5ac32;
+}
+
+.selection-btn-warning:hover {
+    background-color: #e5ac32;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.selection-btn-warning:active {
+  transform: translateY(4px);
+}
+
+.selection-btn-verify {
+    background-color: transparent;
+    color: green;
+    border: 1px solid green;
+}
+
+.selection-btn-verify:hover {
+    background-color: green;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.sselection-btn-verify:active {
   transform: translateY(4px);
 }
 
@@ -140,8 +219,8 @@ a:hover .header-profile-image {
 
 .sign-in-button-danger {
     background-color: transparent;
-    color: red;
-    border: 1px solid red;
+    color: #ba3107;
+    border: 1px solid #ba3107;
     width: 20%;
 }
 
@@ -149,7 +228,7 @@ a:hover .header-profile-image {
   width: 40%;
 }
 .sign-in-button-danger:hover {
-    background-color: red;
+    background-color: #ba3107;
     color: white;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
@@ -160,8 +239,8 @@ a:hover .header-profile-image {
 
 .sign-in-button-warning {
     background-color: transparent;
-    color: #9933ff;
-    border: 1px solid #9933ff;
+    color: #e5ac32;
+    border: 1px solid #e5ac32;
     width: 20%;
 }
 
@@ -169,7 +248,7 @@ a:hover .header-profile-image {
   width: 40%;
 }
 .sign-in-button-warning:hover {
-    background-color: #9933ff;
+    background-color: #e5ac32;
     color: white;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }

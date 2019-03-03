@@ -36,7 +36,7 @@
                   <div class="row">
                     <div class="w3-display-container">
                         <div class="container">
-                          <button style="margin-botton: 8px; width:175px;" class="btn btn-primary" ng-click="printResume('resumeContent_1', 'resumeContent_2', 'resumeContent')">Print Application</button>
+                          <button style="margin-botton: 8px; width:175px;" class="selection-btn selection-btn-primary" ng-click="printResume('resumeContent_1', 'resumeContent_2', 'resumeContent')">Print Application</button>
                         </div>
                     </div>
                     <hr />
@@ -250,8 +250,8 @@
           <hr class="section-divider" />
           <div class="row">
             <center>
-              <button class="btn btn-primary" ng-click="openModal(student, 'myModal')">View Application</button>
-              <button ng-if="vm.user.ResumeId !== null || vm.user.ResumeId !== '' " ng-click="vm.viewForm(vm.user.ResumeId)" class="btn btn-primary">View Resume</button>
+              <button class="selection-btn selection-btn-primary" ng-click="openModal(student, 'myModal')">View Application</button>
+              <button ng-if="vm.user.ResumeId !== null || vm.user.ResumeId !== '' " ng-click="vm.viewForm(vm.user.ResumeId)" class="selection-btn selection-btn-primary">View Resume</button>
             </center>
             </div>
               <element ng-switch="vm.user.active">
@@ -267,7 +267,7 @@
                       <option value=2>2</option>
                       <option value=3>3</option>
                     </select>
-            <button class="btn btn-primary btn-sm" ng-click="vm.manAcceptStudent(vm.user, vm.sessionType)">Accept</button>
+            <button class="selection-btn selection-btn-verify" ng-click="vm.manAcceptStudent(vm.user, vm.sessionType)">Accept</button>
             </div>
           </div>
             </element>
@@ -281,10 +281,10 @@
             <center>
               <element ng-switch="vm.user.active">
                 <element ng-switch-when="true">
-                  <button class="btn btn-warning" ng-click="vm.deactivateStudent(vm.user.user, vm.user, $index)">Deactivate</button>
+                  <button class="selection-btn selection-btn-danger" ng-click="vm.deactivateStudent(vm.user.user, vm.user, $index)">Deactivate</button>
                 </element>
                 <element ng-switch-when="false">
-                  <button class="btn btn-primary" ng-click="vm.activateStudent(vm.user.user, vm.user, $index)">Activate</button>
+                  <button class="selection-btn selection-btn-verify" ng-click="vm.activateStudent(vm.user.user, vm.user, $index)">Activate</button>
                 </element>
               </element>
             </center>

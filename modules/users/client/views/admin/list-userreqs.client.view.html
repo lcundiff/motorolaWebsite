@@ -33,9 +33,9 @@
       <h6 class="list-group-item-text pull-right" ng-bind="userreq.email"></h6>
       <br>
       <h6 class="list-group-item-text">Send Email for Sign-up as:</h6>
-      <button class="btn btn-primary" type= "submit" ng-click="userreq.roles = ['volunteer']; vm.sendSignupEmail(userreq)">Volunteer</button>
-      <button class="btn btn-primary" type= "submit" ng-click="userreq.roles = ['admin']; vm.sendSignupEmail(userreq)">Admin</button>
-      <button class="btn btn-danger pull-right" type= "submit" ng-click="vm.remove(userreq)">Remove</button>
+      <button class="selection-btn selection-btn-primary" type= "submit" ng-click="userreq.roles = ['volunteer']; vm.sendSignupEmail(userreq)">Volunteer</button>
+      <button class="selection-btn selection-btn-primary" type= "submit" ng-click="userreq.roles = ['admin']; vm.sendSignupEmail(userreq)">Admin</button>
+      <button class="selection-btn selection-btn-danger pull-right" type= "submit" ng-click="vm.remove(userreq)">Remove</button>
     </a>
   </div>
   <div>

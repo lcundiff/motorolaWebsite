@@ -89,10 +89,10 @@
           <div class="row">
             <element ng-switch="vm.user.active">
               <element ng-switch-when="true">
-                <button class="btn btn-primary" ng-click="vm.deactivateVolunteer(vm.user.username, vm.user, $index)">Deactivate</button>
+                <button class="selection-btn selection-btn-danger" ng-click="vm.deactivateVolunteer(vm.user.username, vm.user, $index)">Deactivate</button>
               </element>
               <element ng-switch-when="false">
-                <button class="btn btn-primary" ng-click="vm.activateVolunteer(vm.user.username, vm.user, $index)">Activate</button>
+                <button class="selection-btn selection-btn-verify" ng-click="vm.activateVolunteer(vm.user.username, vm.user, $index)">Activate</button>
             </element>
           </div>
         </div>
