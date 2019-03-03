@@ -42,7 +42,7 @@
             <h6 ng-bind-template="{{student.mentor}}"></h6>
           </a>
         </div>
-        <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged_students()"></uib-pagination>
+        <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength_students" ng-model="vm.currentPage_students" ng-change="vm.pageChanged_students()"></uib-pagination>
 </div>
 </div>
 <div class="col-xs-12 col-md-6">
@@ -54,7 +54,7 @@
           <h6 ng-bind-template="{{volunteer.mentee.toString()}}"></h6>
         </a>
       </div>
-      <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged_volunteers()"></uib-pagination>
+      <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength_volunteers" ng-model="vm.currentPage_volunteers" ng-change="vm.pageChanged_volunteers()"></uib-pagination>
 
 </div>
 </div>

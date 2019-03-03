@@ -179,7 +179,8 @@
       vm.pagedItems_students = [];
       vm.pagedItems_volunteers = [];
       vm.itemsPerPage = 15;
-      vm.currentPage = 1;
+      vm.currentPage_students = 1;
+      vm.currentPage_volunteers = 1;
       vm.figureOutItemsToDisplay_students();
       vm.figureOutItemsToDisplay_volunteers();
     }
@@ -259,26 +260,26 @@
 
     function figureOutItemsToDisplay_students() {
       console.log("HERE IN FOID");
-      vm.filteredItems = $filter('filter')(vm.students, {
+      vm.filteredItems_students = $filter('filter')(vm.students, {
         $: vm.search_students
       });
-      vm.filterLength = vm.filteredItems.length;
-      var begin = ((vm.currentPage - 1) * vm.itemsPerPage);
+      vm.filterLength_students = vm.filteredItems_students.length;
+      var begin = ((vm.currentPage_students - 1) * vm.itemsPerPage);
       var end = begin + vm.itemsPerPage;
-      vm.pagedItems_students = vm.filteredItems.slice(begin, end);
+      vm.pagedItems_students = vm.filteredItems_students.slice(begin, end);
 
       console.log("vm.pagedItems: ",vm.pagedItems_students);
     }
 
     function figureOutItemsToDisplay_volunteers() {
       console.log("HERE IN FOID");
-      vm.filteredItems = $filter('filter')(vm.volunteers, {
+      vm.filteredItems_volunteers = $filter('filter')(vm.volunteers, {
         $: vm.search_volunteers
       });
-      vm.filterLength = vm.filteredItems.length;
-      var begin = ((vm.currentPage - 1) * vm.itemsPerPage);
+      vm.filterLength_volunteers = vm.filteredItems_volunteers.length;
+      var begin = ((vm.currentPage_volunteers - 1) * vm.itemsPerPage);
       var end = begin + vm.itemsPerPage;
-      vm.pagedItems_volunteers = vm.filteredItems.slice(begin, end);
+      vm.pagedItems_volunteers = vm.filteredItems_volunteers.slice(begin, end);
 
       console.log("vm.pagedItems: ",vm.pagedItems_volunteers);
     }

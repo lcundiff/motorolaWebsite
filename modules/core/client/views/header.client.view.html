@@ -23,7 +23,7 @@
       </li>
     </ul>
 
-    <ul class="nav navbar-nav navbar-right" ng-hide="vm.authentication.user">
+    <ul class="nav navbar-nav navbar-right" ng-hide="vm.authentication.user" style="padding-right:16px;">
       <li ui-sref-active="active">
         <a ui-sref="authentication.student-signup">Student Sign Up</a>
       </li>
@@ -35,7 +35,7 @@
         <a ui-sref="authentication.signin">Sign In</a>
       </li>
     </ul>
-    <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
+    <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user" style="padding-right:16px;">
       <li class="dropdown" uib-dropdown>
         <a class="dropdown-toggle user-header-dropdown-toggle" uib-dropdown-toggle role="button">
           <img ng-src="{{vm.authentication.user.profileImageURL}}"class="header-profile-image" />

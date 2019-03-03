@@ -94,16 +94,13 @@
     }
 
     function figureOutItemsToDisplay() {
-      console.log("HERE IN FOID");
-      vm.filteredItems = $filter('filter')(vm.students, {
+      vm.filteredItems = $filter('filter')(vm.users, {
         $: vm.search
       });
       vm.filterLength = vm.filteredItems.length;
       var begin = ((vm.currentPage - 1) * vm.itemsPerPage);
       var end = begin + vm.itemsPerPage;
       vm.pagedItems = vm.filteredItems.slice(begin, end);
-
-      console.log("vm.pagedItems: ",vm.pagedItems);
     }
 
     function pageChanged() {

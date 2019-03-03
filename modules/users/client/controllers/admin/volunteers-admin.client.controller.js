@@ -42,7 +42,7 @@
     }
 
     function figureOutItemsToDisplay() {
-      vm.filteredItems = $filter('filter')(vm.volunteers, {
+      vm.filteredItems = $filter('filter')(vm.users, {
         $: vm.search
       });
       vm.filterLength = vm.filteredItems.length;
