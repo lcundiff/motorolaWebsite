@@ -52,6 +52,56 @@ a:hover .header-profile-image {
   margin: 6px 0;
   background: blue;
 }
+.file-upload-button {
+  background-color: transparent; /* Green */
+  border-radius: 50px;
+  border: 1px solid;
+  padding: 3px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 1px 1px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.file-upload-button-browse {
+  background-color: transparent;
+  color: #005DAA;
+  border: 1px solid #005DAA;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.file-upload-button-browse:hover {
+    background-color: #005DAA;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.file-upload-button-browse:active {
+  transform: translateY(4px);
+}
+
+.file-upload-button-submit {
+    background-color: transparent;
+    color: #9933ff;
+    border: 1px solid #9933ff;
+    width: 20%;
+}
+
+.file-upload-button-submit:hover {
+    background-color: #9933ff;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.file-upload-button-submit:active {
+  transform: translateY(4px);
+}
+
 .sign-button {
   background-color: transparent; /* Green */
   border-radius: 100px;

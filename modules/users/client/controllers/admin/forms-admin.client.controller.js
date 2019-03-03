@@ -26,12 +26,30 @@
     vm.approveWaiver = approveWaiver;
     vm.approveNDA = approveNDA;
 
+    vm.selectedNDAToUpload = '';
+    vm.selectedWaiverToUpload = '';
+
     vm.uploadNDA = uploadNDA;
     vm.uploadWaiver = uploadWaiver;
 
     vm.displayUser = displayUser;
 
     vm.selected_user = false;
+
+    $scope.fileNameChangedNDA = fileNameChangedNDA;
+    $scope.fileNameChangedWaiver = fileNameChangedWaiver;
+
+    function fileNameChangedNDA() {
+      var file = document.getElementById('nda_upload').files[0];
+      vm.selectedNDAToUpload = file.name;
+      console.log(file);
+    }
+
+    function fileNameChangedWaiver() {
+      var file = document.getElementById('waiver_upload').files[0];
+      vm.selectedWaiverToUpload = file.name;
+      console.log(file);
+    }
 
     function buildPager() {
       vm.pagedItems = [];
@@ -103,6 +121,7 @@
 
     function uploadNDA(){
       console.log($scope.file.upload);
+      console.log($scope.file);
 
       $scope.uploading = true;
       FileService.uploadNDA($scope.file)

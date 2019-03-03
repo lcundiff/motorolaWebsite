@@ -3,147 +3,75 @@
 <title>Applicants</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
-<link rel="stylesheet" type="text/css" href="/modules/core/client/css/bootstrap.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-
-<style>
-/* Set height of body and the document to 100% to enable "full page tabs" */
-body, html {
-  height: 100%;
-  margin: 0;
-  font-family: "Roboto", sans-serif;
-}
-
-/* Style tab links */
-.tablink {
-  background-color: #555;
-  color: white;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-size: 17px;
-  width: 25%;
-}
-
-.tablink:hover {
-  background-color: #777;
-  padding: 20px;
-}
-
-/* Style the tab content (and add height:100% for full page content) */
-.tabcontent {
-  color: black;
-  display: none;
-  height: 100%;
-}
-
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 100000 !important;
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-/* The Close Button */
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-.jumbotron {
-  posistion:relative;
-  z-index: 2;
-  box-shadow: 0 4px 16px -6px grey;
-  background-color: white;
-}
-
-</style>
-
-
-
-<!-- beginning of body -->
 <section>
   <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top:-4rem; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
     <h1 style="font-weight:bold;">Update Forms</h1>
   </div>
+  <nav role="navigation" class="navbar navbar-custom navbar-static-top" style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);">
+    <div class="container-fluid">
+    <center>
+  </center>
+</div>
+</nav>
   <br>
   <div class="jumbotron jumbotron-fluid">
   <div class="container">
       <div class="list-group">
     <div class="list-group-item">
-      <h4 class="list-group-item-heading">NDA</h4>
-      <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
+      <div class="row" style="margin:10px;padding:5px;border-radius:5px; line-height:40px;">
       <!--<p class="list-group-item-text pull-right small" ng-bind="userreq.lastName"></p>-->
+        <div class="col-xs-2 col-md-2">
+          <h5>NDA</h5>
+        </div>
         <form method="post" enctype="multipart/form-data">
-          <div class="col-xs-4 col-md-4">
-            <label class="sign-button sign-in-button" style="width:100%">
+          <div class="col-xs-2 col-md-2">
+            <label class="file-upload-button file-upload-button-browse">
               <center><i class="glyphicon glyphicon-folder-open" style="height:100% width:100%"></i></center>
-              <input type="file" id="nda_upload" style="z-index:2; opacity:0; height:0; width:0;" file-model="file.upload" name="myFile" ng-disabled="uploading">
+              <input type="file" id="nda_upload" style="z-index:2; opacity:0; height:0; width:0;" file-model="file.upload" name="myFile" onchange="angular.element(this).scope().fileNameChangedNDA()" ng-disabled="uploading">
             </label>
           </div>
-          <div class="col-xs-4 col-md-4">
-            <button class="sign-button sign-in-button-warning" style="width:100%" ng-click="vm.uploadNDA(file)"><center><i class="glyphicon glyphicon-circle-arrow-up"></i></center></button>
+          <div class="col-xs-3 col-md-3">
+            <div class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Select a file..." ng-model="vm.selectedNDAToUpload" disabled/>
           </div>
+        </div>
+        <div class="col-xs-2 col-md-2">
+          <button class="file-upload-button file-upload-button-submit pull-left" style="width:100%" ng-click="vm.uploadNDA(file)"><center><i class="glyphicon glyphicon-circle-arrow-up"></i></center></button>
+
+        </div>
       </form>
-      <div class="col-xs-4 col-md-4">
-        <button class="sign-button sign-in-button" style="width:100%" type= "submit" ng-click="vm.viewForm('NDA.pdf')">View</button>
+      <div class="col-xs-2 col-md-2 offset-col-2">
+        <button class="file-upload-button file-upload-button-browse pull-right" style="width:100%" type= "submit" ng-click="vm.viewForm('NDA.pdf')">View Current</button>
       </div>
     </div>
   </div>
     <div class="list-group-item">
-      <h4 class="list-group-item-heading">Waiver</h4>
-
-      <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
+      <div class="row" style="margin:10px;padding:5px;border-radius:5px; line-height:40px;">
+        <div class="col-xs-2 col-md-2">
+          <h5>Waiver</h5>
+        </div>
       <!--<p class="list-group-item-text pull-right small" ng-bind="userreq.lastName"></p>-->
-        <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadWaiver(file);">
-          <div class="col-xs-4 col-md-4">
-            <label class="sign-button sign-in-button" style="width:100%">
+        <form method="post" enctype="multipart/form-data">
+          <div class="col-xs-2 col-md-2">
+            <label class="file-upload-button file-upload-button-browse">
               <center><i class="glyphicon glyphicon-folder-open" style="height:100% width:100%"></i></center>
-              <input type="file" id="waiver_upload" style="z-index:2; opacity:0; height:0; width:0;" file-model="file.upload" name="myFile" ng-disabled="uploading">
+              <input type="file" id="waiver_upload" style="z-index:2; opacity:0; height:0; width:0;" file-model="file.upload" name="myFile" onchange="angular.element(this).scope().fileNameChangedWaiver()" ng-disabled="uploading">
             </label>
           </div>
-          <div class="col-xs-4 col-md-4">
-            <button class="sign-button sign-in-button-warning" style="width:100%" type="submit"><center><i class="glyphicon glyphicon-circle-arrow-up"></i></center></button>
+          <div class="col-xs-3 col-md-3">
+            <div class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Select a file..." ng-model="vm.selectedWaiverToUpload" disabled/>
           </div>
+        </div>
+        <div class="col-xs-2 col-md-2">
+          <button class="file-upload-button file-upload-button-submit pull-left" style="width:100%" ng-click="vm.uploadWaiver(file)"><center><i class="glyphicon glyphicon-circle-arrow-up"></i></center></button>
+
+        </div>
       </form>
-      <div class="col-xs-4 col-md-4">
-        <button class="sign-button sign-in-button" style="width:100%" type= "submit" ng-click="vm.viewForm('Waiver.pdf')">View</button>
+      <div class="col-xs-2 col-md-2 offset-col-2">
+        <button class="file-upload-button file-upload-button-browse pull-right" style="width:100%" type= "submit" ng-click="vm.viewForm('Waiver.pdf')">View Current</button>
       </div>
     </div>
-  </div>
-
   </div>
 </div>
 </div>
