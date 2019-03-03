@@ -298,7 +298,7 @@ a:hover .header-profile-image {
   padding: 5px;
     background-color: #003d66;
     box-shadow: 0 4px 16px -6px grey;
-    margin-top:-4rem !important;
+    margin-top:-4.5rem !important;
     margin-left: calc(50% - 50vw) !important;
     margin-right: calc(50% - 50vw) !important;
 }
