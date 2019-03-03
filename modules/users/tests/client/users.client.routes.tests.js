@@ -167,10 +167,29 @@
         });
       });
 
-      describe('Signup Route', function () {
+      describe('Volunteer-Signup Route', function () {
         var signupstate;
         beforeEach(inject(function ($state) {
-          signupstate = $state.get('authentication.signup');
+          signupstate = $state.get('authentication.volunteer-signup');
+        }));
+
+        it('Should have the correct URL', function () {
+          expect(signupstate.url).toEqual('/signup/:token');
+        });
+
+        it('Should not be abstract', function () {
+          expect(signupstate.abstract).toBe(undefined);
+        });
+
+        it('Should have templateUrl', function () {
+          expect(signupstate.templateUrl).toBe('/modules/users/client/views/authentication/signup-volunteer.client.view.html');
+        });
+      });
+
+      describe('Student-Signup Route', function () {
+        var signupstate;
+        beforeEach(inject(function ($state) {
+          signupstate = $state.get('authentication.student-signup');
         }));
 
         it('Should have the correct URL', function () {
@@ -182,7 +201,7 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(signupstate.templateUrl).toBe('/modules/users/client/views/authentication/signup.client.view.html');
+          expect(signupstate.templateUrl).toBe('/modules/users/client/views/authentication/signup-student.client.view.html');
         });
       });
 

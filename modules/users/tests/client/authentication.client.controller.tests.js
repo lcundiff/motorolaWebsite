@@ -116,7 +116,7 @@
           $httpBackend.expectPOST('/api/auth/signin').respond(400, {
             'message': 'Missing credentials'
           });
-
+          scope.vm.userReqId = '';
           scope.vm.signin(true);
           $httpBackend.flush();
 
@@ -164,7 +164,9 @@
           $httpBackend.when('POST', '/api/auth/signup').respond(400, {
             'message': 'Username already exists'
           });
-
+          scope.vm.credentials = {
+            userReqId = '';
+          };
           scope.vm.signup(true);
           $httpBackend.flush();
 
