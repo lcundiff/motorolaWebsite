@@ -106,6 +106,9 @@
           });
 
           it('should render if user has same role as menu', function () {
+            user = {
+              roles: ['b']
+            };
             expect(menu.shouldRender(user)).toBeTruthy();
           });
 
