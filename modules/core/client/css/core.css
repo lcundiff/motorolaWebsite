@@ -216,8 +216,12 @@ a:hover .header-profile-image {
 }
 
 .navbar-custom {
-    background-color: #9ea4aa;
+  padding: 5px;
+    background-color: #003d66;
     box-shadow: 0 4px 16px -6px grey;
+    margin-top:-4rem !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
 }
 /* change the brand and text color */
 .navbar-custom .navbar-brand,
@@ -234,9 +238,10 @@ a:hover .header-profile-image {
     color: #ffffff;
 }
 .toolbar-button {
+  color: white;
   border-radius: 5px;
-  background-color: #c1c5c9 !important;
-  border-color: #949ba3 !important;
+  background-color: #326f98 !important;
+  border-color: #1e5b84 !important;
 }
 .toolbar-button:hover {
   background-color: #d0d4d8 !important;
