@@ -38,7 +38,7 @@
 
 
     function figureOutItemsToDisplay() {
-      vm.filteredItems = $filter('filter')(vm.users, {
+      vm.filteredItems = $filter('filter')(vm.userreqs, {
         $: vm.search
       });
       vm.filterLength = vm.filteredItems.length;

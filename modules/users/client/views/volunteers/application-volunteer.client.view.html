@@ -4,20 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-  html,
-  body,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Roboto", sans-serif;
-  }
 
   #myCarousel {
     margin-left: 50px;
@@ -62,30 +49,21 @@
     font-size: 40px;
   }
 
-  .jumbotron {
-    posistion:relative;
-    z-index: 2;
-    box-shadow: 0 4px 16px -6px grey;
-    background-color: white;
-  }
 </style>
 
 <body>
   <!-- The Grid -->
-  <div style="background-color:#003d66 ; color:white; padding:25px; margin-top:-4rem; margin-bottom: 0; margin-left: calc(50% - 50vw); width:100vw;" class="container">
-    <!-- <h1 class ="col-lg-4" style="margin-left:10vw"> -->
-    <h1>
-      <!-- <h1 class ="col-lg-8"> -->
-      <center>
-        <ul>Volunteer Application</ul>
-      </center>
-        <!-- Dashboard <small>student</small> -->
-      </h1>
+  <nav role="navigation" class="navbar navbar-custom navbar-static-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <p class="navbar-text">Volunteer Application</p>
+      </div>
   </div>
+</nav>
   <br />
-  <form name="vm.volunteerForm" ng-submit="vm.createStudent(vm.volunteerForm.$valid)" class="application" novalidate autocomplete="off">
+  <form name="vm.volunteerForm" class="application" novalidate autocomplete="off">
   <div id="myCarousel" class="carousel slide" data-interval="false">
-    <div class="jumbotron jumbotron-fluid text-center" style="background-color: white; height: 100%;">
+    <div class="jumbotron text-center">
   <!-- Indicators -->
   <ol class="carousel-indicators">
   <li style="background-color: grey;" data-target="#myCarousel" data-slide-to="0" class="active"></li>

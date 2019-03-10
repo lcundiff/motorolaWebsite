@@ -4,11 +4,11 @@
   // Volunteers controller
   angular
     .module('users')
-    .controller('VolunteerController', VolunteerController);
+    .controller('MentorshipVolunteerController', MentorshipVolunteerController);
 
-  VolunteerController.$inject = ['$scope', '$state', '$window', 'Authentication', 'VolunteerService', 'menuService', 'Notification', '$http','$sce'];
+  MentorshipVolunteerController.$inject = ['$scope', '$state', '$window', 'Authentication', 'VolunteerService', 'menuService', 'Notification', '$http','$sce'];
 
-  function VolunteerController($scope, $state, $window, Authentication, VolunteerService, menuService, Notification, $http, $sce) {
+  function MentorshipVolunteerController($scope, $state, $window, Authentication, VolunteerService, menuService, Notification, $http, $sce) {
     var vm = this;
     vm.authentication = Authentication;
 

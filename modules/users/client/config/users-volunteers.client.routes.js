@@ -19,13 +19,13 @@
       .state('volunteer.mentorship', {
         url: '/volunteer/mentorship',
         templateUrl: '/modules/users/client/views/volunteers/mentorship-volunteer.client.view.html',
-        controller: 'VolunteerController',
+        controller: 'MentorshipVolunteerController',
         controllerAs: 'vm'
       })
       .state('volunteer.interviews', {
         url: '/volunteer/interviews',
         templateUrl: '/modules/users/client/views/volunteers/interview-volunteer.client.view.html',
-        controller: 'VolunteerController',
+        controller: 'InterviewVolunteerController',
         controllerAs: 'vm'
       });
     /*  .state('student.', {

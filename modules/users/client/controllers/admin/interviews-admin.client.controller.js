@@ -94,7 +94,7 @@
     }
 
     function figureOutItemsToDisplay() {
-      vm.filteredItems = $filter('filter')(vm.users, {
+      vm.filteredItems = $filter('filter')(vm.students, {
         $: vm.search
       });
       vm.filterLength = vm.filteredItems.length;
