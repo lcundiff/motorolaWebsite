@@ -26,6 +26,7 @@ var noReturnUrls = [
    user.displayName = user.firstName + ' ' + user.lastName;
 
    console.log(user);
+  
 
    user.save(function (err) {
      if (err) {

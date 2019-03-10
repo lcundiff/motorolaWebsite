@@ -10,34 +10,32 @@
   function menuConfig(menuService) {
 
     menuService.addMenu('account', {
-      roles: ['admin', 'volunteer', 'student']
+      roles: ['admin', 'volunteer', 'student'],
     });
 
     menuService.addMenuItem('account', {
       title: '',
       state: 'settings',
       type: 'dropdown',
-      roles: ['admin', 'volunteer', 'student']
+      roles: ['admin', 'volunteer', 'student'],
     });
 
     menuService.addSubMenuItem('account', 'settings', {
       title: 'Edit Profile',
-      state: 'settings.profile'
+      state: 'settings.profile',
+      roles: ['user','admin', 'volunteer', 'student'],
     });
 
     menuService.addSubMenuItem('account', 'settings', {
       title: 'Edit Profile Picture',
-      state: 'settings.picture'
+      state: 'settings.picture',
+      roles: ['user','admin', 'volunteer', 'student'],
     });
 
     menuService.addSubMenuItem('account', 'settings', {
       title: 'Change Password',
-      state: 'settings.password'
-    });
-
-    menuService.addSubMenuItem('account', 'settings', {
-      title: 'Manage Social Accounts',
-      state: 'settings.accounts'
+      state: 'settings.password',
+      roles: ['admin', 'volunteer', 'student'],
     });
 }
 }());

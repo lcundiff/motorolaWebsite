@@ -30,7 +30,6 @@
 
     function signup(isValid) {
       var hash = $location.path();
-      console.log("hash: ",hash);
       hash = hash.replace('/authentication/signup/', '');
       var p1 = Promise.resolve(vm.credentials.userReqId = hash);
 
@@ -57,8 +56,8 @@
       vm.credentials.roles = ['student'];
 
       UsersService.studentSignup(vm.credentials)
-      .then(onUserSigninSuccess)
-      .catch(onUserSigninError);
+      .then(onUserSignupSuccess)
+      .catch(onUserSignupError);
     }
 
     function signin(isValid) {
@@ -87,9 +86,7 @@
     // Authentication Callbacks
 
     function onUserSignupSuccess(response) {
-      console.log("signup response: ",response);
       if(response.roles.indexOf('student') !== -1){
-        console.log("THERE A STU");
 
         var student = {};
         student.user = response._id;
@@ -98,12 +95,9 @@
         student.lastName = response.lastName;
         student.email = response.email;
 
-        StudentService.createStudent(student).then(function(response){
-          console.log("response");
-        });
+        StudentService.createStudent(student);
       }
       if(response.roles.indexOf('volunteer') !== -1){
-        console.log("THERE A VOL");
 
         var volunteer = {};
         volunteer.user = response._id;
@@ -112,9 +106,7 @@
         volunteer.lastName = response.lastname;
         volunteer.email = response.email;
 
-        VolunteerService.createVolunteer(volunteer).then(function(response){
-
-        });
+        VolunteerService.createVolunteer(volunteer);
       }
       // If successful we assign the response to the global user model
       vm.authentication.user = response;

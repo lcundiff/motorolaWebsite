@@ -159,12 +159,15 @@
     }
 
     function onFormUploadError(response) {
-      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Form upload error.', delay: 6000 });
+      Notification.error({ message: 'Form upload error.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
     }
 
 
     function viewForm(fileId) {
-      console.log("fileId: ",fileId);
+      if(fileId === null || fileId === '' || fileId === undefined){
+        Notification.error({ message: 'Student has not yet uploaded this form.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+        return;
+      }
 
       FileService.download(fileId).then(function(data){
 

@@ -1,7 +1,19 @@
+<!DOCTYPE html>
+<html>
+<title>Mentorship</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+  <nav role="navigation" class="navbar navbar-custom navbar-static-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <p class="navbar-text">Settings</p>
+      </div>
+</div>
+</nav>
+<div class="jumbotron">
 <section>
-  <div class="page-header">
-    <h1>Settings</h1>
-  </div>
   <div class="row">
     <nav class="col-sm-3 col-md-3">
       <ul class="nav nav-pills nav-stacked">
@@ -14,9 +26,6 @@
         <li ui-sref-active="active" ng-show="vm.user.provider === 'local'">
           <a ui-sref="settings.password">Change Password</a>
         </li>
-        <li ui-sref-active="active">
-          <a ui-sref="settings.accounts">Manage Social Accounts</a>
-        </li>
       </ul>
     </nav>
     <div class="col-sm-9 col-md-8 settings-view">
@@ -24,3 +33,6 @@
     </div>
   </div>
 </section>
+</div>
+</body>
+</html>

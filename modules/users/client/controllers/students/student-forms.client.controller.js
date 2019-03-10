@@ -28,6 +28,11 @@
     vm.approveLetterOfRecommendation = approveLetterOfRecommendation;
     vm.approveResume = approveResume;
 
+    $scope.fileNameChangedNDA = fileNameChangedNDA;
+    $scope.fileNameChangedWaiver = fileNameChangedWaiver;
+    $scope.fileNameChangedLOR = fileNameChangedLOR;
+    $scope.fileNameChangedResume = fileNameChangedResume;
+
     StudentService.getStudentByUsername(vm.authentication.user.username).then(function(data){
       $scope.vm.file = {};
       if(data.message === undefined){
@@ -41,6 +46,27 @@
         $scope.vm.submitIsUpdate = true;
       }
     });
+
+    function fileNameChangedNDA(){
+      var file = document.getElementById('nda_upload').files[0];
+      vm.selectedStudentNDA = file.name;
+    }
+
+    function fileNameChangedWaiver(){
+      var file = document.getElementById('waiver_upload').files[0];
+      vm.selectedStudentWaiver = file.name;
+    }
+
+    function fileNameChangedLOR(){
+      var file = document.getElementById('lor_upload').files[0];
+      vm.selectedStudentLOR = file.name;
+    }
+
+    function fileNameChangedResume(){
+      var file = document.getElementById('resume_upload').files[0];
+      vm.selectedStudentResume = file.name;
+    }
+
     function approveNDA(student){
       student.isNDASubmitted = true;
 
@@ -83,6 +109,7 @@
         console.log(data);
         if(data.data.success){
           $scope.uploading = false;
+          vm.selectedStudentNDA = '';
         }
       });
 
@@ -100,6 +127,7 @@
         console.log(data);
         if(data.data.success){
           $scope.uploading = false;
+          vm.selectedStudentWaiver = '';
         }
       });
 
@@ -117,6 +145,7 @@
         console.log(data);
         if(data.data.success){
           $scope.uploading = false;
+          vm.selectedStudentLOR = '';
         }
       });
 
@@ -134,6 +163,7 @@
         console.log(data);
         if(data.data.success){
           $scope.uploading = false;
+          vm.selectedStudentResume = '';
         }
       });
 
@@ -144,6 +174,10 @@
 
     function viewForm(fileId) {
       console.log("fileId: ",fileId);
+      if(fileId === null || fileId === "" || fileId===undefined){
+        Notification.error({ message: 'This form has not yet been submitted.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
 
       FileService.download(fileId).then(function(data){
 

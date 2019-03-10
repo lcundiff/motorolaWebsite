@@ -6,9 +6,9 @@
     .module('users')
     .controller('StudentsController', StudentsController)
 
-  StudentsController.$inject = ['$scope', '$state', '$window', 'StudentService', 'googleDriveService', 'FileService', 'Authentication', 'Notification', '$http','$sce'];
+  StudentsController.$inject = ['$scope', '$state', '$window', 'StudentService', 'FileService', 'Authentication', 'Notification', '$http','$sce'];
 
-  function StudentsController($scope, $state, $window, StudentService, googleDriveService, FileService, Authentication, Notification, $http, $sce) {
+  function StudentsController($scope, $state, $window, StudentService, FileService, Authentication, Notification, $http, $sce) {
     var vm = this;
     vm.student;
     vm.credentials;
@@ -41,10 +41,10 @@
     vm.addProfessionalExperiences = addProfessionalExperiences;
     vm.editProfessionalExperience = editProfessionalExperience;
     vm.removeProfessionalExperience = removeProfessionalExperience;
-    
-    
-    
-    
+
+
+
+
     $scope.exportStudents = function() {
       // console.log("here");
         StudentService.studentList().then(function(data){
@@ -125,7 +125,7 @@
           });
               });
             });*/
-        }, 
+        },
         function(error) {
           $scope.error = 'Unable to retrieve students!\n' + error;
         });
@@ -159,7 +159,7 @@
       vm.credentials.ResumeId = $scope.file.upload.name;
 
       $scope.uploading = true;
-      
+
       FileService.upload($scope.file).then(function(data){
         console.log(data);
         if(data.data.success){
