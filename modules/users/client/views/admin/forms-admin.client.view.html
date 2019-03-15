@@ -3,15 +3,13 @@
 <title>Applicants</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css">
-<link rel="stylesheet" type="text/css" href="/modules/core/client/css/bootstrap.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <section>
   <nav role="navigation" class="navbar navbar-custom navbar-static-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <p class="navbar-text">Student Forms</p>
+        <h2 class="navbar-text">Student Forms</h2>
       </div>
     <center>
     <form class="navbar-form navbar-right" role="search">
@@ -20,9 +18,8 @@
         <span class="input-group-btn">
         <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search=''; vm.figureOutItemsToDisplay();"><i class="glyphicon glyphicon-remove"></i></button>
       </span>
+	 </div>
     </form>
-  </div>
-
   </center>
 </div>
 </nav>
@@ -55,16 +52,6 @@
           </a>
         </div>
     </div>
-    <!--START -->
-
-
-
-
-
-    <!-- END -->
-
-    <!-- END2 -->
-
   </div>
 </div>
 </div>
@@ -73,7 +60,7 @@
   <div class="container">
     <center>
     <div ng-switch="vm.selected_user">
-      <div ng-switch-when=true>
+      <div ng-switch-when="true">
         <div class="container">
 
           <div class="row">
@@ -145,10 +132,10 @@
       </div>
       <div class="container">
       <select ng-model="vm.formFixName">
-        <option value='NDA'>NDA</option>
-        <option value='Waiver'>Waiver</option>
-        <option value='Letter of Recommendation'>Letter of Recommendation</option>
-        <option value='Resume'>Resume</option>
+        <option value="NDA">NDA</option>
+        <option value="Waiver">Waiver</option>
+        <option value="Letter of Recommendation">Letter of Recommendation</option>
+        <option value="Resume">Resume</option>
       </select>
     </div>
     <div class="container">
@@ -218,7 +205,7 @@
 
           <div class="w3-white w3-card-4">
             <div class="w3-display-container">
-              <img ngf-src="vm.vm.modal_student.profileImageURL" style="width:100%" ng-if="vm.modal_student.profileImageURL !== null || vm.modal_student.profileImageURL !== undefined || vm.modal_student.profileImageURL !== ''"alt="Avatar" ngf-drop>
+              <img ngf-src="vm.vm.modal_student.profileImageURL" style="width:100%" ng-if="vm.modal_student.profileImageURL !== null || vm.modal_student.profileImageURL !== undefined || vm.modal_student.profileImageURL !== ''" alt="Avatar" ngf-drop>
               <img src="/modules/users/client/img/profile/Unknown.png" style="width:100%" ng-if="vm.modal_student.profileImageURL === null || vm.modal_student.profileImageURL === undefined || vm.modal_student.profileImageURL === ''"alt="Avatar">
 
             </div>
@@ -307,7 +294,6 @@
             <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge"></i>Volunteer Experience</h2>
             <div class="w3-container" ng-repeat="volWork in vm.modal_student.application.volunteerExperiences">
               <h6 class="w3-text-black"><b>Organization:</b></h6>
-              <form>
                 <p class="w3-text-black">{{volWork.organizationName}}</p>
                 <h6 class="w3-text-black"><b>Experience Title:</b></h6>
                 <p class="w3-text-black">{{volWork.position}}</p>

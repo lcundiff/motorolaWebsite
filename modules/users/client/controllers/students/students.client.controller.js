@@ -1,4 +1,4 @@
- (function() {
+(function() {
   'use strict';
 
   // Students controller
@@ -41,9 +41,6 @@
     vm.addProfessionalExperiences = addProfessionalExperiences;
     vm.editProfessionalExperience = editProfessionalExperience;
     vm.removeProfessionalExperience = removeProfessionalExperience;
-
-
-
 
     $scope.exportStudents = function() {
       // console.log("here");
@@ -404,8 +401,6 @@
     /*$scope.ChangesNotAllowed = function(){
       alert('Sorry, resume modifications are no longer allowed as the submission period is over as of May 25th. You will receive a notification if you are selected into this program.');
     };
-
-
     $scope.photoChanged1 = function (files) {
       console.log("files: ",files);
       //if (files.length > 0 && files[0].name.match(/\.(png|jpg|jpeg|pdf|gif)$/)) {
@@ -416,7 +411,6 @@
         $scope.uploading1 = false;
       }
     };
-
     $scope.photoChanged2 = function (files) {
       console.log("files: ",files);
     //  if (files.length > 0 && files[0].name.match(/\.(png|jpg|jpeg|pdf|gif)$/)) {
@@ -440,13 +434,10 @@
       //alert("Please upload file correctly (only png, jpg, jpeg, pdf allowed");
       alert("Only files in PDF format are allowed for submission. Please upload file correctly.");
     };
-
     $scope.download_NDA = function(){
       googleDriveService.getNDA().then(function(resp){
         console.log("response 1022: ",resp);
-
         $scope.download(resp.data.id, resp.data.name);
-
         /*googleDriveService.getDoc(resp.data.id + '.pdf').then(function(response){
           $http.get('./public/upload/' + 'NDA.pdf', { responseType: 'arraybuffer' })
          .success(function (data) {
@@ -456,10 +447,7 @@
                  type: 'application/pdf'
                  // type:'image/png'
              });
-
-
              var url = $window.URL || $window.webkitURL;
-
              $scope.fileUrl = $sce.trustAsResourceUrl(url.createObjectURL(file));
              // $scope.fileUrl = window.URL.createObjectURL(file);
              // console.log($scope.fileUrl)
@@ -488,10 +476,7 @@
                  type: 'application/pdf'
                  // type:'image/png'
              });
-
-
              var url = $window.URL || $window.webkitURL;
-
              $scope.fileUrl = $sce.trustAsResourceUrl(url.createObjectURL(file));
              // $scope.fileUrl = window.URL.createObjectURL(file);
              // console.log($scope.fileUrl)
@@ -506,11 +491,7 @@
     };
 
   /*  $scope.download = function(fileId, fileName) {
-
-
       googleDriveService.getDoc(fileId + '.pdf').then(function(response){
-
-
          $http.get('./download/' + fileName, { responseType: 'arraybuffer' })
         .success(function (data) {
            console.log(data);
@@ -519,10 +500,7 @@
                 type: 'application/pdf'
                 // type:'image/png'
             });
-
-
             var url = $window.URL || $window.webkitURL;
-
             $scope.fileUrl = $sce.trustAsResourceUrl(url.createObjectURL(file));
             // $scope.fileUrl = window.URL.createObjectURL(file);
             // console.log($scope.fileUrl)
@@ -532,12 +510,7 @@
                 // console.log(link);
                 link.click();
           });
-
       });
-
-
-
-
   };*/
 
     $scope.removeFile = function(doc) {
