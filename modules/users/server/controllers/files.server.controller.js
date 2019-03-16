@@ -96,10 +96,6 @@ exports.uploadFile = function(req, res){
 }
 
 exports.uploadNDA = function(req, res){
-  console.log("req: ",req);
-  console.log("req.body: ",req.body);
-  console.log("req.file: ",req.file);
-  console.log("req.files: ",req.files);
   uploadNDA(req, res, function(err){
     if (err) {
       if(err.code === 'LIMIT_FILE_SIZE') res.json({ success: false, message: 'File size is too large. Max limit is 10MB.'});
@@ -115,10 +111,6 @@ exports.uploadNDA = function(req, res){
 }
 
 exports.uploadWaiver = function(req, res){
-  console.log("req: ",req);
-  console.log("req.body: ",req.body);
-  console.log("req.file: ",req.file);
-  console.log("req.files: ",req.files);
   uploadWaiver(req, res, function(err){
     if (err) {
       if(err.code === 'LIMIT_FILE_SIZE') res.json({ success: false, message: 'File size is too large. Max limit is 10MB.'});
@@ -135,5 +127,5 @@ exports.uploadWaiver = function(req, res){
 
 exports.downloadFile = function(req, res){
   console.log("JERE");
-	res.download(downloadFolder + req.params.filename);
+	res.download(`${downloadFolder}${req.params.filename}.pdf`);
 }
