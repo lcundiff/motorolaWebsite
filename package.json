@@ -26,6 +26,7 @@
     "bower": "bower install --allow-root && bower prune --allow-root",
     "lint": "gulp lint",
     "test": "gulp test",
+	  
     "karma-test": "karma start ./karma.conf.js",
     "test:server": "gulp test:server",
     "test:server:watch": "gulp test:server:watch",
