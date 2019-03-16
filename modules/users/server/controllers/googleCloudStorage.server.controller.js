@@ -10,9 +10,9 @@ const bucketName = 'test-new-moto.appspot.com';
 
 const storage = new Storage({projectId});
 
-exports.uploadCloudFile = async function(req, res) {
+exports.uploadCloudFile = function(req, res) {
   console.log('yeEEEEEEEEE: ',req.body);
-  await storage.bucket(bucketName).upload(`./uploads/${req.body.name}`, {
+  storage.bucket(bucketName).upload(`${req.body.name}`, {
     gzip: false,
     metadata: {
       cacheControl: 'no-cache',
@@ -24,13 +24,13 @@ exports.uploadCloudFile = async function(req, res) {
 };
 
 // Downloads the file
-exports.downloadCloudFile = async function(req, res) {
+exports.downloadCloudFile = function(req, res) {
   console.log('yeEEEE: ',req.params);
   const options = {
     destination: `./downloads/${req.params.filename}`,
   };
 
-  await storage
+  storage
     .bucket(bucketName)
     .file(req.body.name)
     .download(options);
