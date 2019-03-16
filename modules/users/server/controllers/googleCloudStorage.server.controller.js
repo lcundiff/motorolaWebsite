@@ -12,7 +12,7 @@ const storage = new Storage({projectId});
 
 exports.uploadCloudFile = async function(req, res) {
   console.log('yeEEEEEEEEE: ',req.body);
-  await storage.bucket(bucketName).upload(`${req.body.name}`, {
+  await storage.bucket(bucketName).upload(`./uploads/${req.body.name}`, {
     gzip: false,
     metadata: {
       cacheControl: 'no-cache',
