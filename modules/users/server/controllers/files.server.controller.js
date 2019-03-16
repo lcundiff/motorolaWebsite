@@ -10,6 +10,7 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 const uploadFolder = './uploads/';
+const downloadFolder = './downloads/';
 
   var storage = multer.diskStorage({
       destination:function(req,file,cb){
@@ -137,5 +138,5 @@ exports.uploadWaiver = function(req, res){
 
 exports.downloadFile = function(req, res){
   console.log("JERE");
-	res.download(uploadFolder + req.params.filename);
+	res.download(downloadFolder + req.params.filename);
 }

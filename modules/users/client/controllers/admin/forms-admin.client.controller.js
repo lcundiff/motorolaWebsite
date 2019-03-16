@@ -145,13 +145,13 @@
 
     function onNDAUploadSuccess(response) {
       // If successful we assign the response to the global user model
-      GoogleCloudService.upload('');
+      GoogleCloudService.upload({name: $scope.file.name});
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> NDA upload successful.' });
       $scope.uploading = false;
 
       // And redirect to the previous or home page
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
-      GoogleCloudService.download();
+      GoogleCloudService.download({name: $scope.file.name});
     }
 
     function onWaiverUploadSuccess(response) {

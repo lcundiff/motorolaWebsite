@@ -12,7 +12,7 @@ const storage = new Storage({projectId});
 
 exports.uploadCloudFile = async function(req, res) {
   console.log(req.body);
-  await storage.bucket(bucketName).upload('./uploads/NDA.pdf', {
+  await storage.bucket(bucketName).upload(`./uploads/${req.body.name}`, {
     gzip: false,
     metadata: {
       cacheControl: 'no-cache',
@@ -23,16 +23,16 @@ exports.uploadCloudFile = async function(req, res) {
   return res.status(200);
 };
 
-const options = {
-  destination: './downloads/NDA.pdf',
-};
-
 // Downloads the file
 exports.downloadCloudFile = async function(req, res) {
-  console.log('yEÈ');
+  console.log(req.body);
+  const options = {
+    destination: `./downloads/${req.body.name}`,
+  };
+
   await storage
     .bucket(bucketName)
-    .file('NDA.pdf')
+    .file(req.body.name)
     .download(options);
 
   return res.status(200);

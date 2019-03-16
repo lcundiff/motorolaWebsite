@@ -26,8 +26,8 @@
         console.log(file);
         return this.put_file(file).$promise;
       },
-      download: function() {
-        return this.get_file().$promise;
+      download: function(file) {
+        return this.get_file(file).$promise;
       },
     });
 
