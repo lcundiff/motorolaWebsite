@@ -22,7 +22,7 @@ const downloadFolder = './downloads/';
           err.code = 'filetype';
           return cb(err);
         } else {
-          cb(null, `${req.params.filename}.pdf`);
+          cb(null, req.params.filename);
         }
       }
   });
@@ -127,5 +127,5 @@ exports.uploadWaiver = function(req, res){
 
 exports.downloadFile = function(req, res){
   console.log("JERE");
-	res.download(`${downloadFolder}${req.params.filename}.pdf`);
+	res.download(`${downloadFolder}${req.params.filename}`);
 }

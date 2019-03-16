@@ -26,12 +26,12 @@ exports.uploadCloudFile = async function(req, res) {
 exports.downloadCloudFile = async function(req, res) {
   console.log('yeEEEE: ',req.params);
   const options = {
-    destination: `./downloads/${req.params.filename}.pdf`,
+    destination: `./downloads/${req.params.filename}`,
   };
 
   await storage
     .bucket(bucketName)
-    .file(`${req.params.filename}.pdf`)
+    .file(`${req.params.filename}`)
     .download(options);
 
   return res.status(200).end();

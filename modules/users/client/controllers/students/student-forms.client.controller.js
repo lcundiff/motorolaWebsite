@@ -102,7 +102,7 @@
 
     function uploadNDA(){
       console.log($scope.file.upload);
-      vm.credentials.NDAId = "NDA" + "_" + vm.credentials.username;
+      vm.credentials.NDAId = `NDA_${vm.credentials.username}.pdf`;
 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.NDAId).then(function(data){
@@ -120,7 +120,7 @@
 
     function uploadWaiver(){
       console.log($scope.file.upload);
-      vm.credentials.WaiverId = "waiver" + "_" + vm.credentials.username;
+      vm.credentials.WaiverId = `waiver_${vm.credentials.username}.pdf`;
 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.WaiverId).then(function(data){
@@ -138,7 +138,7 @@
 
     function uploadLetterOfRecommendation(){
       console.log($scope.file.upload);
-      vm.credentials.letterOfRecommendationId = "letterOfRecommendation" + "_" + vm.credentials.username;
+      vm.credentials.letterOfRecommendationId = `letterOfRecommendation_${vm.credentials.username}`;
 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.letterOfRecommendationId).then(function(data){
@@ -156,7 +156,7 @@
 
     function uploadResume(){
       console.log($scope.file.upload);
-      vm.credentials.ResumeId = "Resume" + "_" + vm.credentials.username;
+      vm.credentials.ResumeId = `Resume_${vm.credentials.username}`;
 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.ResumeId).then(function(data){
