@@ -9,7 +9,7 @@
   <nav role="navigation" class="navbar navbar-custom navbar-static-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <h2 class="navbar-text">Interviews</h2>
+        <h5 class="navbar-text">Interviews</h5>
       </div>
     <center>
     <button class="btn btn-custom navbar-btn toolbar-button"  ng-click="vm.autoAssignInterviews()">Auto-Assign Interviews</button>
@@ -36,9 +36,9 @@
         <br />
         <div class="list-group">
           <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
-          <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="list-group-item">
-            <h5 ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h5><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
-            <h6 class="pull-right" ng-bind-template="{{student.application.school}}"></h6>
+          <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="row list-group-item">
+              <h5 ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}" /><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
+            <!--<h6 class="text-right" ng-bind-template="{{student.application.school}}"></h6>-->
           </a>
         </div>
         <div>
