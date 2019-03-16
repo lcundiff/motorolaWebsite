@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "test-new-moto",
+  "private_key_id": "9b514fdee2d61d8f23780d7e7edb4a8e24940c61",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQChSCjCTU9U82Bw\ngSMO1TjE27VF7bFEcE9gOFXxTQdyre41+hD4OZ7Fu9ZiGfp7UCoTtMb1h6N202mq\nAdTuBLNJSL5w8DcPgYuBfEWXRutmcXo/1cBsE5f9Er1k8x4kSsNc3JCbcCYhXtMD\nsV9rRArnXT5S5pZUnfrbJboMaMVV9xdkxs+i+alnE6bZMp31eMncrz684yovDRAo\nuPP6HfMushho76Bsx16/BXqzRoyp9eCOx42AnyLZpUPmAoe44G/tieNq1MVdMhbw\n+Sw24kxNMMChDjxlEYCCebto4/gue6+HP/c6WHHhcyutK4B0rXjiJCLhMZknrZuq\n0IslWMsbAgMBAAECggEACZ8UvLqrSpBrpr/dcotqeTv42B9ySCNBvlC+DR4g8p4e\nVt6rLSkVfWBTosM/+86azqrQhQyUG4jzMG7ZirWBvekhYKVuniCGolviiZVz15xa\nGaghHubFq2r3HNLwGmQnZskgYKrTwNaM/2xmb9oS+HMfPlzT3QprplqIJdNeP7Qx\n9l0Iv9m2O01VoTw0WtTBd/s31Ex2yrhz5a2TcVxcz9Vqw0u3gC+NZEZfWxMeDSTV\nCHJOkLMfa6O4x3/MHiYJUQXvlx+F1zcUV4YW3Wdiuy5jFb42EqV3XwwFfTFAVkJB\nrPQ/pXookcLF1klg60I88480+JNy828bsXhb22QBQQKBgQDWnDVvLwoFbRpLNW+6\nhdRPCsQCd9Qf5684lredFsgz0n2w0W7cOGdciHyJAAq5G/kAi6Dizxy7NIAEMmV7\nd8YoH6zuNs+CjsWtC5iGDgp6KeI/CZgkxYSiCw50rhx1/iI1rr7yXJq+Hzw4hWWv\nI9JMTmIWacTeAeu9e/C99VMx+wKBgQDAYwK2iwqtiRLP078HuxatRxSyJCtSLyUv\nMbLdvBUQpmu3ic7whKuZSKTzFu1D9uoHBPZSJNZ+Vo/MiCnO/diNlCjqqEJ8ZrBH\nU8/Zox58QhiDMsHoKRX1X0wSxObhwSC1z3kOiAUzsALPujwJdHHIhGHINU6vemVF\nzE2yceyhYQKBgQCEvoCKsiTXsGF4LahbThZBgd41zJrH1U3bidYu832IGGWobhLN\nYpIEeWPWddEsKHI/dR5hzEvwO4wHjIia8z39aYJUolB+aAM7gxWnrZ2rbKbF6RBT\nhl0AwigB4gQ2s6fDXsA7Ny579OQR7ek0iMq2ajFfvbKIw9VmEfiZ9tmr6wKBgFpA\nGE25/FBcNU75bmwaABFZfwPyo7/yDeeN0PLkAJ3G9FEtfL6n/jfyNC81Wii/9BlG\n4qa2UUkDIoI4fiR0QNpp3qf2NvpU0e0kDCV0uCBigU1Kylw2qe5pvi4v4H+XMdkY\ncxm2BXqx3x/DpdZpodcHAzgAieEX8dpEdU540yEBAoGBAIv5vKevoDDD2RPmuD/A\nE67WoSjOc+iJCamBbtOIo+NmSjC3MK51khMLdRV6tBrvXM96QYHqQ12P6m0J30qW\npaJ87JN+A85nJTSxWz3Bgpms8i6fLcbdRsVna2laZ1pLGioVONo/3Bf/+4VLq6eB\n0pkUTnw/Cp5lA3sU8y6pu1j/\n-----END PRIVATE KEY-----\n",
+  "client_email": "test-new-moto@appspot.gserviceaccount.com",
+  "client_id": "113613010792299967491",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/test-new-moto%40appspot.gserviceaccount.com"
+}

@@ -19,7 +19,7 @@
     "clean": "rm -rf node_modules/ public/lib/",
     "deploy": "gcloud app deploy app.yaml --promote",
     "reinstall": "npm cache clean && npm run clean && npm install",
-    "start": "NODE_ENV=development node server.js",
+    "start": "(export GOOGLE_APPLICATION_CREDENTIALS='./test-new-moto-9b514fdee2d6.json') && NODE_ENV=development node server.js",
     "start:prod": "gulp prod",
     "start:debug": "node-debug --web-host 0.0.0.0 server.js & gulp debug",
     "gulp": "gulp",
@@ -39,6 +39,7 @@
     "seed:test": "gulp seed:test"
   },
   "dependencies": {
+    "@google-cloud/storage": "^2.4.3",
     "acl": "^0.4.11",
     "amazon-s3-uri": "0.0.3",
     "async": "~2.5.0",
@@ -51,6 +52,8 @@
     "connect-mongo": "~1.3.2",
     "cookie-parser": "~1.4.1",
     "del": "~3.0.0",
+    "dotenv": "^7.0.0",
+    "envs": "^0.1.6",
     "eslint-config-airbnb": "~6.0.2",
     "express": "^4.16.0",
     "express-hbs": "~1.0.4",

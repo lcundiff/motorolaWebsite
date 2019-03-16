@@ -56,6 +56,10 @@ module.exports = {
     callbackURL: '/api/auth/paypal/callback',
     sandbox: true
   },
+  googleCloudStorage: {
+    projectId: 'test-new-moto',
+    bucketName: 'test-bucket',
+  },
   mailer: {
     from: process.env.MAILER_FROM || 'Motorola Mentoring',
     options: {
@@ -70,7 +74,7 @@ module.exports = {
       }
     }
   },
-  livereload: true,
+  livereload: false,
   seedDB: {
     seed: process.env.MONGO_SEED === 'true',
     options: {

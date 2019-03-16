@@ -6,9 +6,9 @@
     .module('users')
     .controller('FormsAdminsController', FormsAdminsController);
 
-  FormsAdminsController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'AdminService', 'FileService', 'UsersService', 'StudentService', /*'VolunteersService', 'AutomateService', 'googleDriveService',*/'$http','$sce'];
+  FormsAdminsController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'AdminService', 'GoogleCloudService', 'FileService', 'UsersService', 'StudentService', /*'VolunteersService', 'AutomateService', 'googleDriveService',*/'$http','$sce'];
 
-  function FormsAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, FileService, UsersService, StudentService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
+  function FormsAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, GoogleCloudService, FileService, UsersService, StudentService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
@@ -136,6 +136,7 @@
       console.log("file: ",$scope.file);
 
       $scope.uploading = true;
+
       FileService.uploadWaiver($scope.file)
       .then(onWaiverUploadSuccess)
       .catch(onFormUploadError);
@@ -143,6 +144,7 @@
 
     function onNDAUploadSuccess(response) {
       // If successful we assign the response to the global user model
+      GoogleCloudService.upload('');
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> NDA upload successful.' });
       $scope.uploading = false;
 
