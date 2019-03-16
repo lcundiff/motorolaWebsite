@@ -15,7 +15,6 @@
     vm.authentication = Authentication;
     vm.createStudent = createStudent;
     vm.updateStudent = updateStudent;
-    vm.showImage = showImage;
 
     vm.uploadNDA = uploadNDA;
     vm.uploadWaiver = uploadWaiver;
