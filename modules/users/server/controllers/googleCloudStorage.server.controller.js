@@ -24,7 +24,7 @@ exports.uploadCloudFile = async function(req, res) {
 };
 
 const options = {
-  destination: './downloads',
+  destination: './downloads/NDA.pdf',
 };
 
 // Downloads the file
