@@ -127,6 +127,7 @@
       FileService.uploadNDA($scope.file)
       .then(onNDAUploadSuccess)
       .catch(onFormUploadError);
+
     }
 
     function uploadWaiver(){
@@ -150,6 +151,7 @@
 
       // And redirect to the previous or home page
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
+      GoogleCloudService.download();
     }
 
     function onWaiverUploadSuccess(response) {

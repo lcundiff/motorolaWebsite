@@ -14,6 +14,10 @@
           method: 'PUT',
           url: '/api/files/cloud-storage',
         },
+        get_file: {
+          method: 'GET',
+          url: '/api/files/cloud-storage',
+        },
       });
 
 
@@ -21,6 +25,9 @@
       upload: function(file) {
         console.log(file);
         return this.put_file(file).$promise;
+      },
+      download: function() {
+        return this.get_file().$promise;
       },
     });
 

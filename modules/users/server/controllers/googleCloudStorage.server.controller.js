@@ -19,5 +19,21 @@ exports.uploadCloudFile = async function(req, res) {
     },
   });
 
+
+  return res.status(200);
+};
+
+const options = {
+  destination: './downloads',
+};
+
+// Downloads the file
+exports.downloadCloudFile = async function(req, res) {
+  console.log('yEÈ');
+  await storage
+    .bucket(bucketName)
+    .file('NDA.pdf')
+    .download(options);
+
   return res.status(200);
 };
