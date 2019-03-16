@@ -16,18 +16,19 @@
         },
         get_file: {
           method: 'GET',
-          url: '/api/files/cloud-storage',
+          url: '/api/files/cloud-storage/:filename',
         },
       });
 
 
     angular.extend(GoogleCloud, {
-      upload: function(file) {
-        console.log(file);
-        return this.put_file(file).$promise;
+      upload: function(filename) {
+        return this.put_file(filename).$promise;
       },
-      download: function(file) {
-        return this.get_file(file).$promise;
+      download: function(filename) {
+        return this.get_file({
+          filename: filename
+        }).$promise;
       },
     });
 

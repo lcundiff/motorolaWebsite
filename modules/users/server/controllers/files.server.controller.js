@@ -22,7 +22,7 @@ const downloadFolder = './downloads/';
           err.code = 'filetype';
           return cb(err);
         } else {
-          cb(null, req.params.filename);
+          cb(null, `${req.params.filename}.pdf`);
         }
       }
   });
@@ -80,9 +80,6 @@ const downloadFolder = './downloads/';
 
 
 exports.uploadFile = function(req, res){
-  console.log("req.body: ",req.body);
-  console.log("req.file: ",req.file);
-  console.log("req.files: ",req.files);
   console.log("req.params: ",req.params.filename);
   upload(req, res, function(err){
     if (err) {
@@ -93,7 +90,7 @@ exports.uploadFile = function(req, res){
       }
     } else {
       //if (!req.file) res.json({ success: false, message: 'No file was selected.'});
-     res.json({success: true, message: 'File successfully uploaded.', fileName: ''});
+     res.json({success: true, message: 'File successfully uploaded.', fileName: req.params.filename});
     }
   });
 }
@@ -112,7 +109,7 @@ exports.uploadNDA = function(req, res){
       }
     } else {
       //if (!req.file) res.json({ success: false, message: 'No file was selected.'});
-     res.json({success: true, message: 'File successfully uploaded.', fileName: ''});
+     res.json({success: true, message: 'File successfully uploaded.', fileName: 'NDA.pdf'});
     }
   });
 }
@@ -131,7 +128,7 @@ exports.uploadWaiver = function(req, res){
       }
     } else {
       //if (!req.file) res.json({ success: false, message: 'No file was selected.'});
-     res.json({success: true, message: 'File successfully uploaded.', fileName: ''});
+     res.json({success: true, message: 'File successfully uploaded.', fileName: 'Waiver.pdf'});
     }
   });
 }
