@@ -19,7 +19,7 @@ exports.uploadCloudFile = async function(req, res) {
     },
   });
 
-  return res.status(200);
+  return res.status(200).end();
 };
 
 // Downloads the file
@@ -34,5 +34,5 @@ exports.downloadCloudFile = async function(req, res) {
     .file(`${req.params.filename}.pdf`)
     .download(options);
 
-  return res.status(200);
+  return res.status(200).end();
 };
