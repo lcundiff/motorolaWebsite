@@ -6,9 +6,9 @@
     .module('users')
     .controller('StudentFormsController', StudentFormsController)
 
-  StudentFormsController.$inject = ['$scope', '$state', '$window', 'FileService','StudentService', 'Authentication', 'Notification', '$http','$sce'];
+  StudentFormsController.$inject = ['$scope', '$state', '$window', 'GoogleCloudService', 'FileService','StudentService', 'Authentication', 'Notification', '$http','$sce'];
 
-  function StudentFormsController($scope, $state, $window, FileService, StudentService, Authentication, Notification, $http, $sce) {
+  function StudentFormsController($scope, $state, $window, FileService, GoogleCloudService, StudentService, Authentication, Notification, $http, $sce) {
     var vm = this;
     vm.student;
     vm.credentials;
@@ -38,7 +38,6 @@
       if(data.message === undefined){
         $scope.vm.credentials = data;
         $scope.vm.submitIsUpdate = true;
-        console.log("userid check: ",$scope.vm.credentials);
       }
       else{
         $scope.vm.credentials = {};
@@ -101,12 +100,10 @@
     }
 
     function uploadNDA(){
-      console.log($scope.file.upload);
       vm.credentials.NDAId = `NDA_${vm.credentials.username}.pdf`;
 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.NDAId).then(function(data){
-        console.log(data);
         if(data.data.success){
           $scope.uploading = false;
           vm.selectedStudentNDA = '';
@@ -116,15 +113,15 @@
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
         .then(onFormSubmissionSuccess)
         .catch(onFormSubmissionError);
+
+      GoogleCloudService.upload(vm.credentials.NDAId);
     }
 
     function uploadWaiver(){
-      console.log($scope.file.upload);
       vm.credentials.WaiverId = `waiver_${vm.credentials.username}.pdf`;
 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.WaiverId).then(function(data){
-        console.log(data);
         if(data.data.success){
           $scope.uploading = false;
           vm.selectedStudentWaiver = '';
@@ -134,15 +131,15 @@
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
         .then(onFormSubmissionSuccess)
         .catch(onFormSubmissionError);
+
+        GoogleCloudService.upload(vm.credentials.WaiverId);
     }
 
     function uploadLetterOfRecommendation(){
-      console.log($scope.file.upload);
-      vm.credentials.letterOfRecommendationId = `letterOfRecommendation_${vm.credentials.username}`;
+      vm.credentials.letterOfRecommendationId = `letterOfRecommendation_${vm.credentials.username}.pdf`;
 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.letterOfRecommendationId).then(function(data){
-        console.log(data);
         if(data.data.success){
           $scope.uploading = false;
           vm.selectedStudentLOR = '';
@@ -152,15 +149,15 @@
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
         .then(onFormSubmissionSuccess)
         .catch(onFormSubmissionError);
+
+      GoogleCloudService.upload(vm.credentials.letterOfRecommendationId);
     }
 
     function uploadResume(){
-      console.log($scope.file.upload);
-      vm.credentials.ResumeId = `Resume_${vm.credentials.username}`;
+      vm.credentials.ResumeId = `resume_${vm.credentials.username}.pdf`;
 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.ResumeId).then(function(data){
-        console.log(data);
         if(data.data.success){
           $scope.uploading = false;
           vm.selectedStudentResume = '';
@@ -170,33 +167,39 @@
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
         .then(onFormSubmissionSuccess)
         .catch(onFormSubmissionError);
+
+        GoogleCloudService.upload(vm.credentials.ResumeId);
     }
 
     function viewForm(fileId) {
-      console.log("fileId: ",fileId);
       if(fileId === null || fileId === "" || fileId===undefined){
         Notification.error({ message: 'This form has not yet been submitted.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
+      GoogleCloudService.download(fileId)
+        .then(function(response){
+          FileService.download(fileId).then(function(data){
 
-      FileService.download(fileId).then(function(data){
+            var file = new Blob([data.data], {
+                type: 'application/pdf'
+                // type:'image/png'
+              });
+                //var fileURL = URL.createObjectURL(file);
 
-        var file = new Blob([data.data], {
-            type: 'application/pdf'
-            // type:'image/png'
+                //window.open(fileURL);
+                $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+                // $scope.fileUrl = window.URL.createObjectURL(file);
+                // console.log($scope.fileUrl)
+                var link = document.createElement('a');
+                    link.href = $scope.fileUrl;
+                    link.download = fileId;
+                    // console.log(link);
+                    link.click();
           });
-            //var fileURL = URL.createObjectURL(file);
-
-            //window.open(fileURL);
-            $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-            // $scope.fileUrl = window.URL.createObjectURL(file);
-            // console.log($scope.fileUrl)
-            var link = document.createElement('a');
-                link.href = $scope.fileUrl;
-                link.download = fileId;
-                // console.log(link);
-                link.click();
-      });
+        })
+        .error(function(response){
+          Notification.error({ message: 'There was an error retrieving this form. Please try submitting again.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        })
     }
 
     function dataURItoBlob(dataURI) {
@@ -216,39 +219,6 @@
 	}
 
 	return new Blob([ia], {type:mimeString});
-}
-
-function showImage() {
-  console.log("$scope.file: ",$scope.file);
-
-    $scope.extensao = '';
-	var imagem = $scope.file.upload.type;
-
-    if (imagem.indexOf('image/jpeg') > 0) {
-        $scope.type = 'image/jpeg';
-        $scope.extensao = '.jpg';
-    } else
-        if (imagem.indexOf('image/png') > 0) {
-            $scope.type = 'image/png';
-            $scope.extensao = '.png';
-        } else
-            if (imagem.indexOf('application/pdf') > 0) {
-                $scope.type = 'application/pdf';
-                $scope.extensao = '.pdf';
-            } else
-                if (imagem.indexOf('application/msword') > 0) {
-                    $scope.type = 'application/msword';
-                    $scope.extensao = '.doc';
-                } else {
-                        $scope.type = 'application/octet-stream';
-                        $scope.extensao = '.docx';
-                    }
-
-    var decodedImage = dataURItoBlob(imagem);
-    var blob = new Blob([decodedImage], { type: $scope.type });
-    var fileURL = URL.createObjectURL(blob);
-    $scope.pdfContent = $sce.trustAsResourceUrl(fileURL);
-
 }
 
     function createStudent(isValid){
