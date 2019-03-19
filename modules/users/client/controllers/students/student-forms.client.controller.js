@@ -162,6 +162,7 @@
     async function uploadResumeToGoogleCloud(file, resumeId){
       FileService.upload(file, resumeId).then(function(data){
         if(data.data.success){
+          console.log('YO');
           $scope.uploading = false;
           vm.selectedStudentResume = '';
         }
