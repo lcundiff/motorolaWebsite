@@ -107,7 +107,7 @@
           $scope.uploading = false;
           vm.selectedStudentNDA = '';
 
-          uploadToGoogleCloud($scope.file, vm.credentials.NDAId);
+          uploadToGoogleCloud(vm.credentials.NDAId);
         }
       });
     }
@@ -121,7 +121,7 @@
           $scope.uploading = false;
           vm.selectedStudentWaiver = '';
 
-          uploadToGoogleCloud($scope.file, vm.credentials.WaiverId);
+          uploadToGoogleCloud(vm.credentials.WaiverId);
         }
       });
     }
@@ -135,7 +135,7 @@
           $scope.uploading = false;
           vm.selectedStudentLOR = '';
 
-          uploadToGoogleCloud($scope.file, vm.credentials.letterOfRecommendationId);
+          uploadToGoogleCloud(vm.credentials.letterOfRecommendationId);
         }
       });
     }
@@ -149,19 +149,17 @@
         if(data.upload){
           $scope.uploading = false;
           vm.selectedStudentResume = '';
-          conso
 
-          uploadToGoogleCloud($scope.file, vm.credentials.ResumeId);
+          uploadToGoogleCloud(vm.credentials.ResumeId);
         }
       });
     }
 
-    async function uploadToGoogleCloud(file, fileId){
+    async function uploadToGoogleCloud(fileId){
       console.log('in google cloud land');
-      console.log(file);
       console.log(fileId);
       GoogleCloudService.upload({name: fileId});
-      
+
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
         .then(onFormSubmissionSuccess)
         .catch(onFormSubmissionError);
