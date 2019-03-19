@@ -147,7 +147,7 @@
       // If successful we assign the response to the global user model
       console.log(response);
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> NDA upload successful.' });
-      GoogleCloudService.upload({name: response.data.fileName});
+      GoogleCloudService.uploadForm({name: response.data.fileName});
       $scope.uploading = false;
 
       // And redirect to the previous or home page
@@ -158,7 +158,7 @@
       // If successful we assign the response to the global user model
       console.log(response);
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Waiver upload successful.' });
-      GoogleCloudService.upload({name: response.data.fileName});
+      GoogleCloudService.uploadForm({name: response.data.fileName});
       $scope.uploading = false;
       // And redirect to the previous or home page
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
@@ -175,7 +175,7 @@
         return;
       }
 
-      GoogleCloudService.download(fileId)
+      GoogleCloudService.downloadForm(fileId)
       .then(function(response){
         FileService.download(fileId)
         .then(function(data){

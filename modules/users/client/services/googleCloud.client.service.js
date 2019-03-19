@@ -22,11 +22,11 @@
 
 
     angular.extend(GoogleCloud, {
-      upload: function(filename) {
+      uploadForm: function(filename) {
         console.log('googlecloudserviceu: ',filename);
         return this.put_file(filename).$promise;
       },
-      download: function(filename) {
+      downloadForm: function(filename) {
         return this.get_file({
           filename: filename
         }).$promise;

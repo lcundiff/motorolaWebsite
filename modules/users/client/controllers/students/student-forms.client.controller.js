@@ -6,7 +6,7 @@
     .module('users')
     .controller('StudentFormsController', StudentFormsController)
 
-  StudentFormsController.$inject = ['$scope', '$state', '$window', 'GoogleCloudService', 'FileService','StudentService', 'Authentication', 'Notification', '$http','$sce'];
+  StudentFormsController.$inject = ['$scope', '$state', '$window', 'FileService', 'GoogleCloudService', 'StudentService', 'Authentication', 'Notification', '$http','$sce'];
 
   function StudentFormsController($scope, $state, $window, FileService, GoogleCloudService, StudentService, Authentication, Notification, $http, $sce) {
     var vm = this;
@@ -158,7 +158,7 @@
     async function uploadToGoogleCloud(fileId){
       console.log('in google cloud land');
       console.log(fileId);
-      //GoogleCloudService.upload({name: fileId});
+      GoogleCloudService.uploadForm({name: fileId});
 
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
         .then(onFormSubmissionSuccess)
@@ -178,7 +178,7 @@
     }
 
     async function viewForm_downloadFromGCS(fileId){
-      GoogleCloudService.download(fileId)
+      GoogleCloudService.downloadForm(fileId)
         .then(function(response){
           FileService.download(fileId).then(function(data){
 
