@@ -156,7 +156,7 @@
       vm.credentials.ResumeId = `resume_${vm.credentials.username}.pdf`;
       $scope.uploading = true;
 
-      await uploadResumeToGoogleCloud($scope.file, vm.credentials.ResumeId);
+      uploadResumeToGoogleCloud($scope.file, vm.credentials.ResumeId);
     }
 
     async function uploadResumeToGoogleCloud(file, resumeId){
