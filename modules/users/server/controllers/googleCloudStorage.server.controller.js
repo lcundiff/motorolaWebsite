@@ -12,7 +12,8 @@ const storage = new Storage({projectId});
 
 exports.uploadCloudFile = async function(req, res) {
   console.log('yeEEEEEEEEE: ',req.body);
-  await storage.bucket(bucketName).upload(`./uploads/${req.body.name}`, {
+  console.log(`./uploads/${req.body.name}`);
+  storage.bucket(bucketName).upload(`./uploads/${req.body.name}`, {
     gzip: false,
     metadata: {
       cacheControl: 'no-cache',
@@ -29,7 +30,7 @@ exports.downloadCloudFile = async function(req, res) {
     destination: `./downloads/${req.params.filename}`,
   };
 
-  await storage
+  storage
     .bucket(bucketName)
     .file(`${req.params.filename}`)
     .download(options);

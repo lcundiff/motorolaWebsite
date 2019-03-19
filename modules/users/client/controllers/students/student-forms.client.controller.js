@@ -103,17 +103,13 @@
 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.NDAId).then(function(data){
-        if(data.data.success){
+        if(data.upload){
           $scope.uploading = false;
           vm.selectedStudentNDA = '';
+
+          uploadToGoogleCloud($scope.file, vm.credentials.NDAId);
         }
       });
-
-      StudentService.updateStudent(vm.credentials.user, vm.credentials)
-        .then(onFormSubmissionSuccess)
-        .catch(onFormSubmissionError);
-
-      GoogleCloudService.upload({name: vm.credentials.NDAId});
     }
 
     function uploadWaiver(){
@@ -121,17 +117,13 @@
 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.WaiverId).then(function(data){
-        if(data.data.success){
+        if(data.upload){
           $scope.uploading = false;
           vm.selectedStudentWaiver = '';
+
+          uploadToGoogleCloud($scope.file, vm.credentials.WaiverId);
         }
       });
-
-      StudentService.updateStudent(vm.credentials.user, vm.credentials)
-        .then(onFormSubmissionSuccess)
-        .catch(onFormSubmissionError);
-
-        GoogleCloudService.upload({name: vm.credentials.WaiverId});
     }
 
     function uploadLetterOfRecommendation(){
@@ -139,49 +131,48 @@
 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.letterOfRecommendationId).then(function(data){
-        if(data.data.success){
+        if(data.upload){
           $scope.uploading = false;
           vm.selectedStudentLOR = '';
+
+          uploadToGoogleCloud($scope.file, vm.credentials.letterOfRecommendationId);
         }
       });
-
-      StudentService.updateStudent(vm.credentials.user, vm.credentials)
-        .then(onFormSubmissionSuccess)
-        .catch(onFormSubmissionError);
-
-      GoogleCloudService.upload({name: vm.credentials.letterOfRecommendationId});
     }
 
     function uploadResume(){
       vm.credentials.ResumeId = `resume_${vm.credentials.username}.pdf`;
       $scope.uploading = true;
 
-      uploadResumeToGoogleCloud($scope.file, vm.credentials.ResumeId);
-    }
-
-    async function uploadResumeToGoogleCloud(file, resumeId){
-      FileService.upload(file, resumeId).then(function(data){
-        if(data.data.success){
-          console.log('YO');
+      FileService.upload($scope.file, vm.credentials.ResumeId).then(function(data){
+        console.log(data);
+        if(data.upload){
           $scope.uploading = false;
           vm.selectedStudentResume = '';
+
+          uploadToGoogleCloud($scope.file, vm.credentials.ResumeId);
         }
       });
+    }
 
+    async function uploadToGoogleCloud(file, fileId){
+      console.log('in google cloud land');
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
         .then(onFormSubmissionSuccess)
         .catch(onFormSubmissionError);
 
-        GoogleCloudService.upload({name: resumeId});
+        GoogleCloudService.upload({name: fileId});
     }
 
     function viewForm(fileId) {
+      console.log(fileId);
       if(fileId === null || fileId === "" || fileId===undefined){
         Notification.error({ message: 'This form has not yet been submitted.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
-
-      viewForm_downloadFromGCS(fileId);
+      else{
+        viewForm_downloadFromGCS(fileId);
+      }
     }
 
     async function viewForm_downloadFromGCS(fileId){
