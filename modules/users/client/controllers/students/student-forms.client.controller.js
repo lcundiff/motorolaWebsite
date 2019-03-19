@@ -158,7 +158,7 @@
     async function uploadToGoogleCloud(fileId){
       console.log('in google cloud land');
       console.log(fileId);
-      GoogleCloudService.upload({name: fileId});
+      //GoogleCloudService.upload({name: fileId});
 
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
         .then(onFormSubmissionSuccess)
