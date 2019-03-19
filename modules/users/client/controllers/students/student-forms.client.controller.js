@@ -103,7 +103,7 @@
 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.NDAId).then(function(data){
-        if(data.upload){
+        if(data.data.success){
           $scope.uploading = false;
           vm.selectedStudentNDA = '';
 
@@ -117,7 +117,7 @@
 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.WaiverId).then(function(data){
-        if(data.upload){
+        if(data.data.success){
           $scope.uploading = false;
           vm.selectedStudentWaiver = '';
 
@@ -131,7 +131,7 @@
 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.letterOfRecommendationId).then(function(data){
-        if(data.upload){
+        if(data.data.success){
           $scope.uploading = false;
           vm.selectedStudentLOR = '';
 
@@ -145,8 +145,7 @@
       $scope.uploading = true;
 
       FileService.upload($scope.file, vm.credentials.ResumeId).then(function(data){
-        console.log(data);
-        if(data.upload){
+        if(data.data.success){
           $scope.uploading = false;
           vm.selectedStudentResume = '';
 
@@ -158,11 +157,12 @@
     async function uploadToGoogleCloud(fileId){
       console.log('in google cloud land');
       console.log(fileId);
-      GoogleCloudService.uploadForm({name: fileId});
 
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
         .then(onFormSubmissionSuccess)
         .catch(onFormSubmissionError);
+
+        GoogleCloudService.uploadForm({name: fileId});
 
     }
 
