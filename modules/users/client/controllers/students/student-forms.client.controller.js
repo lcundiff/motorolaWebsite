@@ -149,6 +149,7 @@
         if(data.upload){
           $scope.uploading = false;
           vm.selectedStudentResume = '';
+          conso
 
           uploadToGoogleCloud($scope.file, vm.credentials.ResumeId);
         }
@@ -159,11 +160,12 @@
       console.log('in google cloud land');
       console.log(file);
       console.log(fileId);
+      GoogleCloudService.upload({name: fileId});
+      
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
         .then(onFormSubmissionSuccess)
         .catch(onFormSubmissionError);
 
-        GoogleCloudService.upload({name: fileId});
     }
 
     function viewForm(fileId) {
