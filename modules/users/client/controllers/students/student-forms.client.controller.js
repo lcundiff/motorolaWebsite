@@ -113,7 +113,7 @@
         .then(onFormSubmissionSuccess)
         .catch(onFormSubmissionError);
 
-      GoogleCloudService.upload(vm.credentials.NDAId);
+      GoogleCloudService.upload({name: vm.credentials.NDAId});
     }
 
     function uploadWaiver(){
@@ -131,7 +131,7 @@
         .then(onFormSubmissionSuccess)
         .catch(onFormSubmissionError);
 
-        GoogleCloudService.upload(vm.credentials.WaiverId);
+        GoogleCloudService.upload({name: vm.credentials.WaiverId});
     }
 
     function uploadLetterOfRecommendation(){
@@ -149,14 +149,18 @@
         .then(onFormSubmissionSuccess)
         .catch(onFormSubmissionError);
 
-      GoogleCloudService.upload(vm.credentials.letterOfRecommendationId);
+      GoogleCloudService.upload({name: vm.credentials.letterOfRecommendationId});
     }
 
     function uploadResume(){
       vm.credentials.ResumeId = `resume_${vm.credentials.username}.pdf`;
-
       $scope.uploading = true;
-      FileService.upload($scope.file, vm.credentials.ResumeId).then(function(data){
+
+      uploadResumeToGoogleCloud($scope.file, vm.credentials.ResumeId);
+    }
+
+    async function uploadResumeToGoogleCloud(file, resumeId){
+      FileService.upload(file, resumeId).then(function(data){
         if(data.data.success){
           $scope.uploading = false;
           vm.selectedStudentResume = '';
@@ -167,7 +171,7 @@
         .then(onFormSubmissionSuccess)
         .catch(onFormSubmissionError);
 
-        GoogleCloudService.upload(vm.credentials.ResumeId);
+        GoogleCloudService.upload({name: resumeId});
     }
 
     function viewForm(fileId) {
@@ -175,6 +179,11 @@
         Notification.error({ message: 'This form has not yet been submitted.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
+
+      viewForm_downloadFromGCS(fileId);
+    }
+
+    async function viewForm_downloadFromGCS(fileId){
       GoogleCloudService.download(fileId)
         .then(function(response){
           FileService.download(fileId).then(function(data){
@@ -198,7 +207,7 @@
         })
         .error(function(response){
           Notification.error({ message: 'There was an error retrieving this form. Please try submitting again.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
-        })
+        });
     }
 
     function dataURItoBlob(dataURI) {
