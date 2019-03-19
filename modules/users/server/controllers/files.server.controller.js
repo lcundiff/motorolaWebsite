@@ -17,6 +17,7 @@ const downloadFolder = './downloads/';
           cb(null, './uploads');
       },
       filename:function(req,file,cb){
+        console.log(req.params.filename);
         if (!file.originalname.match(/\.(pdf|doc|docx|pages)$/)){
           var err = new Error();
           err.code = 'filetype';
