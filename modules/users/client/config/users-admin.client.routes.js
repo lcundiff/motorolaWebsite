@@ -91,6 +91,12 @@
         controller: 'VolunteersAdminsController',
         controllerAs: 'vm'
       })
+	  .state('admin.dash', {
+        url:'/dash',
+        templateUrl: '/modules/users/client/views/admin/dashboard-admin.client.view.html',
+        controller: 'ApplicantsAdminsController',
+        controllerAs: 'vm'
+      })
       .state('admin.csv', {
         url:'/csv',
         templateUrl: '/modules/users/client/views/admin/csv-admin.client.view.html',

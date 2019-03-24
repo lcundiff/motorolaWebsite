@@ -57,9 +57,14 @@
         console.log("filename: ", filename);
 
         return $http.get('/api/files/get/' + filename, { responseType: 'arraybuffer' });
+      },
+      downloadCSV: function(filename) {
+        console.log("DOWNLOADING CSV");
+        console.log("filename csv: ", filename);
+
+        return $http.get('/api/files/csv/get/' + filename, { responseType: 'arraybuffer' });
       }
     };
-
     return methods;
   }
 

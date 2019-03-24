@@ -28,29 +28,38 @@ var StudentSchema = new Schema({
       trim: true
     },
     email: {
-      type: String
+	  type: String,
+	  default: ''
+      
     },
     phone: {
+	  default: '',
       type: String
     },
     address: {
       line_1: {
+		default: '',
         type: String
       },
       line_2: {
+		default: '',
         type: String
       },
       city: {
-        type: String
+		type: String,
+		default: ''
       },
       state: {
+		default: '',
         type: String
       },
       zipcode: {
+		default: '',
         type: String
       }
     },
     school: {
+      default: '',
       type: String
     },
     grade: {
@@ -58,51 +67,65 @@ var StudentSchema = new Schema({
     },
     parent: {
       name: {
+		default: '',
         type: String
       },
       email: {
+		default: '',
         type: String
       },
       phone: {
+		default: '',
         type: String
       }
     },
     emergency: {
       name: {
+		default: '',
         type: String
       },
       email: {
+		default: '',
         type: String
       },
       phone: {
+		default: '',
         type: String
       },
       address: {
         line_1: {
+	      default: '',
           type: String
         },
         line_2: {
+		  default: '',
           type: String
         },
         city: {
+		  default: '',
           type: String
         },
         state: {
+		  default: '',
           type: String
         },
         zipcode: {
+		  default: '',
           type: String
         }
       }
     },
     preferredSession1: {
+	  default: '',
       type: String
     },
     preferredSession2: {
+	  default: '',
       type: String
     },
 
     preferredSession3: {
+      default: '',
       type: String
     },
     classes: [],

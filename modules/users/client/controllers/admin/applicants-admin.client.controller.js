@@ -115,13 +115,10 @@
 
 					Students.forEach(function (student) { // creates and formats student data on a CSV sheet
 						console.log("student object data: ", student)
-						content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," +
-							"\"" + student.application.phone + "\"" + "," + "\"" + /* student.application.address.city+" , "+ student.application.address.state+" "+student.application.address.zipcode +*/
-							/* "\"" + "," + "\"" + */
-							student.application.school + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
+						content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\""+ student.application.address.city+" , "+ student.application.address.state + " , " +student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
 					});
 					content = header + "\n" + content;
-					FileService.download('All_Students_CSV.csv').then(function (data) {
+					FileService.downloadCSV('All_Students_CSV.csv').then(function (data) {
 						console.log("ABOUT TO DOWNLOAD");
 						//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
 						var link = document.createElement('a');
@@ -136,36 +133,35 @@
 		}
 		$scope.downloadVolunteersCSV = function () {
 			// get volunteer info
-			var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW\n";
+			var header = "Name, Email, Phone, Address, Expertise, Sessions, Roles, Amount of Interviews, Interviees, \n";
 			var content = "";
-			//$scope.StudentService.studentListActive().then(function(data){
 			VolunteerService.getAllVolunteers().then(function (data) {
 					var Volunteers = data;
 
 					Volunteers.forEach(function (volunteer) { // creates and formats volunteer data on a CSV sheet
 						console.log("volunteer object data: ", volunteer)
 						content = "\"" + volunteer.application.firstName + "\"" + "," + "\"" + volunteer.application.email + "\"" + "," +
-							"\"" + volunteer.application.phone + "\"" + "," + "\"" + /* volunteer.application.address.city+" , "+ volunteer.application.address.state+" "+student.application.address.zipcode +*/
-							/* "\"" + "," + "\"" + */
-							volunteer.application.school + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
+							"\"" + volunteer.application.phone + "\"" + "," + "\"" +  volunteer.application.address.city+" , "+ volunteer.application.address.state+" "+ volunteer.application.address.zipcode + "\"" + "," + "\"" + volunteer.application.areaofexpertise + "\"" + "," + "\"" + volunteer.sessions + "\"" + "," + "\"" + volunteer.roles + "\"" + "," + "\"" + volunteer.interviewee_count + "\"" + "," + "\"" + volunteer.interviewee + "\"" + "\n" + content;
 					});
 					content = header + "\n" + content;
-					FileService.download('All_Students_CSV.csv').then(function (data) {
-						console.log("ABOUT TO DOWNLOAD");
+					FileService.downloadCSV('All_Volunteers_CSV.csv').then(function (data) {
+						console.log("ABOUT TO DOWNLOAD Volunteers");
 						//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
 						var link = document.createElement('a');
 						link.href = 'data:attachment/csv,' + encodeURIComponent(content);
-						link.download = 'All_Students_CSV.csv';
+						link.download = 'All_Volunteers_CSV.csv';
 						link.click();
 					});
 				},
 				function (error) {
-					$scope.error = 'Unable to retrieve students!\n' + error;
+					$scope.error = 'Unable to retrieve volunteers!\n' + error;
 				});
 		}
+		
+		// Download ONLY active students
 		$scope.downloadActiveCSV = function () {
 			// get student info
-			var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW\n";
+			var header = "Name, Email, Phone, Address, School, Parent Name, Parent Phone, Parent Email, Interviewers, Interview Date, Interview Time, Interview DOW\n";
 			var content = "";
 			//$scope.StudentService.studentListActive().then(function(data){
 			StudentService.studentListActive().then(function (data) {
@@ -173,18 +169,15 @@
 
 					Students.forEach(function (student) { // creates and formats student data on a CSV sheet
 						console.log("student object data: ", student)
-						content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," +
-							"\"" + student.application.phone + "\"" + "," + "\"" + /* student.application.address.city+" , "+ student.application.address.state+" "+student.application.address.zipcode +*/
-							/* "\"" + "," + "\"" + */
-							student.application.school + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
+						content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\""+ student.application.address.city+" , "+ student.application.address.state + " , " +student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
 					});
 					content = header + "\n" + content;
-					FileService.download('All_Students_CSV.csv').then(function (data) {
+					FileService.downloadCSV('Active_Students_CSV.csv').then(function (data) {
 						console.log("ABOUT TO DOWNLOAD");
 						//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
 						var link = document.createElement('a');
 						link.href = 'data:attachment/csv,' + encodeURIComponent(content);
-						link.download = 'All_Students_CSV.csv';
+						link.download = 'Active_Students_CSV.csv';
 						link.click();
 					});
 				},

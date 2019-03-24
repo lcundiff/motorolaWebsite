@@ -124,8 +124,19 @@
       vm.authentication.user = response;
       Notification.info({ message: 'Welcome ' + response.firstName });
       // And redirect to the previous or home page
-      //$state.transitionTo($state.current, {m: response}, { reload: true, inherit: false, notify: true});
+	  if(response.roles.indexOf('admin') !== -1){
+		 $state.go('admin.dash', $state.previous.params); 
+	  }
+	  else if(response.roles.indexOf('student') !== -1){
+		  $state.go('student.application', $state.previous.params);
+
+      }
+      else if(response.roles.indexOf('volunteer') !== -1){
+		  $state.go('volunteer.application', $state.previous.params);
+      }
+      else { 
       $state.go($state.previous.state.name || 'home', $state.previous.params);
+	  }
     }
 
     function onUserSigninError(response) {
