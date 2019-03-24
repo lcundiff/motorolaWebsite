@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+submit<!DOCTYPE html>
 <html>
 <title>Application</title>
 <meta charset="UTF-8">
@@ -771,12 +771,13 @@
 
 	  <div class="jumbotron jumbotron-fluid text-center" style="background-color: white; height: 100%; margin-left:50px; margin-right:50px;">
       <div class="container">
-        <element ng-switch="vm.submitIsUpdate">
+        <element ng-switch="vm.submitIsUpdate"> 
           <element ng-switch-when="true">
             <button type="submit" class="sign-button sign-in-button" ng-click="vm.updateStudent(vm.studentForm.$valid)">Update Application</button>
           </element>
           <element ng-switch-when="false">
-            <button type="submit" class="sign-button sign-in-button" ng-click="vm.updateStudent(vm.studentForm.$valid)">Save Application</button>
+            <button type="submit" class="sign-button sign-in-button" ng-click="vm.updateStudent(vm.studentForm.$valid)">Submit Application</button>
+			<button type="submit" class="sign-button sign-in-button" ng-click="vm.saveApp()">Save Application</button>
           </element>
         </element>
       </div>

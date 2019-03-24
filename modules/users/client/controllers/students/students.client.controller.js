@@ -16,6 +16,7 @@
 
     vm.createStudent = createStudent;
     vm.updateStudent = updateStudent;
+	vm.saveApp = saveApp;
     vm.isContextUserSelf = isContextUserSelf;
     vm.remove = remove;
 
@@ -342,6 +343,7 @@
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.studentForm');
         console.log("NOT VALID");
+		  
         Notification.error({ message: 'Review form for errors.', title: '<i class="glyphicon glyphicon-remove"></i> Fields in form are either missing information or are incorrect.', delay: 6000 });
 
         return false;
@@ -353,6 +355,12 @@
         .then(onStudentSubmissionSuccess)
         .catch(onStudentSubmissionError);
     }
+	function saveApp(isValid){
+      StudentService.updateStudent(vm.credentials.user, vm.credentials)
+        .then(onStudentSubmissionSuccess)
+        .catch(onStudentSubmissionError);
+    }
+	  
 
     function isContextUserSelf(){
 

@@ -130,3 +130,8 @@ exports.downloadFile = function(req, res){
   console.log("JERE");
 	res.download(`${downloadFolder}${req.params.filename}`);
 }
+
+exports.downloadCSV = function(req, res){
+  console.log("CSV");
+	res.download(uploadFolder + req.params.filename);
+}
