@@ -14,6 +14,8 @@ module.exports = {
       ],
       js: [
         // bower:js
+        'public/lib/chart.js/dist/Chart.js',
+        'public/lib/angular-chart.js/angular-chart.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-animate/angular-animate.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',

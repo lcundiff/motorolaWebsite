@@ -37,6 +37,9 @@ module.exports = function (app) {
 
   app.route('/api/automate/autoAssignInterviews').put(admin.autoAssignInterviews);
 
+  app.route('/api/analytics/newStudentActivity').get(admin.newStudentActivity);
+  app.route('/api/analytics/completedStudentApps').get(admin.completedStudentApps);
+
   // Finish by binding the user middleware
   app.param('userId', admin.userByID);
 };

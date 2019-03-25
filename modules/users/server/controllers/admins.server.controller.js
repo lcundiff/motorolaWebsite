@@ -11,5 +11,6 @@ var _ = require('lodash');
 module.exports = _.extend(
   require('./admins/admin.server.controller.js'),
   require('./admins/admins.server.controller.js'),
-  require('./admins/automate.server.controller.js')
+  require('./admins/automate.server.controller.js'),
+  require('./admins/admin.analytics.server.controller.js')
 );

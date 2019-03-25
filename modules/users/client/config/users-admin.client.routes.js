@@ -94,7 +94,7 @@
 	  .state('admin.dash', {
         url:'/dash',
         templateUrl: '/modules/users/client/views/admin/dashboard-admin.client.view.html',
-        controller: 'ApplicantsAdminsController',
+        controller: 'DashboardAdminsController',
         controllerAs: 'vm'
       })
       .state('admin.csv', {

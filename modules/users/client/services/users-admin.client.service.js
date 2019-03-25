@@ -57,10 +57,24 @@
       auto_match: {
         method: 'PUT',
         url: '/api/automate/autoMatch/:sessionNum'
+      },
+      get_new_student_activity: {
+        method: 'GET',
+        url: '/api/analytics/newStudentActivity'
+      },
+      get_completed_student_apps: {
+        method: 'GET',
+        url: '/api/analytics/completedStudentApps'
       }
     });
 
     angular.extend(Admins, {
+      completedStudentApps: function() {
+        return this.get_completed_student_apps().$promise;
+      },
+      newStudentActivity: function() {
+        return this.get_new_student_activity().$promise;
+      },
       autoMatch: function (sessionNum) {
         return this.auto_match({sessionNum: sessionNum}, null).$promise;
       },
