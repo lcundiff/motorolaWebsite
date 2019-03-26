@@ -7,7 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Volunteer = mongoose.model('Volunteer'),
   User = mongoose.model('User'),
-  //Student = mongoose.model('Student'),
+  Student = mongoose.model('Student'),
   //Update = mongoose.model('volunteerUpdates'),
   //User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
@@ -63,10 +63,14 @@ exports.create = function(req, res) {
  * Show the current Volunteer
  */
 exports.read = function(req, res) {
+  console.log(req.params);
+  console.log("VOOOL");
+  console.log(req.volunteer);
   // convert mongoose document to JSON
-  var volunteer = req.volunteer ? req.volunteer.toJSON() : {};
 
-  res.jsonp(volunteer);
+  Volunteer.findOne({user: req.params.userId }).then(function(data){
+    res.status(200).send({volunteer: data });
+  });
 };
 
 /**
@@ -178,12 +182,23 @@ exports.listDeactivated = function (req, res) {
   });
 };
 
-exports.getVolunteerInterviewees = function(req, res){
-  console.log("interviewees: ", req);
+exports.getVolunteerInterviewees = async function(req, res){
+  var allInterviewees = [];
+  await Volunteer.findOne({username: req.params.username}).exec().then(function(data){
+    console.log("data", data);
+      Student.find({user: {$in: data.intervieweeID} }).exec().then(function(data){
+        res.status(200).send({interviewees: data});
+    });
+  });
 };
 
 exports.getVolunteerMentees = function(req, res){
-  console.log("mentees: ", req);
+  Volunteer.findOne({username: req.params.username}).exec().then(function(data){
+    console.log(data);
+    Student.find({user: {$in: data.menteeID} }).exec().then(function(data){
+      res.status(200).send({mentees: data});
+    });
+  });
 };
 
 exports.volunteerByUsername = function(req, res){

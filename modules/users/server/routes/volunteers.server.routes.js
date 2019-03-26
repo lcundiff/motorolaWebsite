@@ -8,20 +8,20 @@ var volunteersPolicy = require('../policies/volunteers.server.policy'),
 
 module.exports = function(app) {
   // Volunteers Routes
-  app.route('/api/volunteers').all(volunteersPolicy.isAllowed)
+  app.route('/api/volunteers')
     .get(volunteers.list)
     .post(volunteers.create);
 
   app.route('/api/volunteers/listMentors')
     .get(volunteers.listMentors);
 
-  app.route('/api/volunteers/all').all(volunteersPolicy.isAllowed)
+  app.route('/api/volunteers/all')
     .get(volunteers.listAll);
 
-  app.route('/api/volunteers/deactivated').all(volunteersPolicy.isAllowed)
+  app.route('/api/volunteers/deactivated')
     .get(volunteers.listDeactivated);
 
-  app.route('/api/volunteers/:userId').all(volunteersPolicy.isAllowed)
+  app.route('/api/volunteers/:userId')
     .get(volunteers.read)
     .delete(volunteers.delete);
 
@@ -31,9 +31,9 @@ module.exports = function(app) {
   app.route('/api/volunteers/getByUser/:username')
     .get(volunteers.volunteerByUsername);
 
-  app.route('/api/volunteers/interviews/interviewees').get(volunteers.getVolunteerInterviewees);
+  app.route('/api/volunteers/:username/interviews/interviewees').get(volunteers.getVolunteerInterviewees);
 
-  app.route('/api/volunteers/mentorship/mentees').get(volunteers.getVolunteerMentees);
+  app.route('/api/volunteers/:username/mentorship/mentees').get(volunteers.getVolunteerMentees);
 
   /*app.route('/api/volunteers/updateRank/:volId/:studentId/:rank')
     .get(volunteers.updateRank);*/

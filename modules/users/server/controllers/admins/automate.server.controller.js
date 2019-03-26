@@ -215,31 +215,21 @@ SUPER FUNCTION AUTO ASSIGN INTERVIEWSS
 
 function assignOneInterviewStudent(student, n, numInterviewers){
   var v;
+  var v0;
+  var v1;
     return new Promise(function(resolve,reject){
       Volunteer.find({ roles: "interviewer", active: true, user: { $nin: student.interviewer } }).sort({interviewee_count: 1}).exec().then(function(volunteers){
         if(volunteers.length === 0){
-          console.log("YE");
           resolve('No interviewers available!');
         }
         else if(volunteers.length > 0 && volunteers.length < numInterviewers){
           v = volunteers[0];
-          console.log("A101:");
-          console.log("v.user: ", v.user);
-          console.log(volunteers[0]);
 
           student.interviewerID[0] = v.user;
 
-          var v0 = false;
-
-          for(var i=0; i<v.interviewee.length; i++){
-            if(v.interviewee[i] === student.user) v0 = true;
-          }
-
-          if(v0 === false){
             v.interviewee_count = v.interviewee_count + 1;
             v.interviewee.push(student.application.firstName+" "+student.application.lastName);
             v.intervieweeID.push(student.user);
-          }
 
           Student.findOneAndUpdate({user: student.user}, student, {upsert: false}).then(function(response){
             console.log(response);
@@ -252,31 +242,19 @@ function assignOneInterviewStudent(student, n, numInterviewers){
         }
         else if(volunteers.length > 0 && volunteers.length >= numInterviewers){
           v0 = volunteers[0];
-          v1 = volunteers[1];
           student.interviewerID[0] = v0.user;
-          student.interviewerID[1] = v1.user;
-
-          var v0B = false;
-          var v1B = false;
-
-          for(var i=0; i<v0.interviewee.length; i++){
-            if(v0.interviewee[i].user === student.user) v0B = true;
+          if(volunteers.length >= 2){
+            v1 = volunteers[1];
+            student.interviewerID[1] = v1.user;
           }
 
-          for(var i=0; i<v1.interviewee.length; i++){
-            if(v1.interviewee[i].user === student.user) v1B = true;
-          }
-
-          if(v0B === false){
             v0.interviewee_count = v0.interviewee_count + 1;
             v0.interviewee.push(student.application.firstName+" "+student.application.lastName);
             v0.intervieweeID.push(student.user);
-          }
-          if(v1B === false){
+
             v1.interviewee_count = v1.interviewee_count + 1;
             v1.interviewee.push(student.application.firstName+" "+student.application.lastName);
             v1.intervieweeID.push(student.user);
-          }
 
           student.save(function(err){
             if(err) console.log(err);

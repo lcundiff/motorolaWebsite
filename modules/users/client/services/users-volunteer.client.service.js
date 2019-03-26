@@ -47,21 +47,21 @@
         },
         get_interviewees: {
           method: 'GET',
-          url: '/api/volunteers/interviews/interviewees'
+          url: '/api/volunteers/:username/interviews/interviewees'
         },
         get_mentees: {
             method: 'GET',
-            url: '/api/volunteers/mentorship/mentees'
+            url: '/api/volunteers/:username/mentorship/mentees'
         }
       });
 
 
     angular.extend(Volunteers, {
-      getInterviewees: function(volunteer) {
-        return this.get_interviewees(volunteer).$promise;
+      getInterviewees: function(username) {
+        return this.get_interviewees({username: username}).$promise;
       },
-      getMentees: function(volunteer) {
-        return this.get_mentees(volunteer).$promise;
+      getMentees: function(username) {
+        return this.get_mentees({username: username}).$promise;
       },
       getVolunteers: function(userId) {
         return this.get_volunteers().$promise;

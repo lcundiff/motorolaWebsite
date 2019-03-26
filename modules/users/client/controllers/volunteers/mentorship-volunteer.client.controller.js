@@ -12,16 +12,17 @@
     var vm = this;
     vm.authentication = Authentication;
     vm.mentees = [];
+    vm.volunteer;
 
     vm.accountMenu = menuService.getMenu('account').items[0];
     vm.isCollapsed = false;
     vm.menu = menuService.getMenu('topbar');
 
-
+    VolunteerService.getMentees(vm.authentication.user.username).then(function(data){
+      console.log(data);
+    });
     VolunteerService.getVolunteerByUsername(vm.authentication.user.username).then(function(data){
-      VolunteerService.getMentees(data.data);
-      vm.mentees = data.data;
-      console.log(data.data);
+      vm.volunteer = data;
     });
   }
 

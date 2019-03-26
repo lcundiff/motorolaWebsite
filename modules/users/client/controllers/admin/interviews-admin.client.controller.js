@@ -132,6 +132,17 @@
 
     function addInterviewer(student, volunteerUser, index){
       student.interviewer[index] = volunteerUser;
+      console.log(volunteerUser);
+
+      VolunteerService.getVolunteer(volunteerUser).then(function(data){
+        var volunteer = data.volunteer;
+
+        console.log('volunteer:', volunteer);
+
+        volunteer.intervieweeID.push(student.user);
+
+        VolunteerService.updateVolunteer(volunteer.username, volunteer);
+      });
 
       StudentService.updateStudent(student.user, student)
       .then(onAddInterviewerSuccess)
