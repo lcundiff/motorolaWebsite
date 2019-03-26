@@ -31,6 +31,10 @@ module.exports = function(app) {
   app.route('/api/volunteers/getByUser/:username')
     .get(volunteers.volunteerByUsername);
 
+  app.route('/api/volunteers/interviews/interviewees').get(volunteers.getVolunteerInterviewees);
+
+  app.route('/api/volunteers/mentorship/mentees').get(volunteers.getVolunteerMentees);
+
   /*app.route('/api/volunteers/updateRank/:volId/:studentId/:rank')
     .get(volunteers.updateRank);*/
 

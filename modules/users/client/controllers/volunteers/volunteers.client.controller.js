@@ -10,8 +10,11 @@
 
   function VolunteerController($scope, $state, $window, Authentication, VolunteerService, menuService, Notification, $http, $sce) {
     var vm = this;
+    $window.user = {
+      roles: []
+    };
     vm.authentication = Authentication;
-
+    vm.updateIsSubmit = false;
 
     vm.accountMenu = menuService.getMenu('account').items[0];
     vm.isCollapsed = false;
@@ -19,6 +22,8 @@
 
     vm.createVolunteer = createVolunteer;
     vm.updateVolunteer = updateVolunteer;
+
+    console.log(vm.createVolunteer);
 
     VolunteerService.getVolunteerByUsername(vm.authentication.user.username).then(function(data){
       if(data.status === undefined){
@@ -61,10 +66,11 @@
     });
 
     function createVolunteer(isValid){
+      console.log("yo");
       console.log(vm.credentials);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.volunteerForm');
-
+        Notification.error({ message: 'Some required fields are still empty.', title: '<i class="glyphicon glyphicon-remove"></i> Volunteer submission error.', delay: 6000 });
         return false;
       }
       vm.credentials.application.sessions = [];
@@ -190,12 +196,21 @@
       }
 
       Promise.all([p1, p2]).then(function([p1, p2]){
-        if(vm.authentication.user.roles.indexOf("admin") !== -1) vm.credentials.application.roles.push('admin');
-        console.log("vm.credentials.application: ",vm.credentials.application);
-        console.log("username: ",vm.credentials.username);
-        VolunteerService.updateVolunteer(vm.credentials.username, vm.credentials)
-          .then(onVolunteerSubmissionSuccess)
-          .catch(onVolunteerSubmissionError);
+        var p3 = Promise.resolve(function(){
+          if(vm.authentication.user.roles.indexOf("admin") !== -1){
+            vm.credentials.application.roles.push('admin');
+          }
+
+          console.log("final roles: ",vm.credentials.application.roles);
+        });
+
+        Promise.all([p3]).then(function([p3]){
+          console.log("vm.credentials.application: ",vm.credentials.application);
+          console.log("username: ",vm.credentials.username);
+          VolunteerService.updateVolunteer(vm.credentials.username, vm.credentials)
+            .then(onVolunteerSubmissionSuccess)
+            .catch(onVolunteerSubmissionError);
+        });
       });
     }
 

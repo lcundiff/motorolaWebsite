@@ -44,11 +44,25 @@
         delete_volunteer: {
           method: 'DELETE',
           url: '/api/volunteers/:userId'
+        },
+        get_interviewees: {
+          method: 'GET',
+          url: '/api/volunteers/interviews/interviewees'
+        },
+        get_mentees: {
+            method: 'GET',
+            url: '/api/volunteers/mentorship/mentees'
         }
       });
 
 
     angular.extend(Volunteers, {
+      getInterviewees: function(volunteer) {
+        return this.get_interviewees(volunteer).$promise;
+      },
+      getMentees: function(volunteer) {
+        return this.get_mentees(volunteer).$promise;
+      },
       getVolunteers: function(userId) {
         return this.get_volunteers().$promise;
       },

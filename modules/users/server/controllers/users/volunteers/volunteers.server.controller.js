@@ -23,7 +23,7 @@ exports.create = function(req, res) {
 
     //console.log("req.body: ",req.body);
     var volunteer = new Volunteer(req.body);
-
+    volunteer.application = volunteer.application;
     volunteer.application.firstName = req.body.firstName;
     volunteer.application.lastname = req.body.lastName;
     volunteer.application.email = req.body.email;
@@ -52,6 +52,7 @@ exports.create = function(req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
+        updateUserVolunteerRoles(req.body.username, req.body.application.roles);
         res.jsonp(volunteer);
       }
     });
@@ -76,21 +77,33 @@ exports.update = function(req, res) {
 console.log("update volunteer");
 console.log("req.body: ",req.body);
 var volunteer = new Volunteer(req.body);
+req.body.roles = req.body.application.roles;
 req.body.sessions = req.body.application.sessions;
 req.body.areaofexpertise = req.body.application.areaofexpertise;
-req.body.roles = req.body.application.roles;
 
-console.log("volunteer: ",volunteer);
+User.findOne({username: req.body.username}).then(function(user){
+  console.log(user);
+  if(user.roles.indexOf("admin") !== -1){
+    req.body.roles.push("admin");
+  }
 
-Volunteer.findOneAndUpdate({username: req.body.username}, req.body, {upsert: false}).then(function(data){
-  console.log("updated data: ",data);
-
-  User.findOneAndUpdate({username: req.body.username}, {roles: req.body.application.roles}, {upsert: false}).then(function(userData){
-    console.log("updated user data: ",userData);
-    res.json({status: '200', message: 'success'});
+  Volunteer.findOneAndUpdate({username: req.body.username}, req.body, {upsert: true}).then(function(data){
+    console.log("updated data: ",data);
   });
+
+  updateUserVolunteerRoles(req.body.username, req.body.roles);
+
+  res.status(200).send({ message: true});
 });
 };
+
+function updateUserVolunteerRoles(username, roles){
+
+  User.findOneAndUpdate({username: username}, {roles: roles}, {upsert: true}).then(function(userData){
+    console.log("updated user data: ",userData);
+    return userData;
+  });
+}
 
 /**
  * Delete a Volunteer
@@ -163,6 +176,14 @@ exports.listDeactivated = function (req, res) {
       res.jsonp(volunteers);
     }
   });
+};
+
+exports.getVolunteerInterviewees = function(req, res){
+  console.log("interviewees: ", req);
+};
+
+exports.getVolunteerMentees = function(req, res){
+  console.log("mentees: ", req);
 };
 
 exports.volunteerByUsername = function(req, res){
