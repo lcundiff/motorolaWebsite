@@ -345,9 +345,11 @@
         console.log("NOT VALID");
 		  
         Notification.error({ message: 'Review form for errors.', title: '<i class="glyphicon glyphicon-remove"></i> Fields in form are either missing information or are incorrect.', delay: 6000 });
-
+        vm.credentials.isAppComplete = false;
+        vm.submitIsUpdate = false;
         return false;
       }
+	  $scope.$broadcast('show-errors-reset', 'vm.studentForm');
       vm.credentials.isAppComplete = true;
       vm.submitIsUpdate = true;
 
@@ -356,6 +358,7 @@
         .catch(onStudentSubmissionError);
     }
 	function saveApp(isValid){
+	  $scope.$broadcast('show-errors-reset', 'vm.studentForm');
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
         .then(onStudentSubmissionSuccess)
         .catch(onStudentSubmissionError);

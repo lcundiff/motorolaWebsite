@@ -64,41 +64,78 @@
       var file = document.getElementById('resume_upload').files[0];
       vm.selectedStudentResume = file.name;
     }
-
+    // APPROVE NDA
     function approveNDA(student){
-      student.isNDASubmitted = true;
-
+	  if(student.isNDASubmitted == true){
+		  student.isNDASubmitted = false; 
+		  student.areFormsStudentApproved = false;
+	  }
+	  else{
+		  student.isNDASubmitted = true;
+		  if(student.isWaiverSubmitted && student.isLetterofRecommendationSubmitted && student.isResumeSubmitted){
+			student.areFormsStudentApproved = true; 
+		}		
+	  }
       StudentService.updateStudent(student.user, student)
         .then(onFormApprovalSuccess)
         .catch(onFormApprovalError);
 
     }
-
+    // APPROVE WAIVER
     function approveWaiver(student){
-      student.isWaiverSubmitted = true;
-
+	  if(student.isWaiverSubmitted == true){
+		  student.isWaiverSubmitted = false;
+		  student.areFormsStudentApproved = false; //tell system forms are not correct
+	  }
+	  else{
+		  student.isWaiverSubmitted = true
+		  if(student.isNDASubmitted && student.isLetterofRecommendationSubmitted && student.isResumeSubmitted){
+			student.areFormsStudentApproved = true; 
+		}
+	  }
       StudentService.updateStudent(student.user, student)
         .then(onFormApprovalSuccess)
         .catch(onFormApprovalError);
     }
-
+	// APPROVE LETTER
     function approveLetterOfRecommendation(student){
-      student.isLetterofRecommendationSubmitted = true;
-
+	  if(student.isLetterofRecommendationSubmitted == true){
+		  student.isLetterofRecommendationSubmitted = false;
+		  student.areFormsStudentApproved = false; // make sure system knows all the forms aren't good
+	  }
+      else{
+		  student.isLetterofRecommendationSubmitted = true; 
+   		  if(student.isNDASubmitted && student.isWaiverSubmitted && student.isResumeSubmitted){
+			student.areFormsStudentApproved = true; 
+		}		  
+	  }
       StudentService.updateStudent(student.user, student)
         .then(onFormApprovalSuccess)
         .catch(onFormApprovalError);
     }
-
+	// APPROVE RESUME
     function approveResume(student){
-      student.isResumeSubmitted = true;
-
+	  if(student.isResumeSubmitted == true){
+		 student.isResumeSubmitted = false; 
+		 student.areFormsStudentApproved = false;
+      }	
+	  else{
+		student.isResumeSubmitted = true;  
+		if(student.isNDASubmitted && student.isWaiverSubmitted && student.isLetterofRecommendationSubmitted){
+			student.areFormsStudentApproved = true; 
+		}
+	  }
       StudentService.updateStudent(student.user, student)
-        .then(onFormApprovalSuccess)
-        .catch(onFormApprovalError);
-    }
+           .then(onFormApprovalSuccess)
+           .catch(onFormApprovalError);
+	}
+
 
     function uploadNDA(){
+      if(file === null || file===undefined){
+        Notification.error({ message: 'Please Submit Correct NDA File Type (PDF, Docx, etc.)', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
       vm.credentials.NDAId = `NDA_${vm.credentials.username}.pdf`;
 
       $scope.uploading = true;
@@ -113,6 +150,10 @@
     }
 
     function uploadWaiver(){
+      if(file === null || file===undefined){
+        Notification.error({ message: 'Please Submit Correct Waiver File Type (PDF, Docx, etc.)', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
       vm.credentials.WaiverId = `waiver_${vm.credentials.username}.pdf`;
 
       $scope.uploading = true;
@@ -127,6 +168,10 @@
     }
 
     function uploadLetterOfRecommendation(){
+      if(file === null || file===undefined){
+        Notification.error({ message: 'Please Submit Correct Letter of Rec File Type (PDF, Docx, etc.)', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
       vm.credentials.letterOfRecommendationId = `letterOfRecommendation_${vm.credentials.username}.pdf`;
 
       $scope.uploading = true;
@@ -140,9 +185,14 @@
       });
     }
 
-    function uploadResume(){
+    function uploadResume(file){
+      if(file === null || file===undefined){
+        Notification.error({ message: 'Please Submit Correct Resume File Type (PDF, Docx, etc.)', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
       vm.credentials.ResumeId = `resume_${vm.credentials.username}.pdf`;
       $scope.uploading = true;
+	  //vm.credentials.isResumeSubmitted = true;
 
       FileService.upload($scope.file, vm.credentials.ResumeId).then(function(data){
         if(data.data.success){
@@ -249,7 +299,7 @@
     function onFormSubmissionSuccess(response) {
       // If successful we assign the response to the global user model
       vm.authentication.student = response;
-      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Form submission successful.' });
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Form submission successful!.' });
       // And redirect to the previous or home page
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
     }
@@ -261,7 +311,7 @@
     function onFormApprovalSuccess(response) {
       // If successful we assign the response to the global user model
       vm.authentication.student = response;
-      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Form approval successful.' });
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Form Updated!' });
       // And redirect to the previous or home page
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
     }

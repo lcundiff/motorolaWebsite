@@ -1,215 +1,241 @@
 <html>
 <meta charset="UTF-8">
-
 <head>
-  <!-- W3 CSS -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <style>
-  #myCarousel {
+<!-- W3 CSS -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+#myCarousel {
     margin-left: 50px;
     margin-right: 50px;
-  }
-  </style>
+}
+</style>
 </head>
 <body>
-  <nav role="navigation" class="navbar navbar-custom navbar-static-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <p class="navbar-text">Forms Submission</p>
-      </div>
+<nav role="navigation" class="navbar navbar-custom navbar-static-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <h2 class="navbar-text" ng-if="vm.credentials.areFormsStudentApproved == true && vm.credentials.areFormsAdminApproved == false" >Forms Submission (Waiting On Admin Approval)</h2>
+      <h2 class="navbar-text" ng-if="vm.credentials.areFormsStudentApproved == true && vm.credentials.areFormsAdminApproved == true">Forms Submission (All Forms Approved!)</h2>
+      <h2 class="navbar-text" ng-if= "vm.credentials.isNDASubmitted == false || vm.credentials.isResumeSubmitted == false || vm.credentials.isWaiverSubmitted == false || vm.credentials.isLetterofRecommendationSubmitted == false" >Forms Submission (Student Forms Not Submitted)</h2>
+      <h2 class="navbar-text" ng-if="vm.credentials.areFormsStudentApproved == false && vm.credentials.isNDASubmitted == true && vm.credentials.isResumeSubmitted == true && vm.credentials.isWaiverSubmitted == true && vm.credentials.isLetterofRecommendationSubmitted == true">Forms Submission (Student Forms Not Verified)</h2>
+    </div>
+    <!--
+    <center>
       <center>
-        <center>
-          <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.viewForm(vm.credentials.NDAId)">View Submitted NDA</button>
-          <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.viewForm(vm.credentials.WaiverId)">View Submitted Waiver</button>
-          <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.viewForm(vm.credentials.letterOfRecommendationId)">View Submitted Letter of Recommendation</button>
-          <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.viewForm(vm.credentials.ResumeId)">View Submitted Resume</button>
-        </center>
+        <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.viewForm(vm.credentials.NDAId)">View Submitted NDA</button>
+        <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.viewForm(vm.credentials.WaiverId)">View Submitted Waiver</button>
+        <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.viewForm(vm.credentials.letterOfRecommendationId)">View Submitted Letter of Recommendation</button>
+        <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.viewForm(vm.credentials.ResumeId)">View Submitted Resume</button>
       </center>
-</div>
+      --> 
+  </div>
 </nav>
-  <br>
-  <br>
-  <div id="myCarousel" class="carousel slide" data-interval="false">
-    <div class="jumbotron jumbotron-fluid text-center" style="background-color: white; height: 100%;">
-  <!-- Indicators -->
-
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner">
-    <div class="item active">
+<br>
+<br>
+<div id="myCarousel" class="carousel slide" data-interval="false">
+  <div class="jumbotron jumbotron-fluid text-center" style="background-color: white; height: 100%;"> 
+    <!-- Indicators --> 
+    
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
         <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;"> Step 1 - Download</h3>
         <br>
-
         <div class="row">
           <div class="col-xs-12 col-md-6">
-            <button type="button" class="file-download-button file-download-button-browse" ng-click="vm.viewForm('NDA.pdf')"><span class="glyphicon glyphicon-circle-arrow-down"></span><h5>NDA</h5></button>
+            <button type="button" class="file-download-button file-download-button-browse" ng-click="vm.viewForm('NDA.pdf')"><span class="glyphicon glyphicon-circle-arrow-down"></span>
+            <h5>NDA</h5>
+            </button>
           </div>
           <div class="col-xs-12 col-md-6">
-            <button type="button" class="file-download-button file-download-button-browse" ng-click="vm.viewForm('Waiver.pdf')"><span class="glyphicon glyphicon-circle-arrow-down"></span><h5>Waiver</h5></button>
+            <button type="button" class="file-download-button file-download-button-browse" ng-click="vm.viewForm('Waiver.pdf')"><span class="glyphicon glyphicon-circle-arrow-down"></span>
+            <h5>Waiver</h5>
+            </button>
           </div>
         </div>
         <br/>
-    </div>
+      </div>
+      <!-- 
 
-    <div class="item">
+		STEP 2 
+
+      -->
+      <div class="item">
         <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Step 2 - Upload</h3>
         <br>
-
         <div id="fileSelector">
           <div class="col-xs-12">
             <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
               <center>
-              NDA
+                NDA
+              </center>
+              <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadNDA(file);">
+                <div class="col-xs-12 col-md-2 col-md-offset-1">
+                  <label class="file-upload-button file-upload-button-browse" style="height:100%; width: 100%">
+                    <center>
+                      <i class="glyphicon glyphicon-folder-open" style="height:100%"></i>
+                    </center>
+                    <input type="file" id="nda_upload" style="z-index:2; opacity:0; height:0; width:0;"file-model="file.upload" name="myFile" onchange="angular.element(this).scope().fileNameChangedNDA()" ng-disabled="uploading">
+                  </label>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="input-group input-group-lg" style="width:100%">
+                    <input type="text" class="form-control" placeholder="Select a file..." ng-model="vm.selectedStudentNDA" disabled/>
+                  </div>
+                  <br>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                  <button class="file-upload-button file-upload-button-submit" style="width:100%" type="submit">
+                  <center>
+                    <h5 style="font-family: 'Lato', sans-serif; font-wight: bold;"><i class="glyphicon glyphicon-circle-arrow-up" style="height:100%"></i></h5>
+                  </center>
+                  </button>
+                  <i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isNDASubmitted === true" style="color:darkgreen"></i> </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-xs-12">
+            <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
+              <center>
+                Waiver
+              </center>
+              <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadWaiver(file);">
+                <div class="col-xs-12 col-md-2 col-md-offset-1">
+                  <label class="file-upload-button file-upload-button-browse" style="height: 100%; width: 100%;"> <i class="glyphicon glyphicon-folder-open" style="height:100%"></i>
+                    <input type="file" id="waiver_upload" style="z-index:2; opacity:0; height:0; width: 0;"file-model="file.upload" name="myFile" onchange="angular.element(this).scope().fileNameChangedWaiver()" ng-disabled="uploading">
+                  </label>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="input-group input-group-lg" style="width:100%">
+                    <input type="text" class="form-control" placeholder="Select a file..." ng-model="vm.selectedStudentWaiver" disabled/>
+                  </div>
+                  <br>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                  <button class="file-upload-button file-upload-button-submit" style="height: 100%;width: 100%;"type="submit">
+                  <h5 style="font-family: 'Lato', sans-serif; font-wight: bold;"><i class="glyphicon glyphicon-circle-arrow-up" style="height:100%"></i></h5>
+                  </button>
+                  <i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isWaiverSubmitted === true" style="color:darkgreen"></i> </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-xs-12">
+            <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
+            <center>
+              Letter of Recommendation <br>
+              <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadLetterOfRecommendation(file);">
+                <div class="col-xs-12 col-md-2 col-md-offset-1">
+                  <label class="file-upload-button file-upload-button-browse" style="width: 100%">
+                    <center>
+                      <i class="glyphicon glyphicon-folder-open" style="height:100%"></i>
+                    </center>
+                    <input type="file" id="lor_upload" style="z-index:2; opacity:0; height:0; width:0;"file-model="file.upload" name="myFile" onchange="angular.element(this).scope().fileNameChangedLOR()" ng-disabled="uploading">
+                  </label>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="input-group input-group-lg" style="width:100%">
+                    <input type="text" class="form-control" placeholder="Select a file..." ng-model="vm.selectedStudentLOR" disabled/>
+                  </div>
+                  <br>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                  <button class="file-upload-button file-upload-button-submit" style="width: 100%"type="submit">
+                  <h5 style="font-family: 'Lato', sans-serif; font-wight: bold;"><i class="glyphicon glyphicon-circle-arrow-up" style="height:100%"></i></h5>
+                  </button>
+                  <i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isLetterofRecommendationSubmitted === true" style="color:darkgreen"></i> </div>
+                </div>
+              </form>
             </center>
-          <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadNDA(file);">
-
-            <div class="col-xs-12 col-md-2 col-md-offset-1">
-            <label class="file-upload-button file-upload-button-browse" style="height:100%; width: 100%">
-              <center><i class="glyphicon glyphicon-folder-open" style="height:100%"></i></center>
-              <input type="file" id="nda_upload" style="z-index:2; opacity:0; height:0; width:0;"file-model="file.upload" name="myFile" onchange="angular.element(this).scope().fileNameChangedNDA()" ng-disabled="uploading">
-            </label>
           </div>
-          <div class="col-xs-12 col-md-6">
-            <div class="input-group input-group-lg" style="width:100%">
-              <input type="text" class="form-control" placeholder="Select a file..." ng-model="vm.selectedStudentNDA" disabled/>
+          <div class="col-xs-12">
+            <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
+              <center>
+                Resume
+              </center>
+              <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadResume(file);">
+                <div class="col-xs-12 col-md-2 col-md-offset-1">
+                  <label class="file-upload-button file-upload-button-browse" style="width: 100%">
+                    <center>
+                      <i class="glyphicon glyphicon-folder-open" style="height:100%"></i>
+                    </center>
+                    <input type="file" id="resume_upload" style="z-index:2; opacity:0; height: 0; width: 0;"file-model="file.upload" name="myFile" onchange="angular.element(this).scope().fileNameChangedResume()" ng-disabled="uploading">
+                  </label>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="input-group input-group-lg" style="width:100%">
+                    <input type="text" class="form-control" placeholder="Select a file..." ng-model="vm.selectedStudentResume" disabled/>
+                  </div>
+                  <br>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                  <button class="file-upload-button file-upload-button-submit" style="width: 100%"type="submit">
+                  <h5 style="font-family: 'Lato', sans-serif; font-wight: bold;"><i class="glyphicon glyphicon-circle-arrow-up" style="height:100%"></i></h5>
+                  </button>
+                  <i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isResumeSubmitted === true" style="color:darkgreen"></i> </div>
+              </form>
             </div>
-          </br />
           </div>
-          <div class="col-xs-12 col-md-2">
-            <button class="file-upload-button file-upload-button-submit" style="width:100%" type="submit"><center><h5 style="font-family: 'Lato', sans-serif; font-wight: bold;"><i class="glyphicon glyphicon-circle-arrow-up" style="height:100%"></i></h5></center></button>
-          </div>
-          </form>
         </div>
       </div>
-      <div class="col-xs-12">
-        <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
-          <center>
-            Waiver
-          </center>
-            <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadWaiver(file);">
+      <!-- 
 
-              <div class="col-xs-12 col-md-2 col-md-offset-1">
-              <label class="file-upload-button file-upload-button-browse" style="height: 100%; width: 100%;">
-                <i class="glyphicon glyphicon-folder-open" style="height:100%"></i>
-                <input type="file" id="waiver_upload" style="z-index:2; opacity:0; height:0; width: 0;"file-model="file.upload" name="myFile" onchange="angular.element(this).scope().fileNameChangedWaiver()" ng-disabled="uploading">
-              </label>
+		STEP 3 
+
+      -->
+      <div class="item">
+        <div class="jumbotron jumbotron-fluid" style="font-size:180%;">
+          <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Step 3 - Verify:</h3>
+          <p>Download each form uploaded and confirm everything looks correct. The checkmark will turn from yellow to green upon your documents being approved by the administrator.</p>
+          <br>
+          <!-- NDA Form row -->
+          <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
+            <div class="col-xs-12 col-sm-6 col-lg-8">NDA<i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isNDASubmitted === true && vm.credentials.isNDAAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isNDASubmitted === true && vm.credentials.isNDAAdminApproved === true" style="color:green"></i></div>
+            <div class="col-xs-6 col-lg-4" style="text-align:center;">
+              <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.NDAId)"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button>
+              <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveNDA(vm.credentials)"><i ng-if="vm.credentials.isNDASubmitted === true" class="glyphicon glyphicon-thumbs-up" style="height:100%"></i><i ng-if="vm.credentials.isNDASubmitted === false" class="glyphicon glyphicon-thumbs-down" style="height:100%"></i></button>
             </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="input-group input-group-lg" style="width:100%">
-                <input type="text" class="form-control" placeholder="Select a file..." ng-model="vm.selectedStudentWaiver" disabled/>
-              </div>
-            </br />
+          </div>
+          <!-- Waiver row -->
+          <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
+            <div class="col-xs-12 col-sm-6 col-lg-8">Waiver<i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isWaiverSubmitted === true && vm.credentials.isWaiverAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isWaiverSubmitted === true && vm.credentials.isWaiverAdminApproved === true" style="color:green"></i></div>
+            <div class="col-xs-6 col-lg-4" style="text-align:center;">
+              <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.WaiverId)"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button>
+              <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveWaiver(vm.credentials)"><i ng-if="vm.credentials.isWaiverSubmitted === true" class="glyphicon glyphicon-thumbs-up" style="height:100%"></i><i ng-if="vm.credentials.isWaiverSubmitted === false" class="glyphicon glyphicon-thumbs-down" style="height:100%"></i></button>
             </div>
-            <div class="col-xs-12 col-md-2">
-              <button class="file-upload-button file-upload-button-submit" style="height: 100%;width: 100%;"type="submit"><h5 style="font-family: 'Lato', sans-serif; font-wight: bold;"><i class="glyphicon glyphicon-circle-arrow-up" style="height:100%"></i></h5></button>
+          </div>
+          <!-- Letter of Rec row -->
+          <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
+            <div class="col-xs-12 col-sm-6 col-lg-8"> Letter of Recommendation <i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isLetterofRecommendationSubmitted === true && vm.credentials.isLetterofRecommendationAdminApproved === false" style="color:orange"></i> <i class="glyphicon glyphicon-ok" ng-if= "vm.credentials.isLetterofRecommendationSubmitted === true && vm.credentials.isLetterofRecommendationAdminApproved === true" style="color:green"> </i> </div>
+            <div class="col-xs-6 col-lg-4" style="text-align:center;">
+              <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.letterOfRecommendationId)"><i style="" class="glyphicon glyphicon-circle-arrow-down"></i></button>
+              <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveLetterOfRecommendation(vm.credentials)"><i ng-if= "vm.credentials.isLetterofRecommendationSubmitted === true" class="glyphicon glyphicon-thumbs-up"></i><i ng-if= "vm.credentials.isLetterofRecommendationSubmitted === false" class="glyphicon glyphicon-thumbs-down"></i></button>
             </div>
-          </form>
+          </div>
+          <!-- Resume row -->
+          <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
+            <div class="col-xs-12 col-sm-6 col-lg-8">Resume<i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isResumeSubmitted === true && vm.credentials.isResumeAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isResumeSubmitted === true && vm.credentials.isResumeAdminApproved === true" style="color:green"></i></div>
+            <div class="col-xs-6 col-lg-4" style="text-align:center;">
+              <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.ResumeId)"><i class="glyphicon glyphicon-circle-arrow-down"></i></button>
+              <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveResume(vm.credentials)"><i ng-if= "vm.credentials.isResumeSubmitted === true" class="glyphicon glyphicon-thumbs-up"></i><i ng-if= "vm.credentials.isResumeSubmitted === false" class="glyphicon glyphicon-thumbs-down"></i></button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-xs-12">
-        <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
-          <center>
-            Letter of Recommendation
-            <br>
-            <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadLetterOfRecommendation(file);">
-              <div class="col-xs-12 col-md-2 col-md-offset-1">
-              <label class="file-upload-button file-upload-button-browse" style="width: 100%">
-                <center><i class="glyphicon glyphicon-folder-open" style="height:100%"></i></center>
-                <input type="file" id="lor_upload" style="z-index:2; opacity:0; height:0; width:0;"file-model="file.upload" name="myFile" onchange="angular.element(this).scope().fileNameChangedLOR()" ng-disabled="uploading">
-              </label>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="input-group input-group-lg" style="width:100%">
-                <input type="text" class="form-control" placeholder="Select a file..." ng-model="vm.selectedStudentLOR" disabled/>
-              </div>
-            </br />
-            </div>
-              <div class="col-xs-12 col-md-2">
-              <button class="file-upload-button file-upload-button-submit" style="width: 100%"type="submit"><h5 style="font-family: 'Lato', sans-serif; font-wight: bold;"><i class="glyphicon glyphicon-circle-arrow-up" style="height:100%"></i></h5></button>
-            </div>
-            </div>
-          </form>
-        </center>
-        </div>
-      <div class="col-xs-12">
-        <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
-        <center>
-          Resume
-        </center>
-        <form method="post" enctype="multipart/form-data" ng-submit = "vm.uploadResume(file);">
-          <div class="col-xs-12 col-md-2 col-md-offset-1">
-          <label class="file-upload-button file-upload-button-browse" style="width: 100%">
-            <center><i class="glyphicon glyphicon-folder-open" style="height:100%"></i></center>
-            <input type="file" id="resume_upload" style="z-index:2; opacity:0; height: 0; width: 0;"file-model="file.upload" name="myFile" onchange="angular.element(this).scope().fileNameChangedResume()" ng-disabled="uploading">
-          </label>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <div class="input-group input-group-lg" style="width:100%">
-            <input type="text" class="form-control" placeholder="Select a file..." ng-model="vm.selectedStudentResume" disabled/>
-          </div>
-        </br />
-        </div>
-        <div class="col-xs-12 col-md-2">
-          <button class="file-upload-button file-upload-button-submit" style="width: 100%"type="submit"><h5 style="font-family: 'Lato', sans-serif; font-wight: bold;"><i class="glyphicon glyphicon-circle-arrow-up" style="height:100%"></i></h5></button>
-        </div>
-      </form>
     </div>
-    </div>
-  </div>
-</div>
-<div class="item">
-  <div class="jumbotron jumbotron-fluid">
-    <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Step 3 - Verify:</h3>
-    <br>
-
-    <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
-        <div class="col-xs-12 col-sm-6 col-lg-8">NDA<i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isNDASubmitted === true && vm.credentials.isNDAAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isNDASubmitted === true && vm.credentials.isNDAAdminApproved === true" style="color:green"></i></div>
-        <div class="col-xs-6 col-lg-4" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.NDAId)"><i class="glyphicon glyphicon-eye-open" style="height:100%"></i></button>
-        <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveNDA(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up" style="height:100%"></i></button></div>
-    </div>
-    <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
-        <div class="col-xs-12 col-sm-6 col-lg-8">Waiver<i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isWaiverSubmitted === true && vm.credentials.isWaiverAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isWaiverSubmitted === true && vm.credentials.isWaiverAdminApproved === true" style="color:green"></i></div>
-        <div class="col-xs-6 col-lg-4" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.WaiverId)"><i class="glyphicon glyphicon-eye-open" style="height:100%"></i></button>
-        <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveWaiver(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up" style="height:100%"></i></button></div>
-    </div>
-    <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
-        <div class="col-xs-12 col-sm-6 col-lg-8">Letter of Recommendation<i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isLetterofRecommendationSubmitted === true && vm.credentials.isLetterofRecommendationAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isLetterofRecommendationSubmitted === true && vm.credentials.isLetterofRecommendationAdminApproved === true" style="color:green"></i></div>
-        <div class="col-xs-6 col-lg-4" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.letterOfRecommendationId)"><i class="glyphicon glyphicon-eye-open" style="height:100%"></i></button>
-          <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveLetterOfRecommendation(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up" style="height:100%"></i></button>
-        </div>
-    </div>
-    <div class="row" style="margin:10px;padding:5px;background-color:rgb(246, 244, 244); border-radius:5px; line-height:40px;">
-        <div class="col-xs-12 col-sm-6 col-lg-8">Resume<i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isResumeSubmitted === true && vm.credentials.isResumeAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.credentials.isResumeSubmitted === true && vm.credentials.isResumeAdminApproved === true" style="color:green"></i></div>
-        <div class="col-xs-6 col-lg-4" style="text-align:center;"><button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.ResumeId)"><i class="glyphicon glyphicon-eye-open" style="height:100%"></i></button>
-        <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveResume(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up" style="height:100%"></i></button></div>
-
-    </div>
-  </div>
+    <hr />
+    <br />
+    <br />
+    <ol class="carousel-indicators">
+      <li style="background-color: grey;" data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li style="background-color: grey;" data-target="#myCarousel" data-slide-to="1"></li>
+      <li style="background-color: grey;" data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    
+    <!-- Left and right controls --> 
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"></span> <span class="sr-only">Previous</span> </a> <a class="right carousel-control" href="#myCarousel" data-slide="next"> <span class="glyphicon glyphicon-chevron-right"></span> <span class="sr-only">Next</span> </a> </div>
 </div>
 
-</div>
-<hr />
-<br />
-<br />
-<ol class="carousel-indicators">
-  <li style="background-color: grey;" data-target="#myCarousel" data-slide-to="0" class="active"></li>
-  <li style="background-color: grey;" data-target="#myCarousel" data-slide-to="1"></li>
-  <li style="background-color: grey;" data-target="#myCarousel" data-slide-to="2"></li>
-</ol>
-
-  <!-- Left and right controls -->
-  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
-</div>
-
-    <!--</div>-->
+<!--</div>--> 
 <!--</div>-->
 </body>
 </html>
