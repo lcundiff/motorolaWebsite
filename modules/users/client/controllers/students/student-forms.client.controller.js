@@ -131,13 +131,13 @@
 	}
 
 
-    function uploadNDA(){
+    function uploadNDA(file){
       if(file === null || file===undefined){
         Notification.error({ message: 'Please Submit Correct NDA File Type (PDF, Docx, etc.)', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
       vm.credentials.NDAId = `NDA_${vm.credentials.username}.pdf`;
-
+	  vm.credentials.isNDAUploaded = true; 
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.NDAId).then(function(data){
         if(data.data.success){
@@ -149,11 +149,12 @@
       });
     }
 
-    function uploadWaiver(){
+    function uploadWaiver(file){
       if(file === null || file===undefined){
         Notification.error({ message: 'Please Submit Correct Waiver File Type (PDF, Docx, etc.)', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
+	  vm.credentials.isWaiverUploaded = true; 
       vm.credentials.WaiverId = `waiver_${vm.credentials.username}.pdf`;
 
       $scope.uploading = true;
@@ -167,13 +168,13 @@
       });
     }
 
-    function uploadLetterOfRecommendation(){
+    function uploadLetterOfRecommendation(file){
       if(file === null || file===undefined){
         Notification.error({ message: 'Please Submit Correct Letter of Rec File Type (PDF, Docx, etc.)', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
-      vm.credentials.letterOfRecommendationId = `letterOfRecommendation_${vm.credentials.username}.pdf`;
-
+      vm.credentials.letterOfRecommendationId =`letterOfRecommendation_${vm.credentials.username}.pdf`;
+	  vm.credentials.isLetterofRecommendationUploaded = true;
       $scope.uploading = true;
       FileService.upload($scope.file, vm.credentials.letterOfRecommendationId).then(function(data){
         if(data.data.success){
@@ -190,6 +191,7 @@
         Notification.error({ message: 'Please Submit Correct Resume File Type (PDF, Docx, etc.)', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
+	  vm.credentials.isResumeUploaded = true;
       vm.credentials.ResumeId = `resume_${vm.credentials.username}.pdf`;
       $scope.uploading = true;
 	  //vm.credentials.isResumeSubmitted = true;

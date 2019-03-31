@@ -13,7 +13,7 @@
     vm.student;
     vm.credentials;
     vm.authentication = Authentication;
-
+	$scope.sessions = ["Session 1 (6/25/18 - 6/29/18)", "Session 2 (7/23/18 - 7/27/18)", "Session 3 (8/6/18 - 8/10/18)"]
     vm.createStudent = createStudent;
     vm.updateStudent = updateStudent;
 	vm.saveApp = saveApp;
@@ -343,6 +343,11 @@
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.studentForm');
         console.log("NOT VALID");
+		/// Show user where the error is specifically. 
+		//var errorElement = document.querySelector( '#personal' ); // grab element
+		//errorElement.scrollIntoView(); // scroll it into view
+        //var idName = myElement.getAttribute('id'); // grab ID name from element
+		//console.log(idName); // confirm we have right element
 		  
         Notification.error({ message: 'Review form for errors.', title: '<i class="glyphicon glyphicon-remove"></i> Fields in form are either missing information or are incorrect.', delay: 6000 });
         vm.credentials.isAppComplete = false;
@@ -391,6 +396,12 @@
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student submission successful.' });
       // And redirect to the previous or home page
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
+    }
+	// when student saves the application
+    function onStudentSaveSuccess(response) {
+      // If successful we assign the response to the global user model
+      vm.authentication.student = response;
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student Save Successful.' });
     }
 
     function onStudentSubmissionError(response) {

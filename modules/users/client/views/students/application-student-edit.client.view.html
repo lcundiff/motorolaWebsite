@@ -20,7 +20,7 @@ submit<!DOCTYPE html>
     <element class="navbar-header" ng-switch-when="true">
       <h2 class="navbar-text">Student Application Completed</h2>
     </element>
-    7 </div>
+    </div>
 </nav>
 <br>
 <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
@@ -38,7 +38,7 @@ submit<!DOCTYPE html>
 <!-- START SLIDE -->
 <div class="container">
 <div class="carousel-inner">
-<div class="item active">
+<div id="personal" class="item active">
   <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Personal Information<span style="color:red;">*</span></h3>
   <br>
   <div class="col-xs-6">
@@ -952,7 +952,7 @@ submit<!DOCTYPE html>
         <button type="submit" class="sign-button sign-in-button" ng-click="vm.updateStudent(vm.studentForm.$valid)">Update Application</button>
       </element>
       <element ng-switch-when="false">
-        <button type="submit" class="sign-button sign-in-button" ng-click="vm.updateStudent(vm.studentForm.$valid)">Submit Application</button>
+        <button type="submit" class="sign-button sign-in-button" ng-click="vm.updateStudent(vm.studentForm.$valid)" ><a href="" target="_self">Submit Application</a></button>
         <button type="submit" class="sign-button sign-in-button" ng-click="vm.saveApp()">Save Application</button>
       </element>
     </element>
