@@ -3,156 +3,172 @@
 <title>Applicants</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- mainly effects font size/shape/color --> <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+<!-- mainly effects font size/shape/color -->
 <section>
-  <nav role="navigation" class="navbar navbar-custom navbar-static-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <h5 class="navbar-text">Interviews</h5>
-      </div>
-    <center>
+<nav role="navigation" class="navbar navbar-custom navbar-static-top">
+
+<div class="container-fluid">
+  <div class="navbar-header">
+    <h5 class="navbar-text">Interviews</h5>
+  </div>
+  <center>
     <button class="btn btn-custom navbar-btn toolbar-button"  ng-click="vm.autoAssignInterviews()">Auto-Assign Interviews</button>
     <form class="navbar-form navbar-right" role="search">
       <div class="input-group">
         <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
         <span class="input-group-btn">
         <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search=''; vm.figureOutItemsToDisplay();"><i class="glyphicon glyphicon-remove"></i></button>
-      </span>
+        </span> </div>
     </form>
   </center>
 </div>
 </nav>
-  <div class="col-xs-12 col-md-8">
+<div class="col-xs-12 col-md-8">
   <div class="jumbotron jumobtron fluid">
-  <div class="container">
-    <ul class="nav nav-tabs">
-      <li class = "nav-item active" role="presentation" ><a data-toggle="tab" href="#activeForms" ng-click="vm.listActiveStudents();">Active</a></li>
-      <li role="presentation"><a data-toggle="tab" href="#inactiveForms" ng-click="vm.listDeactivatedStudents();">Inactive</a></li>
-    </ul>
-    <div class="tab-content">
-      <div id="activeForms" class="tab-pane fade in active">
-        <div data-ng-init = "vm.listActiveStudents();" />
-        <br />
-        <div class="list-group">
-          <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
-          <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="row list-group-item">
-              <h5 ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}" /><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
-            <!--<h6 class="text-right" ng-bind-template="{{student.application.school}}"></h6>-->
-          </a>
+    <div class="container">
+      <ul class="nav nav-tabs">
+        <li class = "nav-item active" role="presentation" ><a data-toggle="tab" href="#activeForms" ng-click="vm.listActiveStudents();">Active</a></li>
+        <li role="presentation"><a data-toggle="tab" href="#inactiveForms" ng-click="vm.listDeactivatedStudents();">Inactive</a></li>
+      </ul>
+      <div class="tab-content">
+        <div id="activeForms" class="tab-pane fade in active">
+          <div data-ng-init = "vm.listActiveStudents();" />
+          <br />
+          <div class="list-group"> 
+            <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">--> 
+            <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="row list-group-item">
+            <h5 ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}" />
+            <i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i> 
+            <!--<h6 class="text-right" ng-bind-template="{{student.application.school}}"></h6>--> 
+            </a> </div>
+          <div>
+            <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+          </div>
         </div>
-        <div>
-        <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
-        </div>
-      </div>
-      <div id="inactiveForms" class="tab-pane fade">
-        <br>
-        <div class="list-group">
-          <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
-          <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="list-group-item">
-            <h6 class="list-group-item-text" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h6><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
+        <div id="inactiveForms" class="tab-pane fade"> <br>
+          <div class="list-group"> 
+            <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">--> 
+            <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="list-group-item">
+            <h6 class="list-group-item-text" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h6>
+            <i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
             <h6 class="pull-right" ng-bind-template="{{student.application.school}}"></h6>
             <br />
-          </a>
-        </div>
-        <div>
-        <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+            </a> </div>
+          <div>
+            <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 <div class="col-xs-12 col-md-4">
-<div class="jumbotron jumbotron fluid" >
-  <div class="container">
-    <center>
-    <div ng-switch="vm.selected_user">
-      <div ng-switch-when=true>
-        <div class="container">
-
-          <div class="row">
-            <div class="row">
-              <center>
-                  <div ng-bind-template="{{vm.user.application.firstName}} {{vm.user.application.lastName}}"></div>
-                </center>
+  <div class="jumbotron jumbotron fluid" >
+    <div class="container">
+      <center>
+        <div ng-switch="vm.selected_user"> <!-- when user clicks on diff users, show different card-->
+          <div ng-switch-when=true>
+            <div class="container">
+              <div class="row">
+                <div class="row">
+                  <center>
+                    <div ng-bind-template="{{vm.user.application.firstName}} {{vm.user.application.lastName}}"></div>
+                  </center>
+                </div>
+				<!-- interviewer 1 section --> 
+                <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+                <div class="row">
+                  <h6 style="font-weight: bold;">Interviewer 1</h6>
+                </div>
+                <div class="row">
+                  <center>
+                    <div class="col-xs-8 col-md-8">
+                      <select class="form-control" style="width:100%"ng-model="vm.user.interviewer[0]">
+                        <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
+						<option value=''>No Interviewer</option>
+                      </select>
+                    </div>
+                    <div class="col-xs-4 col-md-4">
+                      <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewer[0], 0)">Set</button>
+                    </div>
+                  </center>
+                </div>
+				<h4 ng-repeat = "volunteer in vm.volunteers" ng-if="volunteer.user._id !== null && volunteer.user._id === vm.backEndInterviewer[0]">Current Interviewer: {{volunteer.user.displayName}}</h4>
+				<h4 ng-if="vm.backEndInterviewer[0] === '' || vm.backEndInterviewer === 'undefined'"><b>No Interviewer Assigned</b></h4>
+				  
+				<!-- interviewer 2 section --> 
+                <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+                <div class="row">
+                  <h6 style="font-weight: bold;">Interviewer 2</h6>
+                </div>
+                <div class="row">
+                  <center>
+                    <div class="col-xs-8 col-md-8">
+                      <select class="form-control" style="width:100%"ng-model="vm.user.interviewerID[1]">
+                        <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
+						<option value=''>No Interviewer</option>
+                      </select>
+                    </div>
+                    <div class="col-xs-4 col-md-4">
+                      <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewerID[1], 1)">Set</button>
+                    </div>
+                  </center>
+                </div>
+				<h4 ng-repeat = "volunteer in vm.volunteers" ng-if="volunteer.user._id !== null && volunteer.user._id === vm.backEndInterviewer[1]">Current Interviewer: {{volunteer.user.displayName}}</h4>
+				<h4 ng-if="vm.backEndInterviewer[1] === '' || vm.backEndInterviewer === 'undefined'"><b>No Interviewer Assigned</b></h4>	
+				  
+				<!-- interviewer 3 section --> 
+                <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+                <div class="row">
+                  <h6 style="font-weight: bold;">Interviewer 3</h6>
+                </div>
+                <div class="row">
+                  <center>
+                    <div class="col-xs-8 col-md-8">
+                      <select class="form-control" style="width:100%"ng-model="vm.user.interviewerID[2]">
+                        <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
+						<option value=''>No Interviewer</option>
+                      </select>
+                    </div>
+                    <div class="col-xs-4 col-md-4">
+                      <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewerID[2], 2)">Set</button>
+                    </div>
+                  </center>
+                </div>
+				<h4 ng-repeat = "volunteer in vm.volunteers" ng-if="volunteer.user._id !== null && volunteer.user._id === vm.backEndInterviewer[2]">Current Interviewer: {{volunteer.user.displayName}}</h4>
+				<h4 ng-if="vm.backEndInterviewer[2] === '' || vm.backEndInterviewer === 'undefined'"><b>No Interviewer Assigned</b></h4>	
+                <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+				<!-- end of interview assignment section --> 
+				  
+                <div class="row">	
+                  <center>
+                    <h6 style="font-weight: bold;">Interview Rankings</h6>
+                    <div ng-if="vm.user.indivRanks[0] === null && vm.user.indivRanks[1] === null && vm.user.indivRanks[2] === null">No rankings have been posted yet.</div>
+                    <div ng-if="vm.user.indivRanks[0] !== null">
+                      <div ng-bind-template="1. {{vm.user.indivRanks[0]}}"></div>
+                    </div>
+                    <div ng-if="vm.user.indivRanks[1] !== null">
+                      <div ng-bind-template="2. {{vm.user.indivRanks[1]}}"></div>
+                    </div>
+                    <div ng-if="vm.user.indivRanks[2] !== null">
+                      <div ng-bind-template="3. {{vm.user.indivRanks[2]}}"></div>
+                    </div>
+                    <div ng-if="vm.user.indivRanks[0] !== null && vm.user.indivRanks[1] !== null && vm.user.indivRanks[2] !== null">
+                      <div ng-bind-template="Total: {{()}}"></div>
+                    </div>
+                  </center>
+                </div>
+                </element>
+                <element ng-switch-when=false> </element>
+              </div>
+              <br>
             </div>
-          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-          <div class="row">
-            <h6 style="font-weight: bold;">Interviewer 1</h6>
           </div>
-          <div class="row">
-            <center>
-            <div class="col-xs-8 col-md-8">
-              <select class="form-control" style="width:100%"ng-model="vm.user.interviewerID[0]">
-                <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
-              </select>
-            </div>
-            <div class="col-xs-4 col-md-4">
-              <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewer[0], 0)">Set</button>
-            </div>
-            </center>
-          </div>
-          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-          <div class="row">
-            <h6 style="font-weight: bold;">Interviewer 2</h6>
-          </div>
-          <div class="row">
-            <center>
-            <div class="col-xs-8 col-md-8">
-              <select class="form-control" style="width:100%"ng-model="vm.user.interviewerID[1]">
-                <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
-              </select>
-            </div>
-            <div class="col-xs-4 col-md-4">
-              <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewer[1], 1)">Set</button>
-            </div>
-            </center>
-          </div>
-          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-          <div class="row">
-            <h6 style="font-weight: bold;">Interviewer 3</h6>
-          </div>
-          <div class="row">
-            <center>
-            <div class="col-xs-8 col-md-8">
-              <select class="form-control" style="width:100%"ng-model="vm.user.interviewerID[2]">
-                <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
-              </select>
-            </div>
-            <div class="col-xs-4 col-md-4">
-              <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewer[2], 2)">Set</button>
-            </div>
-            </center>
-          </div>
-          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-
-          <div class="row">
-            <center>
-              <h6 style="font-weight: bold;">Interview Rankings</h6>
-              <div ng-if="vm.user.indivRanks[0] === null && vm.user.indivRanks[1] === null && vm.user.indivRanks[2] === null">No rankings have been posted yet.</div>
-              <div ng-if="vm.user.indivRanks[0] !== null"><div ng-bind-template="1. {{vm.user.indivRanks[0]}}"></div></div>
-              <div ng-if="vm.user.indivRanks[1] !== null"><div ng-bind-template="2. {{vm.user.indivRanks[1]}}"></div></div>
-              <div ng-if="vm.user.indivRanks[2] !== null"><div ng-bind-template="3. {{vm.user.indivRanks[2]}}"></div></div>
-              <div ng-if="vm.user.indivRanks[0] !== null && vm.user.indivRanks[1] !== null && vm.user.indivRanks[2] !== null"><div ng-bind-template="Total: {{()}}"></div></div>
-            </center>
-          </div>
-        </element>
-          <element ng-switch-when=false>
-          </element>
+          <div ng-switch-when="false"> Click on a student to view their information. </div>
         </div>
-<br>
-      </div>
+      </center>
     </div>
-  <div ng-switch-when="false">
-    Click on a student to view their information.
   </div>
-  </div>
-</center>
 </div>
-</div>
-</div>
-
 </section>
-
 </html>

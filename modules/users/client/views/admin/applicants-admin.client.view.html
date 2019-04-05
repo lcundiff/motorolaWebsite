@@ -49,9 +49,9 @@
 
                     <div class="jumbotron">
                       <div class="w3-display-container">
-                        <img ngf-src="vm.user.profileImageURL" style="width:100%" ng-if="vm.user.profileImageURL !== null || vm.user.profileImageURL !== undefined || vm.user.profileImageURL !== ''"alt="Avatar" ngf-drop>
+                        <img ngf-src="vm.user.profileImageURL" style="width:100%" ng-if="vm.user.profileImageURL !== null && vm.user.profileImageURL !== undefined && vm.user.profileImageURL !== '' "alt="Avatar" ngf-drop>
                         <img src="/modules/users/client/img/profile/default.png" style="height: 200px; width: 200px; border-radius:50%;" ng-if="vm.user.profileImageURL === null || vm.user.profileImageURL === undefined || vm.user.profileImageURL === ''"alt="Avatar">
-                        <br />
+                        <br>
 
                       </div>
                       <!-- <div class="w3-display-container">
@@ -250,7 +250,7 @@
           <hr class="section-divider" />
           <div class="row">
             <center>
-              <button class="selection-btn selection-btn-primary" ng-click="openModal(student, 'myModal')">View Application</button>
+              <button class="selection-btn selection-btn-primary" ng-click="openModal(vm.user, 'myModal')">View Application</button>
               <button ng-if="vm.user.ResumeId !== null || vm.user.ResumeId !== '' " ng-click="vm.viewForm(vm.user.ResumeId)" class="selection-btn selection-btn-primary">View Resume</button>
             </center>
             </div>
@@ -258,7 +258,7 @@
                 <element ng-switch-when=true>
               <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
               <div class="row">
-                <center><b>Accept</b></center>
+                <center><b>Set Student Status</b></center>
                 <div class="row">
                     <select ng-model="vm.sessionType">
                       <option value="">Not Accepted</option>
@@ -267,7 +267,7 @@
                       <option value=2>2</option>
                       <option value=3>3</option>
                     </select>
-            <button class="selection-btn selection-btn-verify" ng-click="vm.manAcceptStudent(vm.user, vm.sessionType)">Accept</button>
+            <button class="selection-btn selection-btn-verify" ng-click="vm.manAcceptStudent(vm.user, vm.sessionType)">Set Status</button>
             </div>
           </div>
             </element>

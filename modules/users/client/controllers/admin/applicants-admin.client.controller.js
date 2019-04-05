@@ -33,7 +33,7 @@
 		vm.autoAccept = autoAccept;
 
 		function buildPager() {
-			console.log("HERE IN BP");
+			//console.log("HERE IN BP");
 			vm.pagedItems = [];
 			vm.itemsPerPage = 15;
 			vm.currentPage = 1;
@@ -46,7 +46,7 @@
 			if (user.timeSlot === []) vm.sessionType = "";
 			else vm.sessionType = user.timeSlot[0];
 
-			console.log(vm.user);
+			console.log("vm.user:", vm.user);
 
 			vm.selected_user = true;
 		}
