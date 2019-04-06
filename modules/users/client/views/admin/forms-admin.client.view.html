@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <section>
+  <div id="overlay" ng-show="vm.loading">
+        <div class="loader"></div>
+    </div>
   <nav role="navigation" class="navbar navbar-custom navbar-static-top">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -14,9 +17,9 @@
     <center>
     <form class="navbar-form navbar-right" role="search">
       <div class="input-group">
-        <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+        <input class="form-control navbar-input" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
         <span class="input-group-btn">
-        <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search=''; vm.figureOutItemsToDisplay();"><i class="glyphicon glyphicon-remove"></i></button>
+          <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search=''; vm.figureOutItemsToDisplay();"><i class="glyphicon glyphicon-remove"></i></button>
       </span>
 	 </div>
     </form>
@@ -78,55 +81,58 @@
             <div class="col-md-6" ng-bind="vm.user.created"></div>
           </div>
           <hr/>-->
-         <div class="row">
+          <div class="row" ng-show="!vm.user.isNDASubmitted && !vm.user.isWaiverSubmitted && !vm.user.isResumeSubmitted && !vm.user.isLetterofRecommendationSubmitted">
+            The student has not uploaded any forms yet.
+          </div>
+         <div class="row" ng-show="vm.user.isNDASubmitted">
            <center>NDA<i class="glyphicon glyphicon-ok" ng-if="vm.user.isNDASubmitted === true && vm.user.isNDAAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isNDASubmitted === true && vm.user.isNDAAdminApproved === true" style="color:green"></i></center>
            <br>
            <div class="col-xs-6">
-             <button class="selection-btn selection-btn-primary" style="width:100%" ng-if="student.ResumeId !== ''" ng-click="vm.viewForm(vm.user.NDAId)">View</button>
+             <button class="selection-btn selection-btn-primary" style="width:100%" ng-click="vm.viewForm(vm.user.NDAId)">View</button>
            </div>
            <div class="col-xs-6">
              <button class="selection-btn selection-btn-verify" style="width:100%" ng-click="vm.approveNDA(vm.user)">Approve</button>
           </div>
+          <br>
+          <br>
         </div>
-        <br>
-        <br>
-        <div class="row">
+        <div class="row" ng-show="vm.user.isWaiverSubmitted">
           <center>Waiver<i class="glyphicon glyphicon-ok" ng-if="vm.user.isWaiverSubmitted === true && vm.user.isWaiverAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isWaiverSubmitted === true && vm.user.isWaiverAdminApproved === true" style="color:green"></i></center>
           <br>
           <div class="col-xs-6">
-            <button class="selection-btn selection-btn-primary" style="width:100%" ng-if="student.ResumeId !== ''" ng-click="vm.viewForm(vm.user.WaiverId)">View</button>
+            <button class="selection-btn selection-btn-primary" style="width:100%" ng-click="vm.viewForm(vm.user.WaiverId)">View</button>
           </div>
           <div class="col-xs-6">
             <button class="selection-btn selection-btn-verify" style="width:100%" ng-click="vm.approveWaiver(vm.user)">Approve</button>
          </div>
+         <br>
+         <br>
        </div>
-       <br>
-       <br>
-       <div class="row">
+       <div class="row" ng-show="vm.user.isResumeSubmitted">
          <center>Resume<i class="glyphicon glyphicon-ok" ng-if="vm.user.isResumeSubmitted === true && vm.user.isResumeAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isResumeSubmitted === true && vm.user.isResumeAdminApproved === true" style="color:green"></i></center>
          <br>
          <div class="col-xs-6">
-           <button class="selection-btn selection-btn-primary" style="width:100%" ng-if="student.ResumeId !== ''" ng-click="vm.viewForm(vm.user.ResumeId)">View</button>
+           <button class="selection-btn selection-btn-primary" style="width:100%" ng-click="vm.viewForm(vm.user.ResumeId)">View</button>
          </div>
          <div class="col-xs-6">
            <button class="selection-btn selection-btn-verify" style="width:100%" ng-click="vm.approveResume(vm.user)">Approve</button>
         </div>
+        <br>
+        <br>
       </div>
-      <br>
-      <br>
-       <div class="row">
+       <div class="row" ng-show="vm.user.isLetterofRecommendationSubmitted">
          <center>Letter of Recommendation<i class="glyphicon glyphicon-ok" ng-if="vm.user.isLetterofRecommendationSubmitted === true && vm.user.isLetterofRecommendationAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isLetterofRecommendationSubmitted === true && vm.user.isLetterofRecommendationAdminApproved === true" style="color:green"></i></center>
          <br>
          <div class="col-xs-6">
-           <button class="selection-btn selection-btn-primary" style="width:100%" ng-if="student.letterOfRecommendationId !== ''" ng-click="vm.viewForm(vm.user.letterOfRecommendationId)">View</button>
+           <button class="selection-btn selection-btn-primary" style="width:100%" ng-click="vm.viewForm(vm.user.letterOfRecommendationId)">View</button>
          </div>
          <div class="col-xs-6">
            <button class="selection-btn selection-btn-verify" style="width:100%" ng-click="vm.approveLetterOfRecommendation(vm.user)">Approve</button>
         </div>
+        <br>
       </div>
-      <br>
       <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-      <div class="row">
+      <div class="row" ng-show="vm.user.isNDASubmitted || vm.user.isResumeSubmitted || vm.user.isWaiverSubmitted || vm.user.isLetterofRecommendationSubmitted">
         <div class="container">
         <center>Send Form Fix Email</center>
       </div>

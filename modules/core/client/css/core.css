@@ -406,12 +406,17 @@ a:hover .header-profile-image {
 }
 .toolbar-button {
   color: white;
+  padding: 5px;
   border-radius: 5px;
   background-color: #326f98 !important;
   border-color: #1e5b84 !important;
 }
 .toolbar-button:hover {
   background-color: #d0d4d8 !important;
+}
+
+.navbar-input {
+  margin-top: 1px;
 }
 
 body, html {

@@ -286,6 +286,8 @@
     }
 
     function sendFormFixEmail(student, formName) {
+      vm.loading = true;
+
       var credentials = {
         email: student.application.email,
         firstName: student.application.firstName,
@@ -300,12 +302,14 @@
 
     function onFormFixEmailDeliverySuccess(response) {
           // If successful we assign the response to the global user model
+          vm.loading = false;
           Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Email sent successfully.' });
           // And redirect to the previous or home page
           //$state.go($state.previous.state.name || 'home', $state.previous.params);
         }
 
     function onFormFixEmailDeliveryError(response) {
+      vm.loading = false;
           Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Email send error.', delay: 6000 });
         }
 
