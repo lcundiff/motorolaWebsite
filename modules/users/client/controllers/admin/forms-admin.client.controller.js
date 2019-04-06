@@ -13,6 +13,7 @@
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
+    vm.loading = false;
 
     vm.listActiveStudents = listActiveStudents;
     vm.listDeactivatedStudents = listDeactivatedStudents;
@@ -52,6 +53,7 @@
     }
 
     function buildPager() {
+      vm.loading = true;
       vm.pagedItems = [];
       vm.itemsPerPage = 15;
       vm.currentPage = 1;
@@ -65,6 +67,7 @@
       var begin = ((vm.currentPage - 1) * vm.itemsPerPage);
       var end = begin + vm.itemsPerPage;
       vm.pagedItems = vm.filteredItems.slice(begin, end);
+      vm.loading = false;
     }
 
     function pageChanged() {
@@ -120,8 +123,7 @@
     };
 
     function uploadNDA(){
-      console.log($scope.file.upload);
-      console.log($scope.file);
+      vm.loading = true;
 
       $scope.uploading = true;
       FileService.uploadNDA($scope.file)
@@ -131,6 +133,7 @@
     }
 
     function uploadWaiver(){
+      vm.loading = true;
       console.log(document.getElementById("nda_upload").value);
 
       console.log($scope.file.upload);
@@ -144,11 +147,18 @@
     }
 
     function onNDAUploadSuccess(response) {
-      // If successful we assign the response to the global user model
-      console.log(response);
-      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> NDA upload successful.' });
-      GoogleCloudService.uploadForm({name: response.data.fileName});
-      $scope.uploading = false;
+      // If successful we assign the response to the global user model\
+      GoogleCloudService.uploadForm({name: response.data.fileName})
+      .then(function(response){
+        $scope.uploading = false;
+        vm.loading = false;
+        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> NDA upload successful.' });
+      })
+      .catch(function(error){
+        $scope.uploading = false;
+        vm.loading = false;
+        Notification.error({ message: 'Could not upload form to google cloud.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+      });
 
       // And redirect to the previous or home page
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
@@ -157,11 +167,17 @@
     function onWaiverUploadSuccess(response) {
       // If successful we assign the response to the global user model
       console.log(response);
-      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Waiver upload successful.' });
-      GoogleCloudService.uploadForm({name: response.data.fileName});
-      $scope.uploading = false;
-      // And redirect to the previous or home page
-      //$state.go($state.previous.state.name || 'home', $state.previous.params);
+      GoogleCloudService.uploadForm({name: response.data.fileName}).then(function(response){
+        $scope.uploading = false;
+        vm.loading = false;
+        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Waiver upload successful.' });
+
+      })
+      .catch(function(error){
+        $scope.uploading = false;
+        vm.loading = false;
+        Notification.error({ message: 'Could not upload form to google cloud.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+      });
     }
 
     function onFormUploadError(response) {
@@ -175,6 +191,8 @@
         return;
       }
 
+      vm.loading = true;
+
       GoogleCloudService.downloadForm(fileId)
       .then(function(response){
         FileService.download(fileId)
@@ -187,16 +205,19 @@
                   link.href = $scope.fileUrl;
                   link.download = fileId;
                   link.click();
+
         })
-        .error(function(data){
+        .catch(function(data){
+          vm.loading = false;
           Notification.error({ message: 'There was an error downloading this form. Please report this to your administrator.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
 
         })
       })
-      .error(onErrorGoogleCloudDownload);
+      .catch(onErrorGoogleCloudDownload);
     }
 
     function onErrorGoogleCloudDownload(){
+      vm.loading = false;
       Notification.error({ message: 'There was an error downloading this document from Google Cloud.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
     }
 

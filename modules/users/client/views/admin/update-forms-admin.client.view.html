@@ -4,8 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <section>
+  <div id="overlay" ng-show="vm.loading">
+        <div class="loader"></div>
+    </div>
 <nav role="navigation" class="navbar navbar-custom navbar-static-top">
-
 <div class="container-fluid">
   <div class="navbar-header">
     <h5 class="navbar-text">Update / View Forms</h5>
@@ -14,7 +16,8 @@
 </nav>
 <br>
 <div class="jumbotron jumbotron-fluid">
-<div class="container">
+  <button ng-click="vm.loading = !vm.loading; console.log(vm.loading)">click me</button>
+<div class="container-fluid">
   <div class="list-group">
     <div class="list-group-item">
       <div class="row" style="margin:10px;padding:5px;border-radius:5px; line-height:40px;">

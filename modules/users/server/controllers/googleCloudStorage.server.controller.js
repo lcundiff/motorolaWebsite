@@ -18,9 +18,13 @@ exports.uploadCloudFile = async function(req, res) {
     metadata: {
       cacheControl: 'no-cache',
     },
+  })
+  .then(function(response){
+    return res.status(200).end();
+  })
+  .catch(function(error){
+    return res.status(406).end();
   });
-
-  return res.status(200).end();
 };
 
 // Downloads the file
@@ -33,7 +37,11 @@ exports.downloadCloudFile = async function(req, res) {
   storage
     .bucket(bucketName)
     .file(`${req.params.filename}`)
-    .download(options);
-
-  return res.status(200).end();
+    .download(options)
+    .then(function(response){
+      return res.status(200).end();
+    })
+    .catch(function(error){
+      return res.status(406).end();
+    });
 };
