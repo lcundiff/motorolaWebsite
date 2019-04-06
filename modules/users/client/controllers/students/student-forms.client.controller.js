@@ -217,16 +217,16 @@
     }
 
     function uploadResume(file){
-      if(file === null || file===undefined){
+      if(!file){
         Notification.error({ message: 'Please Submit Correct Resume File Type (PDF, Docx, etc.)', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
       vm.loading = true;
+      $scope.uploading = true;
 
 
 	  vm.credentials.isResumeUploaded = true;
       vm.credentials.ResumeId = `resume_${vm.credentials.username}.pdf`;
-      $scope.uploading = true;
 	  //vm.credentials.isResumeSubmitted = true;
 
       FileService.upload($scope.file, vm.credentials.ResumeId).then(function(data){
@@ -239,7 +239,7 @@
       });
     }
 
-    async function uploadToGoogleCloud(fileId){
+    function uploadToGoogleCloud(fileId){
       console.log('in google cloud land');
       console.log(fileId);
 
@@ -287,7 +287,7 @@
         })
         .catch(function(data){
           vm.loading = false;
-          Notification.error({ message: 'There was an error downloading this form. Please report this to your administrator.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+          Notification.error({ message: 'There was an error downloading this form. Please try again.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
 
         })
       })
@@ -296,7 +296,7 @@
 
     function onErrorGoogleCloudDownload(){
       vm.loading = false;
-      Notification.error({ message: 'There was an error downloading this document from Google Cloud.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+      Notification.error({ message: 'There was an error downloading this document. Please try again.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
     }
 
     function onFormSubmissionSuccess(response) {
