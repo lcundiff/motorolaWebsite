@@ -1,7 +1,4 @@
 <html>
-<script src="public/lib/chart.js/dist/Chart.css"></script>
-<script src="public/lib/chart.js/dist/Chart.js"></script>
-<script src="public/lib/angular-chart.js/angular-chart.js"></script>
 <title>Admin Dashboard</title>
 <section>
 <nav role="navigation" class="navbar navbar-custom navbar-static-top">
@@ -12,7 +9,7 @@
 </div>
 </nav>
 <br />
-<div class="col-xs-12 col-md-4">
+<div class="col-xs-12 col-md-6">
   <div class="jumbotron">
     New Student Activity
     <hr class="section-divider" />
@@ -37,26 +34,35 @@
   <div class="jumbotron">
     Completed Forms
     <hr class="section-divider" />
+    <div class="container">
+      <div class="row">
+        <canvas id="doughnut" class="chart chart-doughnut" chart-config="vm.completedStudentFormsGraph.config" chart-data="vm.completedStudentFormsGraph.data" chart-labels="vm.completedStudentFormsGraph.labels" chart-click="vm.completedStudentFormsGraph.onClick">
+        </canvas>
+      </div>
+    </div>
   </div>
 </div>
-<div class="col-xs-12 col-md-4">
+<div class="col-xs-12 col-md-6">
   <div class="jumbotron">
     New Volunteer Activity
     <hr class="section-divider" />
+    <div class="container">
+    <div class="row">
+      <div class="text-center"><strong>Sign-ups this Week</strong></div>
+      <canvas id="line" class="chart chart-line" chart-config="vm.newVolunteerActivityGraph.config" chart-data="vm.newVolunteerActivityGraph.data" chart-labels="vm.newVolunteerActivityGraph.labels" chart-series="vm.newVolunteerActivityGraph.series" chart-options="vm.newVolunteerActivityGraph.options" chart-dataset-override="vm.newVolunteerActivityGraph.datasetOverride" chart-click="vm.newVolunteerActivityGraph.onClick">
+      </canvas>
+    </div>
+  </div>
   </div>
   <div class="jumbotron">
     Completed Volunteer Applications
     <hr class="section-divider" />
-  </div>
-</div>
-<div class="col-xs-12 col-md-4">
-  <div class="jumbotron">
-    Current Admins
-    <hr class="section-divider" />
-  </div>
-  <div class="jumbotron">
-    Application Activity
-    <hr class="section-divider" />
+    <div class="container">
+      <div class="row">
+        <canvas id="doughnut" class="chart chart-doughnut" chart-config="vm.completedVolunteerAppsGraph.config" chart-data="vm.completedVolunteerAppsGraph.data" chart-labels="vm.completedVolunteerAppsGraph.labels" chart-click="vm.completedVolunteerAppsGraph.onClick">
+        </canvas>
+      </div>
+    </div>
   </div>
 </div>
 </section>

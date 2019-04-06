@@ -39,6 +39,13 @@ module.exports = function (app) {
 
   app.route('/api/analytics/newStudentActivity').get(admin.newStudentActivity);
   app.route('/api/analytics/completedStudentApps').get(admin.completedStudentApps);
+  app.route('/api/analytics/completedStudentForms').get(admin.completedStudentForms);
+
+  app.route('/api/analytics/newVolunteerActivity').get(admin.newVolunteerActivity);
+  app.route('/api/analytics/newMentorActivity').get(admin.newMentorActivity);
+  app.route('/api/analytics/newInterviewerActivity').get(admin.newInterviewerActivity);
+
+  app.route('/api/analytics/completedVolunteerApps').get(admin.completedVolunteerApps);
 
   // Finish by binding the user middleware
   app.param('userId', admin.userByID);

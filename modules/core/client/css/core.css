@@ -25,7 +25,7 @@
   margin-top: 50px;
 }
 h4 {
-	color:gray; 
+	color:gray;
 	font-size:90%;
 }
 .undecorated-link:hover {
@@ -39,8 +39,13 @@ h4 {
   display: none !important;
 }
 .navbar-collapse  {
-	font-size: 90%; 
+	font-size: 90%;
 }
+
+.navbar-header {
+    padding-right: 15px;
+}
+
 .navbar-toggle {
   position: relative;
   float: right;
@@ -53,12 +58,7 @@ h4 {
   border: 1px solid transparent;
   border-radius: 4px;
 }
-.dropdown-toggle  {
-	/* affects words on dropdown tab items /*
-}
-.user-header-dropdown-toggle{ /* top right profile dropdown bootstrap control */ 
-	margin-left:-30px; 
-}
+
 @media (min-width: 1208px) { /* our tool bar needs to collapse sooner than 768px*/
   .navbar-toggle {
     display: none;
@@ -396,6 +396,8 @@ a:hover .header-profile-image {
 /* change the link color */
 .navbar-custom .navbar-nav .nav-link {
     color: rgba(255,255,255,.5);
+    padding-left: 5px;
+    padding-right: 5px;
 }
 /* change the color of active or hovered links */
 .navbar-custom .nav-item.active .nav-link,

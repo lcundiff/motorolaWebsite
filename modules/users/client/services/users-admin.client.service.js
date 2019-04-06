@@ -65,10 +65,45 @@
       get_completed_student_apps: {
         method: 'GET',
         url: '/api/analytics/completedStudentApps'
+      },
+      get_completed_student_forms: {
+        method: 'GET',
+        url: '/api/analytics/completedStudentForms'
+      },
+      get_new_volunteer_activity: {
+        method: 'GET',
+        url: '/api/analytics/newVolunteerActivity'
+      },
+      get_new_mentor_activity: {
+        method: 'GET',
+        url: '/api/analytics/newMentorActivity'
+      },
+      get_new_interviewer_activity: {
+        method: 'GET',
+        url: '/api/analytics/newInterviewerActivity'
+      },
+      get_completed_volunteer_apps: {
+        method: 'GET',
+        url: '/api/analytics/completedVolunteerApps'
       }
     });
 
     angular.extend(Admins, {
+      completedVolunteerApps: function() {
+        return this.get_completed_volunteer_apps().$promise;
+      },
+      newVolunteerActivity: function() {
+        return this.get_new_volunteer_activity().$promise;
+      },
+      newMentorActivity: function() {
+        return this.get_new_mentor_activity().$promise;
+      },
+      newInterviewerActivity: function() {
+        return this.get_new_interviewer_activity().$promise;
+      },
+      completedStudentForms: function() {
+        return this.get_completed_student_forms().$promise;
+      },
       completedStudentApps: function() {
         return this.get_completed_student_apps().$promise;
       },
