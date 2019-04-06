@@ -5,16 +5,16 @@
     .module('users')
     .controller('ChangeProfilePictureController', ChangeProfilePictureController);
 
-  ChangeProfilePictureController.$inject = ['$timeout', 'Authentication', 'Upload', 'Notification'];
+  ChangeProfilePictureController.$inject = ['$timeout', 'StudentService', 'Authentication', 'Upload', 'Notification'];
 
-  function ChangeProfilePictureController($timeout, Authentication, Upload, Notification) {
+  function ChangeProfilePictureController($timeout, StudentService, Authentication, Upload, Notification) {
     var vm = this;
 
     vm.user = Authentication.user;
     vm.progress = 0;
 
     vm.upload = function (dataUrl) {
-
+		console.log("user profile", vm.user);
       Upload.upload({
         url: '/api/users/picture',
         data: {
@@ -29,6 +29,7 @@
       }, function (evt) {
         vm.progress = parseInt(100.0 * evt.loaded / evt.total, 10);
       });
+	  
     };
 
     // Called after the user has successfully uploaded a new picture
@@ -38,12 +39,27 @@
 
       // Populate user object
       vm.user = Authentication.user = response;
-
+	  StudentService.getStudentByUsername(vm.user.username)
+	  	.then(getStudentSuccess)
+	  	.catch(getStudentFailure);
       // Reset form
       vm.fileSelected = false;
       vm.progress = 0;
     }
-
+	function getStudentSuccess(response) { 
+	  console.log("resp: ", 	response);
+	  console.log("URL profile: ", vm.user.profileImageURL);
+	  response.profileImageURL = vm.user.profileImageURL; 
+	  StudentService.updateStudent(response.user,response)
+	  	.then(updateStudentSuccess)
+	  	.catch(getStudentFailure);	  
+	}
+	function updateStudentSuccess(response) {
+		console.log("student has been updated: ", response)
+	}
+    function getStudentFailure(response) {
+      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Student retrieval failed!' });
+    }
     // Called after the user has failed to upload a new picture
     function onErrorItem(response) {
       vm.fileSelected = false;

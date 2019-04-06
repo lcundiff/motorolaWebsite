@@ -263,6 +263,7 @@ var StudentSchema = new Schema({
     default: Date.now
   },
   profileImageURL: {
+	default: '',
     type: String
   },
   user: {

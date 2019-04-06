@@ -26,6 +26,7 @@
     vm.viewForm = viewForm;
 
     vm.selected_user = false;
+	vm.backEndInterviewer = ['','',''];
 
     vm.addInterviewer = addInterviewer;
     vm.autoAssignInterviews = autoAssignInterviews;
@@ -65,8 +66,10 @@
       if(user.timeSlot === []) vm.sessionType = "";
       else vm.sessionType = user.timeSlot[0];
 
-      console.log(vm.user);
-
+      console.log("student",vm);
+	  vm.backEndInterviewer[0] = user.interviewerID[0];
+		vm.backEndInterviewer[1] = user.interviewerID[1];
+		vm.backEndInterviewer[2] = user.interviewerID[2];
       vm.selected_user = true;
     }
 
@@ -145,13 +148,14 @@
       });
 
       StudentService.updateStudent(student.user, student)
-      .then(onAddInterviewerSuccess)
+      .then(onAddInterviewerSuccess(student,index))
       .catch(onAddInterviewerError);
     }
 
-    function onAddInterviewerSuccess(response) {
+    function onAddInterviewerSuccess(student,index) {
           // If successful we assign the response to the global user model
           Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Interviewer was successfully added to student.' });
+		  vm.backEndInterviewer[index] = student.interviewerID[index];
           // And redirect to the previous or home page
           //$state.go($state.previous.state.name || 'home', $state.previous.params);
         }
