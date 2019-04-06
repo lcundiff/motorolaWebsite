@@ -205,7 +205,7 @@
                   link.href = $scope.fileUrl;
                   link.download = fileId;
                   link.click();
-
+                  vm.loading = false;
         })
         .catch(function(data){
           vm.loading = false;
