@@ -253,7 +253,7 @@
 
     function viewForm(fileId) {
       console.log(fileId);
-      if(fileId === null || fileId === "" || fileId===undefined){
+      if(!fileId){
         Notification.error({ message: 'This form has not yet been submitted.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
@@ -263,33 +263,40 @@
       }
     }
 
-    async function viewForm_downloadFromGCS(fileId){
+    function viewForm_downloadFromGCS(fileId) {
+      if(fileId === null || fileId === '' || fileId === undefined){
+        Notification.error({ message: 'Student has not yet uploaded this form.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+        return;
+      }
+
+      vm.loading = true;
+
       GoogleCloudService.downloadForm(fileId)
-        .then(function(response){
-          FileService.download(fileId).then(function(data){
-
-            var file = new Blob([data.data], {
-                type: 'application/pdf'
-                // type:'image/png'
-              });
-                //var fileURL = URL.createObjectURL(file);
-
-                //window.open(fileURL);
-                $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-                // $scope.fileUrl = window.URL.createObjectURL(file);
-                // console.log($scope.fileUrl)
-                var link = document.createElement('a');
-                    link.href = $scope.fileUrl;
-                    link.download = fileId;
-                    // console.log(link);
-                    link.click();
-                    vm.loading = false;
-          });
+      .then(function(response){
+        FileService.download(fileId)
+        .then(function(data){
+          var file = new Blob([data.data], {
+              type: 'application/pdf'
+            });
+              $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+              var link = document.createElement('a');
+                  link.href = $scope.fileUrl;
+                  link.download = fileId;
+                  link.click();
+                  vm.loading = false;
         })
-        .catch(function(response){
+        .catch(function(data){
           vm.loading = false;
-          Notification.error({ message: 'There was an error retrieving this form. Please try submitting again.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
-        });
+          Notification.error({ message: 'There was an error downloading this form. Please report this to your administrator.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+
+        })
+      })
+      .catch(onErrorGoogleCloudDownload);
+    }
+
+    function onErrorGoogleCloudDownload(){
+      vm.loading = false;
+      Notification.error({ message: 'There was an error downloading this document from Google Cloud.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
     }
 
     function onFormSubmissionSuccess(response) {
