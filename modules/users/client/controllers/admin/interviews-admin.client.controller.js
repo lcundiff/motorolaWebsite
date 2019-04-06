@@ -19,9 +19,6 @@
     vm.listDeactivatedStudents = listDeactivatedStudents;
     vm.students;
 
-    vm.deactivateStudent = deactivateStudent;
-    vm.activateStudent = activateStudent;
-
     vm.displayStudent = displayStudent;
 
     vm.viewForm = viewForm;
