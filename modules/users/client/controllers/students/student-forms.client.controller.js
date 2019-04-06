@@ -65,7 +65,12 @@
     }
     // APPROVE NDA
     function approveNDA(student){
-      vm.loading = true;
+    if(!student.NDAId){
+      Notification.error({ message: 'Please submit an NDA before approving.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+      return;
+    }
+
+    vm.loading = true;
 	  if(student.isNDASubmitted){
 		  student.isNDASubmitted = false;
 		  student.areFormsStudentApproved = false;
@@ -84,6 +89,11 @@
     }
     // APPROVE WAIVER
     function approveWaiver(student){
+      if(!student.WaiverId){
+        Notification.error({ message: 'Please submit a waiver before approving.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
+
       vm.loading = true;
 	  if(student.isWaiverSubmitted){
 		  student.isWaiverSubmitted = false;
@@ -101,6 +111,11 @@
     }
 	// APPROVE LETTER
     function approveLetterOfRecommendation(student){
+      if(!student.letterOfRecommendationId){
+        Notification.error({ message: 'Please submit a letter of recommendation before approving.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
+
       vm.loading = true;
 	  if(student.isLetterofRecommendationSubmitted){
 		  student.isLetterofRecommendationSubmitted = false;
@@ -118,6 +133,11 @@
     }
 	// APPROVE RESUME
     function approveResume(student){
+      if(!student.ResumeId){
+        Notification.error({ message: 'Please submit a resume before approving.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
+
       vm.loading = true;
 	  if(student.isResumeSubmitted == true){
 		 student.isResumeSubmitted = false;
