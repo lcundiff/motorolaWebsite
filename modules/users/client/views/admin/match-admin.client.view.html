@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- mainly effects font shape/color/size --> <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <section>
+  <div id="overlay" ng-show="vm.loading">
+        <div class="loader"></div>
+    </div>
   <nav role="navigation" class="navbar navbar-custom navbar-static-top">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -16,7 +19,7 @@
       <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.manUnmatch(vm.selected_student, vm.selected_volunteer)">Unmatch Pair</button>
     <form class="navbar-form navbar-right" role="search">
       <div class="input-group">
-        <input class="form-control" type="text" ng-model="vm.search_volunteers" placeholder="Search Volunteers" ng-change="vm.figureOutItemsToDisplay_volunteers()" />
+        <input class="form-control navbar-input" type="text" ng-model="vm.search_volunteers" placeholder="Search Volunteers" ng-change="vm.figureOutItemsToDisplay_volunteers()" />
         <span class="input-group-btn">
         <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search_volunteers=''; vm.figureOutItemsToDisplay_volunteers();"><i class="glyphicon glyphicon-remove"></i></button>
       </span>

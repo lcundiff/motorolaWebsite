@@ -6,10 +6,11 @@
 		.module('users')
 		.controller('ApplicantsAdminsController', ApplicantsAdminsController);
 
-	ApplicantsAdminsController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'AdminService', 'UsersService', 'StudentService', 'FileService', 'VolunteerService', /* 'AutomateService', 'googleDriveService',*/ '$http', '$sce'];
+	ApplicantsAdminsController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'AdminService', 'UsersService', 'StudentService', 'FileService', 'VolunteerService', 'GoogleCloudService', /* 'AutomateService', 'googleDriveService',*/ '$http', '$sce'];
 
-	function ApplicantsAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService, FileService, VolunteerService, /*AutomateService, googleDriveService,*/ $http, $sce) {
+	function ApplicantsAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService, FileService, VolunteerService, GoogleCloudService, /*AutomateService, googleDriveService,*/ $http, $sce) {
 		var vm = this;
+		vm.loading = false;
 		vm.buildPager = buildPager;
 		vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
 		vm.pageChanged = pageChanged;
@@ -52,6 +53,7 @@
 		}
 
 		function autoAccept() {
+			vm.loading = true;
 			AdminService.autoAccept()
 				.then(onAutoAcceptSuccess)
 				.catch(onAutoAcceptError);
@@ -60,12 +62,14 @@
 		function onAutoAcceptSuccess(response) {
 			vm.selected_user = false;
 			vm.listActiveStudents();
+			vm.loading = false;
 			Notification.success({
 				message: '<i class="glyphicon glyphicon-ok"></i> Students have been automatically accepted into the program.'
 			});
 		}
 
 		function onAutoAcceptError(response) {
+			vm.loading = false;
 			Notification.error({
 				message: 'There was an error when auto-accepting students into the program.',
 				title: '<i class="glyphicon glyphicon-remove"></i> Error',
@@ -75,34 +79,40 @@
 		}
 		// download pdf form
 		function viewForm(fileId) {
-			if (fileId === null || fileId === '' || fileId === undefined) {
-				Notification.error({
-					message: 'Student has not yet uploaded this form.',
-					title: '<i class="glyphicon glyphicon-remove"></i> Error',
-					delay: 6000
-				});
-				return;
-			}
+      if(fileId === null || fileId === '' || fileId === undefined){
+        Notification.error({ message: 'Student has not yet uploaded this form.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+        return;
+      }
 
-			FileService.download(fileId).then(function (data) {
+      vm.loading = true;
 
-				var file = new Blob([data.data], {
-					type: 'application/pdf'
-						// type:'image/png'
-				});
-				//var fileURL = URL.createObjectURL(file);
+      GoogleCloudService.downloadForm(fileId)
+      .then(function(response){
+        FileService.download(fileId)
+        .then(function(data){
+          var file = new Blob([data.data], {
+              type: 'application/pdf'
+            });
+              $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+              var link = document.createElement('a');
+                  link.href = $scope.fileUrl;
+                  link.download = fileId;
+                  link.click();
+                  vm.loading = false;
+        })
+        .catch(function(data){
+          vm.loading = false;
+          Notification.error({ message: 'There was an error downloading this form. Please report this to your administrator.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
 
-				//window.open(fileURL);
-				$scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-				// $scope.fileUrl = window.URL.createObjectURL(file);
-				// console.log($scope.fileUrl)
-				var link = document.createElement('a');
-				link.href = $scope.fileUrl;
-				link.download = fileId;
-				// console.log(link);
-				link.click();
-			});
-		}
+        })
+      })
+      .catch(onErrorGoogleCloudDownload);
+    }
+
+    function onErrorGoogleCloudDownload(){
+      vm.loading = false;
+      Notification.error({ message: 'There was an error downloading this document from Google Cloud.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+    }
 		// download CSV
 		$scope.downloadAllCSV = function () {
 			// get student info
@@ -157,7 +167,7 @@
 					$scope.error = 'Unable to retrieve volunteers!\n' + error;
 				});
 		}
-		
+
 		// Download ONLY active students
 		$scope.downloadActiveCSV = function () {
 			// get student info
@@ -498,6 +508,7 @@
 		*/
 
 		function deactivateStudent(user, student, index) {
+			vm.loading = true;
 			vm.selected_user = false;
 			student.active = false;
 			student.timeSlot = [];
@@ -517,6 +528,7 @@
 		function onDeactivationSuccess(response) {
 			vm.listActiveStudents();
 			// If successful we assign the response to the global user model
+			vm.loading = false;
 			Notification.success({
 				message: '<i class="glyphicon glyphicon-ok"></i> Student deactivation successful.'
 			});
@@ -525,6 +537,7 @@
 		}
 
 		function onDeactivationError(response) {
+			vm.loading = false;
 			Notification.error({
 				message: response.data.message,
 				title: '<i class="glyphicon glyphicon-remove"></i> Student deactivation error.',
@@ -533,6 +546,7 @@
 		}
 
 		function activateStudent(user, student, index) {
+			vm.loading = true;
 			vm.selected_user = false;
 			student.active = true;
 			vm.students.splice(index, 1);
@@ -546,6 +560,7 @@
 		function onActivationSuccess(response) {
 			vm.listDeactivatedStudents();
 			// If successful we assign the response to the global user model
+			vm.loading = false;
 			Notification.success({
 				message: '<i class="glyphicon glyphicon-ok"></i> Student activation successful.'
 			});
@@ -554,6 +569,7 @@
 		}
 
 		function onActivationError(response) {
+			vm.loading = false;
 			Notification.error({
 				message: response.data.message,
 				title: '<i class="glyphicon glyphicon-remove"></i> Student activation error.',

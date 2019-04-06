@@ -11,13 +11,16 @@
 </style>
 </head>
 <body>
+  <div id="overlay" ng-show="vm.loading">
+        <div class="loader"></div>
+    </div>
 <nav role="navigation" class="navbar navbar-custom navbar-static-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <h2 class="navbar-text" ng-if="vm.credentials.areFormsStudentApproved == true && vm.credentials.areFormsAdminApproved == false" >Forms Submission (Waiting On Admin Approval)</h2>
-      <h2 class="navbar-text" ng-if="vm.credentials.areFormsStudentApproved == true && vm.credentials.areFormsAdminApproved == true">Forms Submission (All Forms Approved!)</h2>
-      <h2 class="navbar-text" ng-if= "vm.credentials.isNDASubmitted == false || vm.credentials.isResumeSubmitted == false || vm.credentials.isWaiverSubmitted == false || vm.credentials.isLetterofRecommendationSubmitted == false" >Forms Submission (Student Forms Not Submitted)</h2>
-      <h2 class="navbar-text" ng-if="vm.credentials.areFormsStudentApproved == false && vm.credentials.isNDASubmitted == true && vm.credentials.isResumeSubmitted == true && vm.credentials.isWaiverSubmitted == true && vm.credentials.isLetterofRecommendationSubmitted == true">Forms Submission (Student Forms Not Verified)</h2>
+      <h5 class="navbar-text" ng-if="vm.credentials.areFormsStudentApproved == true && vm.credentials.areFormsAdminApproved == false" >Forms Submission (Waiting On Admin Approval)</h5>
+      <h5 class="navbar-text" ng-if="vm.credentials.areFormsStudentApproved == true && vm.credentials.areFormsAdminApproved == true">Forms Submission (All Forms Approved!)</h5>
+      <h5 class="navbar-text" ng-if= "vm.credentials.isNDASubmitted == false || vm.credentials.isResumeSubmitted == false || vm.credentials.isWaiverSubmitted == false || vm.credentials.isLetterofRecommendationSubmitted == false" >Forms Submission (Student Forms Not Submitted)</h5>
+      <h5 class="navbar-text" ng-if="vm.credentials.areFormsStudentApproved == false && vm.credentials.isNDASubmitted == true && vm.credentials.isResumeSubmitted == true && vm.credentials.isWaiverSubmitted == true && vm.credentials.isLetterofRecommendationSubmitted == true">Forms Submission (Student Forms Not Verified)</h5>
     </div>
     <!-- need to decide if this is neccessary since it takes a lot of room
     <center>

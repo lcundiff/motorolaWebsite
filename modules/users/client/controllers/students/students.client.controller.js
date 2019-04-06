@@ -10,6 +10,7 @@
 
   function StudentsController($scope, $state, $window, StudentService, FileService, Authentication, Notification, $http, $sce) {
     var vm = this;
+    vm.loading = false;
     vm.student;
     vm.credentials;
     vm.authentication = Authentication;
@@ -17,7 +18,6 @@
     vm.createStudent = createStudent;
     vm.updateStudent = updateStudent;
 	vm.saveApp = saveApp;
-    vm.isContextUserSelf = isContextUserSelf;
     vm.remove = remove;
 
     vm.uploadResume = uploadResume;
@@ -170,30 +170,6 @@
         .catch(onResumeSubmissionError);
     }
 
-
-    $scope.viewResume = function(fileId) {
-      console.log("fileId: ",fileId);
-
-      FileService.download(fileId).then(function(data){
-
-        var file = new Blob([data.data], {
-            type: 'application/pdf'
-            // type:'image/png'
-          });
-            //var fileURL = URL.createObjectURL(file);
-
-            //window.open(fileURL);
-            $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-            // $scope.fileUrl = window.URL.createObjectURL(file);
-            // console.log($scope.fileUrl)
-            var link = document.createElement('a');
-                link.href = $scope.fileUrl;
-                link.download = fileId;
-                // console.log(link);
-                link.click();
-      });
-    }
-
     function addClasses() {
       var classN = {
         editMode: false,
@@ -343,17 +319,19 @@
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.studentForm');
         console.log("NOT VALID");
-		/// Show user where the error is specifically. 
+		/// Show user where the error is specifically.
 		//var errorElement = document.querySelector( '#personal' ); // grab element
 		//errorElement.scrollIntoView(); // scroll it into view
         //var idName = myElement.getAttribute('id'); // grab ID name from element
 		//console.log(idName); // confirm we have right element
-		  
+
         Notification.error({ message: 'Review form for errors.', title: '<i class="glyphicon glyphicon-remove"></i> Fields in form are either missing information or are incorrect.', delay: 6000 });
         vm.credentials.isAppComplete = false;
         vm.submitIsUpdate = false;
         return false;
       }
+      vm.loading = true;
+
 	  $scope.$broadcast('show-errors-reset', 'vm.studentForm');
       vm.credentials.isAppComplete = true;
       vm.submitIsUpdate = true;
@@ -363,15 +341,11 @@
         .catch(onStudentSubmissionError);
     }
 	function saveApp(isValid){
+    vm.loading = true;
 	  $scope.$broadcast('show-errors-reset', 'vm.studentForm');
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
-        .then(onStudentSubmissionSuccess)
-        .catch(onStudentSubmissionError);
-    }
-	  
-
-    function isContextUserSelf(){
-
+        .then(onStudentSaveSuccess)
+        .catch(onStudentSaveError);
     }
 
     function remove(student){
@@ -393,6 +367,7 @@
     function onStudentSubmissionSuccess(response) {
       // If successful we assign the response to the global user model
       vm.authentication.student = response;
+      vm.loading = false;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student submission successful.' });
       // And redirect to the previous or home page
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
@@ -401,226 +376,19 @@
     function onStudentSaveSuccess(response) {
       // If successful we assign the response to the global user model
       vm.authentication.student = response;
-      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student Save Successful.' });
+      vm.loading = false;
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student save successful.' });
+    }
+
+    function onStudentSaveError(response) {
+      vm.loading = false;
+      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Student save error.', delay: 6000 });
     }
 
     function onStudentSubmissionError(response) {
+      vm.loading = false;
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Student submission error.', delay: 6000 });
     }
-
-    function onResumeSubmissionSuccess(response) {
-      // If successful we assign the response to the global user model
-      vm.authentication.student = response;
-      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Resume submission successful.' });
-      // And redirect to the previous or home page
-      //$state.go($state.previous.state.name || 'home', $state.previous.params);
-    }
-
-    function onResumeSubmissionError(response) {
-      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Resume submission error.', delay: 6000 });
-    }
-
-    /*$scope.ChangesNotAllowed = function(){
-      alert('Sorry, resume modifications are no longer allowed as the submission period is over as of May 25th. You will receive a notification if you are selected into this program.');
-    };
-    $scope.photoChanged1 = function (files) {
-      console.log("files: ",files);
-      //if (files.length > 0 && files[0].name.match(/\.(png|jpg|jpeg|pdf|gif)$/)) {
-      if (files.length > 0 && files[0].name.match(/\.(pdf)$/)) {
-        $scope.uploading1 = true;
-        // console.log(files);
-      } else {
-        $scope.uploading1 = false;
-      }
-    };
-    $scope.photoChanged2 = function (files) {
-      console.log("files: ",files);
-    //  if (files.length > 0 && files[0].name.match(/\.(png|jpg|jpeg|pdf|gif)$/)) {
-    if (files.length > 0 && files[0].name.match(/\.(pdf)$/)) {
-        $scope.uploading2 = true;
-        // console.log(files);
-      } else {
-        $scope.uploading2 = false;
-      }
-    };
-    $scope.photoChanged3 = function (files) {
-      console.log("files: ",files);
-      //if (files.length > 0 && files[0].name.match(/\.(png|jpg|jpeg|pdf|gif)$/)) {
-      if (files.length > 0 && files[0].name.match(/\.(pdf)$/)) {
-        $scope.uploading3 = true;
-      } else {
-        $scope.uploading3 = false;
-      }
-    };
-    $scope.notMeetFile = function(){
-      //alert("Please upload file correctly (only png, jpg, jpeg, pdf allowed");
-      alert("Only files in PDF format are allowed for submission. Please upload file correctly.");
-    };
-    $scope.download_NDA = function(){
-      googleDriveService.getNDA().then(function(resp){
-        console.log("response 1022: ",resp);
-        $scope.download(resp.data.id, resp.data.name);
-        /*googleDriveService.getDoc(resp.data.id + '.pdf').then(function(response){
-          $http.get('./public/upload/' + 'NDA.pdf', { responseType: 'arraybuffer' })
-         .success(function (data) {
-            console.log(data);
-            // var data ='some data';
-             var file = new Blob([data], {
-                 type: 'application/pdf'
-                 // type:'image/png'
-             });
-             var url = $window.URL || $window.webkitURL;
-             $scope.fileUrl = $sce.trustAsResourceUrl(url.createObjectURL(file));
-             // $scope.fileUrl = window.URL.createObjectURL(file);
-             // console.log($scope.fileUrl)
-             var link = document.createElement('a');
-                 link.href = $scope.fileUrl;
-                 link.download = 'NDA.pdf';
-                 // console.log(link);
-                 link.click();
-           });
-        });
-      });
-    };*/
-
-    $scope.download_Waiver = function(){
-      googleDriveService.getWaiver().then(function(resp){
-        console.log("response 2022: ",resp);
-
-        $scope.download(resp.data.id, resp.data.name);
-
-        /*googleDriveService.getDoc(resp.data.id + '.pdf').then(function(response){
-          $http.get('./public/upload/' + 'NDA.pdf', { responseType: 'arraybuffer' })
-         .success(function (data) {
-            console.log(data);
-            // var data ='some data';
-             var file = new Blob([data], {
-                 type: 'application/pdf'
-                 // type:'image/png'
-             });
-             var url = $window.URL || $window.webkitURL;
-             $scope.fileUrl = $sce.trustAsResourceUrl(url.createObjectURL(file));
-             // $scope.fileUrl = window.URL.createObjectURL(file);
-             // console.log($scope.fileUrl)
-             var link = document.createElement('a');
-                 link.href = $scope.fileUrl;
-                 link.download = 'NDA.pdf';
-                 // console.log(link);
-                 link.click();
-           });
-        });*/
-      });
-    };
-
-  /*  $scope.download = function(fileId, fileName) {
-      googleDriveService.getDoc(fileId + '.pdf').then(function(response){
-         $http.get('./download/' + fileName, { responseType: 'arraybuffer' })
-        .success(function (data) {
-           console.log(data);
-           // var data ='some data';
-            var file = new Blob([data], {
-                type: 'application/pdf'
-                // type:'image/png'
-            });
-            var url = $window.URL || $window.webkitURL;
-            $scope.fileUrl = $sce.trustAsResourceUrl(url.createObjectURL(file));
-            // $scope.fileUrl = window.URL.createObjectURL(file);
-            // console.log($scope.fileUrl)
-            var link = document.createElement('a');
-                link.href = $scope.fileUrl;
-                link.download = fileName;
-                // console.log(link);
-                link.click();
-          });
-      });
-  };*/
-
-    $scope.removeFile = function(doc) {
-      //doc is the entire document object stored in student
-      //Assuming a student can only delete what he has submitted
-      googleDriveService.deleteDocs(doc.id).then(function(response) {
-        $scope.student_Forms.splice($scope.student_Forms.indexOf(doc), 1);
-        $scope.updateStudent($scope.userid);
-        console.log(response);
-      }, function(error) {
-        console.log(error);
-      });
-
-    };
-  // Submission functions for forms page
-  // letter of rec
-    $scope.saveSubmittedLetterofRecommendation = function(){
-   console.log("we changin submitted letter");
-
-   StudentsService.read($scope.userid).then(function(response){
-           $scope.student= response.data;
-           $scope.student.isLetterofRecommendationSubmitted = true;
-
-
-           StudentsService.update($scope.student, $scope.student.user).then(function(response){
-
-             console.log("Success updating letters");
-             console.log(response);
-           });
-
-  }, function(error) {
-           $scope.error = 'Unable to retrieve student!\n' + error;
-         });
-
- };
-
- $scope.saveSubmittedNDA = function(){
-   //console.log("we changin submitted letter");
-
-   StudentsService.read($scope.userid).then(function(response){
-           $scope.student= response.data;
-           $scope.student.isNDASubmitted = false;
-           $scope.student.NDAId = $scope.up_file_id;
-           console.log("NDAId: ",$scope.student.NDAId);
-
-           if($scope.student.isWaiverSubmitted == true){
-             $scope.student.isFormSubmitted = true;
-           }
-
-           StudentsService.update($scope.student, $scope.student.user).then(function(response){
-
-             googleDriveService.listDocs().then(function(response){
-               console.log("gr: ", response);
-             })
-
-             console.log("Success updating NDA");
-             console.log(response);
-           });
-
-  }, function(error) {
-           $scope.error = 'Unable to retrieve student!\n' + error;
-         });
-
- };
-
- $scope.saveSubmittedWaiver = function(){
-   //console.log("we changin submitted letter");
-
-   StudentsService.read($scope.userid).then(function(response){
-           $scope.student= response.data;
-           $scope.student.isWaiverSubmitted = true;
-           $scope.student.WaiverId = $scope.up_file_id;
-
-           if($scope.student.isNDASubmitted == true){
-               $scope.student.isFormSubmitted = true;
-           }
-
-           StudentsService.update($scope.student, $scope.student.user).then(function(response){
-
-             console.log("Success updating Waiver");
-             console.log(response);
-           });
-
-  }, function(error) {
-           $scope.error = 'Unable to retrieve student!\n' + error;
-         });
-
- };
 }
 
 }());

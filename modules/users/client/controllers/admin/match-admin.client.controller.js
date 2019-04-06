@@ -10,6 +10,7 @@
 
   function MatchAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService, FileService, VolunteerService,/* AutomateService, googleDriveService,*/$http, $sce) {
     var vm = this;
+    vm.loading = false;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay_students = figureOutItemsToDisplay_students;
     vm.figureOutItemsToDisplay_volunteers = figureOutItemsToDisplay_volunteers;
@@ -50,6 +51,7 @@
     });
 
     function autoMatch() {
+      vm.loading = true;
       AdminService.autoMatch("1").then(function(response){
         AdminService.autoMatch("2").then(function(response){
           AdminService.autoMatch("3")
@@ -62,6 +64,7 @@
     function onAutoMatchSuccess(response) {
       vm.listActiveStudents();
           // If successful we assign the response to the global user model
+          vm.loading = false;
           Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Auto-match was successful.' });
           // And redirect to the previous or home page
           //$state.go($state.previous.state.name || 'home', $state.previous.params);
@@ -69,24 +72,30 @@
         }
 
     function onAutoMatchError(response) {
+          vm.loading = false;
           Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> An error occurred during auto-match.', delay: 6000 });
         }
 
 
     function manMatch(student, volunteer) {
+      vm.loading = true;
       console.log(student);
       console.log(volunteer);
       if(student.timeSlot.length < 0){
-        Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> This student has not been accepted into a session.', title: 'Error', delay: 6000 });
         deSelectStudent(student);
         deSelectVolunteer(volunteer);
+        vm.loading = false;
+        Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> This student has not been accepted into a session.', title: 'Error', delay: 6000 });
+
         return;
       }
       else if(student === null || student === undefined){
+        vm.loading = false;
         Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> Please select a student to match.', title: 'Error', delay: 6000 });
         return;
       }
       else if(volunteer === null || volunteer === undefined){
+        vm.loading = false;
         Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> Please select a volunteer to match.', title: 'Error', delay: 6000 });
         return;
       }
@@ -97,9 +106,11 @@
       }
 
       if(student.mentorID === volunteer.user._id){
-        Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> This mentor has already been paired to this student.', title: 'Error', delay: 6000 });
         deSelectStudent(student);
         deSelectVolunteer(volunteer);
+        vm.loading = false;
+        Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> This mentor has already been paired to this student.', title: 'Error', delay: 6000 });
+
         return;
       }
       volunteer.mentee.push(student.application.firstName + " " + student.application.lastName);
@@ -120,11 +131,12 @@
     }
 
     function manUnmatch(student, volunteer){
-
+      vm.loading = true;
       if(!student.mentorID.includes(volunteer.user._id)){
-        Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> This pair is not matched.', title: 'Error', delay: 6000 });
         deSelectStudent(student);
         deSelectVolunteer(volunteer);
+        vm.loading = false;
+        Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> This pair is not matched.', title: 'Error', delay: 6000 });
         return;
       }
       if(student.timeSlot[0] === "1") volunteer.mentee_count_sess_1--;
@@ -152,23 +164,27 @@
     function onMatchSuccess(response) {
       vm.listActiveStudents();
           // If successful we assign the response to the global user model
+          vm.loading = false;
           Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Matching of pair was successful.' });
           // And redirect to the previous or home page
           //$state.go($state.previous.state.name || 'home', $state.previous.params);
         }
 
     function onMatchError(response) {
+          vm.loading = false;
           Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> There was an error matching the student-mentor pair.', delay: 6000 });
         }
 
         function onUnmatchSuccess(response) {
               // If successful we assign the response to the global user model
+              vm.loading = false;
               Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Unmatching of pair was successful.' });
               // And redirect to the previous or home page
               //$state.go($state.previous.state.name || 'home', $state.previous.params);
             }
 
         function onUnmatchError(response) {
+          vm.loading = false;
               Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> There was an error unmatching the student-mentor pair.', delay: 6000 });
             }
 
@@ -235,29 +251,6 @@
       vm.is_volunteer_selected = false;
     }
 
-    function viewForm(fileId) {
-      console.log("fileId: ",fileId);
-
-      FileService.download(fileId).then(function(data){
-
-        var file = new Blob([data.data], {
-            type: 'application/pdf'
-            // type:'image/png'
-          });
-            //var fileURL = URL.createObjectURL(file);
-
-            //window.open(fileURL);
-            $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-            // $scope.fileUrl = window.URL.createObjectURL(file);
-            // console.log($scope.fileUrl)
-            var link = document.createElement('a');
-                link.href = $scope.fileUrl;
-                link.download = fileId;
-                // console.log(link);
-                link.click();
-      });
-    }
-
     function figureOutItemsToDisplay_students() {
       console.log("HERE IN FOID");
       vm.filteredItems_students = $filter('filter')(vm.students, {
@@ -314,48 +307,6 @@
         await(vm.buildPager());
       });
     }
-
-    function addInterviewer(student, volunteerUser, index){
-      student.interviewer[index] = volunteerUser;
-
-      StudentService.updateStudent(student.user, student)
-      .then(onAddInterviewerSuccess)
-      .catch(onAddInterviewerError);
-    }
-
-    function onAddInterviewerSuccess(response) {
-          // If successful we assign the response to the global user model
-          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Interviewer was successfully added to student.' });
-          // And redirect to the previous or home page
-          //$state.go($state.previous.state.name || 'home', $state.previous.params);
-        }
-
-        function onAddInterviewerError(response) {
-          Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> There was an error adding interviewer to student.', delay: 6000 });
-        }
-
-    //open tab (either active or deactivated students)
-    $scope.openPage = function(pageName, elmnt){
-      // Hide all elements with class="tabcontent" by default */
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-      }
-
-      // Remove the background color of all tablinks/buttons
-      tablinks = document.getElementsByClassName("tablink");
-      for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].style.backgroundColor = "";
-      }
-
-      // Show the specific tab content
-      document.getElementById(pageName).style.display = "block";
-
-      // Add the specific color to the button used to open the tab content
-      //elmnt.style.backgroundColor = color;
-    };
-
 }
 
 

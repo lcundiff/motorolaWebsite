@@ -11,6 +11,7 @@
   function VolunteersAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, VolunteerService,/* VolunteersService, AutomateService, googleDriveService,*/$http, $sce) {
     var vm = this;
 
+    vm.loading = false;
     vm.selected_user = false;
 
     vm.buildPager = buildPager;
@@ -136,6 +137,7 @@
   $scope.anyChecked = false;
 
 function deactivateVolunteer(user, volunteer, index) {
+  vm.loading = true;
   vm.selected_user = false;
   volunteer.active = false;
   volunteer.mentee = [];
@@ -152,16 +154,19 @@ function deactivateVolunteer(user, volunteer, index) {
 
 function onDeactivationSuccess(response) {
       // If successful we assign the response to the global user model
+      vm.loading = false;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Volunteer deactivation successful.' });
       // And redirect to the previous or home page
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
     function onDeactivationError(response) {
+      vm.loading = false;
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Volunteer deactivation error.', delay: 6000 });
     }
 
 function activateVolunteer(user, volunteer, index) {
+  vm.loading = true;
   vm.selected_user = false;
   volunteer.active = true;
   vm.volunteers.splice(index, 1);
@@ -174,12 +179,14 @@ function activateVolunteer(user, volunteer, index) {
 
 function onActivationSuccess(response) {
       // If successful we assign the response to the global user model
+      vm.loading = false;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Volunteer activation successful.' });
       // And redirect to the previous or home page
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
     function onActivationError(response) {
+      vm.loading = false;
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Volunteer activation error.', delay: 6000 });
     }
 

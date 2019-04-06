@@ -1,26 +1,35 @@
-submit<!DOCTYPE html>
-<html>
+
 <title>Application</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 #myCarousel {
     margin-left: 50px;
     margin-right: 50px;
 }
 </style>
-
 <body>
-<nav role="navigation" class="navbar navbar-custom navbar-static-top">
+  <div id="overlay" ng-show="vm.loading">
+        <div class="loader"></div>
+    </div>
+    <nav role="navigation" class="navbar navbar-custom navbar-static-top">
+      <div class="container-fluid" ng-switch="vm.submitIsUpdate">
+        <element class="navbar-header" ng-switch-when="false">
+          <h5 class="navbar-text">Student Application (Not Completed)</h5>
+        </element>
+        <element class="navbar-header" ng-switch-when="true">
+          <h5 class="navbar-text">Student Application (Completed)</h5>
+        </element>
+      </div>
+    </nav>
+<!--<nav role="navigation" class="navbar navbar-custom navbar-static-top">
   <div class="container-fluid" ng-switch="vm.submitIsUpdate">
     <element class="navbar-header" ng-switch-when="false">
-      <h2 class="navbar-text">Student Application (not completed)</h2>
+      <h3 class="navbar-text">Student Application (not completed)</h2>
     </element>
     <element class="navbar-header" ng-switch-when="true">
-      <h2 class="navbar-text">Student Application Completed</h2>
+      <h3 class="navbar-text">Student Application Completed</h2>
     </element>
     </div>
-</nav>
+</nav>-->
 <br>
 <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
 
