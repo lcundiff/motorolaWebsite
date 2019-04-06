@@ -10,6 +10,7 @@
 
   function InterviewsAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService, FileService, VolunteerService,/* AutomateService, googleDriveService,*/$http, $sce) {
     var vm = this;
+    vm.loading = false;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
@@ -32,6 +33,7 @@
     vm.autoAssignInterviews = autoAssignInterviews;
 
     function autoAssignInterviews() {
+      vm.loading = true;
       AdminService.autoAssignInterviews()
       .then(onAutoAssignInterviewsSuccess)
       .catch(onAutoAssignInterviewsFailure);
@@ -41,12 +43,14 @@
       vm.selected_user = false;
       vm.listActiveStudents();
       // If successful we assign the response to the global user model
+      vm.loading = false;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Auto Assignation of Interviews complete.' });
       // And redirect to the previous or home page
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
     }
     function onAutoAssignInterviewsFailure(response){
       // If successful we assign the response to the global user model
+      vm.loading = false;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Auto Assignation of Interviews failed.' });
       // And redirect to the previous or home page
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
@@ -71,29 +75,6 @@
 		vm.backEndInterviewer[1] = user.interviewerID[1];
 		vm.backEndInterviewer[2] = user.interviewerID[2];
       vm.selected_user = true;
-    }
-
-    function viewForm(fileId) {
-      console.log("fileId: ",fileId);
-
-      FileService.download(fileId).then(function(data){
-
-        var file = new Blob([data.data], {
-            type: 'application/pdf'
-            // type:'image/png'
-          });
-            //var fileURL = URL.createObjectURL(file);
-
-            //window.open(fileURL);
-            $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-            // $scope.fileUrl = window.URL.createObjectURL(file);
-            // console.log($scope.fileUrl)
-            var link = document.createElement('a');
-                link.href = $scope.fileUrl;
-                link.download = fileId;
-                // console.log(link);
-                link.click();
-      });
     }
 
     function figureOutItemsToDisplay() {
@@ -134,6 +115,7 @@
     }
 
     function addInterviewer(student, volunteerUser, index){
+      vm.loading = true;
       student.interviewer[index] = volunteerUser;
       console.log(volunteerUser);
 
@@ -154,117 +136,17 @@
 
     function onAddInterviewerSuccess(student,index) {
           // If successful we assign the response to the global user model
+          		  vm.backEndInterviewer[index] = student.interviewerID[index];
+                vm.loading = false;
           Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Interviewer was successfully added to student.' });
-		  vm.backEndInterviewer[index] = student.interviewerID[index];
           // And redirect to the previous or home page
           //$state.go($state.previous.state.name || 'home', $state.previous.params);
         }
 
         function onAddInterviewerError(response) {
+          vm.loading = false;
           Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> There was an error adding interviewer to student.', delay: 6000 });
         }
-
-    //open tab (either active or deactivated students)
-    $scope.openPage = function(pageName, elmnt){
-      // Hide all elements with class="tabcontent" by default */
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-      }
-
-      // Remove the background color of all tablinks/buttons
-      tablinks = document.getElementsByClassName("tablink");
-      for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].style.backgroundColor = "";
-      }
-
-      // Show the specific tab content
-      document.getElementById(pageName).style.display = "block";
-
-      // Add the specific color to the button used to open the tab content
-      //elmnt.style.backgroundColor = color;
-    };
-
-
-
-
-
-/*
-
-  $scope.addInterviewerToStudent = function(id){
-    AutomateService.replaceInterviewer(id).then(function(response){
-      if(response.data === 'No interviewers available!'){
-        alert('No interviewers currently available to assign to that student.');
-      }
-      else{
-        alert('Interviewer successfully added to student.');
-        $window.location.reload();
-      }
-    })
-  }
-
-  $scope.chooseInterviewerToStudent = function(studentId,mentorId){
-    AutomateService.chooseInterviewer(studentId,mentorId).then(function(response){
-      if(response.data === 'No interviewers available!'){
-        alert('No interviewers currently available to assign to that student.');
-      }
-      else{
-        alert('Interviewer successfully added to student.');
-        $window.location.reload();
-      }
-    })
-  };
-*/
-
-function deactivateStudent(user, student, index) {
-  vm.selected_user = false;
-  student.active = false;
-  student.timeSlot = [];
-  student.mentor = "";
-  student.mentorID = "";
-  student.interviewer = [];
-  student.interviewerID = [];
-  vm.students.splice(index, 1);
-  vm.pagedItems.splice(index%15, 1);
-
-  StudentService.updateStudent(user, student)
-  .then(onDeactivationSuccess)
-  .catch(onDeactivationError);
-};
-
-function onDeactivationSuccess(response) {
-      // If successful we assign the response to the global user model
-      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student deactivation successful.' });
-      // And redirect to the previous or home page
-      //$state.go($state.previous.state.name || 'home', $state.previous.params);
-    }
-
-    function onDeactivationError(response) {
-      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Student deactivation error.', delay: 6000 });
-    }
-
-function activateStudent(user, student, index) {
-  vm.selected_user = false;
-  student.active = true;
-  vm.students.splice(index, 1);
-  vm.pagedItems.splice(index%15, 1);
-
-  StudentService.updateStudent(user, student)
-  .then(onActivationSuccess)
-  .catch(onActivationError);
-};
-
-function onActivationSuccess(response) {
-      // If successful we assign the response to the global user model
-      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Student activation successful.' });
-      // And redirect to the previous or home page
-      //$state.go($state.previous.state.name || 'home', $state.previous.params);
-    }
-
-    function onActivationError(response) {
-      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Student activation error.', delay: 6000 });
-    }
 
 }
 
