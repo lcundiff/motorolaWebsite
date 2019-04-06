@@ -21,8 +21,6 @@
 
     vm.displayStudent = displayStudent;
 
-    vm.viewForm = viewForm;
-
     vm.selected_user = false;
 	vm.backEndInterviewer = ['','',''];
 
