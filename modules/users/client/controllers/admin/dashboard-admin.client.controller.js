@@ -147,8 +147,13 @@
 	    const day6 = new Date(now.getFullYear(), now.getMonth(), now.getDate()-1);
 	    const day7 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
+			console.log('here');
+			console.log(day7);
+
 			AdminService.newStudentActivity().then(function(response){
 				console.log(response);
+				console.log(response.users);
+				console.log('num users: ',response.users.length);
 				response.users.forEach(function(user, i){
 					console.log(user);
 	        var userDate = new Date(user.created);
