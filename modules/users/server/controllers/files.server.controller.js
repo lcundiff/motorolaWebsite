@@ -82,17 +82,23 @@ const downloadFolder = './uploads/';
 
 exports.uploadFile = function(req, res){
   console.log("req.params: ",req.params.filename);
-  upload(req, res, function(err){
-    if (err) {
-      if(err.code === 'LIMIT_FILE_SIZE') res.json({ success: false, message: 'File size is too large. Max limit is 10MB.'});
-      else if(err.code = 'filetype') res.json({ success: false, message: 'File type not permitted.'});
-      else {
-        res.json({ success: false, message: 'File upload error.'});
+  var p1 = new Promise(function(resolve, reject){
+    upload(req, res, function(err){
+      if (err) {
+        if(err.code === 'LIMIT_FILE_SIZE') res.json({ success: false, message: 'File size is too large. Max limit is 10MB.'});
+        else if(err.code = 'filetype') res.json({ success: false, message: 'File type not permitted.'});
+        else {
+          resolve({ success: false, message: 'File upload error.'});
+        }
+      } else {
+        //if (!req.file) res.json({ success: false, message: 'No file was selected.'});
+       resolve({success: true, message: 'File successfully uploaded.', fileName: req.params.filename});
       }
-    } else {
-      //if (!req.file) res.json({ success: false, message: 'No file was selected.'});
-     res.json({success: true, message: 'File successfully uploaded.', fileName: req.params.filename});
-    }
+    });
+  });
+
+  Promise.all([p1]).then(function(values){
+    res.json(values[0]);
   });
 }
 
@@ -132,6 +138,17 @@ exports.downloadFile = function(req, res){
 }
 
 exports.downloadCSV = function(req, res){
-  console.log("CSV");
-	res.download(uploadFolder + req.params.filename);
+  console.log("req.params: ",req.params.filename);
+  upload(req, res, function(err){
+    if (err) {
+      if(err.code === 'LIMIT_FILE_SIZE') res.json({ success: false, message: 'File size is too large. Max limit is 10MB.'});
+      else if(err.code = 'filetype') res.json({ success: false, message: 'File type not permitted.'});
+      else {
+        res.json({ success: false, message: 'File upload error.'});
+      }
+    } else {
+      //if (!req.file) res.json({ success: false, message: 'No file was selected.'});
+     res.download(uploadFolder + req.params.filename);
+    }
+  });
 }
