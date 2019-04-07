@@ -32,7 +32,7 @@ exports.uploadCloudFile = function(req, res) {
 // Downloads the file
 exports.downloadCloudFile = function(req, res) {
   const options = {
-    destination: `./downloads/${req.params.filename}`,
+    destination: `./uploads/${req.params.filename}`,
   };
 
   storage

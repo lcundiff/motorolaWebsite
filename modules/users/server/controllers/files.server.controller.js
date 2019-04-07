@@ -10,7 +10,7 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 const uploadFolder = './uploads/';
-const downloadFolder = './downloads/';
+const downloadFolder = './uploads/';
 
   var storage = multer.diskStorage({
       destination:function(req,file,cb){
