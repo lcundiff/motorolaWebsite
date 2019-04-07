@@ -128,14 +128,17 @@
       console.log('HERE IS GTHE FILE');
       console.log($scope.file);
 
-      var binaryData = [];
-      binaryData.push($scope.file);
+      var link = document.createElement('a');
+      link.href = 'data:application/pdf,' + encodeURIComponent($scope.file.upload);
+      link.download = 'NDA.pdf';
+      //var binaryData = [];
+      //binaryData.push($scope.file);
       //(window.URL || window.webkitURL).createObjectURL(file);
-      var tmppath = $window.URL.createObjectURL($scope.file.upload);
+      //var tmppath = $window.URL.createObjectURL($scope.file.upload);
       //var tmppath = $window.URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}))
       //var tmppath = URL.createObjectURL($scope.file);
 
-      GoogleCloudService.uploadForm({name: tmppath})
+      GoogleCloudService.uploadForm({name: link})
       .then(function(response){
         $scope.uploading = false;
         vm.loading = false;
