@@ -115,6 +115,7 @@
     }
 		// download CSV
 		$scope.downloadAllCSV = function () {
+			vm.loading = true;
 			// get student info
 			var header = "Name, Email, Phone, Address, School, Parent Name, Parent Phone, Parent Email, Interviewers, Interview Date, Interview Time, Interview DOW\n";
 			var content = "";
@@ -128,20 +129,21 @@
 						content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\""+ student.application.address.city+" , "+ student.application.address.state + " , " +student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
 					});
 					content = header + "\n" + content;
-					FileService.downloadCSV('All_Students_CSV.csv').then(function (data) {
-						console.log("ABOUT TO DOWNLOAD");
+
 						//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
 						var link = document.createElement('a');
 						link.href = 'data:attachment/csv,' + encodeURIComponent(content);
 						link.download = 'All_Students_CSV.csv';
 						link.click();
-					});
+						vm.loading = false;
 				},
 				function (error) {
+					vm.loading = false;
 					$scope.error = 'Unable to retrieve students!\n' + error;
 				});
 		}
 		$scope.downloadVolunteersCSV = function () {
+			vm.loading = true;
 			// get volunteer info
 			var header = "Name, Email, Phone, Address, Expertise, Sessions, Roles, Amount of Interviews, Interviees, \n";
 			var content = "";
@@ -154,16 +156,16 @@
 							"\"" + volunteer.application.phone + "\"" + "," + "\"" +  volunteer.application.address.city+" , "+ volunteer.application.address.state+" "+ volunteer.application.address.zipcode + "\"" + "," + "\"" + volunteer.application.areaofexpertise + "\"" + "," + "\"" + volunteer.sessions + "\"" + "," + "\"" + volunteer.roles + "\"" + "," + "\"" + volunteer.interviewee_count + "\"" + "," + "\"" + volunteer.interviewee + "\"" + "\n" + content;
 					});
 					content = header + "\n" + content;
-					FileService.downloadCSV('All_Volunteers_CSV.csv').then(function (data) {
-						console.log("ABOUT TO DOWNLOAD Volunteers");
+
 						//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
 						var link = document.createElement('a');
 						link.href = 'data:attachment/csv,' + encodeURIComponent(content);
 						link.download = 'All_Volunteers_CSV.csv';
 						link.click();
-					});
+						vm.loading = false;
 				},
 				function (error) {
+					vm.loading = false;
 					$scope.error = 'Unable to retrieve volunteers!\n' + error;
 				});
 		}
@@ -171,6 +173,7 @@
 		// Download ONLY active students
 		$scope.downloadActiveCSV = function () {
 			// get student info
+			vm.loading = true;
 			var header = "Name, Email, Phone, Address, School, Parent Name, Parent Phone, Parent Email, Interviewers, Interview Date, Interview Time, Interview DOW\n";
 			var content = "";
 			//$scope.StudentService.studentListActive().then(function(data){
@@ -182,16 +185,16 @@
 						content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\""+ student.application.address.city+" , "+ student.application.address.state + " , " +student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
 					});
 					content = header + "\n" + content;
-					FileService.downloadCSV('Active_Students_CSV.csv').then(function (data) {
-						console.log("ABOUT TO DOWNLOAD");
+
 						//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
 						var link = document.createElement('a');
 						link.href = 'data:attachment/csv,' + encodeURIComponent(content);
 						link.download = 'Active_Students_CSV.csv';
 						link.click();
-					});
+						vm.loading = false;
 				},
 				function (error) {
+					vm.loading = false;
 					$scope.error = 'Unable to retrieve students!\n' + error;
 				});
 		}
