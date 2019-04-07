@@ -289,7 +289,7 @@
         vm.loading = false;
         Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Form submission successful.' });
       })
-      .error(function(error){
+      .catch(function(error){
         Notification.error({ message: 'There was an error saving your form. Please try again or contact the system administrator.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
       });
       // And redirect to the previous or home page
