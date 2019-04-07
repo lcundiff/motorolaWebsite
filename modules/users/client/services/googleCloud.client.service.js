@@ -23,22 +23,16 @@
       uploadForm: function(filename, file) {
         console.log(file);
         var fd = new FormData();
-        fd.append("NDA", file);
-
-        console.log('YO');
-        console.log(fd);
-        console.log('Here upload GCS!!');
+        fd.append("file", file);
 
         return $http.put(`/api/files/cloud-storage/${filename}`, fd, {
         transformRequest: angular.identity,
         headers: { 'Content-Type': undefined }
       });
       }
-      /*(downloadForm: function(filename) {
-        return this.get_file({
-          filename: filename
-        }).$promise;
-      },*/
+      downloadForm: function(filename) {
+        return $http.get(`/api/files/cloud-storage/${filename}`, { responseType: 'arraybuffer' });
+      }
     };
 
     return methods;

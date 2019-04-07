@@ -144,44 +144,12 @@
 
     function uploadWaiver(){
       vm.loading = true;
-      console.log(document.getElementById("nda_upload").value);
 
-      console.log($scope.file.upload);
-      console.log("file: ",$scope.file);
-
-      $scope.uploading = true;
-
-      FileService.uploadWaiver($scope.file)
-      .then(onWaiverUploadSuccess)
-      .catch(onFormUploadError);
-    }
-
-    function onNDAUploadSuccess(response) {
-      // If successful we assign the response to the global user model\
-      GoogleCloudService.uploadForm({name: response.data.fileName})
+      GoogleCloudService.uploadForm('Waiver.pdf', $scope.file.upload)
       .then(function(response){
         $scope.uploading = false;
         vm.loading = false;
-        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> NDA upload successful.' });
-      })
-      .catch(function(error){
-        $scope.uploading = false;
-        vm.loading = false;
-        Notification.error({ message: 'Could not upload form to google cloud.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
-      });
-
-      // And redirect to the previous or home page
-      //$state.go($state.previous.state.name || 'home', $state.previous.params);
-    }
-
-    function onWaiverUploadSuccess(response) {
-      // If successful we assign the response to the global user model
-      console.log(response);
-      GoogleCloudService.uploadForm({name: response.data.fileName}).then(function(response){
-        $scope.uploading = false;
-        vm.loading = false;
         Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Waiver upload successful.' });
-
       })
       .catch(function(error){
         $scope.uploading = false;
@@ -189,11 +157,6 @@
         Notification.error({ message: 'Could not upload form to google cloud.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
       });
     }
-
-    function onFormUploadError(response) {
-      Notification.error({ message: 'Form upload error.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
-    }
-
 
     function viewForm(fileId) {
       if(fileId === null || fileId === '' || fileId === undefined){
@@ -205,30 +168,22 @@
 
       GoogleCloudService.downloadForm(fileId)
       .then(function(response){
-        FileService.download(fileId)
-        .then(function(data){
-          var file = new Blob([data.data], {
-              type: 'application/pdf'
-            });
-              $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-              var link = document.createElement('a');
-                  link.href = $scope.fileUrl;
-                  link.download = fileId;
-                  link.click();
-                  vm.loading = false;
+        var file = new Blob([response.data], {
+            type: 'application/pdf'
+          });
+            $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+            var link = document.createElement('a');
+                link.href = $scope.fileUrl;
+                link.download = fileId;
+                link.click();
+                vm.loading = false;
         })
-        .catch(function(data){
-          vm.loading = false;
-          Notification.error({ message: 'There was an error downloading this form. Please report this to your administrator.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
-
-        })
-      })
       .catch(onErrorGoogleCloudDownload);
     }
 
     function onErrorGoogleCloudDownload(){
       vm.loading = false;
-      Notification.error({ message: 'There was an error downloading this document from Google Cloud.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+      Notification.error({ message: 'There was an error downloading this document.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
     }
 
     function approveNDA(student){

@@ -12,7 +12,7 @@ const bucketName = 'test-new-moto.appspot.com';
 const storage = new Storage({projectId});
 
 var mStorage = multer.memoryStorage()
-var upload = multer({ storage: mStorage }).single("NDA");
+var upload = multer({ storage: mStorage }).single("file");
 
 exports.uploadCloudFile = function(req, res) {
 
@@ -56,6 +56,7 @@ exports.downloadCloudFile = function(req, res) {
     .download(options)
     .then(function(response){
       console.log('gcs download right: ', response);
+      res.download(`./uploads/${req.params.filename}`);
       return res.status(200).end();
     })
     .catch(function(error){
