@@ -11,8 +11,6 @@ const bucketName = 'test-new-moto.appspot.com';
 const storage = new Storage({projectId});
 
 exports.uploadCloudFile = function(req, res) {
-  console.log('yeEEEEEEEEE: ',req.body);
-  console.log(`./uploads/${req.body.name}`);
   storage.bucket(bucketName).upload(`./uploads/${req.body.name}`, {
     gzip: false,
     metadata: {
@@ -20,16 +18,19 @@ exports.uploadCloudFile = function(req, res) {
     },
   })
   .then(function(response){
+    console.log('something right');
+    console.log(response);
     return res.status(200).end();
   })
   .catch(function(error){
+    console.log('something wrong');
+    console.log(error);
     return res.status(406).end();
   });
 };
 
 // Downloads the file
 exports.downloadCloudFile = function(req, res) {
-  console.log('yeEEEE: ',req.params);
   const options = {
     destination: `./downloads/${req.params.filename}`,
   };
@@ -39,9 +40,11 @@ exports.downloadCloudFile = function(req, res) {
     .file(`${req.params.filename}`)
     .download(options)
     .then(function(response){
+      console.log('gcs download right: ', response);
       return res.status(200).end();
     })
     .catch(function(error){
+      console.log('gcs download wrong: ', error);
       return res.status(406).end();
     });
 };
