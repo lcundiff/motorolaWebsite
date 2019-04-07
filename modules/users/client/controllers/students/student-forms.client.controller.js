@@ -273,6 +273,7 @@
 
       GoogleCloudService.downloadForm(fileId)
       .then(function(response){
+        console.log('google cloud download: ',response);
         FileService.download(fileId)
         .then(function(data){
           var file = new Blob([data.data], {
@@ -287,7 +288,7 @@
         })
         .catch(function(data){
           vm.loading = false;
-          Notification.error({ message: 'There was an error downloading this form. Please try again.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+          Notification.error({ message: 'There was an error downloading this form. Please try again in a few minutes.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
 
         })
       })
@@ -296,7 +297,7 @@
 
     function onErrorGoogleCloudDownload(){
       vm.loading = false;
-      Notification.error({ message: 'There was an error downloading this document. Please try again.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+      Notification.error({ message: 'There was an error downloading this document. Please try again in a few minutes.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
     }
 
     function onFormSubmissionSuccess(response) {
