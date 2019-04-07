@@ -165,7 +165,7 @@
       vm.credentials.NDAId = `NDA_${vm.credentials.username}.pdf`;
 
 
-      GoogleCloudService.uploadForm(vm.credentials.NDAId, file)
+      GoogleCloudService.uploadForm(vm.credentials.NDAId, file.upload)
       .then(function(response){
         $scope.uploading = false;
         vm.loading = false;
@@ -186,7 +186,7 @@
       $scope.uploading = true;
       vm.credentials.WaiverId = `waiver_${vm.credentials.username}.pdf`;
 
-      GoogleCloudService.uploadForm(vm.credentials.WaiverId, file)
+      GoogleCloudService.uploadForm(vm.credentials.WaiverId, file.upload)
       .then(function(response){
         $scope.uploading = false;
         vm.loading = false;
@@ -207,7 +207,7 @@
       $scope.uploading = true;
       vm.credentials.letterOfRecommendationId =`letterOfRecommendation_${vm.credentials.username}.pdf`;
 
-      GoogleCloudService.uploadForm(vm.credentials.letterOfRecommendationId, file)
+      GoogleCloudService.uploadForm(vm.credentials.letterOfRecommendationId, file.upload)
       .then(function(response){
         $scope.uploading = false;
         vm.loading = false;
@@ -229,7 +229,7 @@
       $scope.uploading = true;
       vm.credentials.ResumeId = `resume_${vm.credentials.username}.pdf`;
 
-      GoogleCloudService.uploadForm(vm.credentials.ResumeId, file)
+      GoogleCloudService.uploadForm(vm.credentials.ResumeId, file.upload)
       .then(function(response){
         $scope.uploading = false;
         vm.loading = false;
