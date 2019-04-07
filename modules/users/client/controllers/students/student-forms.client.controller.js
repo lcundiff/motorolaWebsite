@@ -243,12 +243,13 @@
       console.log('in google cloud land');
       console.log(fileId);
 
-      StudentService.updateStudent(vm.credentials.user, vm.credentials);
-
+      StudentService.updateStudent(vm.credentials.user, vm.credentials)
+      .then(function(response){
         GoogleCloudService.uploadForm({name: fileId})
         .then(onFormSubmissionSuccess)
         .catch(onFormSubmissionError);
-
+      })
+      .catch(onFormSubmissionError);
     }
 
     function viewForm(fileId) {
@@ -311,7 +312,7 @@
 
     function onFormSubmissionError(response) {
       vm.loading = false;
-      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Form submission error.', delay: 6000 });
+      Notification.error({ message: 'There was an error downloading this document. Please try again in a few minutes.', title: '<i class="glyphicon glyphicon-remove"></i> Error.', delay: 6000 });
     }
 
     function onFormApprovalSuccess(response) {
