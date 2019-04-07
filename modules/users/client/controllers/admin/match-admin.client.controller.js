@@ -143,8 +143,8 @@
       else if(student.timeSlot[0] === "2") volunteer.mentee_count_sess_2--;
       else volunteer.mentee_count_sess_3--;
 
-      volunteer.mentee.splice(volunteer.mentee.indexOf(student.user), 1);
-      volunteer.menteeID.splice(volunteer.menteeID.indexOf(student.application.firstName + " " + student.application.lastName), 1);
+      volunteer.mentee.splice(volunteer.mentee.indexOf(student.application.firstName + " " + student.application.lastName), 1);
+      volunteer.menteeID.splice(volunteer.menteeID.indexOf(student.user), 1);
       student.mentor = null;
       student.mentorID = null;
       student.mentor_email = null;
