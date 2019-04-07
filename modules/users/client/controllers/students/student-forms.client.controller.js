@@ -165,7 +165,7 @@
       vm.credentials.NDAId = `NDA_${vm.credentials.username}.pdf`;
 
 
-      GoogleCloudService.uploadForm(vm.credentials.NDAId, $scope.file)
+      GoogleCloudService.uploadForm(vm.credentials.NDAId, file)
       .then(function(response){
         $scope.uploading = false;
         vm.loading = false;
@@ -186,7 +186,7 @@
       $scope.uploading = true;
       vm.credentials.WaiverId = `waiver_${vm.credentials.username}.pdf`;
 
-      GoogleCloudService.uploadForm(vm.credentials.WaiverId, $scope.file)
+      GoogleCloudService.uploadForm(vm.credentials.WaiverId, file)
       .then(function(response){
         $scope.uploading = false;
         vm.loading = false;
@@ -207,7 +207,7 @@
       $scope.uploading = true;
       vm.credentials.letterOfRecommendationId =`letterOfRecommendation_${vm.credentials.username}.pdf`;
 
-      GoogleCloudService.uploadForm(vm.credentials.letterOfRecommendationId, $scope.file)
+      GoogleCloudService.uploadForm(vm.credentials.letterOfRecommendationId, file)
       .then(function(response){
         $scope.uploading = false;
         vm.loading = false;
@@ -229,7 +229,7 @@
       $scope.uploading = true;
       vm.credentials.ResumeId = `resume_${vm.credentials.username}.pdf`;
 
-      GoogleCloudService.uploadForm(vm.credentials.ResumeId, $scope.file)
+      GoogleCloudService.uploadForm(vm.credentials.ResumeId, file)
       .then(function(response){
         $scope.uploading = false;
         vm.loading = false;
@@ -237,21 +237,6 @@
         vm.credentials.isResumeUploaded = true;
 
         onFormSubmissionSuccess(response);
-      })
-      .catch(onFormSubmissionError);
-
-      uploadToGoogleCloud(vm.credentials.ResumeId);
-    }
-
-    function uploadToGoogleCloud(fileId, file){
-      console.log('in google cloud land');
-      console.log(fileId);
-
-      StudentService.updateStudent(vm.credentials.user, vm.credentials)
-      .then(function(response){
-        GoogleCloudService.uploadForm(fileId, file)
-        .then(onFormSubmissionSuccess)
-        .catch(onFormSubmissionError);
       })
       .catch(onFormSubmissionError);
     }
@@ -263,7 +248,6 @@
         return;
       }
       else{
-        vm.loading = true;
         viewForm_downloadFromGCS(fileId);
       }
     }
@@ -273,7 +257,6 @@
         Notification.error({ message: 'Student has not yet uploaded this form.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
         return;
       }
-
       vm.loading = true;
 
       GoogleCloudService.downloadForm(fileId)
