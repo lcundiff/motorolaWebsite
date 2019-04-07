@@ -161,18 +161,20 @@
         return;
       }
       vm.loading = true;
-
-      vm.credentials.NDAId = `NDA_${vm.credentials.username}.pdf`;
-	  vm.credentials.isNDAUploaded = true;
       $scope.uploading = true;
-      FileService.upload($scope.file, vm.credentials.NDAId).then(function(data){
-        if(data.data.success){
-          $scope.uploading = false;
-          vm.selectedStudentNDA = '';
+      vm.credentials.NDAId = `NDA_${vm.credentials.username}.pdf`;
 
-          uploadToGoogleCloud(vm.credentials.NDAId);
-        }
-      });
+
+      GoogleCloudService.uploadForm(vm.credentials.NDAId, $scope.file)
+      .then(function(response){
+        $scope.uploading = false;
+        vm.loading = false;
+        vm.selectedStudentNDA = '';
+        vm.credentials.isNDAUploaded = true;
+
+        onFormSubmissionSuccess(response);
+      })
+      .catch(onFormSubmissionError);
     }
 
     function uploadWaiver(file){
@@ -181,19 +183,19 @@
         return;
       }
       vm.loading = true;
-
-	  vm.credentials.isWaiverUploaded = true;
+      $scope.uploading = true;
       vm.credentials.WaiverId = `waiver_${vm.credentials.username}.pdf`;
 
-      $scope.uploading = true;
-      FileService.upload($scope.file, vm.credentials.WaiverId).then(function(data){
-        if(data.data.success){
-          $scope.uploading = false;
-          vm.selectedStudentWaiver = '';
+      GoogleCloudService.uploadForm(vm.credentials.WaiverId, $scope.file)
+      .then(function(response){
+        $scope.uploading = false;
+        vm.loading = false;
+        vm.selectedStudentWaiver = '';
+        vm.credentials.isWaiverUploaded = true;
 
-          uploadToGoogleCloud(vm.credentials.WaiverId);
-        }
-      });
+        onFormSubmissionSuccess(response);
+      })
+      .catch(onFormSubmissionError);
     }
 
     function uploadLetterOfRecommendation(file){
@@ -202,18 +204,20 @@
         return;
       }
       vm.loading = true;
-
-      vm.credentials.letterOfRecommendationId =`letterOfRecommendation_${vm.credentials.username}.pdf`;
-	  vm.credentials.isLetterofRecommendationUploaded = true;
       $scope.uploading = true;
-      FileService.upload($scope.file, vm.credentials.letterOfRecommendationId).then(function(data){
-        if(data.data.success){
-          $scope.uploading = false;
-          vm.selectedStudentLOR = '';
+      vm.credentials.letterOfRecommendationId =`letterOfRecommendation_${vm.credentials.username}.pdf`;
 
-          uploadToGoogleCloud(vm.credentials.letterOfRecommendationId);
-        }
-      });
+      GoogleCloudService.uploadForm(vm.credentials.letterOfRecommendationId, $scope.file)
+      .then(function(response){
+        $scope.uploading = false;
+        vm.loading = false;
+        vm.selectedStudentLOR = '';
+        vm.credentials.isLetterofRecommendationUploaded = true;
+
+
+        onFormSubmissionSuccess(response);
+      })
+      .catch(onFormSubmissionError);
     }
 
     function uploadResume(file){
@@ -223,29 +227,29 @@
       }
       vm.loading = true;
       $scope.uploading = true;
-
-
-	  vm.credentials.isResumeUploaded = true;
       vm.credentials.ResumeId = `resume_${vm.credentials.username}.pdf`;
-	  //vm.credentials.isResumeSubmitted = true;
 
-      FileService.upload($scope.file, vm.credentials.ResumeId).then(function(data){
-        if(data.data.success){
-          $scope.uploading = false;
-          vm.selectedStudentResume = '';
+      GoogleCloudService.uploadForm(vm.credentials.ResumeId, $scope.file)
+      .then(function(response){
+        $scope.uploading = false;
+        vm.loading = false;
+        vm.selectedStudentResume = '';
+        vm.credentials.isResumeUploaded = true;
 
-          uploadToGoogleCloud(vm.credentials.ResumeId);
-        }
-      });
+        onFormSubmissionSuccess(response);
+      })
+      .catch(onFormSubmissionError);
+
+      uploadToGoogleCloud(vm.credentials.ResumeId);
     }
 
-    function uploadToGoogleCloud(fileId){
+    function uploadToGoogleCloud(fileId, file){
       console.log('in google cloud land');
       console.log(fileId);
 
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
       .then(function(response){
-        GoogleCloudService.uploadForm({name: fileId})
+        GoogleCloudService.uploadForm(fileId, file)
         .then(onFormSubmissionSuccess)
         .catch(onFormSubmissionError);
       })
@@ -275,9 +279,8 @@
       GoogleCloudService.downloadForm(fileId)
       .then(function(response){
         console.log('google cloud download: ',response);
-        FileService.download(fileId)
-        .then(function(data){
-          var file = new Blob([data.data], {
+
+          var file = new Blob([response.data], {
               type: 'application/pdf'
             });
               $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
@@ -286,12 +289,6 @@
                   link.download = fileId;
                   link.click();
                   vm.loading = false;
-        })
-        .catch(function(data){
-          vm.loading = false;
-          Notification.error({ message: 'There was an error downloading this form. Please try again in a few minutes.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
-
-        })
       })
       .catch(onErrorGoogleCloudDownload);
     }
@@ -303,16 +300,22 @@
 
     function onFormSubmissionSuccess(response) {
       // If successful we assign the response to the global user model
-      vm.authentication.student = response;
-      vm.loading = false;
-      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Form submission successful!.' });
+      StudentService.updateStudent(vm.credentials.user, vm.credentials)
+      .then(function(response){
+        vm.authentication.student = response;
+        vm.loading = false;
+        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Form submission successful.' });
+      })
+      .error(function(error){
+        Notification.error({ message: 'There was an error saving your form. Please try again or contact the system administrator.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+      });
       // And redirect to the previous or home page
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
     function onFormSubmissionError(response) {
       vm.loading = false;
-      Notification.error({ message: 'There was an error downloading this document. Please try again in a few minutes.', title: '<i class="glyphicon glyphicon-remove"></i> Error.', delay: 6000 });
+      Notification.error({ message: 'There was an error submitting this document. Please try again in a few minutes.', title: '<i class="glyphicon glyphicon-remove"></i> Error.', delay: 6000 });
     }
 
     function onFormApprovalSuccess(response) {
