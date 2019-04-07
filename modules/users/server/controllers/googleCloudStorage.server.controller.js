@@ -11,7 +11,7 @@ const bucketName = 'test-new-moto.appspot.com';
 const storage = new Storage({projectId});
 
 exports.uploadCloudFile = function(req, res) {
-  storage.bucket(bucketName).upload(`./uploads/${req.body.name}`, {
+  storage.bucket(bucketName).upload(`${req.body.name}`, {
     gzip: false,
     metadata: {
       cacheControl: 'no-cache',

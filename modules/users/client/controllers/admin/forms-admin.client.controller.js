@@ -125,6 +125,23 @@
     function uploadNDA(){
       vm.loading = true;
 
+      console.log('HERE IS GTHE FILE');
+      console.log($scope.file);
+
+      var tmppath = URL.createObjectURL(event.target.files[0]);
+
+      GoogleCloudService.uploadForm({name: tmppath})
+      .then(function(response){
+        $scope.uploading = false;
+        vm.loading = false;
+        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> NDA upload successful.' });
+      })
+      .catch(function(error){
+        $scope.uploading = false;
+        vm.loading = false;
+        Notification.error({ message: 'Could not upload form to google cloud.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+      });
+
       $scope.uploading = true;
       FileService.uploadNDA($scope.file)
       .then(onNDAUploadSuccess)
