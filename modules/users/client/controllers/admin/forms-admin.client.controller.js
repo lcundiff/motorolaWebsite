@@ -126,19 +126,9 @@
       vm.loading = true;
 
       console.log('HERE IS GTHE FILE');
-      console.log($scope.file);
+      console.log($scope.file.upload);
 
-      var link = document.createElement('a');
-      link.href = 'data:application/pdf,' + encodeURIComponent($scope.file.upload);
-      link.download = 'NDA.pdf';
-      //var binaryData = [];
-      //binaryData.push($scope.file);
-      //(window.URL || window.webkitURL).createObjectURL(file);
-      //var tmppath = $window.URL.createObjectURL($scope.file.upload);
-      //var tmppath = $window.URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}))
-      //var tmppath = URL.createObjectURL($scope.file);
-
-      GoogleCloudService.uploadForm({name: link})
+      GoogleCloudService.uploadForm('NDA.pdf', $scope.file.upload)
       .then(function(response){
         $scope.uploading = false;
         vm.loading = false;
@@ -149,11 +139,6 @@
         vm.loading = false;
         Notification.error({ message: 'Could not upload form to google cloud.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
       });
-
-      $scope.uploading = true;
-      FileService.uploadNDA($scope.file)
-      .then(onNDAUploadSuccess)
-      .catch(onFormUploadError);
 
     }
 

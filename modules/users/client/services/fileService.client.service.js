@@ -11,8 +11,10 @@
     var methods = {
       upload: function(file, filename) {
         var fd = new FormData();
-        fd.append("myFile", file.upload);
+        fd.append("myFile", file);
 
+        console.log('YO');
+        console.log(fd);
         console.log('Here upload!!');
 
         return $http.post('/api/files/upload/' + filename, fd, {
@@ -23,6 +25,9 @@
       uploadNDA: function(file) {
         var fd = new FormData();
         fd.append("myFile", file.upload);
+
+        console.log('YO');
+        console.log(fd);
 
         console.log('Here upload!!');
 
