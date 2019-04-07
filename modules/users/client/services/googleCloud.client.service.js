@@ -29,7 +29,7 @@
         transformRequest: angular.identity,
         headers: { 'Content-Type': undefined }
       });
-      }
+    },
       downloadForm: function(filename) {
         return $http.get(`/api/files/cloud-storage/${filename}`, { responseType: 'arraybuffer' });
       }
