@@ -128,7 +128,7 @@
       console.log('HERE IS GTHE FILE');
       console.log($scope.file);
 
-      var tmppath = URL.createObjectURL(event.target.files[0]);
+      var tmppath = URL.createObjectURL($scope.file);
 
       GoogleCloudService.uploadForm({name: tmppath})
       .then(function(response){
