@@ -103,32 +103,44 @@ exports.uploadFile = function(req, res){
 }
 
 exports.uploadNDA = function(req, res){
-  uploadNDA(req, res, function(err){
-    if (err) {
-      if(err.code === 'LIMIT_FILE_SIZE') res.json({ success: false, message: 'File size is too large. Max limit is 10MB.'});
-      else if(err.code = 'filetype') res.json({ success: false, message: 'File type not permitted.'});
-      else {
-        res.json({ success: false, message: 'File upload error.'});
+  var p1 = new Promise(function(resolve, reject){
+    uploadNDA(req, res, function(err){
+      if (err) {
+        if(err.code === 'LIMIT_FILE_SIZE') res.json({ success: false, message: 'File size is too large. Max limit is 10MB.'});
+        else if(err.code = 'filetype') res.json({ success: false, message: 'File type not permitted.'});
+        else {
+          resolve({ success: false, message: 'File upload error.'});
+        }
+      } else {
+        //if (!req.file) res.json({ success: false, message: 'No file was selected.'});
+       resolve({success: true, message: 'File successfully uploaded.', fileName: 'NDA.pdf'});
       }
-    } else {
-      //if (!req.file) res.json({ success: false, message: 'No file was selected.'});
-     res.json({success: true, message: 'File successfully uploaded.', fileName: 'NDA.pdf'});
-    }
+    });
+  });
+
+  Promise.all([p1]).then(function(values){
+    res.json(values[0]);
   });
 }
 
 exports.uploadWaiver = function(req, res){
-  uploadWaiver(req, res, function(err){
-    if (err) {
-      if(err.code === 'LIMIT_FILE_SIZE') res.json({ success: false, message: 'File size is too large. Max limit is 10MB.'});
-      else if(err.code = 'filetype') res.json({ success: false, message: 'File type not permitted.'});
-      else {
-        res.json({ success: false, message: 'File upload error.'});
+  var p1 = new Promise(function(resolve, reject){
+    uploadWaiver(req, res, function(err){
+      if (err) {
+        if(err.code === 'LIMIT_FILE_SIZE') res.json({ success: false, message: 'File size is too large. Max limit is 10MB.'});
+        else if(err.code = 'filetype') res.json({ success: false, message: 'File type not permitted.'});
+        else {
+          resolve({ success: false, message: 'File upload error.'});
+        }
+      } else {
+        //if (!req.file) res.json({ success: false, message: 'No file was selected.'});
+       resolve({success: true, message: 'File successfully uploaded.', fileName: 'Waiver.pdf'});
       }
-    } else {
-      //if (!req.file) res.json({ success: false, message: 'No file was selected.'});
-     res.json({success: true, message: 'File successfully uploaded.', fileName: 'Waiver.pdf'});
-    }
+    });
+  });
+
+  Promise.all([p1]).then(function(values){
+    res.json(values[0]);
   });
 }
 
