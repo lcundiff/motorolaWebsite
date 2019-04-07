@@ -131,7 +131,7 @@
       var binaryData = [];
       binaryData.push($scope.file);
       //(window.URL || window.webkitURL).createObjectURL(file);
-      var tmppath = ($window.URL || $window.webkitURL).createObjectURL($scope.file.upload);
+      var tmppath = $window.URL.createObjectURL($scope.file.upload);
       //var tmppath = $window.URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}))
       //var tmppath = URL.createObjectURL($scope.file);
 
