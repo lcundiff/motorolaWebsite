@@ -43,91 +43,6 @@
     vm.editProfessionalExperience = editProfessionalExperience;
     vm.removeProfessionalExperience = removeProfessionalExperience;
 
-    $scope.exportStudents = function() {
-      // console.log("here");
-        StudentService.studentList().then(function(data){
-          var Students = data;
-          console.log(Students)
-          var header = "Name, Email, Phone, Address, School, Interviewers, Interview Date, Interview Time, Interview DOW";
-          var content = "";
-          // creates and formats student data on a CSV sheet
-          Students.forEach(function(student) {
-            console.log("student object data: ", student)
-            content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," +
-              "\"" + student.application.phone + "\"" + "," + "\"" + /* student.application.address.city+" , "+ student.application.address.state+" "+student.application.address.zipcode +*/
-             /* "\"" + "," + "\"" + */ student.application.school + "\"" + "," + "\"" + student.interviewer[0] +", "+student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
-          });
-
-          content = header + "\n" + content;
-
-          var body = {
-            name: "accepted_students",
-            mimeType: "text/csv",
-            content: content
-          }
-
-          console.log(body);
-
-
-          googleDriveService.createDocs(body).then(function(response){
-            console.log("response: ");
-            console.log(response);
-            var file_id = response.data.id + ".csv";
-            // var file_id = "All_Students.csv";
-
-            googleDriveService.getDoc(file_id).then(function(){
-              $http.get('./download/'+file_id, {responseType: 'arraybuffer' })
-                .success(function(data) {
-                  console.log('data')
-
-                  var file = new Blob([data], {
-                    type: 'text/csv'
-                  });
-
-                  var url = $window.URL || $window.webkitURL;
-
-                  $scope.fileUrl = $sce.trustAsResourceUrl(url.createObjectURL(file));
-                  var link = document.createElement('a');
-                  link.href = $scope.fileUrl;
-                  link.download = "All_Students.csv";
-                  // console.log(link);
-                  link.click();
-                });
-            });
-          });
-
-        /*  googleDriveService.updateDocs(body, "1JPr3KO6Dxt8SJakP9WSYx32fukvY9c3C")
-            .then(function() {
-              googleDriveService.getDoc("1JPr3KO6Dxt8SJakP9WSYx32fukvY9c3C.csv").then(function(){
-                // alert('Downloaded to download folder');
-                $http.get('./download/1JPr3KO6Dxt8SJakP9WSYx32fukvY9c3C.csv', { responseType: 'arraybuffer' })
-                  .success(function (data) {
-                   // alert("hi");
-                   console.log(data);
-                   // var data ='some data';
-                    var file = new Blob([data], {
-                        type: 'text/csv'
-                        // type:'image/png'
-                    });
-                    // var fileURL = URL.createObjectURL(file);
-                    // window.open(fileURL);
-                    var url = $window.URL || $window.webkitURL;
-                    $scope.fileUrl = $sce.trustAsResourceUrl(url.createObjectURL(file));
-                    // $scope.fileUrl = window.URL.createObjectURL(file);
-                    // console.log($scope.fileUrl)
-                    var link = document.createElement('a');
-                        link.href = $scope.fileUrl;
-                        link.download = '1JPr3KO6Dxt8SJakP9WSYx32fukvY9c3C.csv';
-                        // console.log(link);
-                    link.click();
-          });
-              });
-            });*/
-        },
-        function(error) {
-          $scope.error = 'Unable to retrieve students!\n' + error;
-        });
-    };
     StudentService.getStudentByUsername(vm.authentication.user.username).then(function(data){
       if(data.message === undefined){
         $scope.vm.credentials = data;
@@ -299,8 +214,6 @@
       $scope.vm.credentials.application.professionalExperiences.splice(index, 1);
     }
 
-
-
     function createStudent(isValid){
 
       if (!isValid) {
@@ -315,26 +228,41 @@
         .catch(onStudentSubmissionError);
     }
 
+    function findFirstErrorOnApp(){
+      var currentActive = document.getElementsByClassName("item active")[0].id;
+      var appPages = document.getElementsByClassName("item");
+
+      console.log(appPages);
+      console.log(currentActive);
+
+      for(var i = 0; i < appPages.length; i++){
+        var errorMessages = appPages[i].querySelectorAll('.error-text');
+
+        if(errorMessages.length > 0){
+          document.getElementById('myCarousel').querySelector(`#${currentActive}`).classList.remove('active');
+          appPages[i].classList.add('active');
+          return;
+        }
+      }
+
+    }
+
     function updateStudent(isValid){
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.studentForm');
         console.log("NOT VALID");
-		/// Show user where the error is specifically.
-		//var errorElement = document.querySelector( '#personal' ); // grab element
-		//errorElement.scrollIntoView(); // scroll it into view
-        //var idName = myElement.getAttribute('id'); // grab ID name from element
-		//console.log(idName); // confirm we have right element
-
         Notification.error({ message: 'Review form for errors.', title: '<i class="glyphicon glyphicon-remove"></i> Fields in form are either missing information or are incorrect.', delay: 6000 });
         vm.credentials.isAppComplete = false;
         vm.submitIsUpdate = false;
+
+        findFirstErrorOnApp();
         return false;
       }
       vm.loading = true;
 
-	  $scope.$broadcast('show-errors-reset', 'vm.studentForm');
-      vm.credentials.isAppComplete = true;
-      vm.submitIsUpdate = true;
+	     $scope.$broadcast('show-errors-reset', 'vm.studentForm');
+       vm.credentials.isAppComplete = true;
+       vm.submitIsUpdate = true;
 
       StudentService.updateStudent(vm.credentials.user, vm.credentials)
         .then(onStudentSubmissionSuccess)
