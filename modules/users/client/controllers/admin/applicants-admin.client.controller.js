@@ -88,24 +88,16 @@
 
       GoogleCloudService.downloadForm(fileId)
       .then(function(response){
-        FileService.download(fileId)
-        .then(function(data){
-          var file = new Blob([data.data], {
-              type: 'application/pdf'
-            });
-              $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-              var link = document.createElement('a');
-                  link.href = $scope.fileUrl;
-                  link.download = fileId;
-                  link.click();
-                  vm.loading = false;
+        var file = new Blob([response.data], {
+            type: 'application/pdf'
+          });
+            $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+            var link = document.createElement('a');
+                link.href = $scope.fileUrl;
+                link.download = fileId;
+                link.click();
+                vm.loading = false;
         })
-        .catch(function(data){
-          vm.loading = false;
-          Notification.error({ message: 'There was an error downloading this form. Please report this to your administrator.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
-
-        })
-      })
       .catch(onErrorGoogleCloudDownload);
     }
 
