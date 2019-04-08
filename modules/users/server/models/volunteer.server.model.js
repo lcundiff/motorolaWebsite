@@ -17,14 +17,25 @@ var VolunteerSchema = new Schema({
 		required: true
 	},
 	mentee: [],
-	mentee_count_sess_1: Number,
-	mentee_count_sess_2: Number,
-	mentee_count_sess_3: Number,
+	mentee_count_sess_1: {
+		type: Number,
+		default: 0
+	},
+	mentee_count_sess_2: {
+		type: Number,
+		default: 0
+	},
+	mentee_count_sess_3: {
+		type: Number,
+		default: 0
+	},
 	menteeID: [],
 	interviewee: [],
 	intervieweeID: [],
-	interviewee_count: Number,
-
+	interviewee_count: {
+		type: Number,
+		default: 0
+	},
 	application: {
 		firstName: {
 			default: '',

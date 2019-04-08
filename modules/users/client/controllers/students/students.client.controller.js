@@ -14,8 +14,7 @@
     vm.student;
     vm.credentials;
     vm.authentication = Authentication;
-	$scope.sessions = ["Session 1 (6/25/18 - 6/29/18)", "Session 2 (7/23/18 - 7/27/18)", "Session 3 (8/6/18 - 8/10/18)"]
-    vm.createStudent = createStudent;
+	$scope.sessions = ["Session 1 (6/25/18 - 6/29/18)", "Session 2 (7/23/18 - 7/27/18)", "Session 3 (8/6/18 - 8/10/18)"];
     vm.updateStudent = updateStudent;
 	vm.saveApp = saveApp;
     vm.remove = remove;
@@ -214,21 +213,8 @@
       $scope.vm.credentials.application.professionalExperiences.splice(index, 1);
     }
 
-    function createStudent(isValid){
-
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.studentForm');
-        Notification.error({ message: 'Review form for errors.', title: '<i class="glyphicon glyphicon-remove"></i> Fields in form are either missing information or are incorrect.', delay: 6000 });
-
-
-        return false;
-      }
-      StudentService.createStudent(vm.credentials)
-        .then(onStudentSubmissionSuccess)
-        .catch(onStudentSubmissionError);
-    }
-
     function findFirstErrorOnApp(){
+
       var currentActive = document.getElementsByClassName("item active")[0].id;
       var appPages = document.getElementsByClassName("item");
 

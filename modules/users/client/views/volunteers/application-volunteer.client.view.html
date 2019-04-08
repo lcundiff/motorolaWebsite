@@ -50,6 +50,9 @@
 </style>
 
 <body>
+  <div id="overlay" ng-show="vm.loading">
+        <div class="loader"></div>
+    </div>
   <!-- The Grid -->
   <nav role="navigation" class="navbar navbar-custom navbar-static-top">
     <div class="container">
@@ -234,7 +237,10 @@
         <button class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.updateVolunteer(vm.volunteerForm.$valid)">Update</button>
       </element>
       <element ng-switch-when="false">
-      <button class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.updateVolunteer(vm.volunteerForm.$valid)">Save</button>
+
+        <button class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.updateVolunteer(vm.volunteerForm.$valid)">Submit</button>
+      <button class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.saveApp(vm.volunteerForm.$valid)">Save</button>
+
     </element>
   </element>
   </div>

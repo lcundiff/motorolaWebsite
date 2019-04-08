@@ -6,13 +6,15 @@
     .module('users')
     .controller('InterviewVolunteerController', InterviewVolunteerController);
 
-  InterviewVolunteerController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'VolunteerService', 'menuService', 'Notification', '$http','$sce'];
+  InterviewVolunteerController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'GoogleCloudService', 'VolunteerService', 'menuService', 'Notification', '$http','$sce'];
 
-  function InterviewVolunteerController($scope, $state, $window, $filter, Authentication, VolunteerService, menuService, Notification, $http, $sce) {
+  function InterviewVolunteerController($scope, $state, $window, $filter, Authentication, GoogleCloudService, VolunteerService, menuService, Notification, $http, $sce) {
     var vm = this;
     vm.authentication = Authentication;
     vm.interviewees = [];
     vm.volunteer;
+
+    vm.viewForm = viewForm;
 
     vm.selected_user = false;
 
@@ -69,6 +71,59 @@
     function pageChanged() {
 			vm.figureOutItemsToDisplay();
 		}
+
+    function viewForm(fileId) {
+      if(fileId === null || fileId === '' || fileId === undefined){
+        Notification.error({ message: 'Student has not yet uploaded this form.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+        return;
+      }
+
+      vm.loading = true;
+
+      GoogleCloudService.downloadForm(fileId)
+      .then(function(response){
+        FileService.download(fileId)
+        .then(function(data){
+          var file = new Blob([data.data], {
+              type: 'application/pdf'
+            });
+              $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+              var link = document.createElement('a');
+                  link.href = $scope.fileUrl;
+                  link.download = fileId;
+                  link.click();
+                  vm.loading = false;
+        })
+        .catch(function(data){
+          vm.loading = false;
+          Notification.error({ message: 'There was an error downloading this form. Please try again in a few minutes or report this to your system administrator.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+
+        })
+      })
+      .catch(onErrorGoogleCloudDownload);
+    }
+
+    function onErrorGoogleCloudDownload(){
+      vm.loading = false;
+      Notification.error({ message: 'There was an error downloading this form. Please try again in a few minutes or report this to your system administrator.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+    }
+
+    $scope.openModal = function (student, docId) {
+			console.log(student);
+			vm.modal_student = student;
+			$scope.vm.modal_student = vm.modal_student;
+			var modal = document.getElementById(docId);
+			modal.style.display = "block";
+		};
+
+		$scope.closeModal = function (docId) {
+			var modal = document.getElementById(docId);
+			var span = document.getElementsByClassName("close")[0];
+
+			modal.style.display = "none";
+			vm.modal_student = '';
+			$scope.vm.modal_student = '';
+		};
   }
 
 }());
