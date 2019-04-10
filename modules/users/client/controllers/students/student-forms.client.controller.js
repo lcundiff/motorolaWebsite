@@ -154,12 +154,28 @@
            .catch(onFormApprovalError);
 	}
 
+    function checkFileSize(file){
+      if(file){
+        if(file.size >= 5000000){
+          return 0;
+        }
+
+        return 1;
+      }
+
+      return 0;
+    }
 
     function uploadNDA(file){
       if(file === null || file===undefined){
-        Notification.error({ message: 'Please Submit Correct NDA File Type (PDF, Docx, etc.)', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        Notification.error({ message: 'Please submit the correct NDA file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
+      else if(checkFileSize === 0){
+        Notification.error({ message: 'The file size must be under 5 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
+
       vm.loading = true;
       $scope.uploading = true;
       vm.credentials.NDAId = `NDA_${vm.credentials.username}.pdf`;
@@ -179,9 +195,14 @@
 
     function uploadWaiver(file){
       if(file === null || file===undefined){
-        Notification.error({ message: 'Please Submit Correct Waiver File Type (PDF, Docx, etc.)', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        Notification.error({ message: 'Please submit the correct Waiver file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
+      else if(checkFileSize === 0){
+        Notification.error({ message: 'The file size must be under 5 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
+
       vm.loading = true;
       $scope.uploading = true;
       vm.credentials.WaiverId = `waiver_${vm.credentials.username}.pdf`;
@@ -200,9 +221,14 @@
 
     function uploadLetterOfRecommendation(file){
       if(file === null || file===undefined){
-        Notification.error({ message: 'Please Submit Correct Letter of Rec File Type (PDF, Docx, etc.)', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        Notification.error({ message: 'Please submit the correct Letter of Recommendation file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
+      else if(checkFileSize === 0){
+        Notification.error({ message: 'The file size must be under 5 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
+
       vm.loading = true;
       $scope.uploading = true;
       vm.credentials.letterOfRecommendationId =`letterOfRecommendation_${vm.credentials.username}.pdf`;
@@ -222,9 +248,14 @@
 
     function uploadResume(file){
       if(!file){
-        Notification.error({ message: 'Please Submit Correct Resume File Type (PDF, Docx, etc.)', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        Notification.error({ message: 'Please submit the correct Resume file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
+      else if(checkFileSize === 0){
+        Notification.error({ message: 'The file size must be under 5 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
+
       vm.loading = true;
       $scope.uploading = true;
       vm.credentials.ResumeId = `resume_${vm.credentials.username}.pdf`;

@@ -123,6 +123,15 @@
     };
 
     function uploadNDA(){
+      if(!file){
+        Notification.error({ message: 'Please submit the correct NDA file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
+      else if(checkFileSize === 0){
+        Notification.error({ message: 'The file size must be under 5 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
+
       vm.loading = true;
 
       console.log('HERE IS GTHE FILE');
@@ -143,6 +152,15 @@
     }
 
     function uploadWaiver(){
+      if(!file){
+        Notification.error({ message: 'Please submit the correct Waiver file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
+      else if(checkFileSize === 0){
+        Notification.error({ message: 'The file size must be under 5 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        return;
+      }
+
       vm.loading = true;
 
       GoogleCloudService.uploadForm('Waiver.pdf', $scope.file.upload)
