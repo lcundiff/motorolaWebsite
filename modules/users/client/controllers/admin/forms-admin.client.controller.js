@@ -139,7 +139,7 @@
         Notification.error({ message: 'Please submit the correct NDA file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
-      else if(checkFileSize === 0){
+      else if(checkFileSize($scope.file.upload) === 0){
         Notification.error({ message: 'The file size must be under 4 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
@@ -168,7 +168,7 @@
         Notification.error({ message: 'Please submit the correct Waiver file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
-      else if(checkFileSize === 0){
+      else if(checkFileSize($scope.file.upload) === 0){
         Notification.error({ message: 'The file size must be under 4 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }

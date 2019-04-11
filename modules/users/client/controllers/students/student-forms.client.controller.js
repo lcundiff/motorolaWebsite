@@ -171,7 +171,7 @@
         Notification.error({ message: 'Please submit the correct NDA file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
-      else if(checkFileSize === 0){
+      else if(checkFileSize(file) === 0){
         Notification.error({ message: 'The file size must be under 4 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
@@ -198,7 +198,7 @@
         Notification.error({ message: 'Please submit the correct Waiver file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
-      else if(checkFileSize === 0){
+      else if(checkFileSize(file) === 0){
         Notification.error({ message: 'The file size must be under 4 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
@@ -224,7 +224,7 @@
         Notification.error({ message: 'Please submit the correct Letter of Recommendation file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
-      else if(checkFileSize === 0){
+      else if(checkFileSize(file) === 0){
         Notification.error({ message: 'The file size must be under 5 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
@@ -251,7 +251,7 @@
         Notification.error({ message: 'Please submit the correct Resume file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
-      else if(checkFileSize === 0){
+      else if(checkFileSize(file) === 0){
         Notification.error({ message: 'The file size must be under 5 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
