@@ -43,13 +43,11 @@
     function fileNameChangedNDA() {
       var file = document.getElementById('nda_upload').files[0];
       vm.selectedNDAToUpload = file.name;
-      console.log(file);
     }
 
     function fileNameChangedWaiver() {
       var file = document.getElementById('waiver_upload').files[0];
       vm.selectedWaiverToUpload = file.name;
-      console.log(file);
     }
 
     function buildPager() {
@@ -76,8 +74,6 @@
 
     function displayUser(user){
       vm.user = user;
-
-      console.log(vm.user);
 
       vm.selected_user = true;
     }
@@ -146,8 +142,6 @@
 
       vm.loading = true;
 
-      console.log('HERE IS GTHE FILE');
-      console.log($scope.file.upload);
 
       GoogleCloudService.uploadForm('NDA.pdf', $scope.file.upload)
       .then(function(response){
@@ -220,7 +214,6 @@
       vm.user.isNDAAdminApproved = true;
 
       StudentService.updateStudent(student.user, vm.user).then(function(data){
-        console.log(data);
         onFormApprovalSuccess('NDA', (student.application.firstName+' '+student.application.lastName));
         approveForms(student);
       });
@@ -230,7 +223,6 @@
       vm.user.isWaiverAdminApproved = true;
 
       StudentService.updateStudent(student.user, vm.user).then(function(data){
-        console.log(data);
         onFormApprovalSuccess('Waiver', (student.application.firstName+' '+student.application.lastName));
         approveForms(student);
       });
@@ -239,9 +231,7 @@
     function approveLetterOfRecommendation(student){
       vm.user.isLetterofRecommendationAdminApproved = true;
 
-      console.log("before: ",vm.user);
       StudentService.updateStudent(student.user, vm.user).then(function(data){
-        console.log("data: ",data);
         onFormApprovalSuccess('Letter of Recommendation', (student.application.firstName+' '+student.application.lastName));
         approveForms(student);
       });
@@ -251,7 +241,6 @@
       vm.user.isResumeAdminApproved = true;
 
       StudentService.updateStudent(student.user, vm.user).then(function(data){
-        console.log("data: ", data);
         onFormApprovalSuccess('Resume', (student.application.firstName+' '+student.application.lastName));
         approveForms(student);
       });
@@ -263,7 +252,6 @@
 
 
         StudentService.updateStudent(student.user, student).then(function(data){
-          console.log("data: ",data);
           onFormCompletionSuccess(data);
         });
       }

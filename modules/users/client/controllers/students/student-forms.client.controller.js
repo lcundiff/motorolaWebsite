@@ -155,10 +155,8 @@
 	}
 
     function checkFileSize(file){
-      console.log("file: ", file);
       if(file.upload.size){
         if(file.upload.size >= 4000000){
-          console.log("IN CHECK");
           return 0;
         }
 
@@ -169,7 +167,6 @@
     }
 
     function uploadNDA(file){
-      console.log("FILE SIZE: ",file.size);
       if(!file.upload){
         Notification.error({ message: 'Please submit the correct NDA file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
@@ -276,7 +273,6 @@
     }
 
     function viewForm(fileId) {
-      console.log(fileId);
       if(!fileId){
         Notification.error({ message: 'This form has not yet been submitted.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
@@ -295,8 +291,6 @@
 
       GoogleCloudService.downloadForm(fileId)
       .then(function(response){
-        console.log('google cloud download: ',response);
-
           var file = new Blob([response.data], {
               type: 'application/pdf'
             });
