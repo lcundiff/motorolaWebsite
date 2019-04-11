@@ -27,8 +27,7 @@ exports.uploadCloudFile = function(req, res) {
       metadata: {
         gzip: true,
         contentType: req.file.mimetype,
-        contentEncoding: 'gzip',
-        //contentEncoding: req.file.encoding,
+        contentEncoding: req.file.encoding,
         cacheControl: 'no-cache'
       }
     })
@@ -49,6 +48,7 @@ exports.uploadCloudFile = function(req, res) {
 // Downloads the file
 exports.downloadCloudFile = function(req, res) {
   const options = {
+    gzip: true,
     destination: `./uploads/${req.params.filename}`,
   };
 
