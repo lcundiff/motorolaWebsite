@@ -10,6 +10,14 @@
 
   function StudentsController($scope, $state, $window, StudentService, FileService, Authentication, Notification, $http, $sce) {
     var vm = this;
+    vm.tutorial = {
+      toggle: false,
+      submitApplication: false,
+      saveApplication: false,
+    };
+
+    vm.tutorialPlay = tutorialPlay;
+
     vm.loading = false;
     vm.student;
     vm.credentials;
@@ -65,6 +73,30 @@
         $scope.vm.submitIsUpdate = false;
       }
     });
+
+    function tutorialPlay(){
+      console.log("HERE");
+      if(vm.tutorial.toggle){
+        console.log("STEP 1");
+        console.log(vm.tutorial);
+        if(!vm.tutorial.submitApplication && !vm.tutorial.saveApplication){
+          vm.tutorial.submitApplication = true;
+          return;
+        }
+        else if(vm.tutorial.submitApplication && !vm.tutorial.saveApplication){
+          console.log("STEP2");
+          vm.tutorial.submitApplication = false;
+          vm.tutorial.saveApplication = true;
+          return;
+        }
+        else if(!vm.tutorial.submitApplication && vm.tutorial.saveApplication){
+          console.log("STEP3");
+          vm.tutorial.saveApplication = false;
+          vm.tutorial.toggle = false;
+          return;
+        }
+      }
+    }
 
     function uploadResume(){
       console.log($scope.file.upload);
