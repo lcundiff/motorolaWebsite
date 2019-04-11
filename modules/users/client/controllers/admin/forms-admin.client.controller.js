@@ -122,13 +122,25 @@
       $scope.vm.modal_student = '';
     };
 
+    function checkFileSize(file){
+      if(file){
+        if(file.size >= 4000000){
+          return 0;
+        }
+
+        return 1;
+      }
+
+      return 0;
+    }
+
     function uploadNDA(){
       if(!file){
         Notification.error({ message: 'Please submit the correct NDA file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
       else if(checkFileSize === 0){
-        Notification.error({ message: 'The file size must be under 5 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        Notification.error({ message: 'The file size must be under 4 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
 
@@ -157,7 +169,7 @@
         return;
       }
       else if(checkFileSize === 0){
-        Notification.error({ message: 'The file size must be under 5 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+        Notification.error({ message: 'The file size must be under 4 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
 
