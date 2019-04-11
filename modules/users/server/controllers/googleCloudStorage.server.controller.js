@@ -25,8 +25,10 @@ exports.uploadCloudFile = function(req, res) {
 
     storage.bucket(bucketName).file(req.params.filename).save(req.file.buffer, {
       metadata: {
+        gzip: true,
         contentType: req.file.mimetype,
-        contentEncoding: req.file.encoding,
+        contentEncoding: 'gzip',
+        //contentEncoding: req.file.encoding,
         cacheControl: 'no-cache'
       }
     })
