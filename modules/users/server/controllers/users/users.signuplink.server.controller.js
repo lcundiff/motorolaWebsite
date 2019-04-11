@@ -89,7 +89,7 @@ exports.signupLink = function (req, res, next) {
     },
     function (token, user, done) {
 
-      var httpTransport = 'http://';
+      var httpTransport = 'https://';
       if (config.secure && config.secure.ssl === true) {
         httpTransport = 'https://';
       }

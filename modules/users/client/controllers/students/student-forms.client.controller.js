@@ -26,6 +26,13 @@
     vm.approveLetterOfRecommendation = approveLetterOfRecommendation;
     vm.approveResume = approveResume;
 
+    vm.unapproveNDA = unapproveNDA;
+    vm.unapproveWaiver = unapproveWaiver;
+    vm.unapproveLetterOfRecommendation = unapproveLetterOfRecommendation;
+    vm.unapproveResume = unapproveResume;
+
+
+
     $scope.fileNameChangedNDA = fileNameChangedNDA;
     $scope.fileNameChangedWaiver = fileNameChangedWaiver;
     $scope.fileNameChangedLOR = fileNameChangedLOR;
@@ -70,23 +77,33 @@
       return;
     }
 
-    vm.loading = true;
-	  if(student.isNDASubmitted){
-		  student.isNDASubmitted = false;
-		  student.areFormsStudentApproved = false;
-	  }
-	  else{
+      vm.loading = true;
 		  student.isNDASubmitted = true;
 		  if(student.isWaiverSubmitted && student.isLetterofRecommendationSubmitted && student.isResumeSubmitted){
 			student.areFormsStudentApproved = true;
 		  }
-	  }
 
     StudentService.updateStudent(student.user, student)
       .then(onFormApprovalSuccess)
       .catch(onFormApprovalError);
 
     }
+
+    function unapproveNDA(student){
+    if(!student.NDAId){
+      Notification.error({ message: 'Please submit an NDA.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+      return;
+    }
+
+    vm.loading = true;
+		  student.isNDASubmitted = false;
+      student.areFormsStudentApproved = false;
+
+    StudentService.updateStudent(student.user, student)
+      .then(onFormUnapprovalSuccess)
+      .catch(onFormUnapprovalError);
+    }
+
     // APPROVE WAIVER
     function approveWaiver(student){
       if(!student.WaiverId){
@@ -95,20 +112,32 @@
       }
 
       vm.loading = true;
-	  if(student.isWaiverSubmitted){
-		  student.isWaiverSubmitted = false;
-		  student.areFormsStudentApproved = false; //tell system forms are not correct
-	  }
-	  else{
-		  student.isWaiverSubmitted = true
-		  if(student.isNDASubmitted && student.isLetterofRecommendationSubmitted && student.isResumeSubmitted){
-			     student.areFormsStudentApproved = true;
+
+		  student.isWaiverSubmitted = true;
+      if(student.isNDASubmitted && student.isLetterofRecommendationSubmitted && student.isResumeSubmitted){
+			student.areFormsStudentApproved = true;
 		  }
-	  }
+
       StudentService.updateStudent(student.user, student)
         .then(onFormApprovalSuccess)
         .catch(onFormApprovalError);
     }
+
+    function unapproveWaiver(student){
+    if(!student.WaiverId){
+      Notification.error({ message: 'Please submit a Waiver.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+      return;
+    }
+
+    vm.loading = true;
+		student.isWaiverSubmitted = false;
+    student.areFormsStudentApproved = false;
+
+    StudentService.updateStudent(student.user, student)
+      .then(onFormUnapprovalSuccess)
+      .catch(onFormUnapprovalError);
+    }
+
 	// APPROVE LETTER
     function approveLetterOfRecommendation(student){
       if(!student.letterOfRecommendationId){
@@ -117,19 +146,28 @@
       }
 
       vm.loading = true;
-	  if(student.isLetterofRecommendationSubmitted){
-		  student.isLetterofRecommendationSubmitted = false;
-		  student.areFormsStudentApproved = false; // make sure system knows all the forms aren't good
-	  }
-      else{
 		  student.isLetterofRecommendationSubmitted = true;
-   		  if(student.isNDASubmitted && student.isWaiverSubmitted && student.isResumeSubmitted){
-			       student.areFormsStudentApproved = true;
+   		if(student.isNDASubmitted && student.isWaiverSubmitted && student.isResumeSubmitted){
+			    student.areFormsStudentApproved = true;
 		  }
-	  }
       StudentService.updateStudent(student.user, student)
         .then(onFormApprovalSuccess)
         .catch(onFormApprovalError);
+    }
+
+    function unapproveLetterOfRecommendation(student){
+    if(!student.letterOfRecommendationId){
+      Notification.error({ message: 'Please submit a Letter of Recommendation.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+      return;
+    }
+
+    vm.loading = true;
+		student.isLetterofRecommendationSubmitted = false;
+    student.areFormsStudentApproved = false;
+
+    StudentService.updateStudent(student.user, student)
+      .then(onFormUnapprovalSuccess)
+      .catch(onFormUnapprovalError);
     }
 	// APPROVE RESUME
     function approveResume(student){
@@ -139,20 +177,30 @@
       }
 
       vm.loading = true;
-	  if(student.isResumeSubmitted == true){
-		 student.isResumeSubmitted = false;
-		 student.areFormsStudentApproved = false;
-      }
-	  else{
-		    student.isResumeSubmitted = true;
-		      if(student.isNDASubmitted && student.isWaiverSubmitted && student.isLetterofRecommendationSubmitted){
-			         student.areFormsStudentApproved = true;
-		      }
-	  }
+
+		  student.isResumeSubmitted = true;
+		  if(student.isNDASubmitted && student.isWaiverSubmitted && student.isLetterofRecommendationSubmitted){
+			     student.areFormsStudentApproved = true;
+		  }
       StudentService.updateStudent(student.user, student)
            .then(onFormApprovalSuccess)
            .catch(onFormApprovalError);
 	}
+
+  function unapproveResume(student){
+  if(!student.ResumeId){
+    Notification.error({ message: 'Please submit a Resume.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+    return;
+  }
+
+  vm.loading = true;
+  student.isResumeSubmitted = false;
+  student.areFormsStudentApproved = false;
+
+  StudentService.updateStudent(student.user, student)
+    .then(onFormUnapprovalSuccess)
+    .catch(onFormUnapprovalError);
+  }
 
     function checkFileSize(file){
       if(file.upload.size){
@@ -333,7 +381,7 @@
       // If successful we assign the response to the global user model
       vm.authentication.student = response;
       vm.loading = false;
-      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Form Updated!' });
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Form Approved.' });
       // And redirect to the previous or home page
       //$state.go($state.previous.state.name || 'home', $state.previous.params);
     }
@@ -341,6 +389,32 @@
     function onFormApprovalError(response) {
       vm.loading = false;
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Form approval error.', delay: 6000 });
+    }
+
+    function returnToDocumentUpload(){
+      var currentActive = document.getElementsByClassName("item active")[0].id;
+      var appPages = document.getElementsByClassName("item");
+
+      console.log(appPages);
+      console.log(currentActive);
+
+      document.getElementById('myCarousel').querySelector(`#${currentActive}`).classList.remove('active');
+      appPages[1].classList.add('active');
+    }
+
+    function onFormUnapprovalSuccess(response) {
+      // If successful we assign the response to the global user model
+      returnToDocumentUpload();
+      vm.authentication.student = response;
+      vm.loading = false;
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Form Unapproved.' });
+      // And redirect to the previous or home page
+      //$state.go($state.previous.state.name || 'home', $state.previous.params);
+    }
+
+    function onFormUnapprovalError(response) {
+      vm.loading = false;
+      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Form unapproval error.', delay: 6000 });
     }
 }
 
