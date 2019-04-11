@@ -197,15 +197,15 @@
             <div ng-switch="vm.credentials.isNDASubmitted">
               <div ng-switch-when="true">
                 <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.NDAId)"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button>
-                <button type="button" class="sign-button sign-in-button-danger sign-in-button-verify-sm" ng-click="vm.approveNDA(vm.credentials)"><i class="glyphicon glyphicon-thumbs-down"></i></button>
+                <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveNDA(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
               </div>
               <div ng-switch-when="false">
                 <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.NDAId)"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button>
-                <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveNDA(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                <button type="button" class="sign-button sign-in-button-danger sign-in-button-danger-sm" ng-click="vm.approveNDA(vm.credentials)"><i class="glyphicon glyphicon-thumbs-down"></i></button>
               </div>
               <div ng-switch-default>
                 <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.NDAId)"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button>
-                <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveNDA(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                <button type="button" class="sign-button sign-in-button-danger sign-in-button-danger-sm" ng-click="vm.approveNDA(vm.credentials)"><i class="glyphicon glyphicon-thumbs-down"></i></button>
               </div>
             </div>
           </div>
@@ -217,15 +217,15 @@
             <div ng-switch="vm.credentials.isWaiverSubmitted">
               <div ng-switch-when="true">
                 <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.WaiverId)"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button>
-                <button type="button" class="sign-button sign-in-button-danger sign-in-button-verify-sm" ng-click="vm.approveWaiver(vm.credentials)"><i class="glyphicon glyphicon-thumbs-down"></i></button>
+                <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveWaiver(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
               </div>
               <div ng-switch-when="false">
                 <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.WaiverId)"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button>
-                <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveWaiver(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                <button type="button" class="sign-button sign-in-button-danger sign-in-button-danger-sm" ng-click="vm.approveWaiver(vm.credentials)"><i class="glyphicon glyphicon-thumbs-down"></i></button>
               </div>
               <div ng-switch-default>
                 <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.WaiverId)"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button>
-                <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveWaiver(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                <button type="button" class="sign-button sign-in-button-danger sign-in-button-danger-sm" ng-click="vm.approveWaiver(vm.credentials)"><i class="glyphicon glyphicon-thumbs-down"></i></button>
               </div>
             </div>
           </div>
@@ -237,15 +237,15 @@
             <div ng-switch="vm.credentials.isLetterofRecommendationSubmitted">
               <div ng-switch-when="true">
                 <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.letterOfRecommendationId)"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button>
-                <button type="button" class="sign-button sign-in-button-danger sign-in-button-verify-sm" ng-click="vm.approveLetterOfRecommendation(vm.credentials)"><i class="glyphicon glyphicon-thumbs-down"></i></button>
+                <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveLetterOfRecommendation(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
               </div>
               <div ng-switch-when="false">
                 <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.letterOfRecommendationId)"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button>
-                <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveLetterOfRecommendation(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                <button type="button" class="sign-button sign-in-button-danger sign-in-button-danger-sm" ng-click="vm.approveLetterOfRecommendation(vm.credentials)"><i class="glyphicon glyphicon-thumbs-down"></i></button>
               </div>
               <div ng-switch-default>
                 <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.letterOfRecommendationId)"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button>
-                <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveLetterOfRecommendation(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                <button type="button" class="sign-button sign-in-button-danger sign-in-button-danger-sm" ng-click="vm.approveLetterOfRecommendation(vm.credentials)"><i class="glyphicon glyphicon-thumbs-down"></i></button>
               </div>
             </div>
             </div>
@@ -257,15 +257,15 @@
             <div ng-switch="vm.credentials.isResumeSubmitted">
               <div ng-switch-when="true">
                 <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.ResumeId)"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button>
-                <button type="button" class="sign-button sign-in-button-danger sign-in-button-verify-sm" ng-click="vm.approveResume(vm.credentials)"><i class="glyphicon glyphicon-thumbs-down"></i></button>
+                <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveResume(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
               </div>
               <div ng-switch-when="false">
                 <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.ResumeId)"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button>
-                <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveResume(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                <button type="button" class="sign-button sign-in-button-danger sign-in-button-danger-sm" ng-click="vm.approveResume(vm.credentials)"><i class="glyphicon glyphicon-thumbs-down"></i></button>
               </div>
               <div ng-switch-default>
                 <button type="button" class="sign-button sign-in-button sign-in-button-sm" ng-click="vm.viewForm(vm.credentials.ResumeId)"><i class="glyphicon glyphicon-circle-arrow-down" style="height:100%"></i></button>
-                <button type="button" class="sign-button sign-in-button-verify sign-in-button-verify-sm" ng-click="vm.approveResume(vm.credentials)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                <button type="button" class="sign-button sign-in-button-danger sign-in-button-danger-sm" ng-click="vm.approveResume(vm.credentials)"><i class="glyphicon glyphicon-thumbs-down"></i></button>
               </div>
             </div>
           </div>
