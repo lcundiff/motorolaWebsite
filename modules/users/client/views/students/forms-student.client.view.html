@@ -18,9 +18,11 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <h5 class="navbar-text" ng-if="vm.credentials.areFormsStudentApproved == true && vm.credentials.areFormsAdminApproved == false" >Forms Submission (Waiting On Admin Approval)</h5>
+	  <!-- when students have had their forms approved by admin -->
       <h5 class="navbar-text" ng-if="vm.credentials.areFormsStudentApproved == true && vm.credentials.areFormsAdminApproved == true">Forms Submission (All Forms Approved!)</h5>
-      <h5 class="navbar-text" ng-if= "vm.credentials.isNDASubmitted == false || vm.credentials.isResumeSubmitted == false || vm.credentials.isWaiverSubmitted == false || vm.credentials.isLetterofRecommendationSubmitted == false" >Forms Submission (Student Forms Not Submitted)</h5>
-      <h5 class="navbar-text" ng-if="vm.credentials.areFormsStudentApproved == false && vm.credentials.isNDASubmitted == true && vm.credentials.isResumeSubmitted == true && vm.credentials.isWaiverSubmitted == true && vm.credentials.isLetterofRecommendationSubmitted == true">Forms Submission (Student Forms Not Verified)</h5>
+	  <!-- when students have submitted but NOT verified -->	
+      <h5 class="navbar-text" ng-if= "vm.credentials.isNDASubmitted == false || vm.credentials.isResumeUploaded == false || vm.credentials.isWaiverUploaded == false || vm.credentials.isLetterofRecommendationUploaded == false" >Forms Submission (Please Upload Forms)</h5>
+      <h5 class="navbar-text" ng-if="vm.credentials.areFormsStudentApproved == false && vm.credentials.isNDAUploaded == true && vm.credentials.isResumeUploaded == true && vm.credentials.isWaiverUploaded == true && vm.credentials.isLetterofRecommendationUploaded == true">Forms Submission (Please Verify Forms)</h5>
     </div>
     <!-- need to decide if this is neccessary since it takes a lot of room
     <center>

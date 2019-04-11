@@ -96,6 +96,9 @@
         student.email = response.email;
 
         StudentService.createStudent(student);
+		// If successful we assign the response to the global user model
+        vm.authentication.user = response;
+		$state.go('student.application', $state.previous.params);
       }
       if(response.roles.indexOf('volunteer') !== -1){
 
@@ -107,12 +110,12 @@
         volunteer.email = response.email;
 
         VolunteerService.createVolunteer(volunteer);
+		// If successful we assign the response to the global user model
+        vm.authentication.user = response;	
+		$state.go('volunteer.application', $state.previous.params);
       }
-      // If successful we assign the response to the global user model
-      vm.authentication.user = response;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
       // And redirect to the previous or home page
-      $state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
     function onUserSignupError(response) {
