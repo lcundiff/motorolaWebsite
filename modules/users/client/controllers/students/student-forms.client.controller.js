@@ -156,8 +156,8 @@
 
     function checkFileSize(file){
       console.log("file: ", file);
-      if(file){
-        if(file.size >= 4000000){
+      if(file.upload.size){
+        if(file.upload.size >= 4000000){
           console.log("IN CHECK");
           return 0;
         }
@@ -170,7 +170,7 @@
 
     function uploadNDA(file){
       console.log("FILE SIZE: ",file.size);
-      if(!file){
+      if(!file.upload){
         Notification.error({ message: 'Please submit the correct NDA file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
@@ -197,7 +197,7 @@
     }
 
     function uploadWaiver(file){
-      if(!file){
+      if(!file.upload){
         Notification.error({ message: 'Please submit the correct Waiver file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
@@ -223,7 +223,7 @@
     }
 
     function uploadLetterOfRecommendation(file){
-      if(!file){
+      if(!file.upload){
         Notification.error({ message: 'Please submit the correct Letter of Recommendation file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
@@ -250,7 +250,7 @@
     }
 
     function uploadResume(file){
-      if(!file){
+      if(!file.upload){
         Notification.error({ message: 'Please submit the correct Resume file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
