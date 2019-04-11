@@ -171,10 +171,10 @@
         Notification.error({ message: 'Please submit the correct NDA file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
-      if(checkFileSize(file) === 0){
-        Notification.error({ message: 'The file size must be under 4 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
-        return;
-      }
+      //if(checkFileSize(file) === 0){
+      //  Notification.error({ message: 'The file size must be under 4 MB.', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
+    //    return;
+    //  }
 
       vm.loading = true;
       $scope.uploading = true;
