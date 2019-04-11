@@ -6,8 +6,8 @@ var FormData = require('form-data');
 
 const {Storage} = require('@google-cloud/storage');
 
-const projectId = 'test-new-moto';
-const bucketName = 'test-new-moto.appspot.com';
+const projectId = 'motorola-careers-mentoring';
+const bucketName = 'motorola-careers-mentoring.appspot.com';
 
 const storage = new Storage({projectId});
 

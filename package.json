@@ -19,7 +19,7 @@
     "clean": "rm -rf node_modules/ public/lib/",
     "deploy": "gcloud app deploy app.yaml --promote",
     "reinstall": "npm cache clean && npm run clean && npm install",
-    "start": "(export GOOGLE_APPLICATION_CREDENTIALS='./test-new-moto-9b514fdee2d6.json') && NODE_ENV=development node server.js",
+    "start": "(export GOOGLE_APPLICATION_CREDENTIALS='./motorola-careers-mentoring-storage-key.json') && NODE_ENV=development node server.js",
     "start:prod": "gulp prod",
     "start:debug": "node-debug --web-host 0.0.0.0 server.js & gulp debug",
     "gulp": "gulp",
