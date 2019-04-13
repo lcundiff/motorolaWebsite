@@ -80,5 +80,5 @@ exports.downloadCloudFile = function(req, res) {
     .catch(function(error){
       console.log('gcs download wrong: ', error);
       return res.status(406).end();
-    });/*
+    });*/
 };
