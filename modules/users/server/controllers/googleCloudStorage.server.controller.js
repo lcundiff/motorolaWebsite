@@ -67,7 +67,7 @@ exports.downloadCloudFile = function(req, res) {
     .pipe(fs.createWriteStream(`./uploads/${req.params.filename}`))
     .on('finish', function(){
       console.log('PIPE FINISHED');
-      res.render(`./uploads/${req.params.filename}`);
+      res.sendFile(`./uploads/${req.params.filename}`);
       console.log('yoyoyo');
     });
     /*.download(options)
