@@ -2,6 +2,7 @@ var express = require('express');
 var _router = express.Router();
 var multer = require('multer');
 var path = require('path');
+var fs = require('fs');
 var FormData = require('form-data');
 
 const {Storage} = require('@google-cloud/storage');
@@ -53,14 +54,31 @@ exports.downloadCloudFile = function(req, res) {
   storage
     .bucket(bucketName)
     .file(`${req.params.filename}`)
-    .download(options)
+    .createReadStream()
+    .on('error', function(err){
+      return res.status(406).end();
+    })
+    .on('response', function(response){
+      console.log(response);
+    })
+    .on('end', function(){
+      console.log('end');
+    })
+    .pipe(fs.createWriteStream(`./uploads/${req.params.filename}`))
+    .on('finish', function(){
+      console.log('PIPE FINISHED');
+      res.render(`./uploads/${req.params.filename}`);
+      console.log('yoyoyo');
+    });
+    /*.download(options)
     .then(function(response){
       console.log('gcs download right: ', response);
       res.download(`./uploads/${req.params.filename}`);
+      console.log('yoyoyo');
       return res.status(200).end();
     })
     .catch(function(error){
       console.log('gcs download wrong: ', error);
       return res.status(406).end();
-    });
+    });/*
 };
