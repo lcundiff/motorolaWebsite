@@ -36,8 +36,8 @@
               </div>
             </div>
           </div>
-          <div align="center" class=""> <img class="opaque green-hover" src="/modules/core/client/img/app.png" style= "display: block; margin:auto; max-width:80%; margin-bottom:1rem; height:11rem;" alt="applicationSubmitted">
-            <label style="letter-spacing:3px;" > Status: Submitted </label>
+          <div ui-sref="student.application" align="center" class=""> <img class="opaque green-hover" src="/modules/core/client/img/app.png" style= "display: block; margin:auto; max-width:80%; margin-bottom:1rem; height:11rem;" alt="applicationSubmitted">
+            <label ng-click="$state.go('student.application');" style="letter-spacing:3px;" > Status: Submitted </label>
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@
               </div>
             </div>
           </div>
-          <div align="center"class=""> <img class="opaque green-hover" src="/modules/core/client/img/app2.png" style= "display: block; margin:auto; max-width:80%; margin-bottom:1rem; height:11rem;" alt="applicationIncomplete">
+          <div ui-sref="student.application" align="center"class=""> <img  class="opaque green-hover" src="/modules/core/client/img/app2.png" style= "display: block; margin:auto; max-width:80%; margin-bottom:1rem; height:11rem;" alt="applicationIncomplete">
             <label style="letter-spacing:3px;" > Status: Incomplete </label>
           </div>
         </div>
@@ -75,7 +75,7 @@
               </div>
             </div>
           </div>
-          <div align="center" class="panel-footer"> <img class ="opaque green-hover" src="/modules/core/client/img/form.png" style= "display: block; margin-bottom:1rem; width:80%; height: 14em;" alt="forms">
+          <div align="center" class="panel-footer"> <img ui-sref="student.forms" class ="opaque green-hover" src="/modules/core/client/img/form.png" style= "display: block; margin-bottom:1rem; width:80%; height: 14em;" alt="forms">
             <label style="letter-spacing:3px;" > Status: Approved and Submitted </label>
           </div>
         </div>
@@ -91,7 +91,7 @@
               </div>
             </div>
           </div>
-          <div align="center" class=""> <img class="opaque green-hover" src="/modules/core/client/img/form2.png" style= "display: block; margin-bottom:1rem; max-width:80%; height:14em;" alt="formNotCompleted">
+          <div ui-sref="student.forms" align="center" class=""> <img class="opaque green-hover" src="/modules/core/client/img/form2.png" style= "display: block; margin-bottom:1rem; max-width:80%; height:14em;" alt="formNotCompleted">
              <label style="margin-bottom: 5rem; letter-spacing:3px;" ng-if="vm.credentials.areFormsStudentApproved == true && vm.credentials.areFormsAdminApproved == false" >Waiting On Admin Approval</label>							
               <!-- when students have submitted but NOT verified -->
               <label style="margin-bottom: 5rem; letter-spacing:3px;" ng-if= "vm.credentials.isNDASubmitted == false || vm.credentials.isResumeUploaded == false || vm.credentials.isWaiverUploaded == false || vm.credentials.isLetterofRecommendationUploaded == false" >Please Upload Forms</label>
