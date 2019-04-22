@@ -131,7 +131,7 @@
 		 $state.go('admin.dash', $state.previous.params); 
 	  }
 	  else if(response.roles.indexOf('student') !== -1){
-		  $state.go('student.application', $state.previous.params);
+		  $state.go('student.dash', $state.previous.params);
 
       }
       else if(response.roles.indexOf('volunteer') !== -1){

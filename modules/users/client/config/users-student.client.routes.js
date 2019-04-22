@@ -16,6 +16,13 @@
         controller: 'StudentsController',
         controllerAs: 'vm'
       })
+    $stateProvider
+      .state('student.dash', {
+        url: '/student/dash',
+        templateUrl: '/modules/users/client/views/students/dashboard-student.client.view.html',
+        controller: 'StudentsController',
+        controllerAs: 'vm'
+      })
       .state('student.forms', {
         url: '/student/forms',
         templateUrl: '/modules/users/client/views/students/forms-student.client.view.html',

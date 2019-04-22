@@ -13,7 +13,12 @@
       title: 'Something',
       state: 'student.application'
     });*/
-
+    menuService.addMenuItem('topbar', {
+      title: 'Dashboard',
+      state: 'student.dash',
+      roles: ['student']
+    });
+	  
     menuService.addMenuItem('topbar', {
       title: 'Application',
       state: 'student.application',
