@@ -59,28 +59,26 @@ exports.signupLink = function (req, res, next) {
     // Lookup user by username
     function (token, done) {
       if (req.body.email) {
-
         var email = Promise.resolve(String(req.body.email).toLowerCase());
-        var firstName = Promise.resolve(String(req.body.firstName));
-        var lastName = Promise.resolve(String(req.body.lastName));
-
         var signupLinkToken = Promise.resolve(token);
         var signupLinkExpires = Promise.resolve(Date.now() + (3600000*24)); // 1 hour
 
-        Promise.all([email, firstName, lastName, signupLinkToken, signupLinkExpires]).then(async function([ue, uf, ul, ut, us]){
-          var userReq = new UserReq(req.body);
-          await(userReq);
-          await(userReq.firstName = uf);
-          await(userReq.lastName = ul);
-          await(userReq.email = ue);
-          await(userReq.signupLinkToken = ut);
-          await(userReq.signupLinkExpires = us);
+        Promise.all([email, signupLinkToken, signupLinkExpires]).then(async function([ue, ut, us]){
+          await(req.body.email = ue);
+          await(req.body.signupLinkToken = ut);
+          await(req.body.signupLinkExpires = us);
+          await(delete req.body.__v);
 
-          await(UserReq.findOneAndUpdate({_id: userReq._id}, userReq, {upsert:false}, function(err, userReq){
-            done(err, token, userReq);
+          await(UserReq.findOneAndUpdate({email: ue}, req.body, {upsert: true})
+          .then(function(response){
+            done(null, token, req.body);
+          })
+          .catch(function(err){
+            res.status(400).send({
+              message: 'Failure sending email'
+            });
           }));
         });
-
       } else {
         return res.status(422).send({
           message: 'Email field must not be blank'
@@ -88,7 +86,6 @@ exports.signupLink = function (req, res, next) {
       }
     },
     function (token, user, done) {
-
       var httpTransport = 'https://';
       if (config.secure && config.secure.ssl === true) {
         httpTransport = 'https://';
@@ -104,7 +101,6 @@ exports.signupLink = function (req, res, next) {
     },
     // If valid email, send reset email using service
     function (emailHTML, user, done) {
-      console.log("user email: ",user.email);
       var mailOptions = {
         to: user.email,
         from: config.mailer.from,
@@ -136,7 +132,6 @@ exports.signupLink = function (req, res, next) {
  * Reset password GET from email token
  */
 exports.validateSignupToken = function (req, res) {
-  console.log("token: ", req.params.token);
   UserReq.findOne({
     signupLinkToken: req.params.token,
     signupLinkExpires: {
