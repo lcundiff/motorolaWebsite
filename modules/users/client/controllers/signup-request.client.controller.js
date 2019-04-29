@@ -32,17 +32,9 @@ SignupController.$inject = ['$scope', '$stateParams', 'UsersService', '$location
 
       console.log("askForSignUp credentials: ", vm.credentials);
 
-      // regex : ^.+
-      if(vm.credentials.email.match("^.+@motorolasolutions.com")){
-        UsersService.sendSignupLink(vm.credentials)
+      UsersService.signupRequest(vm.credentials)
         .then(onRequestSignupSuccess)
         .catch(onRequestSignupError);
-      }
-      else{
-        UsersService.signupRequest(vm.credentials)
-          .then(onRequestSignupSuccess)
-          .catch(onRequestSignupError);
-      }
     }
 
     // Change user password

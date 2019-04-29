@@ -57,21 +57,8 @@ module.exports = {
     sandbox: true
   },
   googleCloudStorage: {
-    projectId: 'motorola-careers-mentoring',
-    bucketName: 'motorola-careers-mentoring.appspot.com',
-  },
-  NODE_ENV: "development",
-  GOOGLE_APPLICATION_CREDENTIALS: {
-    type: "service_account",
-    project_id: "motorola-careers-mentoring",
-    private_key_id: "84d67d4f1bd0224f4772a8a3dd633d09635378a3",
-    private_key: "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCk2QqmPXSUccla\nJM/+o0L8Rn990MMco1VO9pxQp1IbLm+lHUsLcogwsKEV65gW53T4g0Tng0CAUWXc\nJ6Yfs6K+SQfUJes2kbqXJv/1pSShBObAAkMnv9pOTsrqI9ylDQlDe7so6mfdr/Jp\nyZKluhMrwVFC2hapyeg/nt7D89qJ/i+Oz0I29ZS8zCnypxBFvFcxjsg5NJBxrec/\nR7G8ILLLREOJoVbLwbO1FZHMK/eAkLENQeJtGCvs27b8dxeHsLkXa7lTu/7I4cmX\nFaLw2TV86I60CItfpdAdweRkx/ZXJVXNnqLNiOSMx32GiKcJIM5RVsgOBfTtHXkY\n2wPjh22jAgMBAAECggEAAtAVAglu8p05oakSFAf4mZHuHWG+I54GZJ80GK7iNk7s\nIqKWymxqAwd6ILcXewDWL9oKXK7OH1nd0EgBttw7kCJQNq8qJ13zV+tTG5C582km\nqo0jmQK0HOgWNgYqoP5Z85Syo2R9nK+zwb9p1deykz7S8Vfht6ZbyzkMfeiKXfRj\n4jF80pxO/rsAyZepaaEwuUBsvcMo+dKxZ1hzWbCRzfX+VRmiiU8bEmH/S+FxjtPm\ntOk5RbtQpU6FuESUcyYr5GPSyncARD6Kui34whP3Pi50kJ1GofZlp59gHXhYhsH3\nF/d13xiaXes3jArAPaSVoEbS8bdfmbMN1cRXs2JuwQKBgQDf+JqDRmuQWJ04ioXB\nH8AxHyBJITOcqQ20ly/0hyEghDRgF13GWcsbaQK6NLskN21sxyqS9DaIkkSFric+\nx7bh2+FpnjuF6yTcRQvib/muxqnuznbo/r7dbo6lyvQMgAJERfssa6xIF1VptqA9\nC5oaqwwXhdPJaCyf2Zhh/8iL0wKBgQC8a/vFLKfOhhhnq7ptxeGaoaD73HmgI1st\npFdX3h3QVRaJVcM0cfQgfNl4co03824AyKALP01E1UWFZnLIyYJ4LRtVIyDrQfHI\n7IpQzorLyIFz4ZtUeVRPOhcSBriv9aOynhlZtyhfBIsLtb37lqgMTl9w0/lW1KPp\n/+n9+vGE8QKBgFtpH8cMasJTKHf3MXgM+WgTCB5QyrvZ05otSolGzaJz0tyVLNTT\nuS3Kwi41b1vss2B+OUYZHljHOehFmAbrhBzSnUF6L1kNC9JK6/rTMNjAhILPCYE2\n17eQc+/+0XR4mnQ7C7SpjXsu6tFmlCfWIGNaBGllWXcOaYgkSylUOAm5AoGBALjJ\nqjxgpB3+Etcxav+XTr9I/kmjm0B7DEPB5csN0e1sVVLQ4kV/8G0gJGNk7KxPt7Vb\nDOKa7VuxUaIXrEDQp3zWt/SSJAm1PbvQh4HiXeqnNJYCT0TUTOP6U3/hSaV/4VAe\njzwWTaiKGxeb4LtpsFuJTT6pFOKcXjjyO3hTcCPxAoGAVdiuVx3lEEjYh94D9pRg\nillph4y1B2sHEYN84KFcOLv885o6FL2zIBcqLpU8r9A7y3UGilVLRbrsO+CpavUA\nnn0iudUZUIzRSsdbQ0ZdhftHDj99g2rd9Lgj0uGTFtbEY4VDDbzjOGwKXwoNKHbW\n9C87n1Gq/DhqTrElNLXyn2w=\n-----END PRIVATE KEY-----\n",
-    client_email: "motorola-careers-mentoring@appspot.gserviceaccount.com",
-    client_id: "101111851601137531049",
-    auth_uri: "https://accounts.google.com/o/oauth2/auth",
-    token_uri: "https://oauth2.googleapis.com/token",
-    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-    client_x509_cert_url: "https://www.googleapis.com/robot/v1/metadata/x509/motorola-careers-mentoring%40appspot.gserviceaccount.com",
+    projectId: 'test-new-moto',
+    bucketName: 'test-bucket',
   },
   mailer: {
     from: process.env.MAILER_FROM || 'Motorola Mentoring',
