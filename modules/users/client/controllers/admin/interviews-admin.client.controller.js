@@ -112,6 +112,14 @@
     }
 
     function addInterviewer(student, volunteerUser, index){
+      if(!student.interviewer[index]){
+        Notification.error({ message: 'No interviewer is assigned to the student in this slot.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+        return;
+      }
+      if(!volunteerUser){
+        Notification.error({ message: 'No interviewer was selected.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+        return;
+      }
       vm.loading = true;
       student.interviewer[index] = volunteerUser;
       console.log(volunteerUser);
@@ -132,12 +140,24 @@
     }
 
     function removeInterviewer(student, volunteerUser, index){
+      if(!student.interviewer[index]){
+        Notification.error({ message: 'No interviewer is assigned to the student in this slot.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+        return;
+      }
+      if(!volunteerUser){
+        Notification.error({ message: 'No interviewer was selected.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
+        return;
+      }
+      console.log(student);
+      console.log(index);
       vm.loading = true;
       student.interviewer[index] = null;
+      student.interviewerID[index] = null;
 
       VolunteerService.getVolunteer(volunteerUser).then(function(data){
+        console.log(data);
         var volunteer = data.volunteer;
-
+        console.log(student.user);
         volunteer.intervieweeID.splice(volunteer.intervieweeID.indexOf(student.user), 1);
         VolunteerService.updateVolunteer(volunteer.username, volunteer);
 
