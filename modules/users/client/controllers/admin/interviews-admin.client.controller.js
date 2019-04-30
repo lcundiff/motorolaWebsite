@@ -130,6 +130,7 @@
         console.log('volunteer:', volunteer);
 
         volunteer.intervieweeID.push(student.user);
+        volunteer.interviewee_count += 1;
 
         VolunteerService.updateVolunteer(volunteer.username, volunteer);
       });
@@ -158,6 +159,7 @@
         console.log(data);
         var volunteer = data.volunteer;
         console.log(student.user);
+        volunteer.interviewee_count -= 1;
         volunteer.intervieweeID.splice(volunteer.intervieweeID.indexOf(student.user), 1);
         VolunteerService.updateVolunteer(volunteer.username, volunteer);
 
