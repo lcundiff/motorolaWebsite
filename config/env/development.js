@@ -63,14 +63,24 @@ module.exports = {
   mailer: {
     from: process.env.MAILER_FROM || 'Motorola Mentoring',
     options: {
+      pool: true,
       host: 'smtp.gmail.com',
-      secureConnection: true,
-      port: 465,
-      secure: true,
+      port: 587,
+      secure: false,
+      requireTLS: true,
       service: process.env.MAILER_SERVICE_PROVIDER || 'Google',
       auth: {
-        user: process.env.MAILER_EMAIL_ID || 'motorolamentoring@gmail.com',
-        pass: process.env.MAILER_PASSWORD || 'Shadow-Mentor'
+        type: 'OAuth2',
+        user: 'alexmarron@mentoringcoach.org',
+        clientId: '452625639526-p74grpfn08cu5bkgvbn03d078vpjcb1a.apps.googleusercontent.com',
+        clientSecret: 's41HAbEyHGQdK8HYJNT1gMcC',
+        refreshToken: '1/JktbbRa3L0AProGPGAsEnVAA_AdjZYivnynrZUwHr8Q',
+        activeToken: 'ya29.Glv7BvyDInao1V-5u2vfpk0GWwH1ENOlLhRFinBlx76n71J-O82Q8Z52pM0LF_kfcrZIWRNh8SMimTT9z2XvnilUvMJrJhaS-s23AGOPqZlzJQnSQeqKtl1kMCC_'
+        //user: process.env.MAILER_EMAIL_ID || 'motorolamentoring@gmail.com',
+        //pass: process.env.MAILER_PASSWORD || 'Shadow-Mentor'
+      },
+      tls: {
+        rejectUnauthorized: false,
       }
     }
   },
