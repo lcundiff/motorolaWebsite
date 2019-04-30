@@ -184,8 +184,8 @@ function clearInterviewData(){
     if(volunteers.length > 0){
     volunteers.forEach(function(volunteer){
       return new Promise(function(resolve, reject){
-        volunteer.interviewee = [null, null, null];
-        volunteer.intervieweeID = [null, null, null];
+        volunteer.interviewee = [];
+        volunteer.intervieweeID = [];
         volunteer.interviewee_count = 0;
 
         resolve(volunteer);
