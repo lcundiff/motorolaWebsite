@@ -76,15 +76,17 @@ module.exports = {
   mailer: {
     from: process.env.MAILER_FROM || 'Motorola Mentoring',
     options: {
+      name: 'motorola-careers-mentoring.appspot.com',
       pool: true,
       host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
-      requireTLS: true,
+      port: 465,
+      secure: true,
+      requireTLS: false,
       service: process.env.MAILER_SERVICE_PROVIDER || 'Google',
       auth: {
         type: 'OAuth2',
         user: 'alexmarron@mentoringcoach.org',
+        password: 'Shadow-Mentor',
         clientId: '452625639526-p74grpfn08cu5bkgvbn03d078vpjcb1a.apps.googleusercontent.com',
         clientSecret: 's41HAbEyHGQdK8HYJNT1gMcC',
         refreshToken: '1/JktbbRa3L0AProGPGAsEnVAA_AdjZYivnynrZUwHr8Q',

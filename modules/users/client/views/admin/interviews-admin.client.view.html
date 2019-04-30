@@ -85,13 +85,15 @@
           </div>
           <div class="row">
             <center>
-            <div class="col-xs-8 col-md-8">
+            <div class="col-xs-12 col-md-12">
               <select class="form-control" style="width:100%"ng-model="vm.user.interviewerID[0]">
                 <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
               </select>
             </div>
-            <div class="col-xs-4 col-md-4">
+            <div class="col-xs-12 col-md-12">
               <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewerID[0], 0)">Set</button>
+              <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewerID[0], 0)">Remove</button>
+
             </div>
             </center>
           </div>
@@ -101,13 +103,15 @@
           </div>
           <div class="row">
             <center>
-            <div class="col-xs-8 col-md-8">
+            <div class="col-xs-12 col-md-12">
               <select class="form-control" style="width:100%"ng-model="vm.user.interviewerID[1]">
                 <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
               </select>
             </div>
-            <div class="col-xs-4 col-md-4">
+            <div class="col-xs-12 col-md-12">
               <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewerID[1], 1)">Set</button>
+              <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewerID[1], 1)">Remove</button>
+
             </div>
             </center>
           </div>
@@ -117,13 +121,14 @@
           </div>
           <div class="row">
             <center>
-            <div class="col-xs-8 col-md-8">
+            <div class="col-xs-12 col-md-12">
               <select class="form-control" style="width:100%"ng-model="vm.user.interviewerID[2]">
                 <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
               </select>
             </div>
-            <div class="col-xs-4 col-md-4">
+            <div class="col-xs-12 col-md-12">
               <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.user.interviewerID[2], 2)">Set</button>
+              <button class="selection-btn selection-btn-primary" ng-click="vm.removeInterviewer(vm.user, vm.user.interviewerID[2], 2)">Remove</button>
             </div>
             </center>
           </div>

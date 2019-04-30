@@ -25,6 +25,8 @@
 	vm.backEndInterviewer = ['','',''];
 
     vm.addInterviewer = addInterviewer;
+    vm.removeInterviewer = removeInterviewer;
+
     vm.autoAssignInterviews = autoAssignInterviews;
 
     function autoAssignInterviews() {
@@ -128,6 +130,40 @@
       .then(onAddInterviewerSuccess(student,index))
       .catch(onAddInterviewerError);
     }
+
+    function removeInterviewer(student, volunteerUser, index){
+      vm.loading = true;
+      student.interviewer[index] = null;
+
+      VolunteerService.getVolunteer(volunteerUser).then(function(data){
+        var volunteer = data.volunteer;
+
+        volunteer.intervieweeID.splice(volunteer.intervieweeID.indexOf(student.user), 1);
+        VolunteerService.updateVolunteer(volunteer.username, volunteer);
+
+        console.log(volunteer);
+      });
+
+      StudentService.updateStudent(student.user, student)
+      .then(onRemoveInterviewerSuccess(student, index))
+      .catch(onRemoveInterviewerError);
+
+      console.log(student);
+    }
+
+    function onRemoveInterviewerSuccess(student,index) {
+          // If successful we assign the response to the global user model
+          		  vm.backEndInterviewer[index] = student.interviewerID[index];
+                vm.loading = false;
+          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Interviewer was successfully removed from student.' });
+          // And redirect to the previous or home page
+          //$state.go($state.previous.state.name || 'home', $state.previous.params);
+        }
+
+        function onRemoveInterviewerError(response) {
+          vm.loading = false;
+          Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> There was an error remove interviewer from the student.', delay: 6000 });
+        }
 
     function onAddInterviewerSuccess(student,index) {
           // If successful we assign the response to the global user model
