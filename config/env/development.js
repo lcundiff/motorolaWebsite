@@ -74,13 +74,14 @@ module.exports = {
     client_x509_cert_url: "https://www.googleapis.com/robot/v1/metadata/x509/motorola-careers-mentoring%40appspot.gserviceaccount.com",
   },
   mailer: {
-    from: process.env.MAILER_FROM || 'Motorola Mentoring',
+    from: 'alexmarron@mentoringcoach.org',
     options: {
       name: 'motorola-careers-mentoring.appspot.com',
       host: 'smtp.gmail.com',
       port: 465,
       secure: false,
       debug:true,
+      logger: true,
       tls: {
             rejectUnauthorized: false
       },
