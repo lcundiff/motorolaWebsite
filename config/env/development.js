@@ -77,6 +77,7 @@ module.exports = {
     from: 'alexmarron@mentoringcoach.org',
     options: {
       name: 'motorola-careers-mentoring.appspot.com',
+      sendMail: true,
       host: 'smtp.gmail.com',
       port: 465,
       secure: false,
@@ -85,7 +86,7 @@ module.exports = {
       tls: {
             rejectUnauthorized: false
       },
-      service: process.env.MAILER_SERVICE_PROVIDER || 'gmail',
+      service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
       auth: {
         type: 'OAuth2',
         user: 'alexmarron@mentoringcoach.org',
