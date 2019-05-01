@@ -113,6 +113,7 @@ exports.signupLink = function (req, res, next) {
             message: 'An email has been sent to the provided email with further instructions.'
           });
         } else {
+          console.log(err);
           return res.status(400).send({
             message: 'Failure sending email'
           });
