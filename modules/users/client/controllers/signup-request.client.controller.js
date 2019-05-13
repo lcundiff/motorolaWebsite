@@ -34,8 +34,14 @@ SignupController.$inject = ['$scope', '$stateParams', 'UsersService', '$location
 
       // regex : ^.+
       if(vm.credentials.email.match("^.+@motorolasolutions.com")){
-        UsersService.sendSignupLink(vm.credentials)
-        .then(onRequestSignupSuccess)
+        vm.credentials.roles = ['volunteer'];
+
+        UsersService.signupRequest(vm.credentials)
+        .then(function(response){
+          UsersService.sendSignupLink(vm.credentials)
+          .then(onRequestSignupSuccess)
+          .catch(onRequestSignupError);
+        })
         .catch(onRequestSignupError);
       }
       else{
