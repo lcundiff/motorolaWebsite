@@ -18,17 +18,13 @@
       title: 'Manage User Requests',
       state: 'admin.userreqs'
     });
+    menuService.addMenuItem('topbar',  {
+      title: 'Upload Forms',
+      state: 'admin.updateForms'
+    });
     menuService.addMenuItem('topbar', {
       title: 'Applicants',
       state: 'admin.students'
-    });
-    menuService.addSubMenuItem('topbar', 'admin-forms', {
-      title: 'Student Forms',
-      state: 'admin.approveForms'
-    });
-    menuService.addSubMenuItem('topbar', 'admin-forms', {
-      title: 'Upload New Forms',
-      state: 'admin.updateForms'
     });
     menuService.addMenuItem('topbar', {
       title: 'Volunteers',

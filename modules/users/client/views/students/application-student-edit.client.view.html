@@ -1,4 +1,3 @@
-
 <title>Application</title>
 <style>
 #myCarousel {
@@ -7,20 +6,19 @@
 }
 </style>
 <body>
-  <div id="overlay" ng-show="vm.loading">
-        <div class="loader"></div>
-    </div>
-  <div id="tutorial-overlay" ng-show="vm.tutorial.toggle" >
-  </div>
-    <nav role="navigation" class="navbar navbar-custom navbar-static-top">
-      <div class="container-fluid" ng-switch="vm.submitIsUpdate">
-        <element class="navbar-header" ng-switch-when="false">
-          <h5 class="navbar-text">Student Application (Not Completed)</h5>
-        </element>
-        <element class="navbar-header" ng-switch-when="true">
-          <h5 class="navbar-text">Student Application (Completed) - Continue to Forms</h5>
-        </element>
-		<!--
+<div id="overlay" ng-show="vm.loading">
+  <div class="loader"></div>
+</div>
+<div id="tutorial-overlay" ng-show="vm.tutorial.toggle" > </div>
+<nav role="navigation" class="navbar navbar-custom navbar-static-top">
+  <div class="container-fluid" ng-switch="vm.submitIsUpdate">
+    <element class="navbar-header" ng-switch-when="false">
+      <h5 class="navbar-text">Student Application (Not Completed)</h5>
+    </element>
+    <element class="navbar-header" ng-switch-when="true">
+      <h5 class="navbar-text">Student Application (Completed) - Continue to Forms</h5>
+    </element>
+    <!--
         <form class="navbar-right">
           <label class="navbar-text" style="margin-bottom:0px;">Tutorial</label>
           <div class="input-group">
@@ -33,8 +31,8 @@
           </div>
         </div>
         </form> -->
-      </div>
-    </nav>
+  </div>
+</nav>
 <!--<nav role="navigation" class="navbar navbar-custom navbar-static-top">
   <div class="container-fluid" ng-switch="vm.submitIsUpdate">
     <element class="navbar-header" ng-switch-when="false">
@@ -169,9 +167,8 @@
       </div>
     </div>
   </div>
- </div>
-  <!-- END CARD -->
-
+</div>
+<!-- END CARD -->
 
 <div id="emergency" class="item">
   <div class="col-xs-6 col-xs-offset-3">
@@ -256,12 +253,14 @@
 
 </div>
 <div id="school" class="item">
-  <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">School<span style="color:red;">*</span></h3>
-  <br>
+	<small> Grades 9-12  Only </small>
+  <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">High School<span style="color:red;">*</span></h3>
+   <br>
   <div class="col-xs-6 col-xs-offset-3">
     <div class="form-group" show-errors>
       <select name = "school" class="form-control" ng-model="vm.credentials.application.school" required>
         <option value="">---Please select---</option>
+		<option value = "Alexander W. Dreyfoos School of the Arts"> Alexander W. Dreyfoos School of the Arts</option>
         <option value = "Anderson Boyd HS"> Anderson Boyd High School</option>
         <option value = "American Heritage HS"> American Heritage High School</option>
         <option value = "Atlantic Community HS"> Atlantic Community High School</option>
@@ -274,18 +273,25 @@
         <option value = "Cooper City HS"> Cooper City High School</option>
         <option value = "Coral Glades HS"> Coral Glades High School</option>
         <option value = "Coral Springs HS"> Coral Springs High School</option>
+		<option value = "Coral Springs HS"> Coral Springs Charter School</option>
+		<option value = "Coral Reef Senior HS"> Coral Reef Senior High School</option>
         <option value = "Cypress Bay HS"> Cypress Bay High School</option>
         <option value = "Deerfield Beach HS"> Deerfield Beach High School</option>
         <option value = "Dillard 6-12 HS"> Dillard 6-12 High School</option>
-		<option value = "Edward A. McCarthy HS"> Edward A. McCarthy High School</option>
+        <option value = "Archbishop Edward A. McCarthy HS"> Archbishop Edward A. McCarthy High School</option>
         <option value = "Hialeah-Miami Lakes Senior HS"> Hialeah-Miami Lakes Senior High School</option>
         <option value = "High School in Puerto Rico"> High School in Puerto Rico</option>
+		<option value = "Florida Atlantic University HS"> Florida Atlantic University High School </option>
         <option value = "Forest Hill Community HS"> Forest Hill Community High School</option>
+		<option value = "Fort Lauderdale HS"> Fort Lauderdale High School</option>
+		<option value = "Franklin Academy HS"> Franklin Academy</option>
         <option value = "G-Star School Of The Arts"> G-Star School Of The Arts</option>
         <option value = "Glades Central Community HS"> Glades Central Community High School</option>
         <option value = "John I. Leonard Community HS"> John I. Leonard Community High School</option>
         <option value = "Jupiter Community HS"> Jupiter Community High School</option>
         <option value = "Lake Worth Community HS"> Lake Worth Community High School</option>
+		<option value = "MAST Academy"> MAST Academy</option>
+		<option value = "McArthur HS"> McArthur High School </option>
         <option value = "Melbourne HS"> Melbourne High School</option>
         <option value = "Miami Central HS"> Miami Central High School</option>
         <option value = "Monarch HS"> Monarch High School</option>
@@ -298,21 +304,25 @@
         <option value = "Palm Beach Gardens Community HS"> Palm Beach Gardens Community High School</option>
         <option value = "Palm Beach Lakes Community HS"> Palm Beach Lakes Community High School</option>
         <option value = "Park Vista Community HS"> Park Vista Community High School</option>
+		<option value = "Piper HS"> Piper High School</option>
         <option value = "Plantation HS"> Plantation High School</option>
         <option value = "Pompano Beach HS"> Pompano Beach High School</option>
         <option value = "Puerto Rico Dept Of Education"> Puerto Rico Dept Of Education</option>
         <option value = "Ransom Everglades HS"> Ransom Everglades School</option>
+		<option value = "Riviera Preparatory School"> Riviera Preparatory School</option>
         <option value = "Royal Palm Beach Community HS"> Royal Palm Beach Community High School</option>
         <option value = "Santaluces Community HS"> Santaluces Community High School</option>
         <option value = "Seminole Ridge Community HS"> Seminole Ridge Community High School</option>
         <option value = "Sheridan Technical HS"> Sheridan Technical High School</option>
+		<option value = "Somerset Academy Canyons"> Somerset Academy Canyons</option>
         <option value = "South Broward HS"> South Broward High School</option>
         <option value = "South Plantation HS"> South Plantation High School</option>
         <option value = "Spanish River Community HS"> Spanish River Community High School</option>
-        <option value = "Suncoast Community HS"> Suncoast Community High School</option>
         <option value = "Stoneman Douglas HS"> Stoneman Douglas High School</option>
         <option value = "Stranahan HS"> Stranahan High School</option>
-        <option value = "St Thomas Aquinas"> St Thomas Aquinas</option>
+		<option value = "St. Maria Goretti HS"> St. Maria Goretti High School </option>
+        <option value = "St. Thomas Aquinas"> St. Thomas Aquinas</option>
+		<option value = "Suncoast Community HS"> Suncoast Community High School</option>
         <option value = "Taravella J.P. High"> Taravella J. P. High School</option>
         <option value = "Terra Environmental Research Institute"> Terra Environmental Research Institute</option>
         <option value = "Wellington Community HS"> Wellington Community High School</option>
@@ -871,6 +881,7 @@
             </form>
           </element>
           <element ng-switch-when="false"
+
           <p class="w3-text-black">{{work.companyName}}</p>
         </element>
         </element>
@@ -978,12 +989,13 @@
     <button type="button" class="sign-button sign-in-button" ng-click="vm.addProfessionalExperiences()">Save</button>
   </div>
 </div>
-<!-- last slide --> 
+<!-- last slide -->
 <div id="work" class="item">
   <h3 style="font-family: 'Lato', sans-serif; font-wight: bold;">Please Proceed to Upload <a ui-sref="student.forms">Forms Tab</a></h3>
   <p>
     <center>
-      <font size="5"color="grey">Click <a ui-sref="student.forms">HERE</a><br>If you have submitted your application successfully, there should be only one button on the bottom of this page named "Update Application"</font>
+      <font size="5"color="grey">Click <a ui-sref="student.forms">HERE</a><br>
+      after you click "Submit" to proceed to turn in your forms!</font>
     </center>
   </p>
   <br>
@@ -1015,12 +1027,14 @@
         <button type="submit" class="sign-button sign-in-button" ng-click="vm.updateStudent(vm.studentForm.$valid)">Update Application</button>
       </element>
       <element ng-switch-when="false">
-        <div class="tooltip">
-          <span class="tooltiptext" ng-show="vm.tutorial.submitApplication" ng-click="vm.tutorialPlay()"><strong>Click here when you're ready to submit your application.</strong><br><br> Click on this tooltip to continue.</span>
+        <div class="tooltip"> <span class="tooltiptext" ng-show="vm.tutorial.submitApplication" ng-click="vm.tutorialPlay()"><strong>Click here when you're ready to submit your application.</strong><br>
+          <br>
+          Click on this tooltip to continue.</span>
           <button type="submit" ng-disabled="vm.tutorial.toggle" class="sign-button sign-in-button" ng-click="vm.updateStudent(vm.studentForm.$valid)" >Submit Application</button>
         </div>
-        <div id="vm.tutorial.saveApplication" class="tooltip">
-          <span class="tooltiptext" ng-show="vm.tutorial.saveApplication" ng-click="vm.tutorialPlay()"><strong>If you need to finish your application later, click here to save your information.</strong><br><br> Click on this tooltip to continue.</span>
+        <div id="vm.tutorial.saveApplication" class="tooltip"> <span class="tooltiptext" ng-show="vm.tutorial.saveApplication" ng-click="vm.tutorialPlay()"><strong>If you need to finish your application later, click here to save your information.</strong><br>
+          <br>
+          Click on this tooltip to continue.</span>
           <button type="submit" ng-disabled="vm.tutorial.toggle" class="sign-button sign-in-button" ng-click="vm.saveApp()">Save Application</button>
         </div>
       </element>
