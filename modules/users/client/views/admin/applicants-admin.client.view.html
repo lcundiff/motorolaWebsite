@@ -187,9 +187,9 @@
                 <td align="left" ><h5 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h5>
                   <h6  ng-bind-template="{{student.application.school}}"></h6></td>
                 <!-- app -->
-                <td><i class="glyphicon glyphicon-thumbs-up mb-1" ui-sref="student.forms"  ng-show="student.isAppComplete" src="/modules/core/client/img/app.png" style= "margin-top:1rem; color:green;" alt="app"></i> <i class="glyphicon glyphicon-thumbs-down mb-1" ui-sref="student.forms"  ng-if="student.isAppComplete == false" src="/modules/core/client/img/app2.png" style= "margin-top:1rem; color:red;" alt="app"></i></td>
+                <td><i class="glyphicon glyphicon-thumbs-up mb-1"  ng-show="student.isAppComplete" src="/modules/core/client/img/app.png" style= "margin-top:1rem; color:green;" alt="app"></i> <i class="glyphicon glyphicon-thumbs-down mb-1" ng-if="student.isAppComplete == false" src="/modules/core/client/img/app2.png" style= "margin-top:1rem; color:red;" alt="app"></i></td>
                 <!-- forms -->
-                <td ><i class="glyphicon glyphicon-thumbs-up mb-1" ui-sref="student.forms"  ng-show="student.areFormsStudentApproved" src="/modules/core/client/img/app.png" style= "margin-top:1rem; color:green;" alt="form"></i> <i class="glyphicon glyphicon-thumbs-down mb-1" ui-sref="student.forms"  ng-if="student.areFormsStudentApproved == false" src="/modules/core/client/img/app2.png" style= "margin-top:1rem; color:red;" alt="form"></i></td>
+                <td ><i class="glyphicon glyphicon-thumbs-up mb-1" ng-show="student.areFormsStudentApproved" src="/modules/core/client/img/app.png" style= "margin-top:1rem; color:green;" alt="form"></i> <i class="glyphicon glyphicon-thumbs-down mb-1" ng-if="student.areFormsStudentApproved == false" src="/modules/core/client/img/app2.png" style= "margin-top:1rem; color:red;" alt="form"></i></td>
                 
                 <!-- session -->
                 <td ng-bind-template="{{student.timeSlot}}" ng-if="student.timeSlot.length === 1"></td>
