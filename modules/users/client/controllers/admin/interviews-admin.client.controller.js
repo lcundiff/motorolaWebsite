@@ -130,6 +130,7 @@
 
       VolunteerService.getVolunteer(volunteerUser).then(function(data){
         var volunteer = data.volunteer;
+        student.interviewer[index] = `${volunteer.application.firstName} ${volunteer.application.lastName}`;
 
         console.log('volunteer:', volunteer);
 
@@ -137,11 +138,11 @@
         volunteer.interviewee_count += 1;
 
         VolunteerService.updateVolunteer(volunteer.username, volunteer);
-      });
 
-      StudentService.updateStudent(student.user, student)
-      .then(onAddInterviewerSuccess(student,index))
-      .catch(onAddInterviewerError);
+        StudentService.updateStudent(student.user, student)
+        .then(onAddInterviewerSuccess(student,index))
+        .catch(onAddInterviewerError);
+      });
     }
 
     function removeInterviewer(student, volunteerUser, index){

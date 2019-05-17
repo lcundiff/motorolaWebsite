@@ -218,7 +218,7 @@ function assignOneInterviewStudent(student, n, numInterviewers){
   var v0;
   var v1;
     return new Promise(function(resolve,reject){
-      Volunteer.find({ roles: "interviewer", active: true, user: { $nin: student.interviewer } }).sort({interviewee_count: 1}).exec().then(function(volunteers){
+      Volunteer.find({ roles: "interviewer", active: true, user: { $nin: student.interviewerID } }).sort({interviewee_count: 1}).exec().then(function(volunteers){
         if(volunteers.length === 0){
           resolve('No interviewers available!');
         }
@@ -226,6 +226,7 @@ function assignOneInterviewStudent(student, n, numInterviewers){
           v = volunteers[0];
 
           student.interviewerID[0] = v.user;
+          student.interviewer[0] = `${v.application.firstName} ${v.application.lastName}`;
 
             v.interviewee_count = v.interviewee_count + 1;
             v.interviewee.push(student.application.firstName+" "+student.application.lastName);
@@ -241,9 +242,12 @@ function assignOneInterviewStudent(student, n, numInterviewers){
         else if(volunteers.length > 0 && volunteers.length >= numInterviewers){
           v0 = volunteers[0];
           student.interviewerID[0] = v0.user;
+          student.interviewer[0] = `${v0.application.firstName} ${v0.application.lastName}`;
+          
           if(volunteers.length >= 2){
             v1 = volunteers[1];
             student.interviewerID[1] = v1.user;
+            student.interviewer[1] = `${v1.application.firstName} ${v1.application.lastName}`;
           }
 
             v0.interviewee_count = v0.interviewee_count + 1;
