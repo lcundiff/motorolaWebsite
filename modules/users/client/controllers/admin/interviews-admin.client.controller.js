@@ -112,7 +112,7 @@
     }
 
     function addInterviewer(student, volunteerUser, index){
-      if(student.interviewer[index]){
+      if(student.interviewerID[index]){
         Notification.error({ message: 'There is an interviewer is assigned to the student in this slot. Please remove him/her first before assigning another interviewer.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
         return;
       }
@@ -121,7 +121,7 @@
         return;
       }
       vm.loading = true;
-      student.interviewer[index] = volunteerUser;
+      student.interviewerID[index] = volunteerUser;
       console.log(volunteerUser);
 
       VolunteerService.getVolunteer(volunteerUser).then(function(data){
@@ -141,7 +141,7 @@
     }
 
     function removeInterviewer(student, volunteerUser, index){
-      if(!student.interviewer[index]){
+      if(!student.interviewerID[index]){
         Notification.error({ message: 'No interviewer is assigned to the student in this slot.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
         return;
       }

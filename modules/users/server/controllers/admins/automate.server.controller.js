@@ -223,6 +223,7 @@ function assignOneInterviewStudent(student, n, numInterviewers){
           resolve('No interviewers available!');
         }
         else if(volunteers.length > 0 && volunteers.length < numInterviewers){
+          console.log('volunteer to select', volunteers[0]);
           v = volunteers[0];
 
           student.interviewerID[0] = v.user;
@@ -232,9 +233,10 @@ function assignOneInterviewStudent(student, n, numInterviewers){
             v.intervieweeID.push(student.user);
 
           Student.findOneAndUpdate({user: student.user}, student, {upsert: false}).then(function(response){
-            console.log(response);
+            console.log('student response',response);
 
             Volunteer.findOneAndUpdate({user: v.user}, v, {upsert: false}).then(function(response){
+              console.log('v response: ',response);
               resolve(student);
             });
           });
@@ -256,21 +258,18 @@ function assignOneInterviewStudent(student, n, numInterviewers){
             v1.interviewee.push(student.application.firstName+" "+student.application.lastName);
             v1.intervieweeID.push(student.user);
 
-          student.save(function(err){
-            if(err) console.log(err);
-          }).then(function(response){
-            v0.save(function(err){
-              if(err) console.log(err);
-            }).then(function(response){
-              v1.save(function(err){
-                if(err) console.log(err);
-              }).then(function(response){
-                resolve(student);
+            Student.findOneAndUpdate({user: student.user}, student, {upsert: false}).then(function(response){
+              console.log('student1 response: ',response);
+
+              Volunteer.findOneAndUpdate({user: v0.user}, v0, {upsert: false}).then(function(response){
+                console.log('v0 response: ', response);
+                Volunteer.findOneAndUpdate({user: v1.user}, v1, {upsert: false}).then(function(response){
+                  console.log('v1 response: ',response);
+                  resolve(student);
+                });
               });
             });
-          });
         }
-
       });
     });
 };
@@ -291,6 +290,7 @@ exports.autoAssignInterviews = function(req, res){
               }
               else{
                 if(message.user !== undefined){
+                  console.log('MESSAGE: ',message);
                   message.save();
                 }
                 count = count + 1;
