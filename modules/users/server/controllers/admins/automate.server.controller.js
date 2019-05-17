@@ -223,7 +223,6 @@ function assignOneInterviewStudent(student, n, numInterviewers){
           resolve('No interviewers available!');
         }
         else if(volunteers.length > 0 && volunteers.length < numInterviewers){
-          console.log('volunteer to select', volunteers[0]);
           v = volunteers[0];
 
           student.interviewerID[0] = v.user;
@@ -233,10 +232,7 @@ function assignOneInterviewStudent(student, n, numInterviewers){
             v.intervieweeID.push(student.user);
 
           Student.findOneAndUpdate({user: student.user}, student, {upsert: false}).then(function(response){
-            console.log('student response',response);
-
             Volunteer.findOneAndUpdate({user: v.user}, v, {upsert: false}).then(function(response){
-              console.log('v response: ',response);
               resolve(student);
             });
           });
@@ -259,12 +255,8 @@ function assignOneInterviewStudent(student, n, numInterviewers){
             v1.intervieweeID.push(student.user);
 
             Student.findOneAndUpdate({user: student.user}, student, {upsert: false}).then(function(response){
-              console.log('student1 response: ',response);
-
               Volunteer.findOneAndUpdate({user: v0.user}, v0, {upsert: false}).then(function(response){
-                console.log('v0 response: ', response);
                 Volunteer.findOneAndUpdate({user: v1.user}, v1, {upsert: false}).then(function(response){
-                  console.log('v1 response: ',response);
                   resolve(student);
                 });
               });
@@ -283,14 +275,12 @@ exports.autoAssignInterviews = function(req, res){
 
           //loop for synchronous events
           var loop = function(count){
-            console.log("students[count]: ",students[count].user);
             assignOneInterviewStudent(students[count], 2, 2).then(function(message){
               if(message === 'No interviewers available!'){
                 resolve(message);
               }
               else{
                 if(message.user !== undefined){
-                  console.log('MESSAGE: ',message);
                   message.save();
                 }
                 count = count + 1;
@@ -317,8 +307,6 @@ exports.autoAssignInterviews = function(req, res){
           loop(0);
 
         }).then(function(message){
-          console.log("A203");
-          console.log(message);
           resolve(message);
         });
     }
@@ -326,8 +314,6 @@ exports.autoAssignInterviews = function(req, res){
       resolve('No Students');
     }
   }).then(function(message){
-    console.log("A304");
-    console.log(message);
     res.json(message);
   });
   });
@@ -337,8 +323,6 @@ exports.autoAssignInterviews = function(req, res){
 MANUALLY ACCEPT FUNCTION
 */
 exports.manAccept = function(req, res){
-  console.log("session :", req.params.sessionNum);
-  console.log("student: ",req.body);
 
   Student.findOneAndUpdate({username: req.body.username }, req.body, {upsert: false}).exec().then(function(student){
     res.json({success: true, message: 'success'});

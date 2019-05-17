@@ -149,28 +149,21 @@
         Notification.error({ message: 'No interviewer was selected.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
         return;
       }
-      console.log(student);
-      console.log(index);
       vm.loading = true;
       student.interviewer[index] = null;
       student.interviewerID[index] = null;
 
       VolunteerService.getVolunteer(volunteerUser).then(function(data){
-        console.log(data);
         var volunteer = data.volunteer;
-        console.log(student.user);
         volunteer.interviewee_count -= 1;
         volunteer.intervieweeID.splice(volunteer.intervieweeID.indexOf(student.user), 1);
         VolunteerService.updateVolunteer(volunteer.username, volunteer);
 
-        console.log(volunteer);
       });
 
       StudentService.updateStudent(student.user, student)
       .then(onRemoveInterviewerSuccess(student, index))
       .catch(onRemoveInterviewerError);
-
-      console.log(student);
     }
 
     function onRemoveInterviewerSuccess(student,index) {
