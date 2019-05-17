@@ -23,6 +23,7 @@
 
     vm.selected_user = false;
 	vm.backEndInterviewer = ['','',''];
+    vm.selectedVol = [null, null, null];
 
     vm.addInterviewer = addInterviewer;
     vm.removeInterviewer = removeInterviewer;
@@ -63,11 +64,14 @@
 
     function displayStudent(user){
       vm.user = user;
+      vm.selectedVol[0] = user.interviewerID[0];
+      vm.selectedVol[1] = user.interviewerID[1];
+      vm.selectedVol[2] = user.interviewerID[2];
+
       console.log(user.timeSlot.length);
       if(user.timeSlot === []) vm.sessionType = "";
       else vm.sessionType = user.timeSlot[0];
 
-      console.log("student",vm);
 	  vm.backEndInterviewer[0] = user.interviewerID[0];
 		vm.backEndInterviewer[1] = user.interviewerID[1];
 		vm.backEndInterviewer[2] = user.interviewerID[2];
@@ -152,6 +156,7 @@
       vm.loading = true;
       student.interviewer[index] = null;
       student.interviewerID[index] = null;
+      vm.selectedVol[index] = null;
 
       VolunteerService.getVolunteer(volunteerUser).then(function(data){
         var volunteer = data.volunteer;
