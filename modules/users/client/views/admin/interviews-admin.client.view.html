@@ -111,24 +111,6 @@
             <div class="col-xs-12 col-md-12">
               <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.selectedVol[1], 1)">Set</button>
               <button class="selection-btn selection-btn-primary" ng-click="vm.removeInterviewer(vm.user, vm.user.interviewerID[1], 1)">Remove</button>
-
-            </div>
-            </center>
-          </div>
-          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-          <div class="row">
-            <h6 style="font-weight: bold;">Interviewer 3</h6>
-          </div>
-          <div class="row">
-            <center>
-            <div class="col-xs-12 col-md-12">
-              <select class="form-control" style="width:100%"ng-model="vm.selectedVol[2]">
-                <option ng-repeat = "volunteer in vm.volunteers" value = "{{volunteer.user._id}}">{{volunteer.user.displayName}}</option>
-              </select>
-            </div>
-            <div class="col-xs-12 col-md-12">
-              <button class="selection-btn selection-btn-primary" ng-click="vm.addInterviewer(vm.user, vm.selectedVol[2], 2)">Set</button>
-              <button class="selection-btn selection-btn-primary" ng-click="vm.removeInterviewer(vm.user, vm.user.interviewerID[2], 2)">Remove</button>
             </div>
             </center>
           </div>

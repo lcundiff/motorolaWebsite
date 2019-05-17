@@ -150,7 +150,7 @@
 
 					Students.forEach(function (student) { // creates and formats student data on a CSV sheet
 						console.log("student object data: ", student)
-						content = "\"" + student.application.firstName + " " + student.application.lastName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\"" + student.application.address.city + " , " + student.application.address.state + " , " + student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + ", " + student.interviewer[2] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
+						content = "\"" + student.application.firstName + " " + student.application.lastName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\"" + student.application.address.city + " , " + student.application.address.state + " , " + student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
 					});
 					content = header + "\n" + content;
 
