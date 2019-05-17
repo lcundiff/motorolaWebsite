@@ -131,7 +131,7 @@
     }
 
     function uploadNDA(){
-      if(!$scope.file.upload){
+      if(!$scope.file.upload || $scope.file.upload.type !== 'application/pdf'){
         Notification.error({ message: 'Please submit the correct NDA file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
@@ -158,7 +158,7 @@
     }
 
     function uploadWaiver(){
-      if(!$scope.file.upload){
+      if(!$scope.file.upload || $scope.file.upload.type !== 'application/pdf'){
         Notification.error({ message: 'Please submit the correct Waiver file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
