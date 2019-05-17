@@ -183,7 +183,7 @@
             </thead>
             <tbody style="cursor: pointer;">
               <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
-              <tr align="center" ng-repeat="student in vm.pagedItems | orderBy: 'student.application.lastName'" ng-click="vm.displayStudent(student); user_selected = true;"> 
+              <tr align="center" ng-repeat="student in vm.pagedItems | orderBy: 'application.lastName' " ng-click="vm.displayStudent(student); user_selected = true;"> 
                 <!-- Name -->
                 <td align="left" ><h5 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h5>
                   <h6  ng-bind-template="{{student.application.school}}"></h6></td>
