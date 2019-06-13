@@ -73,9 +73,9 @@
 			vm.selectedVol[1] = user.interviewerID[1];
 			vm.selectedVol[2] = user.interviewerID[2];
 
-			vm.selectedRank[0] = user.interviewRank[0];
-			vm.selectedRank[1] = user.interviewRank[1];
-			vm.selectedRank[2] = user.interviewRank[2];
+			vm.selectedRank[0] = user.indivRanks[0];
+			vm.selectedRank[1] = user.indivRanks[1];
+			vm.selectedRank[2] = user.indivRanks[2];
 
 			console.log(user.timeSlot.length);
 			if (user.timeSlot === []) vm.sessionType = "";
@@ -248,7 +248,7 @@
 				return;
 			}
 			vm.loading = true;
-			student.interviewRank[index] = rank;
+			student.indivRanks[index] = rank;
 			console.log("rank assigned ", rank);
 
 			StudentService.updateStudent(student.user, student)
