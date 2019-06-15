@@ -171,12 +171,12 @@
 			// get volunteer info
 			var header = "Name, Email, Phone, Address, Expertise, Sessions, Roles, Amount of Interviews, Interviees, \n";
 			var content = "";
-			VolunteerService.getAllVolunteers().then(function (data) {
+			VolunteerService.getVolunteers().then(function (data) {
 					var Volunteers = data;
 
 					Volunteers.forEach(function (volunteer) { // creates and formats volunteer data on a CSV sheet
 						console.log("volunteer object data: ", volunteer)
-						content = "\"" + volunteer.application.firstName + "\"" + "," + "\"" + volunteer.application.email + "\"" + "," +
+						content = "\"" + volunteer.application.firstName + ' ' + volunteer.application.lastName + "\"" + "," + "\"" + volunteer.application.email + "\"" + "," +
 							"\"" + volunteer.application.phone + "\"" + "," + "\"" + volunteer.application.address.city + " , " + volunteer.application.address.state + " " + volunteer.application.address.zipcode + "\"" + "," + "\"" + volunteer.application.areaofexpertise + "\"" + "," + "\"" + volunteer.sessions + "\"" + "," + "\"" + volunteer.roles + "\"" + "," + "\"" + volunteer.interviewee_count + "\"" + "," + "\"" + volunteer.interviewee + "\"" + "\n" + content;
 					});
 					content = header + "\n" + content;
