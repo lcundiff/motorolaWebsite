@@ -201,7 +201,7 @@
 			var header = "Name, Email, Phone, Address, School, Parent Name, Parent Phone, Parent Email, Interviewers, Interview Date, Interview Time, Interview DOW\n";
 			var content = "";
 			//$scope.StudentService.studentListActive().then(function(data){
-			StudentService.studentListActive().then(function (data) {
+			StudentService.studentListAccepted().then(function (data) {
 					var Students = data;
 
 					Students.forEach(function (student) { // creates and formats student data on a CSV sheet

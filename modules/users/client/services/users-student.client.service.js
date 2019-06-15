@@ -97,6 +97,9 @@
       studentListActive: function(){
         return this.list_active().$promise;
       },
+      studentListAccepted: function(){
+        return this.list_accepted().$promise;
+      },
       studentListActiveWithoutForms: function(){
         return this.active_no_forms().$promise;
       },
