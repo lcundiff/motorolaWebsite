@@ -198,7 +198,7 @@
 		$scope.downloadActiveCSV = function () {
 			// get student info
 			vm.loading = true;
-			var header = "Name, Email, Phone, Address, School, Parent Name, Parent Phone, Parent Email, Mentor, Session, Interviewers, Interview Date, Interview Time, Interview DOW\n";
+			var header = "Name, Email, Phone, Address, School, Parent Name, Parent Phone, Parent Email, Mentor, Session, Top Interest, Interviewers, Interview Date, Interview Time, Interview DOW\n";
 			var content = "";
 			//$scope.StudentService.studentListActive().then(function(data){
 			StudentService.studentListAccepted().then(function (data) {
@@ -206,7 +206,7 @@
 
 					Students.forEach(function (student) { // creates and formats student data on a CSV sheet
 						console.log("student object data: ", student)
-						content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\"" + student.application.address.city + " , " + student.application.address.state + " , " + student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.mentor + "\"" + "," + "\"" + student.timeSlot + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
+						content = "\"" + student.application.firstName + ' ' + student.application.lastName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\"" + student.application.address.city + " , " + student.application.address.state + " , " + student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.mentor + "\"" + "," + "\"" + student.timeSlot + "\"" + "," + "\"" + student.application.interests[0] + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
 					});
 					content = header + "\n" + content;
 
