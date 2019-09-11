@@ -215,7 +215,7 @@
     }
 
     function uploadNDA(file){
-      if(!file.upload){
+      if(!file.upload || file.upload.type !== 'application/pdf'){
         Notification.error({ message: 'Please submit the correct NDA file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
@@ -242,7 +242,7 @@
     }
 
     function uploadWaiver(file){
-      if(!file.upload){
+      if(!file.upload || file.upload.type !== 'application/pdf'){
         Notification.error({ message: 'Please submit the correct Waiver file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
@@ -268,7 +268,7 @@
     }
 
     function uploadLetterOfRecommendation(file){
-      if(!file.upload){
+      if(!file.upload || file.upload.type !== 'application/pdf'){
         Notification.error({ message: 'Please submit the correct Letter of Recommendation file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }
@@ -295,7 +295,7 @@
     }
 
     function uploadResume(file){
-      if(!file.upload){
+      if(!file.upload || file.upload.type !== 'application/pdf'){
         Notification.error({ message: 'Please submit the correct Resume file type (PDF).', title: '<i class="glyphicon glyphicon-remove"></i> View error.', delay: 6000 });
         return;
       }

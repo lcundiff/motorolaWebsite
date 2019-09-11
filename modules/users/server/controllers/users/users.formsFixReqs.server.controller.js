@@ -94,7 +94,7 @@ exports.sendFormFixEmail = function (req, res, next) {
           });
         } else {
           return res.status(400).send({
-            message: 'Failure sending email'
+            message: 'Email has failed to send'
           });
         }
         console.log('4');

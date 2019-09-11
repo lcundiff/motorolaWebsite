@@ -81,7 +81,7 @@
         }
       })
       .state('authentication.volunteer-signup', {
-        url: '/signup/:token',
+        url: '/signup/vol',
         templateUrl: '/modules/users/client/views/authentication/signup-volunteer.client.view.html',
         controller: 'AuthenticationController',
         controllerAs: 'vm',

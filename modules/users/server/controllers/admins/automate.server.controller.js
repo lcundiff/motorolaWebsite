@@ -184,8 +184,8 @@ function clearInterviewData(){
     if(volunteers.length > 0){
     volunteers.forEach(function(volunteer){
       return new Promise(function(resolve, reject){
-        volunteer.interviewee = [null, null, null];
-        volunteer.intervieweeID = [null, null, null];
+        volunteer.interviewee = [];
+        volunteer.intervieweeID = [];
         volunteer.interviewee_count = 0;
 
         resolve(volunteer);
@@ -218,7 +218,7 @@ function assignOneInterviewStudent(student, n, numInterviewers){
   var v0;
   var v1;
     return new Promise(function(resolve,reject){
-      Volunteer.find({ roles: "interviewer", active: true, user: { $nin: student.interviewer } }).sort({interviewee_count: 1}).exec().then(function(volunteers){
+      Volunteer.find({ roles: "interviewer", active: true, user: { $nin: student.interviewerID } }).sort({interviewee_count: 1}).exec().then(function(volunteers){
         if(volunteers.length === 0){
           resolve('No interviewers available!');
         }
@@ -226,14 +226,13 @@ function assignOneInterviewStudent(student, n, numInterviewers){
           v = volunteers[0];
 
           student.interviewerID[0] = v.user;
+          student.interviewer[0] = `${v.application.firstName} ${v.application.lastName}`;
 
             v.interviewee_count = v.interviewee_count + 1;
             v.interviewee.push(student.application.firstName+" "+student.application.lastName);
             v.intervieweeID.push(student.user);
 
           Student.findOneAndUpdate({user: student.user}, student, {upsert: false}).then(function(response){
-            console.log(response);
-
             Volunteer.findOneAndUpdate({user: v.user}, v, {upsert: false}).then(function(response){
               resolve(student);
             });
@@ -243,9 +242,12 @@ function assignOneInterviewStudent(student, n, numInterviewers){
         else if(volunteers.length > 0 && volunteers.length >= numInterviewers){
           v0 = volunteers[0];
           student.interviewerID[0] = v0.user;
+          student.interviewer[0] = `${v0.application.firstName} ${v0.application.lastName}`;
+          
           if(volunteers.length >= 2){
             v1 = volunteers[1];
             student.interviewerID[1] = v1.user;
+            student.interviewer[1] = `${v1.application.firstName} ${v1.application.lastName}`;
           }
 
             v0.interviewee_count = v0.interviewee_count + 1;
@@ -256,21 +258,14 @@ function assignOneInterviewStudent(student, n, numInterviewers){
             v1.interviewee.push(student.application.firstName+" "+student.application.lastName);
             v1.intervieweeID.push(student.user);
 
-          student.save(function(err){
-            if(err) console.log(err);
-          }).then(function(response){
-            v0.save(function(err){
-              if(err) console.log(err);
-            }).then(function(response){
-              v1.save(function(err){
-                if(err) console.log(err);
-              }).then(function(response){
-                resolve(student);
+            Student.findOneAndUpdate({user: student.user}, student, {upsert: false}).then(function(response){
+              Volunteer.findOneAndUpdate({user: v0.user}, v0, {upsert: false}).then(function(response){
+                Volunteer.findOneAndUpdate({user: v1.user}, v1, {upsert: false}).then(function(response){
+                  resolve(student);
+                });
               });
             });
-          });
         }
-
       });
     });
 };
@@ -284,7 +279,6 @@ exports.autoAssignInterviews = function(req, res){
 
           //loop for synchronous events
           var loop = function(count){
-            console.log("students[count]: ",students[count].user);
             assignOneInterviewStudent(students[count], 2, 2).then(function(message){
               if(message === 'No interviewers available!'){
                 resolve(message);
@@ -317,8 +311,6 @@ exports.autoAssignInterviews = function(req, res){
           loop(0);
 
         }).then(function(message){
-          console.log("A203");
-          console.log(message);
           resolve(message);
         });
     }
@@ -326,8 +318,6 @@ exports.autoAssignInterviews = function(req, res){
       resolve('No Students');
     }
   }).then(function(message){
-    console.log("A304");
-    console.log(message);
     res.json(message);
   });
   });
@@ -337,8 +327,6 @@ exports.autoAssignInterviews = function(req, res){
 MANUALLY ACCEPT FUNCTION
 */
 exports.manAccept = function(req, res){
-  console.log("session :", req.params.sessionNum);
-  console.log("student: ",req.body);
 
   Student.findOneAndUpdate({username: req.body.username }, req.body, {upsert: false}).exec().then(function(student){
     res.json({success: true, message: 'success'});

@@ -27,23 +27,23 @@
     if (vm.authentication.user) {
       $location.path('/');
     }
-
+	  // volunteer sign up
     function signup(isValid) {
-      var hash = $location.path();
-      hash = hash.replace('/authentication/signup/', '');
-      var p1 = Promise.resolve(vm.credentials.userReqId = hash);
+     // var hash = $location.path();
+     // hash = hash.replace('/authentication/signup/', '');
+     // var p1 = Promise.resolve(vm.credentials.userReqId = hash);
+		vm.credentials.roles = ['volunteer'];
+    //  Promise.all([p1]).then(function([p1]){
+    	if (!isValid) {
+       		$scope.$broadcast('show-errors-check-validity', 'vm.userForm');
 
-      Promise.all([p1]).then(function([p1]){
-        if (!isValid) {
-          $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
-
-          return false;
-        }
-
-        UsersService.userSignup(vm.credentials)
+       		return false;
+		}
+	
+        UsersService.studentSignup(vm.credentials)
           .then(onUserSignupSuccess)
           .catch(onUserSignupError);
-      });
+     // });
     }
 
     function studentSignUp(isValid) {
@@ -131,7 +131,7 @@
 		 $state.go('admin.dash', $state.previous.params); 
 	  }
 	  else if(response.roles.indexOf('student') !== -1){
-		  $state.go('student.application', $state.previous.params);
+		  $state.go('student.dash', $state.previous.params);
 
       }
       else if(response.roles.indexOf('volunteer') !== -1){

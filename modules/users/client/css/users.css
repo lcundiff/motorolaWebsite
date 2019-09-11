@@ -30,3 +30,6 @@
 .glyphicon {
     font-size: 140%;
 }
+.flex-container {
+	display:flex; 
+}

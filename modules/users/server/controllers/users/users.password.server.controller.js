@@ -91,7 +91,7 @@ exports.forgot = function (req, res, next) {
           });
         } else {
           return res.status(400).send({
-            message: 'Failure sending email'
+            message: 'Our apologies, the email failed to send.'
           });
         }
 

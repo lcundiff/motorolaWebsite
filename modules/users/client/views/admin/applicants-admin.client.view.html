@@ -3,305 +3,381 @@
 <title>Applicants</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- mainly effects font size/shape/color --> <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+<!-- mainly effects font size/shape/color -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <section>
   <div id="overlay" ng-show="vm.loading">
-        <div class="loader"></div>
-    </div>
+    <div class="loader"></div>
+  </div>
   <nav role="navigation" class="navbar navbar-custom navbar-static-top">
     <div class="container-fluid">
       <div class="navbar-header">
         <h5 class="navbar-text">Applicants</h5>
       </div>
-    <center>
-    <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.autoAccept()">Auto Accept Students</button>
-    <form class="navbar-form navbar-right" role="search">
-      <div class="input-group">
+      <center>
+      <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.autoAccept()">Auto Accept Students</button>
+      <form class="navbar-form navbar-right" role="search">
+        <div class="input-group">
         <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
         <span class="input-group-btn">
         <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search=''; vm.figureOutItemsToDisplay();"><i class="glyphicon glyphicon-remove"></i></button>
-      </span>
-    </form>
-  </div>
-
-  </center>
-</div>
-</nav>
+        </span>
+      </form>
+    </div>
+    </center>
+    </div>
+  </nav>
   <!-- The Modal -->
-        <div id="myModal" class="modal">
-              <!-- Modal content -->
-            <div class="modal-content">
-              <span class="close" ng-click="closeModal('myModal')">&times;</span>
-              <!-- RESUME -->
-                <!-- The Grid -->
-                <div class="w3-row-padding w3-padding-16" ng-model="vm.user">
-                  <div class="row">
-                    <div class="w3-display-container">
-                        <div class="container">
-                          <button style="margin-botton: 8px; width:175px;" class="selection-btn selection-btn-primary" ng-click="printResume('resumeContent_1', 'resumeContent_2', 'resumeContent')">Print Application</button>
-                        </div>
-                    </div>
-                    <hr />
-                  </div>
-                  <br>
-                  <br>
-                  <!-- Left Column -->
-                  <div id="resumeContent">
-                    <div class="col-xs-6 col-md-4">
-
-                    <div class="jumbotron">
-                      <div class="w3-display-container">
-                        <img ngf-src="vm.user.profileImageURL" style="width:100%" ng-if="vm.user.profileImageURL !== null && vm.user.profileImageURL !== undefined && vm.user.profileImageURL !== '' "alt="Avatar" ngf-drop>
-                        <img src="/modules/users/client/img/profile/default.png" style="height: 200px; width: 200px; border-radius:50%;" ng-if="vm.user.profileImageURL === null || vm.user.profileImageURL === undefined || vm.user.profileImageURL === ''"alt="Avatar">
-                        <br>
-
-                      </div>
-                      <!-- <div class="w3-display-container">
-                  </div> -->
-                      <div  id="resumeContent_1">
-                        <!-- <img src="#" style="width:100%" alt="Avatar"> -->
-                        <!-- <div class="w3-display-bottomleft w3-container w3-text-black"> -->
-                        <!-- <h2>Student Name Here</h2> -->
-                        <!-- </div> -->
-                        <center><h6><b>{{vm.user.application.firstName}}  {{vm.user.application.lastName}}</b></h6></center>
-                        <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-                        <center><h6><i class="fa fa-home fa-fw w3-margin-right w3-large"></i></h6>
-                        <h6>{{vm.user.application.address.line_1}} {{vm.user.application.address.line_2}}, {{vm.user.application.address.city}}, {{vm.user.application.address.state}} {{vm.user.application.address.zipcode}}</h6></center>
-                        <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-                        <center><h6><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i></h6>
-                        <h6>{{vm.user.application.email}}</h6></center>
-                        <center><h6><i class="fa fa-phone fa-fw w3-margin-right w3-large"></i></h6>
-                        <h6>{{vm.user.application.phone}}</h6></center>
-                        <center><h6><i class="fa fa-university fa-fw w3-margin-right w3-large"></i></h6>
-                        <h6>{{vm.user.application.school}}</h6></center>
-                          <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-                        <center><h6 class="w3-text-black"><b>Parent Informtation</b></h6>
-                        <h6><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i></h6>
-                        <h6>{{vm.user.application.parent.name}}</h6>
-                        <h6 class="w3-text-black"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i></h6>
-                        <h6>{{vm.user.application.parent.email}}</h6></center>
-                        <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-                        <center><h6><b>Interests</b></h6>
-                        <h6>1. {{vm.user.application.interests[0]}}</h6>
-                        <h6>2. {{vm.user.application.interests[1]}}</h6>
-                        <h6>3. {{vm.user.application.interests[2]}}</h6></center>
-                        <br>
-                      </div>
-                    </div>
-
-                    <br>
-                    <!-- End Left Column-->
-                  </div>
-
-                  <!-- Right Column -->
-
-                  <div class="col-xs-12 col-md-8">
-                    <div id="resumeContent_2">
-
-                    <div class="jumbotron">
-                      <h3 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xlarge"></i>Classes</h3>
-                      <div ng-repeat="class in vm.user.application.classes">
-                        <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-                        <h6 ><b>Class Title:</b> {{class.title}}</h6>
-                        <h6 class="w3-text-black"><b>Grade:</b> {{class.grade}}</h6>
-                        <h6 class="w3-text-black"><b>Description:</b> {{class.description}}</h6>
-                      </div>
-                    </div>
-
-                    <div class="jumbotron">
-                      <h3 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xlarge"></i>Clubs</h3>
-                      <div ng-repeat="club in vm.user.application.clubs">
-                        <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-                        <h6 class="w3-text-black"><b>Club Name:</b> {{club.name}}</h6>
-                        <h6 class="w3-text-black"><b>Position:</b> {{club.position}}</h6>
-                        <h6 class="w3-text-black"><b>Description:</b> {{club.description}}</h6>
-                      </div>
-                    </div>
-                    <div class="jumbotron">
-                      <h3 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xlarge"></i>Projects</h3>
-                      <div ng-repeat="project in vm.user.application.projects">
-                        <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-                        <h6 class="w3-text-black"><b>Project Name:</b> {{project.title}}</h6>
-                        <h6 class="w3-text-black"><b>Link:</b> {{project.link}}</h6>
-                        <h6 class="w3-text-black"><b>Description:</b> {{project.description}}</h6>
-                      </div>
-                    </div>
-                    <div class="jumbotron">
-                      <h3 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xlarge"></i>Volunteer Experience</h3>
-                      <div ng-repeat="volWork in vm.user.application.volunteerExperiences">
-                        <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-                        <h6 class="w3-text-black"><b>Organization:</b> {{volWork.organizationName}}</h6>
-                          <h6 class="w3-text-black"><b>Experience Title:</b> {{volWork.position}}</h6>
-                          <h6 class="w3-text-black"><b>Description:</b> {{volWork.description}}</h6>
-                          <p class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{volWork.startDate | date: "mediumDate" }} - <span class="w3-tag w3-grey w3-round">{{volWork.endDate | date: "mediumDate"}}</span></p>
-                      </div>
-                    </div>
-                    <div class="jumbotron">
-                      <h3 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xlarge"></i>Work Experience</h3>
-                      <div ng-repeat="work in vm.user.application.professionalExperiences">
-                        <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-                        <h6 class="w3-text-black"><b>Company:</b> {{work.companyName}}</h6>
-                        <h6 class="w3-text-black"><b>Job Title:</b> {{work.position}}</h6>
-                        <h6 class="w3-text-black"><b>Description:</b> {{work.description}}</h6>
-                        <p class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{work.startDate | date: "mediumDate" }} - <span class="w3-tag w3-grey w3-round">{{work.endDate | date: "mediumDate"}}</span></p>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                </div> <!--resume-content-->
-                  <!--End Right Column -->
-                </div>
-
-                <!--End Page Container -->
-              </div>
-            <!-- END -->
+  <div id="myModal" class="modal"> 
+    <!-- Modal content -->
+    <div class="modal-content"> <span class="close" ng-click="closeModal('myModal')">&times;</span> 
+      <!-- RESUME --> 
+      <!-- The Grid -->
+      <div class="w3-row-padding w3-padding-16" ng-model="vm.user">
+        <div class="row">
+          <div class="w3-display-container">
+            <div class="container">
+              <button style="margin-botton: 8px; width:175px;" class="selection-btn selection-btn-primary" ng-click="printResume('resumeContent_1', 'resumeContent_2', 'resumeContent')">Print Application</button>
             </div>
-  <div class="col-xs-12 col-md-8">
-  <div class="jumbotron">
-    <ul class="nav nav-tabs">
-      <li class = "nav-item active" role="presentation" ><a data-toggle="tab" href="#activeForms" ng-click="vm.listActiveStudents();">Active</a></li>
-      <li role="presentation"><a data-toggle="tab" href="#inactiveForms" ng-click="vm.listDeactivatedStudents();">Inactive</a></li>
-    </ul>
-    <br>
-
-    <div class="tab-content">
-      <div id="activeForms" class="tab-pane fade in active">
-          <div data-ng-init = "vm.listActiveStudents();" />
-          <div class="list-group">
-            <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
-            <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="list-group-item">
-            <h5 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h5><i class="glyphicon glyphicon-list-alt" ng-show="student.isAppComplete" style="color: green;"></i><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
-            <h6 class="pull-right" ng-bind-template="{{student.application.school}}"></h6>
-          </a>
+          </div>
+          <hr />
         </div>
-        <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+        <br>
+        <br>
+        <!-- Left Column -->
+        <div id="resumeContent">
+          <div class="col-xs-6 col-md-4">
+            <div class="jumbotron">
+              <div class="w3-display-container"> <img ngf-src="vm.user.profileImageURL" style="width:100%" ng-if="vm.user.profileImageURL !== null && vm.user.profileImageURL !== undefined && vm.user.profileImageURL !== '' "alt="Avatar" ngf-drop> <img src="/modules/users/client/img/profile/default.png" style="height: 200px; width: 200px; border-radius:50%;" ng-if="vm.user.profileImageURL === null || vm.user.profileImageURL === undefined || vm.user.profileImageURL === ''"alt="Avatar"> <br>
+              </div>
+              <!-- <div class="w3-display-container">
+                  </div> -->
+              <div  id="resumeContent_1"> 
+                <!-- <img src="#" style="width:100%" alt="Avatar"> --> 
+                <!-- <div class="w3-display-bottomleft w3-container w3-text-black"> --> 
+                <!-- <h2>Student Name Here</h2> --> 
+                <!-- </div> -->
+                <center>
+                  <h6><b>{{vm.user.application.firstName}}  {{vm.user.application.lastName}}</b></h6>
+                </center>
+                <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+                <center>
+                  <h6><i class="fa fa-home fa-fw w3-margin-right w3-large"></i></h6>
+                  <h6>{{vm.user.application.address.line_1}} {{vm.user.application.address.line_2}}, {{vm.user.application.address.city}}, {{vm.user.application.address.state}} {{vm.user.application.address.zipcode}}</h6>
+                </center>
+                <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+                <center>
+                  <h6><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i></h6>
+                  <h6>{{vm.user.application.email}}</h6>
+                </center>
+                <center>
+                  <h6><i class="fa fa-phone fa-fw w3-margin-right w3-large"></i></h6>
+                  <h6>{{vm.user.application.phone}}</h6>
+                </center>
+                <center>
+                  <h6><i class="fa fa-university fa-fw w3-margin-right w3-large"></i></h6>
+                  <h6>{{vm.user.application.school}}</h6>
+                </center>
+                <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+                <center>
+                  <h6 class="w3-text-black"><b>Parent Information</b></h6>
+                  <h6><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i></h6>
+                  <h6>{{vm.user.application.parent.name}}</h6>
+                  <h6 class="w3-text-black"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i></h6>
+                  <h6>{{vm.user.application.parent.email}}</h6>
+                </center>
+                <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+                <center>
+                  <h6><b>Interests</b></h6>
+                  <h6>1. {{vm.user.application.interests[0]}}</h6>
+                  <h6>2. {{vm.user.application.interests[1]}}</h6>
+                  <h6>3. {{vm.user.application.interests[2]}}</h6>
+                </center>
+                <br>
+              </div>
+            </div>
+            <br>
+            <!-- End Left Column--> 
+          </div>
+          
+          <!-- Right Column -->
+          
+          <div class="col-xs-12 col-md-8">
+            <div id="resumeContent_2">
+              <div class="jumbotron">
+                <h3 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xlarge"></i>Classes</h3>
+                <div ng-repeat="class in vm.user.application.classes">
+                  <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+                  <h6 ><b>Class Title:</b> {{class.title}}</h6>
+                  <h6 class="w3-text-black"><b>Grade:</b> {{class.grade}}</h6>
+                  <h6 class="w3-text-black"><b>Description:</b> {{class.description}}</h6>
+                </div>
+              </div>
+              <div class="jumbotron">
+                <h3 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xlarge"></i>Clubs</h3>
+                <div ng-repeat="club in vm.user.application.clubs">
+                  <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+                  <h6 class="w3-text-black"><b>Club Name:</b> {{club.name}}</h6>
+                  <h6 class="w3-text-black"><b>Position:</b> {{club.position}}</h6>
+                  <h6 class="w3-text-black"><b>Description:</b> {{club.description}}</h6>
+                </div>
+              </div>
+              <div class="jumbotron">
+                <h3 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xlarge"></i>Projects</h3>
+                <div ng-repeat="project in vm.user.application.projects">
+                  <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+                  <h6 class="w3-text-black"><b>Project Name:</b> {{project.title}}</h6>
+                  <h6 class="w3-text-black"><b>Link:</b> {{project.link}}</h6>
+                  <h6 class="w3-text-black"><b>Description:</b> {{project.description}}</h6>
+                </div>
+              </div>
+              <div class="jumbotron">
+                <h3 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xlarge"></i>Volunteer Experience</h3>
+                <div ng-repeat="volWork in vm.user.application.volunteerExperiences">
+                  <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+                  <h6 class="w3-text-black"><b>Organization:</b> {{volWork.organizationName}}</h6>
+                  <h6 class="w3-text-black"><b>Experience Title:</b> {{volWork.position}}</h6>
+                  <h6 class="w3-text-black"><b>Description:</b> {{volWork.description}}</h6>
+                  <p class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{volWork.startDate | date: "mediumDate" }} - <span class="w3-tag w3-grey w3-round">{{volWork.endDate | date: "mediumDate"}}</span></p>
+                </div>
+              </div>
+              <div class="jumbotron">
+                <h3 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xlarge"></i>Work Experience</h3>
+                <div ng-repeat="work in vm.user.application.professionalExperiences">
+                  <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+                  <h6 class="w3-text-black"><b>Company:</b> {{work.companyName}}</h6>
+                  <h6 class="w3-text-black"><b>Job Title:</b> {{work.position}}</h6>
+                  <h6 class="w3-text-black"><b>Description:</b> {{work.description}}</h6>
+                  <p class="w3-text-black"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{work.startDate | date: "mediumDate" }} - <span class="w3-tag w3-grey w3-round">{{work.endDate | date: "mediumDate"}}</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--resume-content--> 
+        <!--End Right Column --> 
       </div>
-
-      <div id="inactiveForms" class="tab-pane fade">
-          <div class="list-group">
-            <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
+      
+      <!--End Page Container --> 
+    </div>
+    <!-- END --> 
+  </div>
+  <div class="col-xs-12 col-md-8">
+    <div class="jumbotron">
+      <ul class="nav nav-tabs">
+        <li class = "nav-item active" role="presentation" ><a data-toggle="tab" href="#activeForms" ng-click="vm.listActiveStudents();">Active</a></li>
+        <li role="presentation"><a data-toggle="tab" href="#inactiveForms" ng-click="vm.listDeactivatedStudents();">Inactive</a></li>
+      </ul>
+      <br>
+      <div class="tab-content">
+        <div id="activeForms" class="tab-pane fade in active">
+          <div data-ng-init = "vm.listActiveStudents();" />
+          <table class="table table-hover">
+            <thead>
+              <tr >
+                <th scope="col">Name</th>
+                <th style="text-align:center" scope="col">Application</th>
+                <th style="text-align:center"scope="col">Forms</th>
+                <th style="text-align:center" scope="col">Session</th>
+              </tr>
+            </thead>
+            <tbody style="cursor: pointer;">
+              <tr align="center" ng-repeat="student in vm.pagedItems | orderBy: 'application.lastName' " ng-click="vm.displayStudent(student); user_selected = true;"> 
+                <!-- Name -->
+                <td align="left" ><h5 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h5>
+                  <h6  ng-bind-template="{{student.application.school}}"></h6></td>
+                <!-- app -->
+                <td><i class="glyphicon glyphicon-thumbs-up mb-1"  ng-show="student.isAppComplete" src="/modules/core/client/img/app.png" style= "margin-top:1rem; color:green;" alt="app"></i> <i class="glyphicon glyphicon-thumbs-down mb-1" ng-if="student.isAppComplete == false" src="/modules/core/client/img/app2.png" style= "margin-top:1rem; color:red;" alt="app"></i></td>
+                <!-- forms -->
+                <td ><i class="glyphicon glyphicon-thumbs-up mb-1" ng-show="student.areFormsStudentApproved" src="/modules/core/client/img/app.png" style= "margin-top:1rem; color:green;" alt="form"></i> <i class="glyphicon glyphicon-thumbs-down mb-1" ng-if="student.areFormsStudentApproved == false" src="/modules/core/client/img/app2.png" style= "margin-top:1rem; color:red;" alt="form"></i></td>
+                
+                <!-- session -->
+                <td ng-bind-template="{{student.timeSlot}}" ng-if="student.timeSlot.length === 1"></td>
+                <td ng-if="student.timeSlot.length !== 1"><small>No Session</small></td>
+              </tr>
+            </tbody>
+          </table>
+          <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+        </div>
+        <div id="inactiveForms" class="tab-pane fade">
+          <div class="list-group"> 
+            <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">--> 
             <a ng-repeat="student in vm.pagedItems" ng-click="vm.displayStudent(student); user_selected = true;" class="list-group-item">
-            <h4 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h4><i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
+            <h4 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h4>
+            <i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
             <h5 class="pull-right" ng-bind-template="{{student.application.school}}"></h5>
             <br />
-          </a>
+            </a> </div>
+          <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
         </div>
-        <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
-      </div>
+      </div>      
+      <!-- END MAIN TABLE--> 
+      
+      <!-- SIDE CONTAINER --> 
     </div>
-    <!--START -->
-
-
-
-
-
-    <!-- END -->
-
-    <!-- END2 -->
-
-</div>
-</div>
-<div class="col-xs-12 col-md-4">
-<div class="jumbotron jumbotron fluid" >
-    <center>
-    <div ng-switch="vm.selected_user">
-      <div ng-switch-when=true>
-          <div class="row">
+  </div>
+  <div class="col-xs-12 col-md-4">
+    <div class="jumbotron jumbotron fluid" >
+      <center>
+        <div ng-switch="vm.selected_user">
+          <div ng-switch-when=true>
             <div class="row">
-              <center>
+              <div >
+                <center>
                   <div ng-bind-template="{{vm.user.application.firstName}} {{vm.user.application.lastName}}"></div>
                 </center>
-            </div>
-          <hr class="section-divider" />
-          <div class="row">
-            <center>
-              <h6 style="font-weight: bold;">School</h6>
-              <div ng-bind-template="{{vm.user.application.school}}"></div>
-            </center>
-          </div>
-          <hr class="section-divider" />
-          <div class="row">
-            <center>
-              <h6 style="font-weight: bold;">Preferred Areas</h6>
-              <div ng-bind-template="1. {{vm.user.application.interests[0]}}"></div>
-              <div ng-bind-template="2. {{vm.user.application.interests[1]}}"></div>
-              <div ng-bind-template="3. {{vm.user.application.interests[2]}}"></div>
-            </center>
-          </div>
-          <hr class="section-divider" />
-          <div class="row">
-            <center>
-              <h6 style="font-weight: bold;">Preferred Sessions</h6>
-              <div ng-bind-template="1. Session {{vm.user.application.preferredSession1}}"></div>
-              <div ng-bind-template="2. Session {{vm.user.application.preferredSession2}}"></div>
-              <div ng-bind-template="3. Session {{vm.user.application.preferredSession3}}"></div>
-            </center>
-          </div>
-
-          <div class="row">
-            <center>
-              <h6 style="font-weight: bold;">Interview Rankings</h6>
-              <div ng-if="vm.user.indivRanks[0] === null && vm.user.indivRanks[1] === null && vm.user.indivRanks[2] === null">No rankings have been posted yet.</div>
-              <div ng-if="vm.user.indivRanks[0] !== null"><div ng-bind-template="1. {{vm.user.indivRanks[0]}}"></div></div>
-              <div ng-if="vm.user.indivRanks[1] !== null"><div ng-bind-template="2. {{vm.user.indivRanks[1]}}"></div></div>
-              <div ng-if="vm.user.indivRanks[2] !== null"><div ng-bind-template="3. {{vm.user.indivRanks[2]}}"></div></div>
-              <div ng-if="vm.user.indivRanks[0] !== null && vm.user.indivRanks[1] !== null && vm.user.indivRanks[2] !== null"><div ng-bind-template="Total: {{()}}"></div></div>
-
-            </center>
-          </div>
-          <hr class="section-divider" />
-          <div class="row">
-            <center>
-              <button class="selection-btn selection-btn-primary" ng-click="openModal(vm.user, 'myModal')">View Application</button>
-              <button ng-if="vm.user.ResumeId !== null || vm.user.ResumeId !== '' " ng-click="vm.viewForm(vm.user.ResumeId)" class="selection-btn selection-btn-primary">View Resume</button>
-            </center>
-            </div>
+              </div>
+              <hr class="section-divider" />
+              <div ng-show="!vm.user.isNDASubmitted && !vm.user.isWaiverSubmitted && !vm.user.isResumeSubmitted && !vm.user.isLetterofRecommendationSubmitted"> The student has not uploaded any forms yet. </div>
+              <div  ng-show="vm.user.isNDASubmitted">
+                  <h6 align="center">NDA<i class="glyphicon glyphicon-ok" ng-if="vm.user.isNDASubmitted === true && vm.user.isNDAAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isNDASubmitted === true && vm.user.isNDAAdminApproved === true" style="color:green"></i></h6>
+                <div class="col-xs-6">
+                  <button class="selection-btn selection-btn-primary" style="width:100%" ng-click="vm.viewForm(vm.user.NDAId)">View</button>
+                </div>
+                <div class="col-xs-6">
+                  <button class="selection-btn selection-btn-verify" style="width:100%" ng-click="vm.approveNDA(vm.user)">Approve</button>
+                </div>
+                <br>
+                <br>
+              </div>
+              <div ng-show="vm.user.isWaiverSubmitted">
+                  <h6 align="center">Waiver<i class="glyphicon glyphicon-ok" ng-if="vm.user.isWaiverSubmitted === true && vm.user.isWaiverAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isWaiverSubmitted === true && vm.user.isWaiverAdminApproved === true" style="color:green"></i></h6>
+                <div class="col-xs-6">
+                  <button class="selection-btn selection-btn-primary" style="width:100%" ng-click="vm.viewForm(vm.user.WaiverId)">View</button>
+                </div>
+                <div class="col-xs-6">
+                  <button class="selection-btn selection-btn-verify" style="width:100%" ng-click="vm.approveWaiver(vm.user)">Approve</button>
+                </div>
+                <br>
+                <br>
+              </div>
+              <div ng-show="vm.user.isResumeSubmitted">
+                  <h6 align="center">Resume<i class="glyphicon glyphicon-ok" ng-if="vm.user.isResumeSubmitted === true && vm.user.isResumeAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isResumeSubmitted === true && vm.user.isResumeAdminApproved === true" style="color:green"></i></h6>
+                <div class="col-xs-6">
+                  <button class="selection-btn selection-btn-primary" style="width:100%" ng-click="vm.viewForm(vm.user.ResumeId)">View</button>
+                </div>
+                <div class="col-xs-6">
+                  <button class="selection-btn selection-btn-verify" style="width:100%" ng-click="vm.approveResume(vm.user)">Approve</button>
+                </div>
+                <br>
+                <br>
+              </div>
+              <div style="margin-bottom:3rem; " ng-show="vm.user.isLetterofRecommendationSubmitted">
+                  <h6 align="center">Letter of Recommendation<i class="glyphicon glyphicon-ok" ng-if="vm.user.isLetterofRecommendationSubmitted === true && vm.user.isLetterofRecommendationAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isLetterofRecommendationSubmitted === true && vm.user.isLetterofRecommendationAdminApproved === true" style="color:green"></i></h6>
+                <div class="col-xs-6">
+                  <button class="selection-btn selection-btn-primary" style="width:100%" ng-click="vm.viewForm(vm.user.letterOfRecommendationId)">View</button>
+                </div>
+                <div class="col-xs-6">
+                  <button class="selection-btn selection-btn-verify" style="width:100%" ng-click="vm.approveLetterOfRecommendation(vm.user)">Approve</button>
+                </div>
+                <br>
+              </div>
+              <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+              <div class="row" ng-show="vm.user.isNDASubmitted || vm.user.isResumeSubmitted || vm.user.isWaiverSubmitted || vm.user.isLetterofRecommendationSubmitted">
+                <div class="container">
+                  <center>
+                    Send Form Fix Email
+                  </center>
+                </div>
+                <div class="container">
+                  <select ng-model="vm.formFixName">
+                    <option value="NDA">NDA</option>
+                    <option value="Waiver">Waiver</option>
+                    <option value="Letter of Recommendation">Letter of Recommendation</option>
+                    <option value="Resume">Resume</option>
+                  </select>
+                </div>
+                <div class="container"> <br>
+                  <button class="selection-btn selection-btn-primary" ng-click="vm.sendFormFixEmail(vm.user, vm.formFixName)">Send Email</button>
+                </div>
+              </div>
+              <hr class="section-divider" />
+			<!--
+              <div>
+                <center>
+                  <h6 style="font-weight: bold;">Preferred Areas</h6>
+                  <div ng-bind-template="1. {{vm.user.application.interests[0]}}"></div>
+                  <div ng-bind-template="2. {{vm.user.application.interests[1]}}"></div>
+                  <div ng-bind-template="3. {{vm.user.application.interests[2]}}"></div>
+                </center>
+              </div>
+              <hr class="section-divider" />
+			 -->
+              <div >
+                <center>
+                  <h6 style="font-weight: bold;">Preferred Sessions</h6>
+                  <div ng-bind-template="1. Session {{vm.user.application.preferredSession1}}"></div>
+                  <div ng-bind-template="2. Session {{vm.user.application.preferredSession2}}"></div>
+                  <div ng-bind-template="3. Session {{vm.user.application.preferredSession3}}"></div>
+                </center>
+              </div>
+              <div >
+                <center>
+                  <h6 style="font-weight: bold;">Interview Rankings</h6>
+                  <div ng-if="vm.user.indivRanks[0] === null && vm.user.indivRanks[1] === null && vm.user.indivRanks[2] === null">No rankings have been posted yet.</div>
+                  <div ng-if="vm.user.indivRanks[0] !== null">
+                    <div ng-bind-template="1. {{vm.user.indivRanks[0]}}"></div>
+                  </div>
+                  <div ng-if="vm.user.indivRanks[1] !== null">
+                    <div ng-bind-template="2. {{vm.user.indivRanks[1]}}"></div>
+                  </div>
+                  <div ng-if="vm.user.indivRanks[2] !== null">
+                    <div ng-bind-template="3. {{vm.user.indivRanks[2]}}"></div>
+                  </div>
+                  <div ng-if="vm.user.indivRanks[0] !== null && vm.user.indivRanks[1] !== null && vm.user.indivRanks[2] !== null">
+                    <div ng-bind-template="Total: {{()}}"></div>
+                  </div>
+                </center>
+              </div>
+              <hr class="section-divider" />
+              <div class="row">
+                <center>
+                  <button class="selection-btn selection-btn-primary" ng-click="openModal(vm.user, 'myModal')">View Application</button>
+                  <button ng-if="vm.user.ResumeId !== null || vm.user.ResumeId !== '' " ng-click="vm.viewForm(vm.user.ResumeId)" class="selection-btn selection-btn-primary">View Resume</button>
+                </center>
+              </div>
               <element ng-switch="vm.user.active">
                 <element ng-switch-when=true>
-              <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
-              <div class="row">
-                <center><b>Set Student Status</b></center>
-                <div class="row">
-                    <select ng-model="vm.sessionType">
-                      <option value="">Not Accepted</option>
-                      <option value="NA">Remove</option>
-                      <option value=1>1</option>
-                      <option value=2>2</option>
-                      <option value=3>3</option>
-                    </select>
-            <button class="selection-btn selection-btn-verify" ng-click="vm.manAcceptStudent(vm.user, vm.sessionType)">Set Status</button>
-            </div>
-          </div>
-            </element>
-        <element ng-switch-when=false>
-        </element>
-      </element>
-          <hr class="section-divider" />
-          <element ng-switch-when=false>
-          </element>
-          <div class="row">
-            <center>
-              <element ng-switch="vm.user.active">
-                <element ng-switch-when="true">
-                  <button class="selection-btn selection-btn-danger" ng-click="vm.deactivateStudent(vm.user.user, vm.user, $index)">Deactivate</button>
+                  <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
+                  <div class="row">
+                    <center>
+                      <b>Set Student Status</b>
+                    </center>
+                    <div class="row">
+                      <select ng-model="vm.sessionType">
+                        <option value="">Not Accepted</option>
+                        <option value="NA">Remove</option>
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                      </select>
+                      <button class="selection-btn selection-btn-verify" ng-click="vm.manAcceptStudent(vm.user, vm.sessionType)">Set Status</button>
+                    </div>
+                  </div>
                 </element>
-                <element ng-switch-when="false">
-                  <button class="selection-btn selection-btn-verify" ng-click="vm.activateStudent(vm.user.user, vm.user, $index)">Activate</button>
-                </element>
+                <element ng-switch-when=false> </element>
               </element>
-            </center>
+              <hr class="section-divider" />
+              <element ng-switch-when=false> </element>
+              <div class="row">
+                <center>
+                  <element ng-switch="vm.user.active">
+                    <element ng-switch-when="true">
+                      <button class="selection-btn selection-btn-danger" ng-click="vm.deactivateStudent(vm.user.user, vm.user, $index)">Deactivate</button>
+                    </element>
+                    <element ng-switch-when="false">
+                      <button class="selection-btn selection-btn-verify" ng-click="vm.activateStudent(vm.user.user, vm.user, $index)">Activate</button>
+                    </element>
+                  </element>
+                </center>
+              </div>
+            </div>
+            <br>
           </div>
+          <div ng-switch-when="false"> Click on a student to view their information. </div>
         </div>
-          <br>
+      </center>
     </div>
-  <div ng-switch-when="false">
-    Click on a student to view their information.
   </div>
-</div>
-</center>
-</div>
-</div>
 </section>
-
 </html>

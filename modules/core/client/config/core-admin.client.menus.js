@@ -14,11 +14,5 @@
       type: 'dropdown',
       roles: ['admin']
     });
-    menuService.addMenuItem('topbar', {
-      title: 'Forms',
-      state: 'admin-forms',
-      type: 'dropdown',
-      roles: ['admin']
-    });
   }
 }());

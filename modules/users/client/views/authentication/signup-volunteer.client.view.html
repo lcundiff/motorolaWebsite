@@ -24,8 +24,8 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
   <div class="col-xs-6 col-xs-offset-3 centered">
-      <h4 style="font-family: 'Lato', sans-serif; font-wight: bold;">Sign up</h4>
-    <form name="vm.userForm" ng-submit="vm.signup(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
+      <h4 style="font-family: 'Lato', sans-serif; font-wight: bold;">Volunteer Sign up</h4>
+    <form name="vm.userForm" ng-submit="userreq.roles = ['volunteer']; vm.signup(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset style="border: 0px;">
         <div class="form-group" show-errors>
 

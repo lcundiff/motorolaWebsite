@@ -14,24 +14,43 @@
 		vm.buildPager = buildPager;
 		vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
 		vm.pageChanged = pageChanged;
-
+		vm.selected_user = false;
 		vm.listActiveStudents = listActiveStudents;
 		vm.listDeactivatedStudents = listDeactivatedStudents;
 		vm.students;
-
+		// APPLICANTS
 		vm.deactivateStudent = deactivateStudent;
 		vm.activateStudent = activateStudent;
 
 		vm.manAcceptStudent = manAcceptStudent;
 		vm.displayStudent = displayStudent;
-
 		vm.viewForm = viewForm;
+		vm.manAcceptStudent = manAcceptStudent;
+		vm.autoAccept = autoAccept;
+
+
+		// FORMS
+		vm.viewForm = viewForm;
+
+		vm.sendFormFixEmail = sendFormFixEmail;
+
+		vm.approveLetterOfRecommendation = approveLetterOfRecommendation;
+		vm.approveResume = approveResume;
+		vm.approveWaiver = approveWaiver;
+		vm.approveNDA = approveNDA;
+
+		vm.selectedNDAToUpload = '';
+		vm.selectedWaiverToUpload = '';
+
+		vm.uploadNDA = uploadNDA;
+		vm.uploadWaiver = uploadWaiver;
+
+		vm.displayUser = displayUser;
 
 		vm.selected_user = false;
 
-		vm.manAcceptStudent = manAcceptStudent;
-
-		vm.autoAccept = autoAccept;
+		$scope.fileNameChangedNDA = fileNameChangedNDA;
+		$scope.fileNameChangedWaiver = fileNameChangedWaiver;
 
 		function buildPager() {
 			//console.log("HERE IN BP");
@@ -49,6 +68,11 @@
 
 			console.log("vm.user:", vm.user);
 
+			vm.selected_user = true;
+		}
+		// this is redundant
+		function displayUser(user) {
+			vm.user = user;
 			vm.selected_user = true;
 		}
 
@@ -79,32 +103,40 @@
 		}
 		// download pdf form
 		function viewForm(fileId) {
-      if(fileId === null || fileId === '' || fileId === undefined){
-        Notification.error({ message: 'Student has not yet uploaded this form.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
-        return;
-      }
+			if (fileId === null || fileId === '' || fileId === undefined) {
+				Notification.error({
+					message: 'Student has not yet uploaded this form.',
+					title: '<i class="glyphicon glyphicon-remove"></i> Error',
+					delay: 6000
+				});
+				return;
+			}
 
-      vm.loading = true;
+			vm.loading = true;
 
-      GoogleCloudService.downloadForm(fileId)
-      .then(function(response){
-        var file = new Blob([response.data], {
-            type: 'application/pdf'
-          });
-            $scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-            var link = document.createElement('a');
-                link.href = $scope.fileUrl;
-                link.download = fileId;
-                link.click();
-                vm.loading = false;
-        })
-      .catch(onErrorGoogleCloudDownload);
-    }
+			GoogleCloudService.downloadForm(fileId)
+				.then(function (response) {
+					var file = new Blob([response.data], {
+						type: 'application/pdf'
+					});
+					$scope.fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+					var link = document.createElement('a');
+					link.href = $scope.fileUrl;
+					link.download = fileId;
+					link.click();
+					vm.loading = false;
+				})
+				.catch(onErrorGoogleCloudDownload);
+		}
 
-    function onErrorGoogleCloudDownload(){
-      vm.loading = false;
-      Notification.error({ message: 'There was an error downloading this document from Google Cloud.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
-    }
+		function onErrorGoogleCloudDownload() {
+			vm.loading = false;
+			Notification.error({
+				message: 'There was an error downloading this document from Google Cloud.',
+				title: '<i class="glyphicon glyphicon-remove"></i> Error',
+				delay: 6000
+			});
+		}
 		// download CSV
 		$scope.downloadAllCSV = function () {
 			vm.loading = true;
@@ -118,16 +150,16 @@
 
 					Students.forEach(function (student) { // creates and formats student data on a CSV sheet
 						console.log("student object data: ", student)
-						content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\""+ student.application.address.city+" , "+ student.application.address.state + " , " +student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
+						content = "\"" + student.application.firstName + " " + student.application.lastName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\"" + student.application.address.city + " , " + student.application.address.state + " , " + student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
 					});
 					content = header + "\n" + content;
 
-						//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-						var link = document.createElement('a');
-						link.href = 'data:attachment/csv,' + encodeURIComponent(content);
-						link.download = 'All_Students_CSV.csv';
-						link.click();
-						vm.loading = false;
+					//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+					var link = document.createElement('a');
+					link.href = 'data:attachment/csv,' + encodeURIComponent(content);
+					link.download = 'All_Students_CSV.csv';
+					link.click();
+					vm.loading = false;
 				},
 				function (error) {
 					vm.loading = false;
@@ -139,22 +171,22 @@
 			// get volunteer info
 			var header = "Name, Email, Phone, Address, Expertise, Sessions, Roles, Amount of Interviews, Interviees, \n";
 			var content = "";
-			VolunteerService.getAllVolunteers().then(function (data) {
+			VolunteerService.getVolunteers().then(function (data) {
 					var Volunteers = data;
 
 					Volunteers.forEach(function (volunteer) { // creates and formats volunteer data on a CSV sheet
 						console.log("volunteer object data: ", volunteer)
-						content = "\"" + volunteer.application.firstName + "\"" + "," + "\"" + volunteer.application.email + "\"" + "," +
-							"\"" + volunteer.application.phone + "\"" + "," + "\"" +  volunteer.application.address.city+" , "+ volunteer.application.address.state+" "+ volunteer.application.address.zipcode + "\"" + "," + "\"" + volunteer.application.areaofexpertise + "\"" + "," + "\"" + volunteer.sessions + "\"" + "," + "\"" + volunteer.roles + "\"" + "," + "\"" + volunteer.interviewee_count + "\"" + "," + "\"" + volunteer.interviewee + "\"" + "\n" + content;
+						content = "\"" + volunteer.application.firstName + ' ' + volunteer.application.lastName + "\"" + "," + "\"" + volunteer.application.email + "\"" + "," +
+							"\"" + volunteer.application.phone + "\"" + "," + "\"" + volunteer.application.address.city + " , " + volunteer.application.address.state + " " + volunteer.application.address.zipcode + "\"" + "," + "\"" + volunteer.application.areaofexpertise + "\"" + "," + "\"" + volunteer.sessions + "\"" + "," + "\"" + volunteer.roles + "\"" + "," + "\"" + volunteer.interviewee_count + "\"" + "," + "\"" + volunteer.interviewee + "\"" + "\n" + content;
 					});
 					content = header + "\n" + content;
 
-						//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-						var link = document.createElement('a');
-						link.href = 'data:attachment/csv,' + encodeURIComponent(content);
-						link.download = 'All_Volunteers_CSV.csv';
-						link.click();
-						vm.loading = false;
+					//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+					var link = document.createElement('a');
+					link.href = 'data:attachment/csv,' + encodeURIComponent(content);
+					link.download = 'All_Volunteers_CSV.csv';
+					link.click();
+					vm.loading = false;
 				},
 				function (error) {
 					vm.loading = false;
@@ -166,24 +198,24 @@
 		$scope.downloadActiveCSV = function () {
 			// get student info
 			vm.loading = true;
-			var header = "Name, Email, Phone, Address, School, Parent Name, Parent Phone, Parent Email, Interviewers, Interview Date, Interview Time, Interview DOW\n";
+			var header = "Name, Email, Phone, Address, School, Parent Name, Parent Phone, Parent Email, Mentor, Session, Top Interest, Interviewers, Interview Date, Interview Time, Interview DOW\n";
 			var content = "";
 			//$scope.StudentService.studentListActive().then(function(data){
-			StudentService.studentListActive().then(function (data) {
+			StudentService.studentListAccepted().then(function (data) {
 					var Students = data;
 
 					Students.forEach(function (student) { // creates and formats student data on a CSV sheet
 						console.log("student object data: ", student)
-						content = "\"" + student.application.firstName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\""+ student.application.address.city+" , "+ student.application.address.state + " , " +student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
+						content = "\"" + student.application.firstName + ' ' + student.application.lastName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\"" + student.application.address.city + " , " + student.application.address.state + " , " + student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.mentor + "\"" + "," + "\"" + student.timeSlot + "\"" + "," + "\"" + student.application.interests[0] + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
 					});
 					content = header + "\n" + content;
 
-						//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-						var link = document.createElement('a');
-						link.href = 'data:attachment/csv,' + encodeURIComponent(content);
-						link.download = 'Active_Students_CSV.csv';
-						link.click();
-						vm.loading = false;
+					//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+					var link = document.createElement('a');
+					link.href = 'data:attachment/csv,' + encodeURIComponent(content);
+					link.download = 'Active_Students_CSV.csv';
+					link.click();
+					vm.loading = false;
 				},
 				function (error) {
 					vm.loading = false;
@@ -199,6 +231,7 @@
 			var begin = ((vm.currentPage - 1) * vm.itemsPerPage);
 			var end = begin + vm.itemsPerPage;
 			vm.pagedItems = vm.filteredItems.slice(begin, end);
+			vm.loading = false;
 		}
 
 		function pageChanged() {
@@ -209,20 +242,20 @@
 			StudentService.studentListActive().then(async function (data) {
 				console.log("active students: ", data);
 				vm.students = data;
-
+				vm.selected_user = false;
 				await (vm.buildPager());
 			});
-		}
+		};
 
 		function listDeactivatedStudents() {
-			StudentService.studentListDeactivated().then(async function (data) {
+			StudentService.studentListNonActiveWithoutForms().then(async function (data) {
 				console.log("dat1a: ", data);
 				vm.students = data;
-
+				vm.selected_user = false;
+				//vm.selected_user = false;
 				await (vm.buildPager());
 			});
 		}
-
 		//open confirm box when admin performs action
 
 		//open modal window that displays the student resume
@@ -559,8 +592,6 @@
 			Notification.success({
 				message: '<i class="glyphicon glyphicon-ok"></i> Student activation successful.'
 			});
-			// And redirect to the previous or home page
-			//$state.go($state.previous.state.name || 'home', $state.previous.params);
 		}
 
 		function onActivationError(response) {
@@ -572,11 +603,209 @@
 			});
 		}
 
+		/* 
+		
+		CODE FROM PREVIOUS FORMS CONTROLLER
+
+		*/
+
+		function fileNameChangedNDA() {
+			var file = document.getElementById('nda_upload').files[0];
+			vm.selectedNDAToUpload = file.name;
+		}
+
+		function fileNameChangedWaiver() {
+			var file = document.getElementById('waiver_upload').files[0];
+			vm.selectedWaiverToUpload = file.name;
+		}
 
 
 
+		function checkFileSize(file) {
+			if (file) {
+				if (file.size >= 4000000) {
+					return 0;
+				}
 
+				return 1;
+			}
+
+			return 0;
+		}
+		// uploading new nda template
+		function uploadNDA() {
+			if (!$scope.file.upload) {
+				Notification.error({
+					message: 'Please submit the correct NDA file type (PDF).',
+					title: '<i class="glyphicon glyphicon-remove"></i> View error.',
+					delay: 6000
+				});
+				return;
+			} else if (checkFileSize($scope.file.upload) === 0) {
+				Notification.error({
+					message: 'The file size must be under 4 MB.',
+					title: '<i class="glyphicon glyphicon-remove"></i> View error.',
+					delay: 6000
+				});
+				return;
+			}
+
+			vm.loading = true;
+
+
+			GoogleCloudService.uploadForm('NDA.pdf', $scope.file.upload)
+				.then(function (response) {
+					$scope.uploading = false;
+					vm.loading = false;
+					Notification.success({
+						message: '<i class="glyphicon glyphicon-ok"></i> NDA upload successful.'
+					});
+				})
+				.catch(function (error) {
+					$scope.uploading = false;
+					vm.loading = false;
+					Notification.error({
+						message: 'Could not upload form to google cloud.',
+						title: '<i class="glyphicon glyphicon-remove"></i> Error',
+						delay: 6000
+					});
+				});
+
+		}
+		// uploading new waiver template
+		function uploadWaiver() {
+			if (!$scope.file.upload) {
+				Notification.error({
+					message: 'Please submit the correct Waiver file type (PDF).',
+					title: '<i class="glyphicon glyphicon-remove"></i> View error.',
+					delay: 6000
+				});
+				return;
+			} else if (checkFileSize($scope.file.upload) === 0) {
+				Notification.error({
+					message: 'The file size must be under 4 MB.',
+					title: '<i class="glyphicon glyphicon-remove"></i> View error.',
+					delay: 6000
+				});
+				return;
+			}
+
+			vm.loading = true;
+
+			GoogleCloudService.uploadForm('Waiver.pdf', $scope.file.upload)
+				.then(function (response) {
+					$scope.uploading = false;
+					vm.loading = false;
+					Notification.success({
+						message: '<i class="glyphicon glyphicon-ok"></i> Waiver upload successful.'
+					});
+				})
+				.catch(function (error) {
+					$scope.uploading = false;
+					vm.loading = false;
+					Notification.error({
+						message: 'Could not upload form to google cloud.',
+						title: '<i class="glyphicon glyphicon-remove"></i> Error',
+						delay: 6000
+					});
+				});
+		}
+
+		function approveNDA(student) {
+			vm.user.isNDAAdminApproved = true;
+
+			StudentService.updateStudent(student.user, vm.user).then(function (data) {
+				onFormApprovalSuccess('NDA', (student.application.firstName + ' ' + student.application.lastName));
+				approveForms(student);
+			});
+		}
+
+		function approveWaiver(student) {
+			vm.user.isWaiverAdminApproved = true;
+
+			StudentService.updateStudent(student.user, vm.user).then(function (data) {
+				onFormApprovalSuccess('Waiver', (student.application.firstName + ' ' + student.application.lastName));
+				approveForms(student);
+			});
+		}
+
+		function approveLetterOfRecommendation(student) {
+			vm.user.isLetterofRecommendationAdminApproved = true;
+
+			StudentService.updateStudent(student.user, vm.user).then(function (data) {
+				onFormApprovalSuccess('Letter of Recommendation', (student.application.firstName + ' ' + student.application.lastName));
+				approveForms(student);
+			});
+		}
+
+		function approveResume(student) {
+			vm.user.isResumeAdminApproved = true;
+
+			StudentService.updateStudent(student.user, vm.user).then(function (data) {
+				onFormApprovalSuccess('Resume', (student.application.firstName + ' ' + student.application.lastName));
+				approveForms(student);
+			});
+		}
+
+		function approveForms(student) {
+			if (student.isResumeAdminApproved === true && student.isLetterofRecommendationAdminApproved === true && student.isNDAAdminApproved === true && student.isWaiverAdminApproved === true) {
+				student.areFormsAdminApproved = true;
+
+
+				StudentService.updateStudent(student.user, student).then(function (data) {
+					onFormCompletionSuccess(data);
+				});
+			}
+		}
+
+		function onFormApprovalSuccess(formName, studentName) {
+			Notification.success({
+				message: '<i class="glyphicon glyphicon-ok"></i> The ' + formName + ' form belonging to ' + studentName + ' has been approved.'
+			});
+		}
+
+		function onFormCompletionSuccess(response) {
+			// If successful we assign the response to the global user model
+			Notification.success({
+				message: '<i class="glyphicon glyphicon-ok"></i> All of the forms applicable to this student have been approved.'
+			});
+			// And redirect to the previous or home page
+			//$state.go($state.previous.state.name || 'home', $state.previous.params);
+		}
+
+		function sendFormFixEmail(student, formName) {
+			vm.loading = true;
+
+			var credentials = {
+				email: student.application.email,
+				firstName: student.application.firstName,
+				lastName: student.application.lastName,
+				formName: formName
+			}
+
+			UsersService.sendFormFixEmail(credentials)
+				.then(onFormFixEmailDeliverySuccess)
+				.catch(onFormFixEmailDeliveryError);
+		}
+
+		function onFormFixEmailDeliverySuccess(response) {
+			// If successful we assign the response to the global user model
+			vm.loading = false;
+			Notification.success({
+				message: '<i class="glyphicon glyphicon-ok"></i> Email sent successfully.'
+			});
+		}
+
+		function onFormFixEmailDeliveryError(response) {
+			vm.loading = false;
+			Notification.error({
+				message: response.data.message,
+				title: '<i class="glyphicon glyphicon-remove"></i> Email send error.',
+				delay: 6000
+			});
+		}
 	}
+
 
 
 }());
