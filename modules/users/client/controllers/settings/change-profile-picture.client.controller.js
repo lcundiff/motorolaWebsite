@@ -5,9 +5,9 @@
     .module('users')
     .controller('ChangeProfilePictureController', ChangeProfilePictureController);
 
-  ChangeProfilePictureController.$inject = ['$timeout', 'StudentService', 'Authentication', 'Upload', 'Notification'];
+  ChangeProfilePictureController.$inject = ['$timeout', 'UsersService', 'Authentication', 'Upload', 'Notification'];
 
-  function ChangeProfilePictureController($timeout, StudentService, Authentication, Upload, Notification) {
+  function ChangeProfilePictureController($timeout, UsersService, Authentication, Upload, Notification) {
     var vm = this;
 
     vm.user = Authentication.user;
@@ -32,6 +32,7 @@
 	  
     };
 
+
     // Called after the user has successfully uploaded a new picture
     function onSuccessItem(response) {
       // Show success message
@@ -39,27 +40,22 @@
 
       // Populate user object
       vm.user = Authentication.user = response;
-	  StudentService.getStudentByUsername(vm.user.username)
-	  	.then(getStudentSuccess)
-	  	.catch(getStudentFailure);
+      
+  	  getUserSuccess(vm.user)
+
       // Reset form
       vm.fileSelected = false;
       vm.progress = 0;
+      
     }
-	function getStudentSuccess(response) { 
+
+	function getUserSuccess(response) { 
 	  console.log("resp: ", 	response);
 	  console.log("URL profile: ", vm.user.profileImageURL);
 	  response.profileImageURL = vm.user.profileImageURL; 
-	  StudentService.updateStudent(response.user,response)
-	  	.then(updateStudentSuccess)
-	  	.catch(getStudentFailure);	  
+
+	  UsersService.update(response)    
 	}
-	function updateStudentSuccess(response) {
-		console.log("student has been updated: ", response)
-	}
-    function getStudentFailure(response) {
-      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Student retrieval failed!' });
-    }
     // Called after the user has failed to upload a new picture
     function onErrorItem(response) {
       vm.fileSelected = false;
@@ -68,5 +64,6 @@
       // Show error message
       Notification.error({ message: response.message, title: '<i class="glyphicon glyphicon-remove"></i> Failed to change profile picture' });
     }
+
   }
 }());

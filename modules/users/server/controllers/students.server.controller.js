@@ -129,9 +129,9 @@ exports.getStudentByUsername = function(req, res){
  * Update a Student
  */
 exports.update = function(req, res) {
-
+  console.log("Student update")
   //var student = new Student(req.body);
-console.log(req.body);
+  console.log("Student update req ",req.body);
   //console.log("YOYO: ",student);
 
   Student.findOneAndUpdate({user: req.body.user}, req.body, {upsert: false}).then(function(data){

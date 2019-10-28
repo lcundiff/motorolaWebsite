@@ -8,6 +8,10 @@
 
   UsersService.$inject = ['$resource'];
 
+  // Why does update user not have a unique url,
+  // additionally, why is userid not passed as param:
+  // EXAMPE: url: 'api/users/update/:userId'
+  
   function UsersService($resource) {
     var Users = $resource('/api/users', {}, {
       update: {
@@ -62,6 +66,7 @@
       }
     });
 
+    //why is no promise returned for update?
     angular.extend(Users, {
       deleteReq: function(id){
         return this.delete_req({

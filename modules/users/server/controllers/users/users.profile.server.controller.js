@@ -36,7 +36,6 @@ if (useS3Storage) {
 exports.update = function (req, res) {
   // Init Variables
   var user = req.user;
-
   if (user) {
     // Update whitelisted fields only
     user = _.extend(user, _.pick(req.body, whitelistedFields));
@@ -52,15 +51,15 @@ exports.update = function (req, res) {
       } else {
         req.login(user, function (err) {
           if (err) {
-            res.status(400).send(err);
+            return res.status(400).send(err);
           } else {
-            res.json(user);
+            return res.json(user);
           }
         });
       }
     });
   } else {
-    res.status(401).send({
+    return res.status(401).send({
       message: 'User is not signed in'
     });
   }
@@ -129,6 +128,7 @@ exports.changeProfilePicture = function (req, res) {
         '/' + req.file.path;
       user.save(function (err, theuser) {
         if (err) {
+          console.log("Error occured updateUser() method")
           reject(err);
         } else {
           resolve();
