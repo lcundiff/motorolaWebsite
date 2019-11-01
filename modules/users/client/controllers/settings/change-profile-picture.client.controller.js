@@ -33,7 +33,7 @@
     };
 
 
-    // Called after the user has successfully uploaded a new picture
+    // Called after the user has successfully uploaded a new picture (changes front end to reflect success)
     function onSuccessItem(response) {
       // Show success message
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Successfully changed profile picture' });
@@ -41,28 +41,21 @@
       // Populate user object
       vm.user = Authentication.user = response;
       
-  	  getUserSuccess(vm.user)
-
+      console.log("URL profile: ", vm.user.profileImageURL);
+      response.profileImageURL = vm.user.profileImageURL; 
+      
       // Reset form
       vm.fileSelected = false;
       vm.progress = 0;
       
     }
-
-	function getUserSuccess(response) { 
-	  console.log("resp: ", 	response);
-	  console.log("URL profile: ", vm.user.profileImageURL);
-	  response.profileImageURL = vm.user.profileImageURL; 
-
-	  UsersService.update(response)    
-	}
     // Called after the user has failed to upload a new picture
-    function onErrorItem(response) {
-      vm.fileSelected = false;
-      vm.progress = 0;
+  function onErrorItem(response) {
+    vm.fileSelected = false;
+    vm.progress = 0;
 
-      // Show error message
-      Notification.error({ message: response.message, title: '<i class="glyphicon glyphicon-remove"></i> Failed to change profile picture' });
+    // Show error message
+    Notification.error({ message: response.message, title: '<i class="glyphicon glyphicon-remove"></i> Failed to change profile picture' });
     }
 
   }

@@ -29,13 +29,14 @@ if (useS3Storage) {
 
   s3 = new aws.S3();
 }
-
+const util = require('util');
 /**
  * Update user details
  */
 exports.update = function (req, res) {
   // Init Variables
   var user = req.user;
+  //console.log(util.inspect(req, {depth: null}));
   if (user) {
     // Update whitelisted fields only
     user = _.extend(user, _.pick(req.body, whitelistedFields));
