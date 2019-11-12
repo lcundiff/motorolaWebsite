@@ -3,60 +3,72 @@
 <title>Applicants</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- mainly effects font shape/color/size --> <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- mainly effects font shape/color/size -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <section>
   <div id="overlay" ng-show="vm.loading">
-        <div class="loader"></div>
-    </div>
+    <div class="loader"></div>
+  </div>
   <nav role="navigation" class="navbar navbar-custom navbar-static-top">
     <div class="container-fluid">
       <div class="row-flex">
-        <h5 class="navbar-text">Match</h5>
+        <div class="col-md-2">
+          <h5 class="navbar-text">Match</h5>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.autoMatch()">Auto-Match</button>
+          <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.manMatch(vm.selected_student, vm.selected_volunteer)">Match Pair</button>
+          <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.manUnmatch(vm.selected_student, vm.selected_volunteer)">Unmatch Pair</button>
+        </div>
+        <div class="col-md-6" >
+          <div class="col-xs-12 col-md-6">
+            <form class="navbar-form navbar-right col-xs-12" role="search">
+              <div class="input-group">
+                <input class="form-control navbar-input" type="text" ng-model="vm.search_volunteers" placeholder="Search Volunteers" ng-change="vm.figureOutItemsToDisplay_volunteers()" />
+                <span class="input-group-btn">
+                <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search_volunteers=''; vm.figureOutItemsToDisplay_volunteers();"><i class="glyphicon glyphicon-remove"></i></button>
+                </span> </div>
+            </form>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <form class="navbar-form navbar-right col-xs-12" role="search">
+              <div class="input-group">
+                <input class="form-control" type="text" ng-model="vm.search_students" placeholder="Search Students" ng-change="vm.figureOutItemsToDisplay_students()" />
+                <span class="input-group-btn">
+                <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search_students=''; vm.figureOutItemsToDisplay_students();"><i class="glyphicon glyphicon-remove"></i></button>
+                </span> </div>
+            </form>
+          </div>
+        </div>
       </div>
-    <center>
-      <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.autoMatch()">Auto-Match</button>
-      <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.manMatch(vm.selected_student, vm.selected_volunteer)">Match Pair</button>
-      <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.manUnmatch(vm.selected_student, vm.selected_volunteer)">Unmatch Pair</button>
-    <form class="navbar-form navbar-right" role="search">
-      <div class="input-group">
-        <input class="form-control navbar-input" type="text" ng-model="vm.search_volunteers" placeholder="Search Volunteers" ng-change="vm.figureOutItemsToDisplay_volunteers()" />
-        <span class="input-group-btn">
-        <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search_volunteers=''; vm.figureOutItemsToDisplay_volunteers();"><i class="glyphicon glyphicon-remove"></i></button>
-      </span>
     </div>
-  </form>
-  <form class="navbar-form navbar-right" role="search">
-    <div class="input-group">
-      <input class="form-control" type="text" ng-model="vm.search_students" placeholder="Search Students" ng-change="vm.figureOutItemsToDisplay_students()" />
-      <span class="input-group-btn">
-      <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search_students=''; vm.figureOutItemsToDisplay_students();"><i class="glyphicon glyphicon-remove"></i></button>
-      </span> </div>
-  </form>
-</center>
-</nav>
-<div class="col-xs-12 col-md-6">
-  <div class="jumbotron jumobtron fluid">
-    <div class="list-group">
-      <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
-      <a ng-repeat="student in vm.pagedItems_students" ng-click="vm.selectStudent(student, this);" class="list-group-item" id="{{student.user}}">
-      <h5 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h5>
-      <i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
-      <h6 ng-bind-template="{{student.mentor}}"></h6>
-      </a> </div>
-    <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength_students" ng-model="vm.currentPage_students" ng-change="vm.pageChanged_students()"></uib-pagination>
+    </div>
+  </nav>
+  <div class="col-xs-12 col-md-6">
+    <div class="jumbotron jumobtron fluid">
+      <div class="list-group"> 
+        <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">--> 
+        <a ng-repeat="student in vm.pagedItems_students" ng-click="vm.selectStudent(student, this);" class="list-group-item" id="{{student.user}}">
+        <h5 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h5>
+        <i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
+        <h6 ng-bind-template="{{student.mentor}}"></h6>
+        </a> </div>
+      <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength_students" ng-model="vm.currentPage_students" ng-change="vm.pageChanged_students()"></uib-pagination>
+    </div>
   </div>
-</div>
-<div class="col-xs-12 col-md-6">
-  <div class="jumbotron jumobtron fluid">
-    <div class="list-group">
-      <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">-->
-      <a ng-repeat="volunteer in vm.pagedItems_volunteers" ng-click="vm.selectVolunteer(volunteer, this);" class="list-group-item" id="{{volunteer.user._id}}">
-      <h5 class="list-group-item-heading" ng-bind-template="{{volunteer.application.firstName}}  {{volunteer.application.lastName}}"></h5>
-      <i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
-      <h6 ng-bind-template="{{volunteer.mentee.toString()}}"></h6>
-      </a> </div>
-    <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength_volunteers" ng-model="vm.currentPage_volunteers" ng-change="vm.pageChanged_volunteers()"></uib-pagination>
+  <div class="col-xs-12 col-md-6">
+    <div class="jumbotron jumobtron fluid">
+      <div class="list-group"> 
+        <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">--> 
+        <a ng-repeat="volunteer in vm.pagedItems_volunteers" ng-click="vm.selectVolunteer(volunteer, this);" class="list-group-item" id="{{volunteer.user._id}}">
+        <h5 class="list-group-item-heading" ng-bind-template="{{volunteer.application.firstName}}  {{volunteer.application.lastName}}"></h5>
+        <i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
+        <h6 ng-bind-template="{{volunteer.mentee.toString()}}"></h6>
+        </a> </div>
+      <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength_volunteers" ng-model="vm.currentPage_volunteers" ng-change="vm.pageChanged_volunteers()"></uib-pagination>
+    </div>
   </div>
-</div>
+  </div>
+  </div>
 </section>
 </html>

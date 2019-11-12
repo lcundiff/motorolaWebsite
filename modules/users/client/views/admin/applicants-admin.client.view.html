@@ -13,22 +13,20 @@
     <div class="container-fluid">
       <div class="row-flex">
         <div class="align-self-start col" >
-            <h5 class="navbar-text">Applicants</h5>
+          <h5 class="navbar-text">Applicants</h5>
         </div>
         <div class="col align-self-center " >
           <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.autoAccept()">Auto Accept Students</button>
-        </div>  
+        </div>
+        <form class="navbar-form navbar-right" role="search">
+          <div class="input-group">
+          <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+          <span class="input-group-btn">
+          <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search=''; vm.figureOutItemsToDisplay();"><i class="glyphicon glyphicon-remove"></i></button>
+          </span>
+        </form>
       </div>
-      <center>
-      <form class="navbar-form navbar-right" role="search">
-        <div class="input-group">
-        <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-        <span class="input-group-btn">
-        <button class="btn btn-custom toolbar-button" type="button" ng-click="vm.search=''; vm.figureOutItemsToDisplay();"><i class="glyphicon glyphicon-remove"></i></button>
-        </span>
-      </form>
     </div>
-    </center>
     </div>
   </nav>
   <!-- The Modal -->
@@ -214,7 +212,7 @@
             </a> </div>
           <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
         </div>
-      </div>      
+      </div>
       <!-- END MAIN TABLE--> 
       
       <!-- SIDE CONTAINER --> 
@@ -234,7 +232,7 @@
               <hr class="section-divider" />
               <div ng-show="!vm.user.isNDASubmitted && !vm.user.isWaiverSubmitted && !vm.user.isResumeSubmitted && !vm.user.isLetterofRecommendationSubmitted"> The student has not uploaded any forms yet. </div>
               <div  ng-show="vm.user.isNDASubmitted">
-                  <h6 align="center">NDA<i class="glyphicon glyphicon-ok" ng-if="vm.user.isNDASubmitted === true && vm.user.isNDAAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isNDASubmitted === true && vm.user.isNDAAdminApproved === true" style="color:green"></i></h6>
+                <h6 align="center">NDA<i class="glyphicon glyphicon-ok" ng-if="vm.user.isNDASubmitted === true && vm.user.isNDAAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isNDASubmitted === true && vm.user.isNDAAdminApproved === true" style="color:green"></i></h6>
                 <div class="col-xs-6">
                   <button class="selection-btn selection-btn-primary" style="width:100%" ng-click="vm.viewForm(vm.user.NDAId)">View</button>
                 </div>
@@ -245,7 +243,7 @@
                 <br>
               </div>
               <div ng-show="vm.user.isWaiverSubmitted">
-                  <h6 align="center">Waiver<i class="glyphicon glyphicon-ok" ng-if="vm.user.isWaiverSubmitted === true && vm.user.isWaiverAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isWaiverSubmitted === true && vm.user.isWaiverAdminApproved === true" style="color:green"></i></h6>
+                <h6 align="center">Waiver<i class="glyphicon glyphicon-ok" ng-if="vm.user.isWaiverSubmitted === true && vm.user.isWaiverAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isWaiverSubmitted === true && vm.user.isWaiverAdminApproved === true" style="color:green"></i></h6>
                 <div class="col-xs-6">
                   <button class="selection-btn selection-btn-primary" style="width:100%" ng-click="vm.viewForm(vm.user.WaiverId)">View</button>
                 </div>
@@ -256,7 +254,7 @@
                 <br>
               </div>
               <div ng-show="vm.user.isResumeSubmitted">
-                  <h6 align="center">Resume<i class="glyphicon glyphicon-ok" ng-if="vm.user.isResumeSubmitted === true && vm.user.isResumeAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isResumeSubmitted === true && vm.user.isResumeAdminApproved === true" style="color:green"></i></h6>
+                <h6 align="center">Resume<i class="glyphicon glyphicon-ok" ng-if="vm.user.isResumeSubmitted === true && vm.user.isResumeAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isResumeSubmitted === true && vm.user.isResumeAdminApproved === true" style="color:green"></i></h6>
                 <div class="col-xs-6">
                   <button class="selection-btn selection-btn-primary" style="width:100%" ng-click="vm.viewForm(vm.user.ResumeId)">View</button>
                 </div>
@@ -267,7 +265,7 @@
                 <br>
               </div>
               <div style="margin-bottom:3rem; " ng-show="vm.user.isLetterofRecommendationSubmitted">
-                  <h6 align="center">Letter of Recommendation<i class="glyphicon glyphicon-ok" ng-if="vm.user.isLetterofRecommendationSubmitted === true && vm.user.isLetterofRecommendationAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isLetterofRecommendationSubmitted === true && vm.user.isLetterofRecommendationAdminApproved === true" style="color:green"></i></h6>
+                <h6 align="center">Letter of Recommendation<i class="glyphicon glyphicon-ok" ng-if="vm.user.isLetterofRecommendationSubmitted === true && vm.user.isLetterofRecommendationAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isLetterofRecommendationSubmitted === true && vm.user.isLetterofRecommendationAdminApproved === true" style="color:green"></i></h6>
                 <div class="col-xs-6">
                   <button class="selection-btn selection-btn-primary" style="width:100%" ng-click="vm.viewForm(vm.user.letterOfRecommendationId)">View</button>
                 </div>
@@ -296,7 +294,7 @@
                 </div>
               </div>
               <hr class="section-divider" />
-			<!--
+              <!--
               <div>
                 <center>
                   <h6 style="font-weight: bold;">Preferred Areas</h6>

@@ -16,20 +16,19 @@
   <div id="overlay" ng-show="vm.loading">
         <div class="loader"></div>
     </div>
-	<!--
-  <div style="background-color:#003d66; font-weight:bold; color:white; padding:25px; margin-top:-4rem; margin-left: calc(50% - 50vw); width:100vw;" class="container">
-    <h1 style="font-weight:bold; margin-left: 2rem;">CSV Download</h1>
-  </div>-->
   <nav role="navigation" class="navbar navbar-custom navbar-static-top">
     <div class="container-fluid">
       <div class="navbar-header">
+        <h5 class="navbar-text">Organizing Important Documents</h5>
+      </div>
+    </div>
+  </nav>
+  <div class="col-xs-12 col-md-12">
+    <div class="container-fluid">
+      <div class="">
         <h5 class="navbar-text">CSV Download</h5>
       </div>
-    <center>
-  </center>
-</div>
-</nav>
-  <div class="col-xs-12 col-md-12">
+    </div>
     <div class="jumbotron jumbotron fluid">
       <div class="container">
         <center>
@@ -43,6 +42,79 @@
           <h2 class="page-header">Download Volunteer Info</h2>
           <button ng-click="downloadVolunteersCSV()" style=""class="sign-button sign-in-button">CSV File - All Volunteers</button>
         </center>
+      </div>
+    </div>
+</section>
+<section>
+    <div class="container-fluid">
+      <div class="">
+        <h5 class="navbar-text">Form Uploads</h5>
+      </div>
+    </div>
+  <div class="list-group-item">
+    <div class="row " style="margin:10px;padding:5px;border-radius:5px; line-height:40px;">
+        <!--<p class="list-group-item-text pull-right small" ng-bind="userreq.lastName"></p>-->
+        <div class="col-xs-2 col-md-2">
+          <h5>NDA</h5>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+          <div class="col-xs-2 col-md-2">
+            <label class="file-upload-button file-upload-button-browse">
+              <center>
+                <i class="glyphicon glyphicon-folder-open" style="height:100% width:100%"></i>
+              </center>
+              <input type="file" id="nda_upload" style="z-index:2; opacity:0; height:0; width:0;" file-model="file.upload" name="myFile" onchange="angular.element(this).scope().fileNameChangedNDA()" ng-disabled="uploading">
+            </label>
+          </div>
+          <div class="col-xs-3 col-md-3">
+            <div class="input-group input-group-lg">
+              <input type="text" class="form-control" placeholder="Select a file..." ng-model="vm.selectedNDAToUpload" disabled/>
+            </div>
+          </div>
+          <div class="col-xs-2 col-md-2">
+            <button class="file-upload-button file-upload-button-submit pull-left" style="width:100%" ng-click="vm.uploadNDA(file)">
+            <center>
+              <i class="glyphicon glyphicon-circle-arrow-up"></i>
+            </center>
+            </button>
+          </div>
+        </form>
+        <div class="col-xs-2 col-md-2 offset-col-2">
+          <button class="file-upload-button file-upload-button-browse pull-right" style="width:100%" type= "submit" ng-click="vm.viewForm('NDA.pdf')">View Current</button>
+        </div>
+      </div>
+    </div>
+    <div class="list-group-item">
+      <div class="row" style="margin:10px;padding:5px;border-radius:5px; line-height:40px;">
+        <div class="col-xs-2 col-md-2">
+          <h5>Waiver</h5>
+        </div>
+        <!--<p class="list-group-item-text pull-right small" ng-bind="userreq.lastName"></p>-->
+        <form method="post" enctype="multipart/form-data">
+          <div class="col-xs-2 col-md-2">
+            <label class="file-upload-button file-upload-button-browse">
+              <center>
+                <i class="glyphicon glyphicon-folder-open" style="height:100% width:100%"></i>
+              </center>
+              <input type="file" id="waiver_upload" style="z-index:2; opacity:0; height:0; width:0;" file-model="file.upload" name="myFile" onchange="angular.element(this).scope().fileNameChangedWaiver()" ng-disabled="uploading">
+            </label>
+          </div>
+          <div class="col-xs-3 col-md-3">
+            <div class="input-group input-group-lg">
+              <input type="text" class="form-control" placeholder="Select a file..." ng-model="vm.selectedWaiverToUpload" disabled/>
+            </div>
+          </div>
+          <div class="col-xs-2 col-md-2">
+            <button class="file-upload-button file-upload-button-submit pull-left" style="width:100%" ng-click="vm.uploadWaiver(file)">
+            <center>
+              <i class="glyphicon glyphicon-circle-arrow-up"></i>
+            </center>
+            </button>
+          </div>
+        </form>
+        <div class="col-xs-2 col-md-2 offset-col-2">
+          <button class="file-upload-button file-upload-button-browse pull-right" style="width:100%" type= "submit" ng-click="vm.viewForm('Waiver.pdf')">View Current</button>
+        </div>
       </div>
     </div>
   </div>

@@ -18,10 +18,6 @@
       title: 'Manage User Requests',
       state: 'admin.userreqs'
     });
-    menuService.addMenuItem('topbar',  {
-      title: 'Upload Forms',
-      state: 'admin.updateForms'
-    });
     menuService.addMenuItem('topbar', {
       title: 'Applicants',
       state: 'admin.students'
@@ -39,7 +35,7 @@
       state: 'admin.match'
     });
     menuService.addMenuItem('topbar', {
-      title: 'CSV',
+      title: 'Documents',
       state: 'admin.csv'
     });
   }
