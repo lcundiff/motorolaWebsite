@@ -63,12 +63,6 @@ h3{
   border-radius: 4px;
 }
 
-@media (min-width: 1208px) { /* our tool bar needs to collapse sooner than 768px*/
-  .navbar-toggle {
-    display: none;
-  }
-}
-
 .header-profile-image {
   border-radius: 50%;
   height: 26px;

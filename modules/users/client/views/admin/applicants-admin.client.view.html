@@ -11,11 +11,15 @@
   </div>
   <nav role="navigation" class="navbar navbar-custom navbar-static-top">
     <div class="container-fluid">
-      <div class="navbar-header">
-        <h5 class="navbar-text">Applicants</h5>
+      <div class="row-flex">
+        <div class="align-self-start col" >
+            <h5 class="navbar-text">Applicants</h5>
+        </div>
+        <div class="col align-self-center " >
+          <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.autoAccept()">Auto Accept Students</button>
+        </div>  
       </div>
       <center>
-      <button class="btn btn-custom navbar-btn toolbar-button" ng-click="vm.autoAccept()">Auto Accept Students</button>
       <form class="navbar-form navbar-right" role="search">
         <div class="input-group">
         <input class="form-control" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
