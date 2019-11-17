@@ -85,6 +85,18 @@
         controller: 'VolunteersAdminsController',
         controllerAs: 'vm'
       })
+
+      // SYDNEY: the state change has been updated, now route the correct html page
+      // for admin to create a new volunteer and specifies the client side
+      // controller, AdminAddVolunteerController, that controls the html page
+      // volunteers-admin.client.controller.js 
+      // the url is just the current url that the html add volunteer page is served to
+      .state('admin.createvolunteer', {
+        url:'/volunteer/application',
+        templateUrl: '/modules/users/client/views/admin/admin-add-volunteer.client.view.html',
+        controller: 'AdminAddVolunteerController',
+        controllerAs: 'vm'
+      })
 	  .state('admin.dash', {
         url:'/dash',
         templateUrl: '/modules/users/client/views/admin/dashboard-admin.client.view.html',

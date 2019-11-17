@@ -9,6 +9,15 @@
 
   // Configuring the Users module
   function menuConfig(menuService) {
+
+    //SYDNEY: 1. user clicks the item button on the menu,
+    //then the state is changed so the client side can route
+    //in file user-admin.client.routes.js
+    menuService.addMenuItem('topbar', {
+      title: 'Create Volunteer',
+      state: 'admin.createvolunteer'
+    });
+
     menuService.addSubMenuItem('topbar', 'admin', {
       title: 'Manage Users',
       state: 'admin.users'

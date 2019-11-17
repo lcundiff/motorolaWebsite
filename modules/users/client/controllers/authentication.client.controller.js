@@ -39,7 +39,7 @@
 
        		return false;
 		}
-	
+        //should this be volunteer sign up?
         UsersService.studentSignup(vm.credentials)
           .then(onUserSignupSuccess)
           .catch(onUserSignupError);
