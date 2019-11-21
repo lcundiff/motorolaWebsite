@@ -30,8 +30,6 @@
     function displayVolunteer(user){
       vm.user = user;
 
-      console.log(vm.user);
-
       vm.selected_user = true;
     }
 

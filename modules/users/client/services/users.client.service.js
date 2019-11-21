@@ -52,6 +52,10 @@
         method: 'POST',
         url: '/api/auth/signup/student'
       },
+      volunteer_signup: {
+        method: 'POST',
+        url: '/api/auth/signup/volunteer'
+      },
       signin: {
         method: 'POST',
         url: '/api/auth/signin'
@@ -91,7 +95,6 @@
         return this.send_signup_link(credentials).$promise;
       },
       sendFormFixEmail: function(credentials){
-        console.log("credentials: ",credentials);
         return this.send_form_fix_email(credentials).$promise;
       },
       userSignup: function (credentials) {
@@ -99,6 +102,9 @@
       },
       studentSignup: function (credentials) {
         return this.student_signup(credentials).$promise;
+      },
+      volunteerSignup: function (credentials) {
+        return this.volunteer_signup(credentials).$promise;
       },
       userSignin: function (credentials) {
         return this.signin(credentials).$promise;

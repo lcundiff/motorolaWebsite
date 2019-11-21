@@ -6,10 +6,11 @@
     .module('users')
     .controller('AdminAddVolunteerController', AdminAddVolunteerController);
 
-    AdminAddVolunteerController.$inject = ['$scope', '$state', '$window', 'Authentication', 'VolunteerService', 'menuService', 'Notification', '$http','$sce'];
+    AdminAddVolunteerController.$inject = ['$scope', '$state', '$window', 'Authentication', 'UsersService', 'VolunteerService', 'menuService', 'Notification', '$http','$sce'];
 
-  function AdminAddVolunteerController($scope, $state, $window, Authentication, VolunteerService, menuService, Notification, $http, $sce) {
+  function AdminAddVolunteerController($scope, $state, $window, Authentication, UsersService, VolunteerService, menuService, Notification, $http, $sce) {
     var vm = this;
+    console.log("vm = ", vm)
     $window.user = {
       roles: []
     };
@@ -23,9 +24,9 @@
     vm.menu = menuService.getMenu('topbar');
 
     vm.saveApp = saveApp;
-    vm.updateVolunteer = updateVolunteer;
+    vm.createVolunteer = createVolunteer;
+    vm.createUser = createUser;
 
-    
     function saveApp(isValid){
       vm.loading = true;
   	  $scope.$broadcast('show-errors-reset', 'vm.volunteerForm');
@@ -54,8 +55,8 @@
       }
 
     }
-
-    function updateVolunteer(isValid){
+    //first create user
+    function createUser(isValid){
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.volunteerForm');
 
@@ -63,50 +64,47 @@
         Notification.error({ message: 'Please make sure you have filled out all required fields.', title: '<i class="glyphicon glyphicon-remove"></i> Error', delay: 6000 });
         return false;
       }
-      vm.loading = true;
-      vm.credentials.isAppComplete = true;
-      var p1 = Promise.resolve(vm.credentials.username = vm.authentication.user.username);
-      var p2;
+      var user = {};
+      user.username = vm.credentials.application.username
+      user.firstName = vm.credentials.application.firstName;
+      user.lastName = vm.credentials.application.lastName;
+      user.email = vm.credentials.application.email;
+      user.displayName = vm.credentials.application.firstName + ' ' + vm.credentials.application.lastName
+      user.password = 'Password123!'
+      
+      console.log("1. next line call users service ")
+      UsersService.volunteerSignup(user).then(function(user){
+        console.log("function called after calling User volunteer signup: data : ", user)
+        createVolunteer(user)
+      }).catch(onVolunteerSubmissionError);
 
-      vm.credentials.application.sessions = [];
-
-      if(vm.sessions_1 === true) vm.credentials.application.sessions.push("1");
-      if(vm.sessions_2 === true) vm.credentials.application.sessions.push("2");
-      if(vm.sessions_3 === true) vm.credentials.application.sessions.push("3");
-
-      if(vm.roles === "m") {
-        $window.user.roles = ['volunteer', 'mentor'];
-        p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'mentor']);
-      }
-      else if(vm.roles === "i"){
-        $window.user.roles = ['volunteer', 'interviewer']
-        p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer']);
-      }
-      else if(vm.roles === "mi"){
-        $window.user.roles = ['volunteer', 'interviewer', 'mentor'];
-        p2 = Promise.resolve(vm.credentials.application.roles = ['volunteer', 'interviewer', 'mentor']);
-      }
-
-      Promise.all([p1, p2]).then(function([p1, p2]){
-        var p3 = Promise.resolve(function(){
-          if(vm.authentication.user.roles.indexOf("admin") !== -1){
-            vm.credentials.application.roles.push('admin');
-          }
-
-          console.log("final roles: ",vm.credentials.application.roles);
-        });
-
-        Promise.all([p3]).then(function([p3]){
-          console.log("vm.credentials.application: ",vm.credentials.application);
-          console.log("username: ",vm.credentials.username);
-
-          vm.updateIsSubmit = true;
-          VolunteerService.updateVolunteer(vm.credentials.username, vm.credentials)
-            .then(onVolunteerSubmissionSuccess)
-            .catch(onVolunteerSubmissionError);
-        });
-      });
     }
+    //then the volunteer is created
+    function createVolunteer(user){    
+      console.log("3. User should be created. ")
+      var volunteer = {};
+      var address ={
+        "line_1": vm.credentials.application.address.line_1 ,
+        "line_2" : vm.credentials.application.address.line_2,
+        "city":vm.credentials.application.address.city,
+        "state":vm.credentials.application.address.state,
+        "zipcode": vm.credentials.application.address.zipcode
+      }
+      console.log("adding user._id ", user._id);
+      volunteer.user = user._id;
+      volunteer.username = vm.credentials.application.username;
+      volunteer.firstName = vm.credentials.application.firstName;
+      volunteer.lastName = vm.credentials.application.lastName;
+      volunteer.email = vm.credentials.application.email;
+      volunteer.areaofexpertise = vm.credentials.application.areaofexpertise;
+      volunteer.address = address;
+      volunteer.phone = vm.credentials.application.phone
+      volunteer.roles = ['volunteer']
+      console.log("4. about to create new volunteer ")
+      VolunteerService.createVolunteer(volunteer).then(onVolunteerSubmissionSuccess).catch(onVolunteerSubmissionError);
+      document.getElementById("volunteerForm").reset();
+    }
+
 
     function onVolunteerSubmissionSuccess(response) {
       // If successful we assign the response to the global user model

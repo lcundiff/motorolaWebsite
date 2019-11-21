@@ -19,17 +19,18 @@ var path = require('path'),
 
 exports.create = function(req, res) {
 
-    //console.log("data: ",data);
-
-    //console.log("req.body: ",req.body);
+    console.log("req.body: ",req.body);
     var volunteer = new Volunteer(req.body);
+
     volunteer.application = volunteer.application;
     volunteer.application.firstName = req.body.firstName;
-    volunteer.application.lastname = req.body.lastName;
+    volunteer.application.lastName = req.body.lastName;
     volunteer.application.email = req.body.email;
     volunteer.application.user = req.body.user;
     volunteer.application.address = req.body.address;
     volunteer.application.username = req.body.username;
+    volunteer.roles = req.body.roles;
+    volunteer.user = req.body.user;
     volunteer.isAppComplete = false;
     volunteer.mentee = [];
     volunteer.mentee_count_sess_1 = 0;
@@ -41,10 +42,7 @@ exports.create = function(req, res) {
     volunteer.interviewee_count = 0;
     volunteer.sessions = [];
     volunteer.active = true;
-
-
-
-    console.log("volunteer: ",volunteer);
+    volunteer.areaofexpertise = req.body.areaofexpertise
 
     volunteer.save(function(err) {
       if (err) {
@@ -52,7 +50,10 @@ exports.create = function(req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        updateUserVolunteerRoles(req.body.username, req.body.application.roles);
+        //SYDNEY must implement User service to create volunteer then call the 
+        console.log("5. created a volunteer ")
+        console.log("saved this volunteer to db ", volunteer.username, volunteer.roles)
+        updateUserVolunteerRoles(volunteer.username, volunteer.roles)
         res.jsonp(volunteer);
       }
     });
@@ -73,12 +74,12 @@ exports.read = function(req, res) {
   });
 };
 
+
 /**
  * Update a Volunteer
  */
 exports.update = function(req, res) {
 
-console.log("update volunteer");
 console.log("req.body: ",req.body);
 var volunteer = new Volunteer(req.body);
 delete req.body.__v;
@@ -108,7 +109,7 @@ function updateUserVolunteerRoles(username, roles){
     console.log("updated user data: ",userData);
     return userData;
   });
-}
+} 
 
 /**
  * Delete a Volunteer
