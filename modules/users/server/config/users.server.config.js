@@ -27,10 +27,12 @@ module.exports = function (app) {
   });
 
   // Initialize strategies
-  config.utils.getGlobbedPaths(path.join(__dirname, './strategies/**/*.js')).forEach(function (strategy) {
+  /* this code is used to initialize functions that allow for social media connection. This came with MEAN boiler plate to authenticate in several ways
+     we are only using local.js right now, but Facebook would be cool in the future */
+  config.utils.getGlobbedPaths(path.join(__dirname, './strategies/local.js')).forEach(function (strategy) { // Glob string used to be './strategies/**/*.js'
     require(path.resolve(strategy))(config);
   });
-
+  
   // Add passport's middleware
   app.use(passport.initialize());
   app.use(passport.session());

@@ -1,11 +1,11 @@
 'use strict';
 
 /**
- * Module dependencies
- */
+ * This is Google add-on that came with MEAN stack. Might implement in future. Module dependencies
+ 
 var passport = require('passport'),
   GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
-  users = require('../../controllers/users.server.controller');
+  users = require('../../controllers/users/users.server.controller');
 
 module.exports = function (config) {
   // Use google strategy
@@ -41,3 +41,4 @@ module.exports = function (config) {
       users.saveOAuthUserProfile(req, providerUserProfile, done);
     }));
 };
+*/

@@ -1,11 +1,11 @@
 'use strict';
 
 /**
- * Module dependencies
- */
+ * This is LinkedIn add-on that came with MEAN stack. Might implement in future. 
+ 
 var passport = require('passport'),
   LinkedInStrategy = require('passport-linkedin').Strategy,
-  users = require('../../controllers/users.server.controller');
+  users = require('../../controllers/users/users.server.controller');
 
 module.exports = function (config) {
   // Use linkedin strategy
@@ -43,3 +43,4 @@ module.exports = function (config) {
     users.saveOAuthUserProfile(req, providerUserProfile, done);
   }));
 };
+*/

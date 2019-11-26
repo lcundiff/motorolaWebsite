@@ -16,6 +16,8 @@ module.exports = function (app) {
   app.route('/api/students/listNonActiveWithoutForms').get(students.listNonActiveWithoutForms);
   app.route('/api/students/listAccepted').get(students.listAccepted);
   app.route('/api/students/getByUsername/:username').get(students.getStudentByUsername);
+  app.route('/api/students/closeApps').get(students.closeStudentApps);
+  app.route('/api/students/checkApps').get(students.checkAppsClosed);
 
 
   // Finish by binding the user middleware

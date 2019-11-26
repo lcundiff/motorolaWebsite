@@ -1,11 +1,11 @@
 'use strict';
 
 /**
- * Module dependencies
- */
+ * This is Facebook add-on that came with MEAN stack. Might implement in future. 
+ 
 var passport = require('passport'),
   FacebookStrategy = require('passport-facebook').Strategy,
-  users = require('../../controllers/users.server.controller');
+  users = require('../../controllers/users/users.server.controller');
 
 module.exports = function (config) {
   // Use facebook strategy
@@ -52,3 +52,4 @@ module.exports = function (config) {
     }
   }));
 };
+*/

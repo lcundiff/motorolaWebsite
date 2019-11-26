@@ -1,4 +1,4 @@
-(function () {
+(function() {
 	'use strict';
 
 	// Admins controller
@@ -41,7 +41,7 @@
         console.log(points, evt);
       }
 		};
-
+    
 		vm.newVolunteerActivityGraph = {
 			config: {
 				title: 'Sign-ups this Week'
@@ -104,9 +104,16 @@
 		vm.completedStudentApps();
 		vm.completedStudentForms();
 		vm.newVolunteerActivity();
-
 		vm.completedVolunteerApps();
-
+    
+    vm.appsClosed = false;
+    vm.closeStudentApps = closeStudentApps;
+    function closeStudentApps() {
+      StudentService.closeStudentApps().then((res) => {
+        console.log("students can no longer log in :" + res);
+        vm.appsClosed = true;
+      })
+    }
 		function completedStudentApps() {
 			AdminService.completedStudentApps().then(function(response){
 				const notCompleted = response.values[0] - response.values[1];
@@ -136,7 +143,7 @@
 					vm.completedStudentFormsGraph.data = [adminApproved, notCompleted, onlyStudentApproved ];
 				});
 		}
-
+    
 		function newStudentActivity() {
 			const now = new Date();
 	    const day1 = new Date(now.getFullYear(), now.getMonth(), now.getDate()-6);

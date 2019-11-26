@@ -8,7 +8,7 @@ var path = require('path'),
   Student = mongoose.model('Student'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
-
+var appsAreClosed = false;
 /**
  * Create a Student
  */
@@ -26,6 +26,16 @@ var path = require('path'),
     }
   });
 };*/
+  
+exports.checkAppsClosed = function(req,res) {
+    return appsAreClosed;
+};
+
+exports.closeStudentApps = function(req, res) {
+  appsAreClosed = !appsAreClosed;
+  console.log('apps closed: '+ appsAreClosed);
+  res.send(200, {"result": false});
+};
 
 exports.create = function(req, res) {
   console.log("create");

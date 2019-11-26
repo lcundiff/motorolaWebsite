@@ -60,11 +60,25 @@
           method: 'GET',
           isArray: true,
           url: '/api/students/listNonActiveWithoutForms'
+        },
+        close_apps: {
+          method: 'GET',
+          url: '/api/students/closeApps'
+        },
+        check_apps_closed: {
+          method: 'GET',
+          url: '/api/students/checkApps'
         }
       });
 
 
     angular.extend(Students, {
+      checkAppsClosed: function() {
+        return this.check_apps_closed().$promise;
+      },
+      closeStudentApps: function() {
+        return this.close_apps().$promise;
+      },
       getStudent: function(userId) {
         return this.get_student({
           userId: userId

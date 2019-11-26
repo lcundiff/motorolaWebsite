@@ -9,15 +9,17 @@
 
   function AuthenticationController($scope, $state, UsersService, StudentService, VolunteerService, $location, $window, Authentication, PasswordValidator, Notification) {
     var vm = this;
-
+    vm.appsClosed = false;
     vm.authentication = Authentication;
+    vm.appsAreClosed = appsAreClosed;
+    vm.appsAreClosed(); // run this on load to find if apps are closed  
     vm.getPopoverMsg = PasswordValidator.getPopoverMsg;
     vm.studentSignUp = studentSignUp;
     vm.signup = signup;
     vm.signin = signin;
     vm.callOauthProvider = callOauthProvider;
     vm.usernameRegex = /^(?=[\w.-]+$)(?!.*[._-]{2})(?!\.)(?!.*\.$).{3,34}$/;
-
+    
     // Get an eventual error defined in the URL query string:
     if ($location.search().err) {
       Notification.error({ message: $location.search().err });
@@ -27,6 +29,18 @@
     if (vm.authentication.user) {
       $location.path('/');
     }
+    
+    function appsAreClosed(){
+      let appsClosedBoolean = StudentService.checkAppsClosed().then((appsClosed)=>{
+        console.log("apps closed : " + appsClosed.result);
+        return appsClosed.result;
+      });
+      console.log("apps closed boolean: " + appsClosedBoolean;
+      vm.appsClosed = appsClosedBoolean;
+    }
+
+      
+    
 	  // volunteer sign up
     function signup(isValid) {
      // var hash = $location.path();

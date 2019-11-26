@@ -1,5 +1,4 @@
 'use strict';
-
 /**
  * Module dependencies.
  */
@@ -8,7 +7,14 @@ var path = require('path'),
   Admin = mongoose.model('Admin'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
-
+/**
+ * routes refers to this controller only, so we need to add all other exports to this controller
+ */
+module.exports = _.extend(
+  require('./admin.server.controller.js'),
+  require('./automate.server.controller.js'),
+  require('./admin.analytics.server.controller.js')
+);
 /**
  * Create an Admin
  */

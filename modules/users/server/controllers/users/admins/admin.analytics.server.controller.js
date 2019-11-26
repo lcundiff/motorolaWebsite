@@ -9,7 +9,8 @@ var path = require('path'),
   Student = mongoose.model('Student'),
   Volunteer = mongoose.model('Volunteer'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
-
+  
+ 
   exports.newStudentActivity = function(req, res) {
     const now = new Date();
     const weekStart= new Date(now.getFullYear(), now.getMonth(), now.getDate()-7);

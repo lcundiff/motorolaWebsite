@@ -25,7 +25,8 @@
     <div class="container">
 
   <div class="col-xs-6" style ="padding-right: 8%; border-right: 1px solid #ddd;">
-    <h4 style="font-family: 'Lato', sans-serif; font-wight: bold;">Sign in</h4>
+    <h4 style="font-family: 'Lato', sans-serif; font-wight: bold;" ng-if="!(vm.appsClosed)">Sign in</h4>
+    <h4 style="font-family: 'Lato', sans-serif; font-wight: bold;" ng-if="(vm.appsClosed)">Apps are Closed</h4>
     <form name="vm.userForm" ng-submit="vm.signin(vm.userForm.$valid)" style="border: 0px;" class="signin" novalidate autocomplete="off">
       <fieldset style="border: 0px;">
         <div class="form-group" show-errors>
