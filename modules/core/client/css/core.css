@@ -517,35 +517,6 @@ body, html {
 	opacity:0.5;
 }
 
-.carousel-caption {
-    position: relative;
-    left: auto;
-    right: auto;
-}
-
-.carousel-control.left,
-.carousel-control.right {
-  border: none;
-}
-
-.carousel-control.left {
-  margin-left: -25px;
-}
-
-.carousel-control.right {
-  margin-right: -25px;
-}
-
-.carousel-control {
-  width: 0%;
-}
-
-
-.glyphicon-chevron-left, .glyphicon-chevron-right {
-  color: grey;
-  font-size: 40px;
-}
-
 .loader {
   position: absolute;
   left: 45%;

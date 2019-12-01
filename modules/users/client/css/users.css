@@ -26,10 +26,45 @@
 .social-button:hover {
   opacity: 0.65;
 }
-
 .glyphicon {
     font-size: 140%;
 }
 .flex-container {
 	display:flex; 
 }
+/* STUDENT APP CAROUSEL */
+.carousel-caption {
+    position: relative;
+    left: auto;
+    right: auto;
+}
+.carousel-control.left,
+.carousel-control.right {
+  border: none;
+}
+.carousel-control {
+  width: 0%;
+}
+/* since elements go from left to right, the arrow (<) needs to be shifted by its size to the left
+/* so it won't overlap with carousel */
+.carousel-control.left { 
+  margin-left: -25px;
+}
+.glyphicon-chevron-left, .glyphicon-chevron-right {
+  color: grey;
+  font-size: 40px;
+  margin-right: -15px !important; /* so its not hugging the carousel */
+}
+/* overrides bootstrap to make custom controls arrows for bigger screens*/
+@media (min-width: 450px) {
+  .carousel-control.left {
+    margin-left: -65px !important; /* bigger size means more of a left shift */
+  }
+  .glyphicon-chevron-right {
+    font-size: 450% !important; 
+  }
+  .glyphicon-chevron-left {
+    font-size: 450% !important;
+  }
+}
+
