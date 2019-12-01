@@ -15,33 +15,29 @@
 		vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
 		vm.pageChanged = pageChanged;
 		vm.selected_user = false;
-		vm.listActiveStudents = listActiveStudents;
-		vm.listDeactivatedStudents = listDeactivatedStudents;
+
 		vm.students;
 		// APPLICANTS
+		vm.listActiveStudents = listActiveStudents;
+		vm.listDeactivatedStudents = listDeactivatedStudents;
 		vm.deactivateStudent = deactivateStudent;
 		vm.activateStudent = activateStudent;
-
 		vm.manAcceptStudent = manAcceptStudent;
 		vm.displayStudent = displayStudent;
 		vm.viewForm = viewForm;
 		vm.manAcceptStudent = manAcceptStudent;
 		vm.autoAccept = autoAccept;
-
+    vm.updateOneField = updateOneField; 
 
 		// FORMS
 		vm.viewForm = viewForm;
-
 		vm.sendFormFixEmail = sendFormFixEmail;
-
 		vm.approveLetterOfRecommendation = approveLetterOfRecommendation;
 		vm.approveResume = approveResume;
 		vm.approveWaiver = approveWaiver;
 		vm.approveNDA = approveNDA;
-
 		vm.selectedNDAToUpload = '';
 		vm.selectedWaiverToUpload = '';
-
 		vm.uploadNDA = uploadNDA;
 		vm.uploadWaiver = uploadWaiver;
 
@@ -75,7 +71,29 @@
 			vm.user = user;
 			vm.selected_user = true;
 		}
+    // function to change one field using [] to access JSON field
+    /* @params
+    / @student => student (vm.user) object sent from view 
+    / @key => the field you want to change
+    / @val => the value you want to assign to field
+    */
+    function updateOneField(student,key,val) {
+      //console.log(typeof key);
+      vm.user = student;
+      vm.user[key] = val; 
+      console.log(key + " is key and value is " + vm.user[key]);
+      StudentService.updateStudent(student.user,student).then((res) => {
+       console.log("field updated: " + vm.user['phoneInterview']); // change phone interview boolean       
+      });
+    }
+		function completedStudentApps() {
+			AdminService.completedStudentApps().then(function(response){
+				const notCompleted = response.values[0] - response.values[1];
+				const Completed = response.values[1];
 
+				vm.completedStudentAppsGraph.data = [Completed, notCompleted];
+			});
+		}
 		function autoAccept() {
 			vm.loading = true;
 			AdminService.autoAccept()
@@ -361,12 +379,20 @@
 			var printContents_1 = document.getElementById(divID_1).innerHTML;
 			var printContents_2 = document.getElementById(divID_2).innerHTML;
 			var printContents = document.getElementById(divID_3).innerHTML;
-			var popup = window.open('', '_blank', 'width=300px, height=300px');
+      //console.log("printContents1: " + printContents_1);
+      /*
+      / @params
+      / '' => optional URL of the window you are loading
+      / '_blank' => URL is loaded into a new window, or tab. This is default
+      / 
+      */
+			var popup = window.open('', '_blank', 'width=900px, height=600px');
 			popup.document.open();
-			popup.document.write('<html><meta charset="UTF-8">' +
+      //popup.focus();
+			popup.document.write('<html onload="window.focus();"><meta charset="UTF-8">' +
 				'<meta name="viewport" content="width=device-width, initial-scale=1">' +
-				'<link rel="stylesheet" type="text/css" href="/modules/core/client/css/core.css" media="print">' +
-				'<link rel="stylesheet" type="text/css" href="/modules/core/client/css/bootstrap.css" media="print">' +
+				'<link rel="stylesheet" href="/modules/core/client/css/core.css" media="print">' +
+				'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">' +
 				'<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" media="print">' +
 				'<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css" media="print">' +
 				'<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" media="print">' +
@@ -380,14 +406,20 @@
 				'body {background-color: #e6f2ff;}' +
 				'.center {text-align:center;}' +
 				'</style>' +
-				//'<body>' + printContents + '</div></body></html>');
-				'<body onload="popup.print();">' + '<div style="width:33%; float:left;">' + printContents_1 + '</div>' + '<div style="width:66%; float:left;">' + printContents_2 + '</div></body></html>');
-			popup.document.close();
-			popup.focus();
-			popup.print();
+				//'<body onload="popup.print();">' + printContents + '</div></body></html>');
+				'<body onload="window.print();">' + '<div style="width:33%; float:left;">' + printContents_1 + '</div>' + '<div style="width:66%; float:left;">' + printContents_2 + '</div></body></html>');
+      popup.document.close();
+      /*
+          window.print() will trigger a print window first. However, it is blank for some reason on Chrome ONLY until you call print again. 
+          so we call print on the window again below. Then to make the 2nd print window come to the front, we call 
+          reload on the window and close the old window. There's no documentation on why Chrome is doing this, so this is works for now.
+      */
+      popup.print(); 
+      popup.location.reload(true);
+      popup.close();
 			setTimeout(function () {
-				popup.close();
-			}, 0);
+        //popup.print();
+			}, 100);
 		};
 
 		/*

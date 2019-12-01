@@ -10,6 +10,7 @@
 
 	function DashboardAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService, FileService, VolunteerService, /*AutomateService, googleDriveService,*/ $http, $sce) {
 		var vm = this;
+    vm.loading = false;
 		vm.newStudentActivity = newStudentActivity;
 		vm.completedStudentApps = completedStudentApps;
 		vm.completedStudentForms = completedStudentForms;
@@ -110,9 +111,11 @@
     vm.closeStudentApps = closeStudentApps;
     
     function closeStudentApps() {
+      vm.loading = true;
       StudentService.closeStudentApps().then((res) => {
+        vm.loading = false;
         console.log("students can no longer log in :" + res);
-        vm.appsClosed = true;
+        vm.appsClosed = !vm.appsClosed;
       })
     }
 		function completedStudentApps() {

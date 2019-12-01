@@ -325,7 +325,6 @@ a:hover .header-profile-image {
     background-color: transparent;
     color: #e5ac32;
     border: 1px solid #e5ac32;
-    width: 20%;
 }
 
 .sign-in-button-warning-sm {
@@ -686,4 +685,8 @@ body, html {
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
     right: 0px;
+}
+/* this is to stop ng-if and ng-show from flickering when changing */
+.ng-hide.ng-hide-animate {
+display: none !important;
 }

@@ -26,7 +26,8 @@ var appsClosed = false;
     }
   });
 };*/
-  
+
+// gets whether the apps have been closed by admin or not
 exports.checkAppsClosed = function(req,res) {
     
     let appsClosedJSON = {
@@ -35,8 +36,15 @@ exports.checkAppsClosed = function(req,res) {
     console.log("apps status: " + appsClosed);
     res.json(appsClosedJSON);
 };
-
+// function to close student apps
 exports.closeStudentApps = function(req, res) {
+  appsClosed = !appsClosed;
+  console.log('apps are changed: '+ appsClosed);
+  res.send(200, {"result": false});
+};
+
+// function to close student apps
+exports.changePhoneInterview = function(req, res) {
   appsClosed = !appsClosed;
   console.log('apps are changed: '+ appsClosed);
   res.send(200, {"result": false});
@@ -62,8 +70,11 @@ exports.create = function(req, res) {
   student.indivRanks = [null, null, null];
   student.interviewRank = [null, null, null];
   student.interviewerID = [null, null, null];
+  student.phoneInterview = false; // whether student has been choosen for interview
   student.mentor = null;
   student.mentorID = null;
+  student.schoolID = null;
+  student.graduationDate = null;
   student.mentor_email = null;
   student.track = null;
   student.ResumeId = null;
@@ -144,14 +155,12 @@ exports.getStudentByUsername = function(req, res){
  * Update a Student
  */
 exports.update = function(req, res) {
-  console.log("Student update")
   //var student = new Student(req.body);
   console.log("Student update req ",req.body);
   //console.log("YOYO: ",student);
 
   Student.findOneAndUpdate({user: req.body.user}, req.body, {upsert: false}).then(function(data){
-    console.log("YOYO DATA: ",data);
-
+    console.log("USER DATA: ",data);
     res.json(data);
   })
 
@@ -175,14 +184,11 @@ exports.delete = function(req, res) {
   });*/
 };
 
-
-
-
 /**
  * List of Students
  */
 exports.list = function(req, res) {
-  Student.find({active: {$ne: false } }).sort('-created').populate('user', 'displayName').exec(function(err, students) {
+  Student.find({active: {$ne: false } }).collation({ locale: "en" }).sort('application.lastName').populate('user', 'displayName').exec(function(err, students) {
     if (err) {
       console.log(err);
       return res.status(400).send({
@@ -197,7 +203,7 @@ exports.list = function(req, res) {
 
 exports.listActive = function (req, res) {
   console.log("In server list all students");
-  Student.find({active: true}).sort('-created').exec().then(function (students) {
+  Student.find({active: true}).collation({ locale: "en" }).sort('application.lastName').exec().then(function (students) {
       res.json(students);
   }, function(err){
     if (err) {
@@ -209,7 +215,7 @@ exports.listActive = function (req, res) {
 };
 
 exports.listActiveWithoutForms = function(req, res) {
-  Student.find({active: true, isFormSubmitted: false}).sort('-created').exec().then(function (students) {
+  Student.find({active: true, isFormSubmitted: false}).collation({ locale: "en" }).sort('application.lastName').exec().then(function (students) {
       res.json(students);
     }, function(err){
       if (err) {
@@ -222,7 +228,7 @@ exports.listActiveWithoutForms = function(req, res) {
 
 exports.listDeactivated = function (req, res) {
   console.log("In server list all students");
-  Student.find({active: false}).sort('-created').exec().then(function (students) {
+  Student.find({active: false}).collation({ locale: "en" }).sort('application.lastName').exec().then(function (students) {
       res.jsonp(students);
   }, function(err){
     if (err) {
@@ -234,7 +240,7 @@ exports.listDeactivated = function (req, res) {
 };
 
 exports.listNonActiveWithoutForms = function(req, res) {
-  Student.find({active: false, isFormSubmitted: false}).sort('-created').exec().then(function (students) {
+  Student.find({active: false, isFormSubmitted: false}).collation({ locale: "en" }).sort('application.lastName').exec().then(function (students) {
       res.json(students);
     }, function(err){
       if (err) {
@@ -246,7 +252,7 @@ exports.listNonActiveWithoutForms = function(req, res) {
 };
 
 exports.listAccepted = function(req, res) {
-  Student.find({ timeSlot: {$size: 1}, mentor: {$ne: ""} } ).sort('-created').populate('user', 'displayName').exec().then(function (students) {
+  Student.find({ timeSlot: {$size: 1}, mentor: {$ne: ""} } ).collation({ locale: "en" }).sort('application.lastName').populate('user', 'displayName').exec().then(function (students) {
       res.jsonp(students);
   }, function(err){
     if (err) {

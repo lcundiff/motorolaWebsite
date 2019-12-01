@@ -1,6 +1,15 @@
 <html>
 <title>Admin Dashboard</title>
 <section>
+<style>
+  /* this is to stop ng-if and ng-show from flickering when changing */
+  .ng-leave {
+      display:none !important;
+  }
+</style>
+<div id="overlay" ng-show="vm.loading">
+  <div class="loader"></div>
+</div>
 <nav role="navigation" class="navbar navbar-custom navbar-static-top">
 <div class="container-fluid">
     <h3 class="navbar-text">Dashboard</h3>
@@ -15,7 +24,8 @@
     <div class="container">
     <div class="row">
       <center>
-      <button ng-click="vm.closeStudentApps()" style=""class="sign-button sign-in-button">Close Applications</button>
+      <button ng-if="!vm.appsClosed" ng-click="vm.closeStudentApps()" style=""class="sign-button sign-in-button-warning">Close Applications</button>
+      <button ng-if="vm.appsClosed" ng-click="vm.closeStudentApps()" style=""class="sign-button sign-in-button">Open Applications</button>
       </center>
     </div>
   </div>

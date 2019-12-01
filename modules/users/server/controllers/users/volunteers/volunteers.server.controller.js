@@ -131,7 +131,7 @@ exports.delete = function(req, res) {
  * List of Volunteers
  */
 exports.list = function(req, res) {
-  Volunteer.find({ active: true }).sort('-created').populate('user', 'displayName').exec(function(err, volunteers) {
+  Volunteer.find({ active: true }).collation({ locale: "en" }).sort('application.lastName').populate('user', 'displayName').exec(function(err, volunteers) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -143,7 +143,7 @@ exports.list = function(req, res) {
 };
 
 exports.listMentors = function(req, res) {
-  Volunteer.find({ active: true, roles: "mentor" }).sort('-created').exec(function(err, volunteers){
+  Volunteer.find({ active: true, roles: "mentor" }).collation({ locale: "en" }).sort('application.lastName').exec(function(err, volunteers){
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -155,7 +155,7 @@ exports.listMentors = function(req, res) {
 };
 
 exports.listAll = function (req, res) {
-  Volunteer.find().sort('-created').populate('user', 'displayName').exec(function (err, volunteers) {
+  Volunteer.find().collation({ locale: "en" }).sort('application.lastName').populate('user', 'displayName').exec(function (err, volunteers) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -172,7 +172,7 @@ console.log("updateRank");
 };
 
 exports.listDeactivated = function (req, res) {
-  Volunteer.find({active:false}).sort('-created').populate('user', 'displayName').exec(function (err, volunteers) {
+  Volunteer.find({active:false}).collation({ locale: "en" }).sort('application.lastName').populate('user', 'displayName').exec(function (err, volunteers) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

@@ -71,7 +71,6 @@
         }
       });
 
-
     angular.extend(Students, {
       checkAppsClosed: function() {
         return this.check_apps_closed().$promise;

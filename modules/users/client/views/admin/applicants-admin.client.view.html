@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+  <!-- why is font awesome not showing up unless linked directly? -->
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
 <title>Applicants</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +32,7 @@
     </div>
     </div>
   </nav>
-  <!-- The Modal -->
+  <!----------------------------  The Modal ------------------------------>
   <div id="myModal" class="modal"> 
     <!-- Modal content -->
     <div class="modal-content"> <span class="close" ng-click="closeModal('myModal')">&times;</span> 
@@ -39,7 +42,7 @@
         <div class="row">
           <div class="w3-display-container">
             <div class="container">
-              <button style="margin-botton: 8px; width:175px;" class="selection-btn selection-btn-primary" ng-click="printResume('resumeContent_1', 'resumeContent_2', 'resumeContent')">Print Application</button>
+              <button style=" width:175px;" class="selection-btn selection-btn-primary" ng-click="printResume('resumeContent_1', 'resumeContent_2', 'resumeContent')">Print Application</button>
             </div>
           </div>
           <hr />
@@ -64,29 +67,31 @@
                 </center>
                 <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
                 <center>
-                  <h6><i class="fa fa-home fa-fw w3-margin-right w3-large"></i></h6>
-                  <h6>{{vm.user.application.address.line_1}} {{vm.user.application.address.line_2}}, {{vm.user.application.address.city}}, {{vm.user.application.address.state}} {{vm.user.application.address.zipcode}}</h6>
+                  <h6><i class="fa fa-home fa-lg w3-margin-right "></i>
+                  {{vm.user.application.address.line_1}} {{vm.user.application.address.line_2}}, {{vm.user.application.address.city}}, {{vm.user.application.address.state}} {{vm.user.application.address.zipcode}}</h6>
                 </center>
                 <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
                 <center>
-                  <h6><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i></h6>
-                  <h6>{{vm.user.application.email}}</h6>
+                  <h6><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i>
+                  {{vm.user.application.email}}</h6>
                 </center>
                 <center>
-                  <h6><i class="fa fa-phone fa-fw w3-margin-right w3-large"></i></h6>
-                  <h6>{{vm.user.application.phone}}</h6>
+                  <h6><i class="fa fa-phone fa-fw w3-margin-right w3-large"></i>
+                  {{vm.user.application.phone}}</h6>
                 </center>
                 <center>
-                  <h6><i class="fa fa-university fa-fw w3-margin-right w3-large"></i></h6>
-                  <h6>{{vm.user.application.school}}</h6>
+                  <h6><i class="fa fa-university fa-fw w3-margin-right w3-large"></i>
+                  {{vm.user.application.school}}</h6>
                 </center>
                 <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
                 <center>
                   <h6 class="w3-text-black"><b>Parent Information</b></h6>
-                  <h6><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i></h6>
-                  <h6>{{vm.user.application.parent.name}}</h6>
-                  <h6 class="w3-text-black"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i></h6>
-                  <h6>{{vm.user.application.parent.email}}</h6>
+                  <h6><i class="fa fa-briefcase fa-fw w3-margin-right w3-large"></i>
+                  {{vm.user.application.parent.name}}</h6>
+                  <h6 class="w3-text-black"><i class="fa fa-phone fa-fw w3-margin-right w3-large"></i>
+                  {{vm.user.application.parent.phone}}</h6>
+                  <h6 class="w3-text-black"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i>
+                  {{vm.user.application.parent.email}}</h6>
                 </center>
                 <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
                 <center>
@@ -231,6 +236,20 @@
               </div>
               <hr class="section-divider" />
               <div ng-show="!vm.user.isNDASubmitted && !vm.user.isWaiverSubmitted && !vm.user.isResumeSubmitted && !vm.user.isLetterofRecommendationSubmitted"> The student has not uploaded any forms yet. </div>
+              <div class="row">
+                <center>
+                  <button class="selection-btn selection-btn-primary" ng-click="openModal(vm.user, 'myModal')">View Application</button>
+                  <button ng-if="vm.user.ResumeId !== null || vm.user.ResumeId !== '' " ng-click="vm.viewForm(vm.user.ResumeId)" class="selection-btn selection-btn-primary">View Resume</button>
+                </center>
+              </div>
+              <div >
+                <center>
+                  <h6 style="font-weight: bold;">Preferred Sessions</h6>
+                  <div ng-bind-template="1. Session {{vm.user.application.preferredSession1}}"></div>
+                  <div ng-bind-template="2. Session {{vm.user.application.preferredSession2}}"></div>
+                  <div ng-bind-template="3. Session {{vm.user.application.preferredSession3}}"></div>
+                </center>
+              </div>
               <div  ng-show="vm.user.isNDASubmitted">
                 <h6 align="center">NDA<i class="glyphicon glyphicon-ok" ng-if="vm.user.isNDASubmitted === true && vm.user.isNDAAdminApproved === false" style="color:orange"></i><i class="glyphicon glyphicon-ok" ng-if="vm.user.isNDASubmitted === true && vm.user.isNDAAdminApproved === true" style="color:green"></i></h6>
                 <div class="col-xs-6">
@@ -294,6 +313,10 @@
                 </div>
               </div>
               <hr class="section-divider" />
+              <div>
+              <button ng-if="!(vm.user['phoneInterview'])" class="selection-btn selection-btn-primary" ng-click="vm.updateOneField(vm.user,'phoneInterview',true)">Give Phone Interview</button>
+              <button ng-if="(vm.user['phoneInterview'])" class="selection-btn selection-btn-danger" ng-click="vm.updateOneField(vm.user,'phoneInterview',false)">Retract Phone Interview</button>
+              </div>
               <!--
               <div>
                 <center>
@@ -305,14 +328,7 @@
               </div>
               <hr class="section-divider" />
 			 -->
-              <div >
-                <center>
-                  <h6 style="font-weight: bold;">Preferred Sessions</h6>
-                  <div ng-bind-template="1. Session {{vm.user.application.preferredSession1}}"></div>
-                  <div ng-bind-template="2. Session {{vm.user.application.preferredSession2}}"></div>
-                  <div ng-bind-template="3. Session {{vm.user.application.preferredSession3}}"></div>
-                </center>
-              </div>
+
               <div >
                 <center>
                   <h6 style="font-weight: bold;">Interview Rankings</h6>
@@ -332,12 +348,7 @@
                 </center>
               </div>
               <hr class="section-divider" />
-              <div class="row">
-                <center>
-                  <button class="selection-btn selection-btn-primary" ng-click="openModal(vm.user, 'myModal')">View Application</button>
-                  <button ng-if="vm.user.ResumeId !== null || vm.user.ResumeId !== '' " ng-click="vm.viewForm(vm.user.ResumeId)" class="selection-btn selection-btn-primary">View Resume</button>
-                </center>
-              </div>
+
               <element ng-switch="vm.user.active">
                 <element ng-switch-when=true>
                   <hr style="width: 100%; color: #ccc; height: 1px; background-color:#ccc;" />
