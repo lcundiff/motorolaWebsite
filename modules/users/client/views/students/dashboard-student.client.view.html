@@ -1,19 +1,19 @@
 
-<title>Student Dashboard</title>	
+<title>Student Dashboard</title>
 <meta charset="UTF-8">
 
 <body>
-  <div id="overlay" ng-show="vm.loading">
-        <div class="loader"></div>
-    </div>
-  <div id="tutorial-overlay" ng-show="vm.tutorial.toggle" >
+<div id="overlay" ng-show="vm.loading">
+  <div class="loader"></div>
+</div>
+<div id="tutorial-overlay" ng-show="vm.tutorial.toggle" > </div>
+<nav role="navigation" class="navbar navbar-custom navbar-static-top">
+  <div class="container-fluid" ng-switch="vm.submitIsUpdate">
+    <h5 class="navbar-text">Welcome {{vm.authentication.user.displayName}} </h5>
+     <h5 style="float:right;" class="navbar-text">Applications Due April 22nd 2019</h5>
   </div>
-    <nav role="navigation" class="navbar navbar-custom navbar-static-top">
-      <div class="container-fluid" ng-switch="vm.submitIsUpdate">
-		<h5 class="navbar-text">Welcome {{vm.authentication.user.displayName}} </h5>
-      </div>
-    </nav>
-<!-- below header --> 
+</nav>
+<!-- below header -->
 <div class="jumbotron row" style="min-height:100%;">
   <div class="col-lg-3 " style=""> 
     <!-- profile picturee -->
@@ -92,10 +92,10 @@
             </div>
           </div>
           <div ui-sref="student.forms" align="center" class=""> <img class="opaque green-hover" src="/modules/core/client/img/form2.png" style= "display: block; margin-bottom:1rem; max-width:80%; height:14em;" alt="formNotCompleted">
-             <label style="margin-bottom: 5rem; letter-spacing:3px;" ng-if="vm.credentials.areFormsStudentApproved == true && vm.credentials.areFormsAdminApproved == false" >Waiting On Admin Approval</label>							
-              <!-- when students have submitted but NOT verified -->
-              <label style="margin-bottom: 5rem; letter-spacing:3px;" ng-if= "vm.credentials.isNDASubmitted == false || vm.credentials.isResumeUploaded == false || vm.credentials.isWaiverUploaded == false || vm.credentials.isLetterofRecommendationUploaded == false" >Please Upload Forms</label>
-              <label style="margin-bottom: 5rem; letter-spacing:3px;"  ng-if="vm.credentials.areFormsStudentApproved == false && vm.credentials.isNDAUploaded == true && vm.credentials.isResumeUploaded == true && vm.credentials.isWaiverUploaded == true && vm.credentials.isLetterofRecommendationUploaded == true">Please Verify Your Forms)</label>			            
+            <label style="margin-bottom: 5rem; letter-spacing:3px;" ng-if="vm.credentials.areFormsStudentApproved == true && vm.credentials.areFormsAdminApproved == false" >Waiting On Admin Approval</label>
+            <!-- when students have submitted but NOT verified -->
+            <label style="margin-bottom: 5rem; letter-spacing:3px;" ng-if= "vm.credentials.isNDASubmitted == false || vm.credentials.isResumeUploaded == false || vm.credentials.isWaiverUploaded == false || vm.credentials.isLetterofRecommendationUploaded == false" >Please Upload Forms</label>
+            <label style="margin-bottom: 5rem; letter-spacing:3px;"  ng-if="vm.credentials.areFormsStudentApproved == false && vm.credentials.isNDAUploaded == true && vm.credentials.isResumeUploaded == true && vm.credentials.isWaiverUploaded == true && vm.credentials.isLetterofRecommendationUploaded == true">Please Verify Your Forms)</label>
           </div>
         </div>
       </div>
@@ -105,7 +105,7 @@
     <!-- end of forms TO DO --> 
   </div>
   <div class="col-lg-4 col-lg-offset-1 " ng-if="(vm.appsClosed)" >
-  <h2><b>Apps are Closed</b></h2>
+    <h2><b>Apps are Closed</b></h2>
   </div>
   <div class="col-lg-4 col-lg-offset-1 ">
     <div class="">
