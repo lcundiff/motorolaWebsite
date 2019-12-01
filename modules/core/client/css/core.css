@@ -686,7 +686,4 @@ body, html {
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
     right: 0px;
 }
-/* this is to stop ng-if and ng-show from flickering when changing */
-.ng-hide.ng-hide-animate {
-display: none !important;
-}
+
