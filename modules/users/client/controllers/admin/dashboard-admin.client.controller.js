@@ -108,6 +108,7 @@
     
     vm.appsClosed = false;
     vm.closeStudentApps = closeStudentApps;
+    
     function closeStudentApps() {
       StudentService.closeStudentApps().then((res) => {
         console.log("students can no longer log in :" + res);

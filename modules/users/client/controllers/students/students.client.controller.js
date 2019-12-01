@@ -17,14 +17,15 @@
     };
 
     vm.tutorialPlay = tutorialPlay;
-
+    vm.closeApps = closeApps;
+    vm.closeApps(); // run this on load to find if apps are closed  
     vm.loading = false;
     vm.student;
     vm.credentials;
     vm.authentication = Authentication;
-	$scope.sessions = ["Session 1 (6/25/18 - 6/29/18)", "Session 2 (7/23/18 - 7/27/18)", "Session 3 (8/6/18 - 8/10/18)"];
+	  $scope.sessions = ["Session 1 (6/25/18 - 6/29/18)", "Session 2 (7/23/18 - 7/27/18)", "Session 3 (8/6/18 - 8/10/18)"];
     vm.updateStudent = updateStudent;
-	vm.saveApp = saveApp;
+	  vm.saveApp = saveApp;
     vm.remove = remove;
 
     vm.uploadResume = uploadResume;
@@ -49,6 +50,16 @@
     vm.addProfessionalExperiences = addProfessionalExperiences;
     vm.editProfessionalExperience = editProfessionalExperience;
     vm.removeProfessionalExperience = removeProfessionalExperience;
+    
+    // checks if apps are closed on backend (student controller)
+    function closeApps(){
+      StudentService.checkAppsClosed().then(function(res){
+        console.log("app status: " + res.appsClosed);
+        vm.appsClosed = res.appsClosed;
+        
+      });
+      console.log("apps closed boolean: " + vm.appsClosed);
+    }
 
     StudentService.getStudentByUsername(vm.authentication.user.username).then(function(data){
       if(data.message === undefined){

@@ -22,7 +22,7 @@
     </div>
   </div>
   <!--- TO DOS -->
-  <div class="col-lg-4">
+  <div ng-if="!(vm.appsClosed)"  class="col-lg-4">
     <div  ng-switch="vm.submitIsUpdate"> 
       
       <!--  blue block -->
@@ -103,6 +103,9 @@
       
     </div>
     <!-- end of forms TO DO --> 
+  </div>
+  <div class="col-lg-4 col-lg-offset-1 " ng-if="(vm.appsClosed)" >
+  <h2><b>Apps are Closed</b></h2>
   </div>
   <div class="col-lg-4 col-lg-offset-1 ">
     <div class="">

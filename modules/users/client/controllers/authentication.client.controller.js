@@ -29,17 +29,15 @@
     if (vm.authentication.user) {
       $location.path('/');
     }
-    
+    // checks if apps are closed on backend (student controller)
     function appsAreClosed(){
-      let appsClosedBoolean = StudentService.checkAppsClosed().then((appsClosed)=>{
-        console.log("apps closed : " + appsClosed.result);
-        return appsClosed.result;
+      StudentService.checkAppsClosed().then(function(res){
+        console.log("app status: " + res.appsClosed);
+        vm.appsClosed = res.appsClosed;
+        
       });
-      console.log("apps closed boolean: " + appsClosedBoolean;
-      vm.appsClosed = appsClosedBoolean;
+      console.log("apps closed boolean: " + vm.appsClosed);
     }
-
-      
     
 	  // volunteer sign up
     function signup(isValid) {
@@ -59,7 +57,10 @@
           .catch(onUserSignupError);
      // });
     }
-
+    /*
+    / @params 
+    / @isValid comes from the angularjs invalid form attribute that checks for validity in the html form
+    */
     function studentSignUp(isValid) {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
@@ -73,15 +74,16 @@
       .then(onUserSignupSuccess)
       .catch(onUserSignupError);
     }
-
+    /*
+    / @params 
+    / @isValid comes from the angularjs invalid form attribute that checks for validity in the html form
+    */
     function signin(isValid) {
 
-      if (!isValid) {
+      if (!isValid) { // 
         $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
-
         return false;
       }
-
       UsersService.userSignin(vm.credentials)
         .then(onUserSigninSuccess)
         .catch(onUserSigninError);
