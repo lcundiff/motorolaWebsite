@@ -69,53 +69,62 @@
       user.firstName = vm.credentials.application.firstName;
       user.lastName = vm.credentials.application.lastName;
       user.email = vm.credentials.application.email;
-      user.displayName = vm.credentials.application.firstName + ' ' + vm.credentials.application.lastName
-      user.password = 'Password123!'
-      
-      console.log("1. next line call users service ")
+      user.displayName = vm.credentials.application.firstName + ' ' + vm.credentials.application.lastName;
+      user.password = "Motorola1!"
+      if(vm.roles === "m") { user.roles = ['volunteer', 'mentor'];}
+      else if(vm.roles === "i"){ user.roles  = ['volunteer', 'interviewer'] }
+      else if(vm.roles === "mi"){ user.roles  = ['volunteer', 'interviewer', 'mentor'];}
+  
       UsersService.volunteerSignup(user).then(function(user){
-        console.log("function called after calling User volunteer signup: data : ", user)
         createVolunteer(user)
       }).catch(onVolunteerSubmissionError);
 
     }
     //then the volunteer is created
     function createVolunteer(user){    
-      console.log("3. User should be created. ")
       var volunteer = {};
+      //QUESTION: If admin is creating volunteer app, how would admin know if the volunteer app is complete?
+      volunteer.isAppComplete = true;
+      volunteer.user = user._id;
+      volunteer.username = vm.credentials.application.username;
+
       var address ={
         "line_1": vm.credentials.application.address.line_1 ,
         "line_2" : vm.credentials.application.address.line_2,
-        "city":vm.credentials.application.address.city,
+        "city": vm.credentials.application.address.city,
         "state":vm.credentials.application.address.state,
         "zipcode": vm.credentials.application.address.zipcode
       }
-      console.log("adding user._id ", user._id);
-      volunteer.user = user._id;
-      volunteer.username = vm.credentials.application.username;
-      volunteer.firstName = vm.credentials.application.firstName;
-      volunteer.lastName = vm.credentials.application.lastName;
-      volunteer.email = vm.credentials.application.email;
+      volunteer.application = vm.credentials.application;
+      volunteer.application.firstName = vm.credentials.application.firstName;
+      volunteer.application.lastName = vm.credentials.application.lastName;
+      volunteer.application.email = vm.credentials.application.email;
+      volunteer.application.areaofexpertise = vm.credentials.application.areaofexpertise;
+      volunteer.application.address = address;
+      volunteer.application.phone = vm.credentials.application.phone
+
+      volunteer.application.sessions = [];
+      volunteer.sessions = [];
       volunteer.areaofexpertise = vm.credentials.application.areaofexpertise;
-      volunteer.address = address;
-      volunteer.phone = vm.credentials.application.phone
-      volunteer.roles = ['volunteer']
-      console.log("4. about to create new volunteer ")
+      if(vm.sessions_1 === true){ volunteer.application.sessions.push("1"); volunteer.sessions.push("1");};
+      if(vm.sessions_2 === true){ volunteer.application.sessions.push("2"); volunteer.sessions.push("2");};
+      if(vm.sessions_3 === true){ volunteer.application.sessions.push("3"); volunteer.sessions.push("3");};
+
+      if(vm.roles === "m") { volunteer.application.roles = ['volunteer', 'mentor']; volunteer.roles = ['volunteer', 'mentor']; }
+      else if(vm.roles === "i"){ volunteer.application.roles  = ['volunteer', 'interviewer']; volunteer.roles  = ['volunteer', 'interviewer'] }
+      else if(vm.roles === "mi"){ volunteer.application.roles  = ['volunteer', 'interviewer', 'mentor']; volunteer.roles  = ['volunteer', 'interviewer', 'mentor'];}
+
       VolunteerService.createVolunteer(volunteer).then(onVolunteerSubmissionSuccess).catch(onVolunteerSubmissionError);
+      //clear form so another user + volunteer can be added
       document.getElementById("volunteerForm").reset();
     }
 
-
     function onVolunteerSubmissionSuccess(response) {
       // If successful we assign the response to the global user model
-
       vm.authentication.student = response;
       vm.loading = false;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Volunteer submission successful.' });
-      // And redirect to the previous or home page
-      //$state.go($state.previous.state.name || 'home', $state.previous.params);
     }
-
     function onVolunteerSubmissionError(response) {
       vm.loading = false;
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Volunteer submission error.', delay: 6000 });

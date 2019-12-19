@@ -19,19 +19,17 @@ var path = require('path'),
 
 exports.create = function(req, res) {
 
-    console.log("req.body: ",req.body);
     var volunteer = new Volunteer(req.body);
-
+  
     volunteer.application = volunteer.application;
-    volunteer.application.firstName = req.body.firstName;
-    volunteer.application.lastName = req.body.lastName;
-    volunteer.application.email = req.body.email;
-    volunteer.application.user = req.body.user;
-    volunteer.application.address = req.body.address;
-    volunteer.application.username = req.body.username;
-    volunteer.roles = req.body.roles;
+
     volunteer.user = req.body.user;
-    volunteer.isAppComplete = false;
+    volunteer.username = req.body.username;
+    volunteer.roles = req.body.roles;
+    volunteer.sessions = req.body.sessions;
+    volunteer.isAppComplete = req.body.isAppComplete;
+    volunteer.areaofexpertise = req.body.areaofexpertise
+
     volunteer.mentee = [];
     volunteer.mentee_count_sess_1 = 0;
     volunteer.mentee_count_sess_2 = 0;
@@ -40,9 +38,7 @@ exports.create = function(req, res) {
     volunteer.interviewee = [];
     volunteer.intervieweeID = [];
     volunteer.interviewee_count = 0;
-    volunteer.sessions = [];
     volunteer.active = true;
-    volunteer.areaofexpertise = req.body.areaofexpertise
 
     volunteer.save(function(err) {
       if (err) {
@@ -50,10 +46,7 @@ exports.create = function(req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        //SYDNEY must implement User service to create volunteer then call the 
-        console.log("5. created a volunteer ")
-        console.log("saved this volunteer to db ", volunteer.username, volunteer.roles)
-        updateUserVolunteerRoles(volunteer.username, volunteer.roles)
+        console.log("Volunteer added to db: ", volunteer)
         res.jsonp(volunteer);
       }
     });
@@ -102,14 +95,6 @@ User.findOne({username: req.body.username}).then(function(user){
   res.status(200).send({ message: true});
 });
 };
-
-function updateUserVolunteerRoles(username, roles){
-
-  User.findOneAndUpdate({username: username}, {roles: roles}, {upsert: true}).then(function(userData){
-    console.log("updated user data: ",userData);
-    return userData;
-  });
-} 
 
 /**
  * Delete a Volunteer

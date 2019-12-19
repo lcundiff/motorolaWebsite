@@ -54,15 +54,12 @@ var noReturnUrls = [
      
     return user.save(function (err) {
     if (err) {
-      return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
-      });
+      res.status(400).send(err);
     } else {
-      // Remove sensitive data before login
-      //user.password = undefined;
-      //user.salt = undefined;
-      console.log('2. created new user')
-      console.log("saved new user , user._id == ", user._id)
+      //Remove sensitive data before login
+      user.password = undefined;
+      user.salt = undefined;
+      console.log("Added user to db: ", user)
       res.json(user);
     }
   });
@@ -70,7 +67,6 @@ var noReturnUrls = [
 
 exports.signup = function (req, res) {
   // For security measurement we remove the roles from the req.body object
-  
   var token;
   var user;
   var p1 = Promise.resolve(token = req.body.userReqId);
@@ -78,7 +74,6 @@ exports.signup = function (req, res) {
 
   Promise.all([p1]).then(function([p1]){
     delete req.body.userReqId;
-
     UserReq.findOne({ 'signupLinkToken': token}).then(async function(userReq){
       console.log("userReq: ",userReq);
       await(req.body.roles = userReq.roles);
