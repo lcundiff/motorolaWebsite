@@ -51,7 +51,7 @@
 
        		return false;
 		}
-	
+        //should this be volunteer sign up?
         UsersService.studentSignup(vm.credentials)
           .then(onUserSignupSuccess)
           .catch(onUserSignupError);
@@ -102,6 +102,7 @@
     // Authentication Callbacks
 
     function onUserSignupSuccess(response) {
+      console.log("response authentication ", response)
       if(response.roles.indexOf('student') !== -1){
 
         var student = {};
@@ -124,7 +125,7 @@
         volunteer.firstName = response.firstName;
         volunteer.lastName = response.lastname;
         volunteer.email = response.email;
-
+        //SYD Is this necessary now that volunteers do not create their own volunteer
         VolunteerService.createVolunteer(volunteer);
 		// If successful we assign the response to the global user model
         vm.authentication.user = response;	

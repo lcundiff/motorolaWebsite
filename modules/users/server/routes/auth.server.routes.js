@@ -20,6 +20,7 @@ module.exports = function (app) {
   app.route('/api/auth/sendSignup').post(users.signupLink);
   app.route('/api/auth/signup/:token').get(users.validateSignupToken);
   app.route('/api/auth/signup').post(users.signup);
+  app.route('/api/auth/signup/volunteer').post(users.volunteerSignup);
   app.route('/api/auth/signup/student').post(users.studentSignup);
   app.route('/api/auth/signup-request').post(users.requestLink);
   app.route('/api/auth/signin').post(users.signin);

@@ -52,6 +52,7 @@ SignupController.$inject = ['$scope', '$stateParams', 'UsersService', '$location
     }
 
     // Change user password
+    //this function is never used? is it unnecessary or a typo
     function signupStu(isValid) {
 
       if (!isValid) {
