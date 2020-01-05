@@ -235,15 +235,13 @@
 		}
   function updateSchools() {
     var inputFile = document.getElementById("school_upload");
-    if(inputFile){
-        
+    if(inputFile.files[0]){
       let csv = inputFile.files[0]; 
       
       var reader = new FileReader();
       
       reader.onload = function(event) {
         let csv = event.target.result;
-        console.log(csv);
         var lines = csv.split("\n");
         var result = [];
         var headers = lines[0].split(",");
@@ -269,6 +267,10 @@
     else{
       AdminService.updateSchools(vm.schoolForm.schoolName).then(function(response){
         console.log('school update success'); 
+        document.getElementById("schoolForm").reset();
+        Notification.success({
+          message: '<i class="glyphicon glyphicon-ok"></i>School Submission Successful.'
+			  });
       });      
     }
 
