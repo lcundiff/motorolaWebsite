@@ -18,7 +18,9 @@
 
     vm.tutorialPlay = tutorialPlay;
     vm.closeApps = closeApps;
-    vm.closeApps(); // run this on load to find if apps are closed  
+    vm.closeApps(); // run this on load to find if apps are closed
+    vm.getSchools = getSchools;
+    vm.getSchools(); // load list of schools on load, so they'll be loaded when student picks school
     vm.loading = false;
     vm.student;
     vm.credentials;
@@ -51,6 +53,16 @@
     vm.editProfessionalExperience = editProfessionalExperience;
     vm.removeProfessionalExperience = removeProfessionalExperience;
     
+    
+    function getSchools(){
+      StudentService.getSchools().then((res) => {
+        $scope.schools = res.schools; 
+        //if(!err){
+        //}
+        console.log(res.schools);
+        
+      });
+    }
     // checks if apps are closed on backend (student controller)
     function closeApps(){
       StudentService.checkAppsClosed().then(function(res){

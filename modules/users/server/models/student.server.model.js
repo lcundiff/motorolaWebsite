@@ -292,6 +292,7 @@ var StudentSchema = new Schema({
     type: String
   }
 });*/
-
 //mongoose.model('studentUpdates', studentUpdates);
+
 mongoose.model('Student', StudentSchema);
+mongoose.model('OldStudent', StudentSchema,'oldStudents');     // collection name

@@ -84,6 +84,7 @@
     "helmet": "^3.8.2",
     "imagemin-pngquant": "~6.0.0",
     "jasmine-core": "~3.0.0",
+    "jquery-csv": "^1.0.8",
     "lodash": "~4.17.5",
     "lusca": "~1.5.1",
     "method-override": "^2.3.10",

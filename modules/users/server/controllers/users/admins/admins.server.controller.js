@@ -5,6 +5,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Admin = mongoose.model('Admin'),
+  School = mongoose.model('School'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 /**
@@ -121,3 +122,4 @@ exports.adminByID = function(req, res, next, id) {
     next();
   });
 };
+

@@ -20,6 +20,7 @@
 		// APPLICANTS
 		vm.listActiveStudents = listActiveStudents;
 		vm.listDeactivatedStudents = listDeactivatedStudents;
+    vm.listOldStudents = listOldStudents;
 		vm.deactivateStudent = deactivateStudent;
 		vm.activateStudent = activateStudent;
 		vm.manAcceptStudent = manAcceptStudent;
@@ -270,7 +271,14 @@
 				console.log("dat1a: ", data);
 				vm.students = data;
 				vm.selected_user = false;
-				//vm.selected_user = false;
+				await (vm.buildPager());
+			});
+		}
+		function listOldStudents() {
+			StudentService.oldStudentList().then(async function (data) {
+				console.log("dat1a: ", data);
+				vm.students = data;
+				vm.selected_user = false;
 				await (vm.buildPager());
 			});
 		}

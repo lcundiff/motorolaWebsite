@@ -85,6 +85,10 @@
       get_completed_volunteer_apps: {
         method: 'GET',
         url: '/api/analytics/completedVolunteerApps'
+      },
+      update_schools: {
+        method: 'PUT',
+        url: '/api/updateSchools'
       }
     });
 
@@ -120,7 +124,6 @@
         return this.auto_accept().$promise;
       },
       updateUserReq: function(reqId, userReq) {
-        console.log('here');
         return this.update_userreq({
           reqId: reqId
         }, userReq).$promise;
@@ -160,6 +163,11 @@
         return this.man_accept_student(
           {sessionNum: sessionNum
         }, student).$promise;
+      },
+      updateSchools: function (schoolName) {
+         return this.update_schools(
+          {name: schoolName
+        }).$promise;
       }
     });
 

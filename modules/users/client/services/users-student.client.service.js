@@ -22,7 +22,6 @@
           method: 'PUT',
           url: '/api/students/create'
         },
-
         update_student: {
           method: 'PUT',
           url: '/api/students/update/:userId'
@@ -46,6 +45,11 @@
           isArray: true,
           url: '/api/students/listActive'
         },
+        list_old: {
+          method: 'GET',
+          isArray: true,
+          url: '/api/students/listOld'
+        },
         list_accepted: {
           method: 'GET',
           isArray: true,
@@ -68,7 +72,11 @@
         check_apps_closed: {
           method: 'GET',
           url: '/api/students/checkApps'
-        }
+        },
+      get_schools: {
+        method:'GET',
+        url: '/api/getSchools'
+      }
       });
 
     angular.extend(Students, {
@@ -118,6 +126,12 @@
       },
       studentListNonActiveWithoutForms: function(){
         return this.non_active_no_forms().$promise;
+      },
+     oldStudentList: function(){
+        return this.list_old().$promise;
+      },
+      getSchools: function () {
+         return this.get_schools().$promise;
       }
     });
 
