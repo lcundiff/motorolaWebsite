@@ -242,12 +242,12 @@
       
       reader.onload = function(event) {
         let csv = event.target.result;
-        var lines = csv.split("\n");
-        var result = [];
-        var headers = lines[0].split(",");
+        let lines = csv.split("\n");
+        let result = [];
+        let headers = lines[0].split(",");
         for (var i = 1; i < lines.length - 1; i++) {
-            var obj = {};
-            var currentline = lines[i].split(",");
+            let obj = {};
+            let currentline = lines[i].split(",");
             for (var j = 0; j < headers.length; j++) {
                 obj[headers[j]] = currentline[j];
             }
@@ -259,18 +259,16 @@
            AdminService.updateSchools(result[i][name]).then(function(response){
             console.log('school update success'); 
           });           
+        Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>School Submissions Successful.'});
         }       
       };
       reader.readAsText(csv);
-     
     }
     else{
       AdminService.updateSchools(vm.schoolForm.schoolName).then(function(response){
         console.log('school update success'); 
         document.getElementById("schoolForm").reset();
-        Notification.success({
-          message: '<i class="glyphicon glyphicon-ok"></i>School Submission Successful.'
-			  });
+        Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>School Submission Successful.'});
       });      
     }
 
