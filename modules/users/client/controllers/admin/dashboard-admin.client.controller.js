@@ -14,7 +14,7 @@
 		vm.newStudentActivity = newStudentActivity;
 		vm.completedStudentApps = completedStudentApps;
 		vm.completedStudentForms = completedStudentForms;
-
+    vm.updateSchools = updateSchools; 
 		vm.newVolunteerActivity = newVolunteerActivity;
 		vm.completedVolunteerApps = completedVolunteerApps;
 
@@ -233,7 +233,54 @@
 				});
 			});
 		}
-	}
+  function updateSchools() {
+    var inputFile = document.getElementById("school_upload");
+    if(inputFile){
+        
+      let csv = inputFile.files[0]; 
+      
+      var reader = new FileReader();
+      
+      reader.onload = function(event) {
+        let csv = event.target.result;
+        console.log(csv);
+        var lines = csv.split("\n");
+        var result = [];
+        var headers = lines[0].split(",");
+        for (var i = 1; i < lines.length - 1; i++) {
+            var obj = {};
+            var currentline = lines[i].split(",");
+            for (var j = 0; j < headers.length; j++) {
+                obj[headers[j]] = currentline[j];
+            }
+            result.push(obj);
+        }
+        //console.log(result[0][headers[0]]);
+        let name = headers[0]; 
+        for(let i = 0; i < result.length; i++) {
+           AdminService.updateSchools(result[i][name]).then(function(response){
+            console.log('school update success'); 
+          });           
+        }       
+      };
+      reader.readAsText(csv);
+     
+    }
+    else{
+      AdminService.updateSchools(vm.schoolForm.schoolName).then(function(response){
+        console.log('school update success'); 
+      });      
+    }
+
+    
+  }
+  $scope.fileNameChangedSchool = fileNameChangedSchool;
+  function fileNameChangedSchool() {
+    var file = document.getElementById('school_upload').files[0];
+    vm.selectedSchoolToUpload = file.name;
+  }
+}
+
 
 
 }());

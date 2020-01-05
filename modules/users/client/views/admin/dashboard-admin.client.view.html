@@ -1,90 +1,121 @@
 <html>
 <title>Admin Dashboard</title>
 <section>
-<style>
+  
+  <style>
   /* this is to stop ng-if and ng-show from flickering when changing */
   .ng-leave {
       display:none !important;
   }
 </style>
-<div id="overlay" ng-show="vm.loading">
-  <div class="loader"></div>
-</div>
-<nav role="navigation" class="navbar navbar-custom navbar-static-top">
-<div class="container-fluid">
-    <h3 class="navbar-text">Dashboard</h3>
-    <h4 class="navbar-text">Please disable addblock if you experience any errors</h4>
-  </div
-</div>
-</nav>
-<br />
-<div class="col-xs-12 col-md-6">
-    <div class="jumbotron">
-    Admin Tools
-    <hr class="section-divider" />
-    <div class="container">
-    <div class="row">
-      <center>
-      <button ng-if="!vm.appsClosed" ng-click="vm.closeStudentApps()" style=""class="sign-button sign-in-button-warning">Close Applications</button>
-      <button ng-if="vm.appsClosed" ng-click="vm.closeStudentApps()" style=""class="sign-button sign-in-button">Open Applications</button>
-      </center>
+  
+  <div id="overlay" ng-show="vm.loading">
+    <div class="loader"></div>
+  </div>
+  <nav role="navigation" class="navbar navbar-custom navbar-static-top">
+    <div class="container-fluid">
+      <h3 class="navbar-text">Dashboard</h3>
+      <h4 class="navbar-text">Please disable addblock if you experience any errors</h4>
+    </div
+
     </div>
-  </div>
-  </div>
-  <div class="jumbotron">
-    New Student Activity
-    <hr class="section-divider" />
-    <div class="container">
-    <div class="row">
-      <div class="text-center"><strong>Sign-ups this Week</strong></div>
-      <canvas id="line" class="chart chart-line" chart-config="vm.newStudentActivityGraph.config" chart-data="vm.newStudentActivityGraph.data" chart-labels="vm.newStudentActivityGraph.labels" chart-series="vm.newStudentActivityGraph.series" chart-options="vm.newStudentActivityGraph.options" chart-dataset-override="vm.newStudentActivityGraph.datasetOverride" chart-click="vm.newStudentActivityGraph.onClick">
-      </canvas>
+  </nav>
+  <br />
+  <div class="col-xs-12 col-md-6">
+    <div class="jumbotron"> Admin Tools
+      <hr class="section-divider" />
+      <div class="container">
+        <div class="row">
+          <center>
+            <button ng-if="!vm.appsClosed" ng-click="vm.closeStudentApps()" style=""class="sign-button sign-in-button-warning">Close Applications</button>
+            <button ng-if="vm.appsClosed" ng-click="vm.closeStudentApps()" style=""class="sign-button sign-in-button">Open Applications</button>
+          </center>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-6 " style='text-align: center;'>
+              Add name of school manually
+            </div>
+            <div class="col-sm-6 " style='text-align: center;'>
+              Upload CSV or comma-seperated list of schools
+            </div>
+         </div>
+         <br>           
+          <div class="col-sm-6 nopadding" style=''>
+          <form class="col-sm-9" name="vm.schoolForm">
+            <div class="">
+              <input type="text" id="new_school" ng-model='vm.schoolForm.schoolName' name="new_school" class="form-control ng-pristine ng-untouched ng-not-empty ng-valid" placeholder="Add School" style="">
+            </div>
+          </form>
+            <button class="sign-in-button " ng-click="vm.updateSchools()">Add</button>
+          </div>
+
+          <div class="row-flex col-sm-6 nopadding">
+            <div class="vl"></div><!-- vertical divider -->
+            <div class='col-sm-3'>
+              <label class="file-upload-button file-upload-button-browse">
+                <span class="glyphicon glyphicon-folder-open" style="font-size:80%; vertical-align: middle;"></span>
+                <!-- hidden input -->
+                <input type="file" id="school_upload" style="z-index:2; opacity:0; height:0; width:0;" file-model="file.upload" name="myFile" onchange="angular.element(this).scope().fileNameChangedSchool()" ng-disabled="uploading">
+              </label>
+            </div>
+            <div style='' class="col-sm-5 nopadding">
+              <input type="text" class="form-control" placeholder="Select a file..." ng-model="vm.selectedSchoolToUpload" disabled/>
+            </div>
+            <div ng-if='vm.selectedSchoolToUpload' class="col-sm-3">
+              <button class="file-upload-button file-upload-button-submit pull-left" style="width:100%" ng-click="vm.updateSchools()">
+              <center>
+                <i style='font-size:95%;' class="glyphicon glyphicon-circle-arrow-up"></i>
+              </center>
+              </button>
+            </div>
+          </div>
+      </div>
     </div>
-  </div>
-  </div>
-  <div class="jumbotron">
-    Completed Student Applications
-    <hr class="section-divider" />
-    <div class="container">
-      <div class="row">
-        <canvas id="doughnut" class="chart chart-doughnut" chart-config="vm.completedStudentAppsGraph.config" chart-data="vm.completedStudentAppsGraph.data" chart-labels="vm.completedStudentAppsGraph.labels" chart-click="vm.completedStudentAppsGraph.onClick">
-        </canvas>
+    <div class="jumbotron"> New Student Activity
+      <hr class="section-divider" />
+      <div class="container">
+        <div class="row">
+          <div class="text-center"><strong>Sign-ups this Week</strong></div>
+          <canvas id="line" class="chart chart-line" chart-config="vm.newStudentActivityGraph.config" chart-data="vm.newStudentActivityGraph.data" chart-labels="vm.newStudentActivityGraph.labels" chart-series="vm.newStudentActivityGraph.series" chart-options="vm.newStudentActivityGraph.options" chart-dataset-override="vm.newStudentActivityGraph.datasetOverride" chart-click="vm.newStudentActivityGraph.onClick"> </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="jumbotron"> Completed Student Applications
+      <hr class="section-divider" />
+      <div class="container">
+        <div class="row">
+          <canvas id="doughnut" class="chart chart-doughnut" chart-config="vm.completedStudentAppsGraph.config" chart-data="vm.completedStudentAppsGraph.data" chart-labels="vm.completedStudentAppsGraph.labels" chart-click="vm.completedStudentAppsGraph.onClick"> </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="jumbotron"> Completed Forms
+      <hr class="section-divider" />
+      <div class="container">
+        <div class="row">
+          <canvas id="doughnut" class="chart chart-doughnut" chart-config="vm.completedStudentFormsGraph.config" chart-data="vm.completedStudentFormsGraph.data" chart-labels="vm.completedStudentFormsGraph.labels" chart-click="vm.completedStudentFormsGraph.onClick"> </canvas>
+        </div>
       </div>
     </div>
   </div>
-  <div class="jumbotron">
-    Completed Forms
-    <hr class="section-divider" />
-    <div class="container">
-      <div class="row">
-        <canvas id="doughnut" class="chart chart-doughnut" chart-config="vm.completedStudentFormsGraph.config" chart-data="vm.completedStudentFormsGraph.data" chart-labels="vm.completedStudentFormsGraph.labels" chart-click="vm.completedStudentFormsGraph.onClick">
-        </canvas>
+  <div class="col-xs-12 col-md-6">
+    <div class="jumbotron"> New Volunteer Activity
+      <hr class="section-divider" />
+      <div class="container">
+        <div class="row">
+          <div class="text-center"><strong>Sign-ups this Week</strong></div>
+          <canvas id="line" class="chart chart-line" chart-config="vm.newVolunteerActivityGraph.config" chart-data="vm.newVolunteerActivityGraph.data" chart-labels="vm.newVolunteerActivityGraph.labels" chart-series="vm.newVolunteerActivityGraph.series" chart-options="vm.newVolunteerActivityGraph.options" chart-dataset-override="vm.newVolunteerActivityGraph.datasetOverride" chart-click="vm.newVolunteerActivityGraph.onClick"> </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="jumbotron"> Completed Volunteer Applications
+      <hr class="section-divider" />
+      <div class="container">
+        <div class="row">
+          <canvas id="doughnut" class="chart chart-doughnut" chart-config="vm.completedVolunteerAppsGraph.config" chart-data="vm.completedVolunteerAppsGraph.data" chart-labels="vm.completedVolunteerAppsGraph.labels" chart-click="vm.completedVolunteerAppsGraph.onClick"> </canvas>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="col-xs-12 col-md-6">
-  <div class="jumbotron">
-    New Volunteer Activity
-    <hr class="section-divider" />
-    <div class="container">
-    <div class="row">
-      <div class="text-center"><strong>Sign-ups this Week</strong></div>
-      <canvas id="line" class="chart chart-line" chart-config="vm.newVolunteerActivityGraph.config" chart-data="vm.newVolunteerActivityGraph.data" chart-labels="vm.newVolunteerActivityGraph.labels" chart-series="vm.newVolunteerActivityGraph.series" chart-options="vm.newVolunteerActivityGraph.options" chart-dataset-override="vm.newVolunteerActivityGraph.datasetOverride" chart-click="vm.newVolunteerActivityGraph.onClick">
-      </canvas>
-    </div>
-  </div>
-  </div>
-  <div class="jumbotron">
-    Completed Volunteer Applications
-    <hr class="section-divider" />
-    <div class="container">
-      <div class="row">
-        <canvas id="doughnut" class="chart chart-doughnut" chart-config="vm.completedVolunteerAppsGraph.config" chart-data="vm.completedVolunteerAppsGraph.data" chart-labels="vm.completedVolunteerAppsGraph.labels" chart-click="vm.completedVolunteerAppsGraph.onClick">
-        </canvas>
-      </div>
-    </div>
-  </div>
-</div>
 </section>
 </html>

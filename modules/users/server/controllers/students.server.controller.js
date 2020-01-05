@@ -6,6 +6,8 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Student = mongoose.model('Student'),
+  School = mongoose.model('School'),  
+  OldStudent = mongoose.model('OldStudent'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 var appsClosed = false;
@@ -202,7 +204,7 @@ exports.list = function(req, res) {
 };
 
 exports.listActive = function (req, res) {
-  console.log("In server list all students");
+  //console.log("In server list all students");
   Student.find({active: true}).collation({ locale: "en" }).sort('application.lastName').exec().then(function (students) {
       res.json(students);
   }, function(err){
@@ -263,6 +265,20 @@ exports.listAccepted = function(req, res) {
   });
 }
 
+exports.listOld= function(req, res) {
+  //console.log("In server list all students");
+  OldStudent.find({active: true}).collation({ locale: "en" }).sort('application.lastName').exec().then(function (students) {
+      console.log(students);
+      res.json(students);
+  }, function(err){
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+  });
+};
+
 
 /**
  * Student middleware
@@ -297,6 +313,30 @@ exports.listAccepted = function(req, res) {
      next();
    });
  };
+
+/**
+ * Get list of schools
+ */
+exports.getSchools = function(req, res) {
+
+  var school = new School(req.body);
+  console.log("school req.body: ",req.body);
+  School.find({}).exec((err,schools) => {
+    if(err){
+       return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });     
+    }
+    else{
+      console.log(schools);
+      let temp_obj = {'schools:': []}; 
+      temp_obj.schools = schools;
+      res.send(temp_obj);     
+    }
+
+  })
+
+};
 
 /*exports.studentByID = function(req, res, next, id) {
   console.log(id);

@@ -32,4 +32,18 @@ var AdminSchema = new Schema({
   }
 });
 
+var SchoolSchema = new Schema({
+  name: {
+    type: String,
+    default: '',
+    required: 'Please provide school name',
+    trim: true
+  },
+  created: {
+    type: Date,
+    default: Date.now
+  }
+});
 mongoose.model('Admin', AdminSchema);
+mongoose.model('School', SchoolSchema);
+

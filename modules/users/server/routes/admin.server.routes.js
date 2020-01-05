@@ -42,7 +42,7 @@ module.exports = function (app) {
   app.route('/api/analytics/newMentorActivity').get(admin.newMentorActivity);
   app.route('/api/analytics/newInterviewerActivity').get(admin.newInterviewerActivity);
   app.route('/api/analytics/completedVolunteerApps').get(admin.completedVolunteerApps);
-  
+  app.route('/api/updateSchools').put(admin.updateSchools);
 
   // Finish by binding the user middleware
   app.param('userId', admin.userByID);

@@ -8,6 +8,7 @@ var path = require('path'),
   User = mongoose.model('User'),
   Student = mongoose.model('Student'),
   Volunteer = mongoose.model('Volunteer'),
+  School = mongoose.model('School'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
@@ -117,7 +118,29 @@ exports.userByID = function (req, res, next, id) {
   });
 
   exports.g = function(req, res) {
-    console.log(req);
+    console.log('userById: ' + req);
     return res.status(req);
   }
 };
+/**
+ * Add school
+ */
+exports.updateSchools = function(req, res) {
+
+  var school = new School(req.body);
+  console.log("req.body: ",req.body);
+  school.name = req.body['name'];
+
+  school.save(function(err) {
+    if (err) {
+      console.log(err);
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      console.log("School: ",school);
+      res.json(school);
+    }
+  });
+};
+

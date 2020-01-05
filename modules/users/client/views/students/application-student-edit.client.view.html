@@ -274,9 +274,10 @@
    <br>
   <div class="col-xs-6 col-xs-offset-3">
     <div class="form-group" show-errors>
-      <select name = "school" class="form-control" ng-model="vm.credentials.application.school" required>
+      
+      <select  ng-options="x.name for x in schools" name = "school" class="form-control" ng-model="vm.credentials.application.school" required>
         <option value="">---Please select---</option>
-		<option value = "Alexander W. Dreyfoos School of the Arts"> Alexander W. Dreyfoos School of the Arts</option>
+		  <!--<option value = "Alexander W. Dreyfoos School of the Arts"> Alexander W. Dreyfoos School of the Arts</option>
         <option value = "Anderson Boyd HS"> Anderson Boyd High School</option>
         <option value = "American Heritage HS"> American Heritage High School</option>
         <option value = "Atlantic Community HS"> Atlantic Community High School</option>
@@ -348,7 +349,7 @@
         <option value = "Western HS"> Western High School</option>
         <option value = "Westminster Academy"> Westminster Academy</option>
         <option value = "William T. Dwyer HS"> William T. Dwyer High School</option>
-        <option value = "Not listed"> Not listed </option>
+        <option value = "Not listed"> Not listed </option>-->
       </select>
       <div ng-messages="vm.studentForm.school.$error" role="alert">
         <p class="help-block error-text" ng-message="required">School is required.</p>
