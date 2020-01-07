@@ -259,6 +259,7 @@
            AdminService.updateSchools(result[i][name]).then(function(response){
             console.log('school update success'); 
           });           
+        document.getElementById("school_csv").reset();
         Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>School Submissions Successful.'});
         }       
       };
@@ -267,7 +268,7 @@
     else{
       AdminService.updateSchools(vm.schoolForm.schoolName).then(function(response){
         console.log('school update success'); 
-        document.getElementById("schoolForm").reset();
+        document.getElementById("school_form").reset();
         Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>School Submission Successful.'});
       });      
     }

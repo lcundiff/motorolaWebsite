@@ -42,7 +42,7 @@
          </div>
          <br>           
           <div class="col-sm-6 nopadding" style=''>
-          <form class="col-sm-9" id='schoolForm' name="vm.schoolForm">
+          <form class="col-sm-9" id='school_form' name="vm.schoolForm">
             <div class="">
               <input type="text" id="new_school" ng-model='vm.schoolForm.schoolName' name="new_school" class="form-control ng-pristine ng-untouched ng-not-empty ng-valid" placeholder="Add School" style="">
             </div>
@@ -50,7 +50,7 @@
             <button class="sign-in-button " ng-click="vm.updateSchools()">Add</button>
           </div>
 
-          <div class="row-flex col-sm-6 nopadding">
+          <form id='school_csv' class="row-flex col-sm-6 nopadding">
             <div class="vl"></div><!-- vertical divider -->
             <div class='col-sm-3'>
               <label class="file-upload-button file-upload-button-browse">
@@ -69,7 +69,7 @@
               </center>
               </button>
             </div>
-          </div>
+          </form>
       </div>
     </div>
     <div class="jumbotron"> New Student Activity
