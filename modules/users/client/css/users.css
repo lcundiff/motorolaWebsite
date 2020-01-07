@@ -306,3 +306,11 @@
   padding-right:0;
   padding-left:0; 
 }
+
+/* Matching CSS */
+.match_item {
+  cursor:pointer;
+}
+.match_item:hover {
+  border: thin ridge rgba(37,89,179,0.40);
+}

@@ -48,7 +48,7 @@
     <div class="jumbotron jumobtron fluid">
       <div class="list-group"> 
         <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">--> 
-        <a ng-repeat="student in vm.pagedItems_students" ng-click="vm.selectStudent(student, this);" class="list-group-item" id="{{student.user}}">
+        <a ng-repeat="student in vm.pagedItems_students" ng-click="vm.selectStudent(student, this);" class="match_item list-group-item" id="{{student.user}}">
         <h5 class="list-group-item-heading" ng-bind-template="{{student.application.firstName}}  {{student.application.lastName}}"></h5>
         <i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
         <h6 ng-bind-template="{{student.mentor}}"></h6>
@@ -60,7 +60,7 @@
     <div class="jumbotron jumobtron fluid">
       <div class="list-group"> 
         <!--<a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">--> 
-        <a ng-repeat="volunteer in vm.pagedItems_volunteers" ng-click="vm.selectVolunteer(volunteer, this);" class="list-group-item" id="{{volunteer.user._id}}">
+        <a ng-repeat="volunteer in vm.pagedItems_volunteers" ng-click="vm.selectVolunteer(volunteer, this);" class="match_item list-group-item" id="{{volunteer.user._id}}">
         <h5 class="list-group-item-heading" ng-bind-template="{{volunteer.application.firstName}}  {{volunteer.application.lastName}}"></h5>
         <i class="glyphicon glyphicon-ok" ng-if="student.timeSlot.length === 1" style="color:green"></i>
         <h6 ng-bind-template="{{volunteer.mentee.toString()}}"></h6>
