@@ -339,15 +339,17 @@ exports.manAccept = function(req, res){
 exports.manMatch = function(req, res){
   var s;
   var m;
+  console.log("in server manual match")
   Student.find({user: {_id: req.params.studentId} }).exec().then(function(student){
     s = student[0];
     Volunteer.find({  _id: req.params.mentorID  }).exec().then(function(mentor){
-      return new Promise(function(resolve, reject){
+      return new Promise(function(resolve, reject){   
         for(var i=0; i < mentor[0].mentee.length; i++){
           if(s.application.name === mentor[0].mentee[i]){
             reject('Pair already matched');
           }
         }
+        //Note: if the student already has a mentor 
         if(s.mentorID !== "" || s.mentor !== ""){
           reject('Pair already has a mentor');
         }

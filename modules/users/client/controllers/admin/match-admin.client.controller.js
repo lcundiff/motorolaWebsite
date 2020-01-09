@@ -79,40 +79,49 @@
 
     function manMatch(student, volunteer) {
       vm.loading = true;
-      console.log(student);
-      console.log(volunteer);
       if(student.timeSlot.length < 0){
         deSelectStudent(student);
         deSelectVolunteer(volunteer);
         vm.loading = false;
         Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> This student has not been accepted into a session.', title: 'Error', delay: 6000 });
-
-        return;
+        return;  
       }
       else if(student === null || student === undefined){
         vm.loading = false;
         Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> Please select a student to match.', title: 'Error', delay: 6000 });
-        return;
+        return;      
       }
       else if(volunteer === null || volunteer === undefined){
         vm.loading = false;
         Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> Please select a volunteer to match.', title: 'Error', delay: 6000 });
         return;
       }
-      else{
-        if(student.timeSlot[0] === "1") volunteer.mentee_count_sess_1++;
-        else if(student.timeSlot[0] === "2") volunteer.mentee_count_sess_2++;
-        else volunteer.mentee_count_sess_3++;
-      }
-
-      if(student.mentorID === volunteer.user._id){
+      if(student.mentorID !== null){
         deSelectStudent(student);
         deSelectVolunteer(volunteer);
         vm.loading = false;
-        Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> This mentor has already been paired to this student.', title: 'Error', delay: 6000 });
-
+        if(student.mentorID === volunteer.user._id){
+          Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> This mentor has already been paired to this student.', title: 'Error', delay: 6000 });  
+        }
+        else{
+          Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> This mentee has already been paired. Please unmatch before making a new match.', title: 'Error', delay: 6000 });
+        }
         return;
+      }  
+      var obj;
+      for( obj in volunteer.menteeID){
+        if(student.user === volunteer.menteeID[obj]){
+          Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> This mentor has already been paired to this student.', title: 'Error', delay: 6000 });
+          vm.loading = false;
+          return;
+        }
       }
+     
+
+      if(student.timeSlot[0] === "1") volunteer.mentee_count_sess_1++;
+      else if(student.timeSlot[0] === "2") volunteer.mentee_count_sess_2++;
+      else volunteer.mentee_count_sess_3++;
+     
       volunteer.mentee.push(student.application.firstName + " " + student.application.lastName);
       volunteer.menteeID.push(student.user);
       student.mentor = volunteer.user.displayName;
@@ -121,24 +130,28 @@
       StudentService.updateStudent(student.user, student).then(function(response){
         deSelectStudent(student);
         deSelectVolunteer(volunteer);
-
-        console.log(response);
         VolunteerService.updateVolunteer(volunteer.username, volunteer)
-        .then(onMatchSuccess)
-        .catch(onMatchError);
-
-      });
+      })
+      .then(onMatchSuccess)
+      .catch(onMatchError);
     }
 
     function manUnmatch(student, volunteer){
       vm.loading = true;
-      if(!student.mentorID.includes(volunteer.user._id)){
+      var obj;
+      var matched = false;
+      for( obj in volunteer.menteeID){
+        if(student.user === volunteer.menteeID[obj]){
+          matched = true;
+        }
+      }
+     if(!matched){
         deSelectStudent(student);
         deSelectVolunteer(volunteer);
         vm.loading = false;
         Notification.error({message: '<i class="glyphicon glyphicon-remove"></i> This pair is not matched.', title: 'Error', delay: 6000 });
         return;
-      }
+      }   
       if(student.timeSlot[0] === "1") volunteer.mentee_count_sess_1--;
       else if(student.timeSlot[0] === "2") volunteer.mentee_count_sess_2--;
       else volunteer.mentee_count_sess_3--;
@@ -152,41 +165,39 @@
       StudentService.updateStudent(student.user, student).then(function(response){
         deSelectStudent(student);
         deSelectVolunteer(volunteer);
-
-        console.log(response);
         VolunteerService.updateVolunteer(volunteer.username, volunteer)
-        .then(onUnmatchSuccess)
-        .catch(onUnmatchError);
-
-      });
+      })
+      .then(onUnmatchSuccess)
+      .catch(onUnmatchError);
     }
 
     function onMatchSuccess(response) {
-      vm.listActiveStudents();
           // If successful we assign the response to the global user model
-          vm.loading = false;
-          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Matching of pair was successful.' });
-          // And redirect to the previous or home page
-          //$state.go($state.previous.state.name || 'home', $state.previous.params);
-        }
+      vm.loading = false;
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Matching of pair was successful.' });
+      vm.listActiveStudents();
+
+      // And redirect to the previous or home page
+      //$state.go($state.previous.state.name || 'home', $state.previous.params);
+    }
 
     function onMatchError(response) {
           vm.loading = false;
           Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> There was an error matching the student-mentor pair.', delay: 6000 });
-        }
+    }
 
-        function onUnmatchSuccess(response) {
-              // If successful we assign the response to the global user model
-              vm.loading = false;
-              Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Unmatching of pair was successful.' });
+    function onUnmatchSuccess(response) {
+         // If successful we assign the response to the global user model
+      vm.loading = false;
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Unmatching of pair was successful.' });
               // And redirect to the previous or home page
               //$state.go($state.previous.state.name || 'home', $state.previous.params);
-            }
+    }
 
-        function onUnmatchError(response) {
-          vm.loading = false;
-              Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> There was an error unmatching the student-mentor pair.', delay: 6000 });
-            }
+    function onUnmatchError(response) {
+      vm.loading = false;
+      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> There was an error unmatching the student-mentor pair.', delay: 6000 });
+    }
 
 
 
