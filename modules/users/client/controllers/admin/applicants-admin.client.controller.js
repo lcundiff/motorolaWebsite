@@ -213,7 +213,6 @@
 				}
 				
 			}
-			console.log("Form submitted , selected columns are: ", columns);
 	
 			downloadAllCSV(columns)
 			var modal = document.getElementById(docId);
