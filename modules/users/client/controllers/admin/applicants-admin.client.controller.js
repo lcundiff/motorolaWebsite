@@ -156,23 +156,142 @@
 				delay: 6000
 			});
 		}
+
+		//Modal Functions
+
+		$scope.openModalCSV = function (docId) {
+			var modal = document.getElementById(docId);
+			modal.style.display = "block";
+		};
+	
+		$scope.closeModalCSV = function (docId) {
+			var modal = document.getElementById(docId);
+			modal.style.display = "none";
+		};
+
+		$scope.submitCSVForm = function(docId){
+			let columns = []
+			if(vm.form_all !== undefined && vm.form_all === true){
+				columns = ['Name', 'Email', 'Phone', 'Address', 'School', 'Parent Name', 'Parent Phone', 'Parent Email', 'Interviewers', 'Interview Date', 'Interview Time', 'Interview DOW']
+			}
+			else{
+				if(vm.form_name !== undefined ){
+					vm.form_name === true ? columns.push('Name'): "";
+				} 
+				if(vm.form_email !== undefined){
+					vm.form_email === true ? columns.push('Email'): "";
+				}
+				if(vm.form_phone !== undefined){
+					vm.form_phone === true ? columns.push('Phone'): "";
+				}
+				if(vm.form_address !== undefined){
+					vm.form_address === true ? columns.push('Address'): "";
+				}
+				if(vm.form_school !== undefined){
+					vm.form_school === true ? columns.push('School'): "";
+				}
+				if(vm.form_parent_name !== undefined){
+					vm.form_parent_name === true ? columns.push('Parent Name'): "";
+				}
+				if(vm.form_parent_phone !== undefined){
+					vm.form_parent_phone === true ? columns.push('Parent Phone'): "";
+				}
+				if(vm.form_parent_email !== undefined){
+					vm.form_parent_email === true ? columns.push('Parent Email'): "";
+				}
+				if(vm.form_interviewers !== undefined){
+					vm.form_interviewers === true ? columns.push('Interviewers'): "";
+				}
+				if(vm.form_interview_date !== undefined){
+					vm.form_interview_date === true ? columns.push('Interview Date'): "";
+				}
+				if(vm.form_interview_time !== undefined){
+					vm.form_interview_time === true ? columns.push('Interview Time'): "";
+				}
+				if(vm.form_interview_dow !== undefined){
+					vm.form_interview_dow === true ? columns.push('Interview DOW'): "";
+				}
+				
+			}
+			console.log("Form submitted , selected columns are: ", columns);
+	
+			downloadAllCSV(columns)
+			var modal = document.getElementById(docId);
+			modal.style.display = "none";		
+
+		}
+		function putColsInString(columns){
+			var str = " ";
+			var i;
+			for(i in columns){
+				str = str.concat(columns[i])
+				if(i < (columns.length - 1)){
+					str = str.concat( ', ');
+				}
+			}
+			str = str.concat('\n');
+			console.log('str ',str);
+			return str;
+		}
+		function putColsInCSVFormat(columns, student){	
+			var content = ""
+			var i;
+			for(i in columns){
+				if(columns[i] === 'Name'){
+					content = content.concat("\"",student.application.firstName," ",student.application.lastName,"\"")
+				}
+				else if(columns[i] === 'Email'){
+					content = content.concat("\"",student.application.email,"\"")
+				}
+				else if(columns[i] === 'Phone'){
+					content = content.concat("\"" , student.application.phone , "\"")
+				}
+				else if(columns[i] === 'Address'){
+					if(student.application.address.city !== "" && student.application.address.state !== "" && student.application.address.zipcode !== ""){
+						content = content.concat("\"", student.application.address.city," , " + student.application.address.state , " , " + student.application.address.zipcode , "\"" )
+					}
+					else{
+						content = content.concat("\"",'Not Available', "\"" )
+					}
+				}
+				else if(columns[i] === 'School'){
+					content = content.concat("\"" , student.application.school , "\"")
+				}
+				else if(columns[i] === 'Parent Name'){
+					content = content.concat("\"" , student.application.parent.name , "\"")
+				}
+				else if(columns[i] === 'Parent Phone'){
+					content = content.concat("\"" , student.application.parent.phone , "\"")
+				}
+				else if(columns[i] === 'Parent Email'){
+					content = content.concat("\"" , student.application.parent.email, "\"")
+				}
+				else if(columns[i] === 'Interviewers'){
+					content = content.concat("\"" , student.interviewer[0] , ", " ,student.interviewer[1] , "\"")
+				}
+				if(i < (columns.length-1)){
+					content = content.concat(',');
+				}
+			}
+			return content;
+		}
+
 		// download CSV
-		$scope.downloadAllCSV = function () {
+		function downloadAllCSV(columns) {
 			vm.loading = true;
 			// get student info
-			var header = "Name, Email, Phone, Address, School, Parent Name, Parent Phone, Parent Email, Interviewers, Interview Date, Interview Time, Interview DOW\n";
+			var header = putColsInString(columns);
 			var content = "";
 			//$scope.StudentService.studentListActive().then(function(data){
 			StudentService.studentList().then(function (data) {
 					var Students = data;
-
-
 					Students.forEach(function (student) { // creates and formats student data on a CSV sheet
-						console.log("student object data: ", student)
-						content = "\"" + student.application.firstName + " " + student.application.lastName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\"" + student.application.address.city + " , " + student.application.address.state + " , " + student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
-					});
-					content = header + "\n" + content;
+						var formatedCols = putColsInCSVFormat(columns,student)
+						content =  formatedCols + "\n";
+						console.log("formatted content: ", content)
 
+					});
+					content = header + content;
 					//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
 					var link = document.createElement('a');
 					link.href = 'data:attachment/csv,' + encodeURIComponent(content);
