@@ -33,43 +33,42 @@
       <div class="container">
         <center>
           <h2 class="page-header">Download Student Info</h2>
-          <button ng-click="openModalCSV('myModalCSV')" style=""class=" sign-button sign-in-button">CSV File - All Students</button>
+          <button ng-click="openModalCSV('myModalAllStudentCSV')" style="" class=" sign-button sign-in-button">CSV File - All Students</button>
           <br>
           <br>
-          <button ng-click="downloadActiveCSV()" style=""class="sign-button sign-in-button">CSV File - Accepted Students</button>
+          <button ng-click="openModalCSV('myModalActiveStudentCSV')" style="" class="sign-button sign-in-button">CSV File - Accepted Students</button>
           <br>
           <h2 class="page-header">Download Volunteer Info</h2>
-          <button ng-click="downloadVolunteersCSV()" style=""class="sign-button sign-in-button">CSV File - All Volunteers</button>
+          <button ng-click="openModalCSV('myModalVolunteersCSV')" style=" " class="sign-button sign-in-button">CSV File - All Volunteers</button>
         </center>
       </div>
     </div>
 </section>
 
   <!-- The Modal -->
-  <div id="myModalAllCSV" class="modal">
+  <div id="myModalAllStudentCSV" class="modal">
       <!-- Modal content -->
     <div class="modal-content">
-      <span class="close" ng-click="closeModalCSV('myModalAllCSV')">&times;</span>
+      <span class="close" ng-click="closeModalCSV('myModalAllStudentCSV')">&times;</span>
         <div class="w3-row-padding w3-padding-16" ng-model="vm.user">
           <div class="row">
             <div class="w3-display-container">
-                <div class="form-group">
-                  <h1>Hi Im a modal</h1>
-                  <input type="checkbox" ng-model="all" ng-model="vm.form_all"> Check all<br><br>
-                  <input type="checkbox" ng-checked="all" ng-model="vm.form_name">Name<br>
-                  <input type="checkbox" ng-checked="all" ng-model="vm.form_email" >Email<br>
-                  <input type="checkbox" ng-checked="all" ng-model="vm.form_phone">Phone<br>
-                  <input type="checkbox" ng-checked="all" ng-model="vm.form_address">Address<br>
-                  <input type="checkbox" ng-checked="all" ng-model="vm.form_school">School<br>
-                  <input type="checkbox" ng-checked="all" ng-model="vm.form_parent_name">Parent Name<br>
-                  <input type="checkbox" ng-checked="all" ng-model="vm.form_parent_phone">Parent Phone<br>
-                  <input type="checkbox" ng-checked="all" ng-model="vm.form_parent_email">Parent Email<br>
-                  <input type="checkbox" ng-checked="all" ng-model="vm.form_interviewers">Interviewers<br>
-                  <input type="checkbox" ng-checked="all" ng-model="vm.form_interview_date">Interview Date<br>
-                  <input type="checkbox" ng-checked="all" ng-model="vm.form_interview_time">Interview Time<br>
-                  <input type="checkbox" ng-checked="all" ng-model="vm.form_interview_dow">Interview DOW<br>
-
-                  <button type="submit" ng-click="submitCSVForm('myModalAllCSV')" >Submit</button>
+                <div class="form-group"></div>
+                  <h2>Select Columns for <b>CSV - All Students</b></h2>
+                  <input type="checkbox" ng-click="checkAll('myModalAllStudentCSV')" ng-model="all" >  Check all<br><br>
+                  <input type="checkbox" ng-checked="all" ng-model="vm.form_name">  Name<br>
+                  <input type="checkbox" ng-checked="all" ng-model="vm.form_email" >  Email<br>
+                  <input type="checkbox" ng-checked="all" ng-model="vm.form_phone">  Phone<br>
+                  <input type="checkbox" ng-checked="all" ng-model="vm.form_address">  Address<br>
+                  <input type="checkbox" ng-checked="all" ng-model="vm.form_school">  School<br>
+                  <input type="checkbox" ng-checked="all" ng-model="vm.form_parent_name">  Parent Name<br>
+                  <input type="checkbox" ng-checked="all" ng-model="vm.form_parent_phone">  Parent Phone<br>
+                  <input type="checkbox" ng-checked="all" ng-model="vm.form_parent_email">  Parent Email<br>
+                  <input type="checkbox" ng-checked="all" ng-model="vm.form_interviewers">  Interviewers<br>
+                  <input type="checkbox" ng-checked="all" ng-model="vm.form_interview_date">  Interview Date<br>
+                  <input type="checkbox" ng-checked="all" ng-model="vm.form_interview_time">  Interview Time<br>
+                  <input type="checkbox" ng-checked="all" ng-model="vm.form_interview_dow">  Interview DOW<br><br>
+                  <button type="submit" ng-click="submitCSVForm('myModalAllStudentCSV')" >  Submit</button>
                 </div>
             </div>
           </div>
@@ -78,39 +77,69 @@
     </div>
 
   <!-- The Modal -->
-  <div id="myModalAllStudentCSV" class="modal">
+  <div id="myModalActiveStudentCSV" class="modal">
     <!-- Modal content -->
   <div class="modal-content">
-    <span class="close" ng-click="closeModalCSV('myModalAllStudentCSV')">&times;</span>
+    <span class="close" ng-click="closeModalCSV('myModalActiveStudentCSV')">&times;</span>
       <div class="w3-row-padding w3-padding-16" ng-model="vm.user">
         <div class="row">
           <div class="w3-display-container">
               <div class="form-group">
-                <h1>Hi Im a modal</h1>
-                <input type="checkbox" ng-model="all" ng-model="vm.form_all"> Check all<br><br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_name">Name<br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_email" >Email<br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_phone">Phone<br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_address">Address<br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_school">School<br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_parent_name">Parent Name<br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_parent_phone">Parent Phone<br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_parent_email">Parent Email<br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_mentor">Mentor<br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_session">Session<br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_top_interest">Top Interest<br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_interviewers">Interviewers<br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_interview_date">Interview Date<br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_interview_time">Interview Time<br>
-                <input type="checkbox" ng-checked="all" ng-model="vm.form_interview_dow">Interview DOW<br>
+                <h2>Select Columns for <b>CSV - Accepted Students</b></h2>
+                <input type="checkbox" ng-click="checkAll('myModalActiveStudentCSV')" ng-model="all"> Check all<br><br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_name">  Name<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_email" >  Email<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_phone">  Phone<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_address">  Address<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_school">  School<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_parent_name">  Parent Name<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_parent_phone">  Parent Phone<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_parent_email">  Parent Email<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_mentor">  Mentor<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_session">  Session<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_top_interest">  Top Interest<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_interviewers">  Interviewers<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_interview_date">  Interview Date<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_interview_time">  Interview Time<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_interview_dow">  Interview DOW<br><br>
 
-                <button type="submit" ng-click="submitCSVForm('myModalAllStudentCSV')" >Submit</button>
+                <button type="submit" ng-click="submitCSVForm('myModalActiveStudentCSV')" >Submit</button>
               </div>
           </div>
         </div>
       </div>
   </div>
   </div>
+
+  <!-- The Modal -->
+  <div id="myModalVolunteersCSV" class="modal">
+    <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close" ng-click="closeModalCSV('myModalVolunteersCSV')">&times;</span>
+      <div class="w3-row-padding w3-padding-16" ng-model="vm.user">
+        <div class="row">
+          <div class="w3-display-container">
+              <div class="form-group">
+                <h2>Select Columns for <b>CSV - All Volunteers</b></h2>
+                <input type="checkbox" ng-click="checkAll('myModalVolunteersCSV')" ng-model="all"> Check all<br><br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_name">  Name<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_email" >  Email<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_phone">  Phone<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_address">  Address<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_expertise">  Expertise<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_sessions"> Sessions<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_roles">  Roles<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_amount_of_interviews">  Amount of Interviews<br>
+                <input type="checkbox" ng-checked="all" ng-model="vm.form_interviewees">  Interviewees<br><br>
+                <button type="submit" ng-click="submitCSVForm('myModalVolunteersCSV')">Submit</button>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+
+
 
 <section>
     <div class="container-fluid">
