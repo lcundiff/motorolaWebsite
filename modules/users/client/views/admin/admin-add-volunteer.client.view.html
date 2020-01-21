@@ -104,10 +104,7 @@
             </div>
             <div class="form-group" show-errors>
             <!--  <label for="phone">Phone</label>-->
-              <input type="text" id="phone" name="phone" class="form-control" ng-model="vm.credentials.application.phone" placeholder="Phone" required>
-              <div ng-messages="vm.volunteerForm.phone.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">Phone is required.</p>
-              </div>
+              <input type="text" id="phone" name="phone" class="form-control" ng-model="vm.credentials.application.phone" placeholder="Phone">
             </div>
             </div>
 
@@ -115,10 +112,7 @@
             <div class="col-xs-6">
               <div class="form-group" show-errors>
               <!--  <label for="homeAddress1">Home Address Line 1</label>-->
-                <input type="text" id="homeAddress1" name="homeAddress1" class="form-control" ng-model="vm.credentials.application.address.line_1" placeholder="Address Line 1" required>
-                <div ng-messages="vm.volunteerForm.homeAddress1.$error" role="alert">
-                  <p class="help-block error-text" ng-message="required">Address Line 1 is required.</p>
-                </div>
+                <input type="text" id="homeAddress1" name="homeAddress1" class="form-control" ng-model="vm.credentials.application.address.line_1" placeholder="Address Line 1" >
               </div>
 
               <!--  <label for="homeAddress2">Home Address Line 2</label>-->
@@ -129,29 +123,20 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group" show-errors>
               <!--  <label for="city">City</label>-->
-                <input type="text" id="city" name="city" class="form-control" ng-model="vm.credentials.application.address.city" placeholder="City" required>
-                <div ng-messages="vm.volunteerForm.city.$error" role="alert">
-                  <p class="help-block error-text" ng-message="required">City is required.</p>
-                </div>
+                <input type="text" id="city" name="city" class="form-control" ng-model="vm.credentials.application.address.city" placeholder="City">
               </div>
             </div>
             <div class="col-xs-6 col-sm-3">
                <!--<label for="state">State</label>-->
               <div class="form-group" show-errors>
-                <input type="text" id="state" name="state" class="form-control" ng-model="vm.credentials.application.address.state" placeholder="State" required>
-                <div ng-messages="vm.volunteerForm.state.$error" role="alert">
-                  <p class="help-block error-text" ng-message="required">State is required.</p>
-                </div>
+                <input type="text" id="state" name="state" class="form-control" ng-model="vm.credentials.application.address.state" placeholder="State">
               </div>
             </div>
 
           <!--  <label for="state">Zipcode</label>-->
           <div class="col-xs-6">
             <div class="form-group" show-errors>
-                <input type="text" id="zipcode" name="zipcode" class="form-control" ng-model="vm.credentials.application.address.zipcode" placeholder="Zipcode" required>
-                <div ng-messages="vm.volunteerForm.zipcode.$error" role="alert">
-                  <p class="help-block error-text" ng-message="required">Zipcode is required.</p>
-                </div>
+                <input type="text" id="zipcode" name="zipcode" class="form-control" ng-model="vm.credentials.application.address.zipcode" placeholder="Zipcode" >
               </div>
             </div>
         <!-- END CARD -->

@@ -18,7 +18,7 @@ var path = require('path'),
  */
 
 exports.create = function(req, res) {
-
+  console.log('here');
     var volunteer = new Volunteer(req.body);
   
     volunteer.application = volunteer.application;

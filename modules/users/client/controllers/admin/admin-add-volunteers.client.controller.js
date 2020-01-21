@@ -55,7 +55,9 @@
       }
 
     }
-    //first create user
+    /**
+    * @param isValid - can be used to check html form inputs have been correctly filled out
+    */
     function createUser(isValid){
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.volunteerForm');
@@ -80,6 +82,7 @@
       }).catch(onVolunteerSubmissionError);
 
     }
+    
     //then the volunteer is created
     function createVolunteer(user){    
       var volunteer = {};
@@ -89,11 +92,11 @@
       volunteer.username = vm.credentials.application.username;
 
       var address ={
-        "line_1": vm.credentials.application.address.line_1 ,
-        "line_2" : vm.credentials.application.address.line_2,
-        "city": vm.credentials.application.address.city,
-        "state":vm.credentials.application.address.state,
-        "zipcode": vm.credentials.application.address.zipcode
+        "line_1": typeof vm.credentials.application.address !== typeof undefined ? vm.credentials.application.address.line_1 : '',
+        "line_2" : typeof vm.credentials.application.address !== typeof undefined ? vm.credentials.application.address.line_2 : '',
+        "city": typeof vm.credentials.application.address !== typeof undefined ? vm.credentials.application.address.city : '',
+        "state": typeof vm.credentials.application.address !== typeof undefined ? vm.credentials.application.address.state : '',
+        "zipcode": typeof vm.credentials.application.address !== typeof undefined ? vm.credentials.application.address.zipcode : ''
       }
       volunteer.application = vm.credentials.application;
       volunteer.application.firstName = vm.credentials.application.firstName;
@@ -127,6 +130,7 @@
     }
     function onVolunteerSubmissionError(response) {
       vm.loading = false;
+      let message = typeof response.data !== typeof undefined ? response.data.message : 'No response from server';
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Volunteer submission error.', delay: 6000 });
     }
   }
