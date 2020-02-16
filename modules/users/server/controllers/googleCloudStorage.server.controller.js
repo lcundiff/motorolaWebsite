@@ -10,8 +10,11 @@ const {Storage} = require('@google-cloud/storage');
 // TODO pull this from development.js or production.js depending on env (still need to set up envs as well)
 const projectId = 'motorola-new';
 const bucketName = 'motorola-new.appspot.com';
-
-const storage = new Storage({projectId});
+const keyPath = 'moto-key.json';
+const storage = new Storage({
+  projectId: projectId,
+  keyFilename: keyPath
+});
 
 var mStorage = multer.memoryStorage()
 var upload = multer({ storage: mStorage }).single("file");

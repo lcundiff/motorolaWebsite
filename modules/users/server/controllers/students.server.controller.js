@@ -135,7 +135,7 @@ exports.getStudentByUsername = function(req, res){
   console.log("req.params.username: ", req.params.username);
 
   Student.findOne({username: req.params.username}).then(function(student){
-    console.log("student: ",student);
+    console.log("find student: ",student);
     if(student === null){
       return res.status(200).send({
         message: "DNE"
@@ -158,8 +158,7 @@ exports.getStudentByUsername = function(req, res){
  */
 exports.update = function(req, res) {
   //var student = new Student(req.body);
-  console.log("Student update req ",req.body);
-  //console.log("YOYO: ",student);
+  //console.log("Student update req ",req.body);
 
   Student.findOneAndUpdate({user: req.body.user}, req.body, {upsert: false}).then(function(data){
     console.log("USER DATA: ",data);

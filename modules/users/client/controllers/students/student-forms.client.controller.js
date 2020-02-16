@@ -40,11 +40,13 @@
 
     StudentService.getStudentByUsername(vm.authentication.user.username).then(function(data){
       $scope.vm.file = {};
+      console.log(data);
       if(data.message === undefined){
         $scope.vm.credentials = data;
         $scope.vm.submitIsUpdate = true;
       }
       else{
+        console.log('credentials cleared');
         $scope.vm.credentials = {};
         $scope.vm.credentials.application = {};
         $scope.vm.submitIsUpdate = true;
@@ -226,7 +228,7 @@
 
       vm.loading = true;
       $scope.uploading = true;
-      vm.credentials.NDAId = `NDA_${vm.credentials.username}.pdf`;
+      vm.credentials.NDAId = `NDA_${vm.authentication.user.username}.pdf`;
 
 
       GoogleCloudService.uploadForm(vm.credentials.NDAId, file.upload)
@@ -253,7 +255,7 @@
 
       vm.loading = true;
       $scope.uploading = true;
-      vm.credentials.WaiverId = `waiver_${vm.credentials.username}.pdf`;
+      vm.credentials.WaiverId = `waiver_${vm.authentication.user.username}.pdf`;
 
       GoogleCloudService.uploadForm(vm.credentials.WaiverId, file.upload)
       .then(function(response){
@@ -279,7 +281,7 @@
 
       vm.loading = true;
       $scope.uploading = true;
-      vm.credentials.letterOfRecommendationId =`letterOfRecommendation_${vm.credentials.username}.pdf`;
+      vm.credentials.letterOfRecommendationId =`letterOfRecommendation_${vm.authentication.user.username}.pdf`;
 
       GoogleCloudService.uploadForm(vm.credentials.letterOfRecommendationId, file.upload)
       .then(function(response){
@@ -306,7 +308,7 @@
 
       vm.loading = true;
       $scope.uploading = true;
-      vm.credentials.ResumeId = `resume_${vm.credentials.username}.pdf`;
+      vm.credentials.ResumeId = `resume_${vm.authentication.user.username}.pdf`;
 
       GoogleCloudService.uploadForm(vm.credentials.ResumeId, file.upload)
       .then(function(response){
@@ -395,8 +397,8 @@
       var currentActive = document.getElementsByClassName("item active")[0].id;
       var appPages = document.getElementsByClassName("item");
 
-      console.log(appPages);
-      console.log(currentActive);
+      //console.log(appPages);
+      //console.log(currentActive);
 
       document.getElementById('myCarousel').querySelector(`#${currentActive}`).classList.remove('active');
       appPages[1].classList.add('active');

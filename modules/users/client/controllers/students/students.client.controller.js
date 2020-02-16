@@ -59,7 +59,7 @@
         $scope.schools = res.schools; 
         //if(!err){
         //}
-        console.log(res.schools);
+        //console.log(res.schools);
         
       });
     }
@@ -70,7 +70,7 @@
         vm.appsClosed = res.appsClosed;
         
       });
-      console.log("apps closed boolean: " + vm.appsClosed);
+      //console.log("apps closed boolean: " + vm.appsClosed);
     }
 
     StudentService.getStudentByUsername(vm.authentication.user.username).then(function(data){
@@ -122,13 +122,13 @@
     }
 
     function uploadResume(){
-      console.log($scope.file.upload);
+      //console.log($scope.file.upload);
       vm.credentials.ResumeId = $scope.file.upload.name;
 
       $scope.uploading = true;
 
       FileService.upload($scope.file).then(function(data){
-        console.log(data);
+        //console.log(data);
         if(data.data.success){
           $scope.uploading = false;
         }
@@ -273,8 +273,8 @@
       var currentActive = document.getElementsByClassName("item active")[0].id;
       var appPages = document.getElementsByClassName("item");
 
-      console.log(appPages);
-      console.log(currentActive);
+      //console.log(appPages);
+      //console.log(currentActive);
 
       for(var i = 0; i < appPages.length; i++){
         var errorMessages = appPages[i].querySelectorAll('.error-text');
