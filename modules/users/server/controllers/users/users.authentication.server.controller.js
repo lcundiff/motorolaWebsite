@@ -49,12 +49,18 @@ var noReturnUrls = [
  };
 
  exports.volunteerSignup = function(req,res){
+   console.log('here');
     var user = new User(req.body);
     user.provider = 'local';
      
     return user.save(function (err) {
-    if (err) {
-      res.status(400).send(err);
+    if (err.name === 'MongoError' && err.code === 11000) {
+      // Duplicate username
+      return res.status(422).send({ succes: false, message: 'User already exist!' });
+    }
+    else if (err) {
+      console.log(err);
+      res.status(422).send(err);
     } else {
       //Remove sensitive data before login
       user.password = undefined;
