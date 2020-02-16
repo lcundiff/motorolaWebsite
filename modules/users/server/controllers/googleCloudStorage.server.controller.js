@@ -7,8 +7,9 @@ var FormData = require('form-data');
 
 const {Storage} = require('@google-cloud/storage');
 
-const projectId = 'motorola-careers-mentoring';
-const bucketName = 'motorola-careers-mentoring.appspot.com';
+// TODO pull this from development.js or production.js depending on env (still need to set up envs as well)
+const projectId = 'motorola-new';
+const bucketName = 'motorola-new.appspot.com';
 
 const storage = new Storage({projectId});
 
@@ -56,6 +57,7 @@ exports.downloadCloudFile = function(req, res) {
     .file(`${req.params.filename}`)
     .createReadStream()
     .on('error', function(err){
+      console.log(err);
       return res.status(406).end();
     })
     .on('response', function(response){

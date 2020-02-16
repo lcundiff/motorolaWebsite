@@ -29,54 +29,32 @@ module.exports = {
     clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
     callbackURL: '/api/auth/facebook/callback'
   },
-  twitter: {
-    username: '@TWITTER_USERNAME',
-    clientID: process.env.TWITTER_KEY || 'CONSUMER_KEY',
-    clientSecret: process.env.TWITTER_SECRET || 'CONSUMER_SECRET',
-    callbackURL: '/api/auth/twitter/callback'
-  },
   google: {
     clientID: process.env.GOOGLE_ID || 'APP_ID',
     clientSecret: process.env.GOOGLE_SECRET || 'APP_SECRET',
     callbackURL: '/api/auth/google/callback'
   },
-  linkedin: {
-    clientID: process.env.LINKEDIN_ID || 'APP_ID',
-    clientSecret: process.env.LINKEDIN_SECRET || 'APP_SECRET',
-    callbackURL: '/api/auth/linkedin/callback'
-  },
-  github: {
-    clientID: process.env.GITHUB_ID || 'APP_ID',
-    clientSecret: process.env.GITHUB_SECRET || 'APP_SECRET',
-    callbackURL: '/api/auth/github/callback'
-  },
-  paypal: {
-    clientID: process.env.PAYPAL_ID || 'CLIENT_ID',
-    clientSecret: process.env.PAYPAL_SECRET || 'CLIENT_SECRET',
-    callbackURL: '/api/auth/paypal/callback',
-    sandbox: true
-  },
   googleCloudStorage: {
-    projectId: 'motorola-careers-mentoring',
-    bucketName: 'motorola-careers-mentoring.appspot.com',
+    projectId: 'motorola-new',
+    bucketName: 'motorola-new.appspot.com',
   },
   NODE_ENV: "development",
   GOOGLE_APPLICATION_CREDENTIALS: {
     type: "service_account",
-    project_id: "motorola-careers-mentoring",
-    private_key_id: "84d67d4f1bd0224f4772a8a3dd633d09635378a3",
-    private_key: "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCk2QqmPXSUccla\nJM/+o0L8Rn990MMco1VO9pxQp1IbLm+lHUsLcogwsKEV65gW53T4g0Tng0CAUWXc\nJ6Yfs6K+SQfUJes2kbqXJv/1pSShBObAAkMnv9pOTsrqI9ylDQlDe7so6mfdr/Jp\nyZKluhMrwVFC2hapyeg/nt7D89qJ/i+Oz0I29ZS8zCnypxBFvFcxjsg5NJBxrec/\nR7G8ILLLREOJoVbLwbO1FZHMK/eAkLENQeJtGCvs27b8dxeHsLkXa7lTu/7I4cmX\nFaLw2TV86I60CItfpdAdweRkx/ZXJVXNnqLNiOSMx32GiKcJIM5RVsgOBfTtHXkY\n2wPjh22jAgMBAAECggEAAtAVAglu8p05oakSFAf4mZHuHWG+I54GZJ80GK7iNk7s\nIqKWymxqAwd6ILcXewDWL9oKXK7OH1nd0EgBttw7kCJQNq8qJ13zV+tTG5C582km\nqo0jmQK0HOgWNgYqoP5Z85Syo2R9nK+zwb9p1deykz7S8Vfht6ZbyzkMfeiKXfRj\n4jF80pxO/rsAyZepaaEwuUBsvcMo+dKxZ1hzWbCRzfX+VRmiiU8bEmH/S+FxjtPm\ntOk5RbtQpU6FuESUcyYr5GPSyncARD6Kui34whP3Pi50kJ1GofZlp59gHXhYhsH3\nF/d13xiaXes3jArAPaSVoEbS8bdfmbMN1cRXs2JuwQKBgQDf+JqDRmuQWJ04ioXB\nH8AxHyBJITOcqQ20ly/0hyEghDRgF13GWcsbaQK6NLskN21sxyqS9DaIkkSFric+\nx7bh2+FpnjuF6yTcRQvib/muxqnuznbo/r7dbo6lyvQMgAJERfssa6xIF1VptqA9\nC5oaqwwXhdPJaCyf2Zhh/8iL0wKBgQC8a/vFLKfOhhhnq7ptxeGaoaD73HmgI1st\npFdX3h3QVRaJVcM0cfQgfNl4co03824AyKALP01E1UWFZnLIyYJ4LRtVIyDrQfHI\n7IpQzorLyIFz4ZtUeVRPOhcSBriv9aOynhlZtyhfBIsLtb37lqgMTl9w0/lW1KPp\n/+n9+vGE8QKBgFtpH8cMasJTKHf3MXgM+WgTCB5QyrvZ05otSolGzaJz0tyVLNTT\nuS3Kwi41b1vss2B+OUYZHljHOehFmAbrhBzSnUF6L1kNC9JK6/rTMNjAhILPCYE2\n17eQc+/+0XR4mnQ7C7SpjXsu6tFmlCfWIGNaBGllWXcOaYgkSylUOAm5AoGBALjJ\nqjxgpB3+Etcxav+XTr9I/kmjm0B7DEPB5csN0e1sVVLQ4kV/8G0gJGNk7KxPt7Vb\nDOKa7VuxUaIXrEDQp3zWt/SSJAm1PbvQh4HiXeqnNJYCT0TUTOP6U3/hSaV/4VAe\njzwWTaiKGxeb4LtpsFuJTT6pFOKcXjjyO3hTcCPxAoGAVdiuVx3lEEjYh94D9pRg\nillph4y1B2sHEYN84KFcOLv885o6FL2zIBcqLpU8r9A7y3UGilVLRbrsO+CpavUA\nnn0iudUZUIzRSsdbQ0ZdhftHDj99g2rd9Lgj0uGTFtbEY4VDDbzjOGwKXwoNKHbW\n9C87n1Gq/DhqTrElNLXyn2w=\n-----END PRIVATE KEY-----\n",
-    client_email: "motorola-careers-mentoring@appspot.gserviceaccount.com",
-    client_id: "101111851601137531049",
+    project_id: "motorola-new",
+    private_key_id: "21b77790e7ed39c2872f4358c7ea77d522c3a1dd",
+    private_key: "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDSl0Q0LOrjg9XI\nvhbs/UjtjlmyngzOTWD+5IHyfM5f6yhnfKPoRpzewkCnhCKNJJkYbn5g4aXx553C\ny6ItIdd0JUFJufHzYUSjy87ZZLcPxJdqfyHxAj3qkqh2C36q7zVqh/THC6+lyaT+\nDDEpn4iTEjqG+SiZGyQ+9hnpq5NwTujqJUW8kzFCvnYsRToyxCMWo4zDjTwDU6Dp\nB9EgVb9tw4YkBULfxWjhjFBKNNJVvIt9pyO2ZNaYq9fmepIyblgIDg6SMXZDaw2S\njgPX2KAsNktb+qC8tBLtSRu6boH5PnYSKS0pa2drVsA+HvxpP+JjxtT+7ft0E/1n\ne9qRoP4bAgMBAAECggEAAWL0lIFdNI1IKY+y1/Gc+s9uoMHwpKUWx+baQi33L+N8\n+x1zeNKKMt9FjLTOg25jwajslRe3P33+aGtt0G1CHWYnZWRfhvIzgP6VCJJksCpj\nstROdWdF4BcCG/DcbySvDdoCTxMxH17SAsgyxKrju9ApaX0XetaWaQG2zvaNvHYN\ne8YSFuPlwphaMgvYVgdmPVKwusWHxL810NFUQaf0ka2gkULXToiaYcADcG7FiUow\nVKQ+aqcPEmwVvhzUDcG3xE9WepqsOlIxVrkht0sSM1xc0Phkcxi0PhDXl97TmQKp\nJhX2b9PxSDVXQne7FBcu/NPQ6x2nMrXf0DBOFkDZQQKBgQD0b+sRqLvh6SAReCLE\ncLiTeujt/yNRN2Qg/2pUOQLZUdEF6BwpWfZ3IKc3IdMX0j1YJS45tBDvzd/Dzdlh\nqQkKTCDOBGBRmg3ORzUxlAoTY/KtxsEXDfhzttAmkAM7w6W7H3q1FRmjaMMjTzJa\nfe0T9Wh1h0uaHEjLDp/fYLBu2wKBgQDcjXoP6SH5VDZlp1rkLsWw/yUVJiaOYJCJ\nr2NNczZJs2nmpBXaHb3KF0d4aTiDmVCOg7zPX3y0X+nw+bytqw0wDby6gdyD4vWg\nDHoUwbVW1ZNOerM1JZge54QiuNqIdOyVuMVMARwCNwJHUWoVawUKWIilg8ELZf1Q\nkSaSJWixwQKBgCIF2fBRTiV5r27/C8fP8MEGYJmP47iQPy2gn4otjUn2a2OpFRJk\nZTvbnaq82Ib+Sm+UbUS23YyjWTwF0PYY8xst0XsbfNSe3sERhEPsWSKtzL+HZKTy\n2twwW/SiIvEUoGLVVN0TnMfz8wVdJqMV2APpKqsBM/K1cSRiWrpa2PP1AoGAVHdO\nVweW/lD1IEtOsPMEvTuJ7SaWP5LV6BUmd8P295ThqvYOdGFNjTcLJR9PCH9P7bSg\nO986+C1/f811KCHJRC0OqXMQi+YA4dHFc2uYUnArITQ2q9UBBFzwKwgWkYoODW0d\nCnWmT2bX1Y5ljVxWKtcrRhBGf2II+LEOT4xKI0ECgYBiVd5VfZdBnid2IL4RBwb6\ncvZ3xdS8VGNMsDZU9Ziub4pBeKw0dMlIEYjaexaybtOjQHoEPuYFnwj7AUs5Hnta\niFKOEDQmun6hZ3YW4QMdyYRcj/ieLkXSN8fLMVgoff51Ed4i+ocNafsUY7w4LV7l\nrE9maTbt7ex7srzxPLPODA==\n-----END PRIVATE KEY-----\n",
+    client_email: "motorola-new@appspot.gserviceaccount.com",
+    client_id: "101628990559814163302",
     auth_uri: "https://accounts.google.com/o/oauth2/auth",
     token_uri: "https://oauth2.googleapis.com/token",
     auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-    client_x509_cert_url: "https://www.googleapis.com/robot/v1/metadata/x509/motorola-careers-mentoring%40appspot.gserviceaccount.com",
+    client_x509_cert_url: "https://www.googleapis.com/robot/v1/metadata/x509/motorola-new%40appspot.gserviceaccount.com",
   },
   mailer: {
     from: 'alexmarron@mentoringcoach.org',
     options: {
-      name: 'motorola-careers-mentoring.appspot.com',
+      name: 'motorola-new.appspot.com',
       sendMail: true,
       host: 'smtp.gmail.com',
       port: 465,
