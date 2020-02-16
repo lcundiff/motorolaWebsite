@@ -20,7 +20,7 @@
 		// APPLICANTS
 		vm.listActiveStudents = listActiveStudents;
 		vm.listDeactivatedStudents = listDeactivatedStudents;
-    vm.listOldStudents = listOldStudents;
+		vm.listOldStudents = listOldStudents;
 		vm.deactivateStudent = deactivateStudent;
 		vm.activateStudent = activateStudent;
 		vm.manAcceptStudent = manAcceptStudent;
@@ -28,7 +28,7 @@
 		vm.viewForm = viewForm;
 		vm.manAcceptStudent = manAcceptStudent;
 		vm.autoAccept = autoAccept;
-    vm.updateOneField = updateOneField; 
+		vm.updateOneField = updateOneField;
 
 		// FORMS
 		vm.viewForm = viewForm;
@@ -72,23 +72,23 @@
 			vm.user = user;
 			vm.selected_user = true;
 		}
-    // function to change one field using [] to access JSON field
-    /* @params
-    / @student => student (vm.user) object sent from view 
-    / @key => the field you want to change
-    / @val => the value you want to assign to field
-    */
-    function updateOneField(student,key,val) {
-      //console.log(typeof key);
-      vm.user = student;
-      vm.user[key] = val; 
-      console.log(key + " is key and value is " + vm.user[key]);
-      StudentService.updateStudent(student.user,student).then((res) => {
-       console.log("field updated: " + vm.user['phoneInterview']); // change phone interview boolean       
-      });
-    }
+		// function to change one field using [] to access JSON field
+		/* @params
+		/ @student => student (vm.user) object sent from view 
+		/ @key => the field you want to change
+		/ @val => the value you want to assign to field
+		*/
+		function updateOneField(student, key, val) {
+			//console.log(typeof key);
+			vm.user = student;
+			vm.user[key] = val;
+			console.log(key + " is key and value is " + vm.user[key]);
+			StudentService.updateStudent(student.user, student).then((res) => {
+				console.log("field updated: " + vm.user['phoneInterview']); // change phone interview boolean       
+			});
+		}
 		function completedStudentApps() {
-			AdminService.completedStudentApps().then(function(response){
+			AdminService.completedStudentApps().then(function (response) {
 				const notCompleted = response.values[0] - response.values[1];
 				const Completed = response.values[1];
 
@@ -156,57 +156,253 @@
 				delay: 6000
 			});
 		}
+
+		//Modal Functions
+
+		$scope.openModalCSV = function (docId) {
+			var modal = document.getElementById(docId);
+			modal.style.display = "block";
+		};
+
+		$scope.closeModalCSV = function (docId) {
+			var modal = document.getElementById(docId);
+			modal.style.display = "none";
+		};
+		$scope.checkAll = function (docId) {
+			var value = $scope.all
+			console.log("Checked all ", value)
+			if (value !== undefined) {
+				if (docId == 'myModalAllStudentCSV') {
+					vm.form_name = value; vm.form_email = value; vm.form_phone = value; vm.form_address = value;
+					vm.form_school = value; vm.form_parent_name = value; vm.form_parent_phone = value; vm.form_parent_email = value;
+					vm.form_interviewers = value; vm.form_interview_date = value; vm.form_interview_time = value; vm.form_interview_dow = value;
+				}
+				else if (docId == 'myModalActiveStudentCSV') {
+					vm.form_name = value; vm.form_email = value; vm.form_phone = value; vm.form_address = value;
+					vm.form_school = value; vm.form_parent_name = value; vm.form_parent_phone = value; vm.form_parent_email = value;
+					vm.form_interviewers = value; vm.form_mentor=value; vm.form_session=value; vm.form_top_interest=value;
+					 vm.form_interview_date = value; vm.form_interview_time = value; vm.form_interview_dow = value;
+				}
+				else if (docId == 'myModalVolunteersCSV') {
+					vm.form_name = value; vm.form_email = value; vm.form_phone = value; vm.form_address = value;
+					vm.form_expertise=value; vm.form_sessions=value; vm.form_roles=value; vm.form_amount_of_interviews=value;
+					vm.form_interviewees=value;
+				}
+				else{
+					console.log("Document ID is not correct")
+				}
+			}
+
+		}
+
+		$scope.submitCSVForm = function (docId) {
+			let columns = []
+
+			if (vm.form_name !== undefined) {
+				vm.form_name === true ? columns.push('Name') : "";
+			}
+			if (vm.form_email !== undefined) {
+				vm.form_email === true ? columns.push('Email') : "";
+			}
+			if (vm.form_phone !== undefined) {
+				vm.form_phone === true ? columns.push('Phone') : "";
+			}
+			if (vm.form_address !== undefined) {
+				vm.form_address === true ? columns.push('Address') : "";
+			}
+			if (vm.form_school !== undefined) {
+				vm.form_school === true ? columns.push('School') : "";
+			}
+			if (vm.form_parent_name !== undefined) {
+				vm.form_parent_name === true ? columns.push('Parent Name') : "";
+			}
+			if (vm.form_parent_phone !== undefined) {
+				vm.form_parent_phone === true ? columns.push('Parent Phone') : "";
+			}
+			if (vm.form_parent_email !== undefined) {
+				vm.form_parent_email === true ? columns.push('Parent Email') : "";
+			}
+			if (vm.form_interviewers !== undefined) {
+				vm.form_interviewers === true ? columns.push('Interviewers') : "";
+			}
+			if (vm.form_interview_date !== undefined) {
+				vm.form_interview_date === true ? columns.push('Interview Date') : "";
+			}
+			if (vm.form_interview_time !== undefined) {
+				vm.form_interview_time === true ? columns.push('Interview Time') : "";
+			}
+			if (vm.form_interview_dow !== undefined) {
+				vm.form_interview_dow === true ? columns.push('Interview DOW') : "";
+			}
+			if (vm.form_mentor !== undefined) {
+				vm.form_mentor === true ? columns.push('Mentor') : "";
+			}
+			if (vm.form_top_interest !== undefined) {
+				vm.form_top_interest === true ? columns.push('Top Interest') : "";
+			}
+			if (vm.form_session !== undefined) {
+				vm.form_session === true ? columns.push('Session') : "";
+			}
+			if (vm.form_expertise !== undefined) {
+				vm.form_expertise === true ? columns.push('Expertise') : "";
+			}
+			if (vm.form_roles !== undefined) {
+				vm.form_roles === true ? columns.push('Roles') : "";
+			}
+			if (vm.form_amount_of_interviews !== undefined) {
+				vm.form_amount_of_interviews === true ? columns.push('Amount of Interviews') : "";
+			}
+			if (vm.form_interviewees !== undefined) {
+				vm.form_interviewees === true ? columns.push('Interviewees') : "";
+			}
+
+			if (docId === 'myModalAllStudentCSV') {
+				downloadAllCSV(columns)
+			}
+			if (docId === 'myModalActiveStudentCSV') {
+				downloadActiveCSV(columns)
+			}
+			if (docId === 'myModalVolunteersCSV') {
+				downloadVolunteersCSV(columns)
+			}
+
+			var modal = document.getElementById(docId);
+			modal.style.display = "none";
+
+		}
+		function putColsInString(columns) {
+			var str = " ";
+			var i;
+			for (i in columns) {
+				str = str.concat(columns[i])
+				if (i < (columns.length - 1)) {
+					str = str.concat(', ');
+				}
+			}
+			str = str.concat('\n');
+			console.log('str ', str);
+			return str;
+		}
+
+		function putColsInCSVFormat(columns, obj) {
+			var content = ""
+			var i;
+			for (i in columns) {
+				if (columns[i] === 'Name') {
+					content = content.concat("\"", obj.application.firstName, " ", obj.application.lastName, "\"")
+				}
+				else if (columns[i] === 'Email') {
+					content = content.concat("\"", obj.application.email, "\"")
+				}
+				else if (columns[i] === 'Phone') {
+					content = content.concat("\"", obj.application.phone, "\"")
+				}
+				else if (columns[i] === 'Address') {
+					if (obj.application.address.city !== "" && obj.application.address.state !== "" && obj.application.address.zipcode !== "") {
+						content = content.concat("\"", obj.application.address.city, " , " + obj.application.address.state, " , " + obj.application.address.zipcode, "\"")
+					}
+					else {
+						content = content.concat("\"", 'Not Available', "\"")
+					}
+				}
+				else if (columns[i] === 'School') {
+					content = content.concat("\"", obj.application.school, "\"")
+				}
+				else if (columns[i] === 'Parent Name') {
+					content = content.concat("\"", obj.application.parent.name, "\"")
+				}
+				else if (columns[i] === 'Parent Phone') {
+					content = content.concat("\"", obj.application.parent.phone, "\"")
+				}
+				else if (columns[i] === 'Parent Email') {
+					content = content.concat("\"", obj.application.parent.email, "\"")
+				}
+				else if (columns[i] === 'Mentor') {
+					content = content.concat("\"", obj.mentor, "\"")
+				}
+				else if (columns[i] === 'Session') {
+					content = content.concat("\"", obj.timeSlot, "\"")
+				}
+				else if (columns[i] === 'Top Interest') {
+					content = content.concat("\"", obj.application.interests[0], "\"")
+				}
+				else if (columns[i] === 'Interviewers') {
+					content = content.concat("\"", obj.interviewer[0], ", ", obj.interviewer[1], "\"")
+				}
+				else if (columns[i] === 'Expertise') {
+					content = content.concat("\"", obj.application.areaofexpertise, "\"")
+				}
+				else if (columns[i] === 'Sessions') {
+					content = content.concat("\"", obj.sessions, "\"")
+				}
+				else if (columns[i] === 'Amount of Interviews') {
+					content = content.concat("\"", obj.interviewee_count, "\"")
+				}
+				else if (columns[i] === 'Interviewees') {
+					content = content.concat("\"", obj.interviewee, "\"")
+				}
+				if (i < (columns.length - 1)) {
+					content = content.concat(',');
+				}
+			}
+			return content;
+		}
+
 		// download CSV
-		$scope.downloadAllCSV = function () {
+		function downloadAllCSV(columns) {
 			vm.loading = true;
 			// get student info
-			var header = "Name, Email, Phone, Address, School, Parent Name, Parent Phone, Parent Email, Interviewers, Interview Date, Interview Time, Interview DOW\n";
+			var header = putColsInString(columns);
 			var content = "";
 			//$scope.StudentService.studentListActive().then(function(data){
 			StudentService.studentList().then(function (data) {
-					var Students = data;
+				var Students = data;
+				console.log("data ", data)
+				Students.forEach(function (student) { // creates and formats student data on a CSV sheet
+					var formatedCols = putColsInCSVFormat(columns, student)
+					content = formatedCols + "\n" + content;
+					console.log("formatted content: ", content)
 
+				});
+				content = header + content;
+				//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+				var link = document.createElement('a');
+				link.href = 'data:attachment/csv,' + encodeURIComponent(content);
+				link.download = 'All_Students_CSV.csv';
+				link.click();
+				vm.loading = false;
+				$state.reload();
 
-					Students.forEach(function (student) { // creates and formats student data on a CSV sheet
-						console.log("student object data: ", student)
-						content = "\"" + student.application.firstName + " " + student.application.lastName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\"" + student.application.address.city + " , " + student.application.address.state + " , " + student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
-					});
-					content = header + "\n" + content;
-
-					//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-					var link = document.createElement('a');
-					link.href = 'data:attachment/csv,' + encodeURIComponent(content);
-					link.download = 'All_Students_CSV.csv';
-					link.click();
-					vm.loading = false;
-				},
+			},
 				function (error) {
 					vm.loading = false;
 					$scope.error = 'Unable to retrieve students!\n' + error;
 				});
 		}
-		$scope.downloadVolunteersCSV = function () {
+		function downloadVolunteersCSV(columns) {
 			vm.loading = true;
 			// get volunteer info
-			var header = "Name, Email, Phone, Address, Expertise, Sessions, Roles, Amount of Interviews, Interviees, \n";
+			var header = putColsInString(columns);
 			var content = "";
 			VolunteerService.getVolunteers().then(function (data) {
-					var Volunteers = data;
+				var Volunteers = data;
 
-					Volunteers.forEach(function (volunteer) { // creates and formats volunteer data on a CSV sheet
-						console.log("volunteer object data: ", volunteer)
-						content = "\"" + volunteer.application.firstName + ' ' + volunteer.application.lastName + "\"" + "," + "\"" + volunteer.application.email + "\"" + "," +
-							"\"" + volunteer.application.phone + "\"" + "," + "\"" + volunteer.application.address.city + " , " + volunteer.application.address.state + " " + volunteer.application.address.zipcode + "\"" + "," + "\"" + volunteer.application.areaofexpertise + "\"" + "," + "\"" + volunteer.sessions + "\"" + "," + "\"" + volunteer.roles + "\"" + "," + "\"" + volunteer.interviewee_count + "\"" + "," + "\"" + volunteer.interviewee + "\"" + "\n" + content;
-					});
-					content = header + "\n" + content;
+				Volunteers.forEach(function (volunteer) { // creates and formats volunteer data on a CSV sheet
+					var formatedCols = putColsInCSVFormat(columns, volunteer)
+					content = formatedCols + "\n" + content;
+					console.log("formatted content: ", content)
+				});
+				content = header + content;
 
-					//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-					var link = document.createElement('a');
-					link.href = 'data:attachment/csv,' + encodeURIComponent(content);
-					link.download = 'All_Volunteers_CSV.csv';
-					link.click();
-					vm.loading = false;
-				},
+				//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+				var link = document.createElement('a');
+				link.href = 'data:attachment/csv,' + encodeURIComponent(content);
+				link.download = 'All_Volunteers_CSV.csv';
+				link.click();
+				vm.loading = false;
+				$state.reload();
+
+			},
 				function (error) {
 					vm.loading = false;
 					$scope.error = 'Unable to retrieve volunteers!\n' + error;
@@ -214,28 +410,31 @@
 		}
 
 		// Download ONLY active students
-		$scope.downloadActiveCSV = function () {
+		function downloadActiveCSV(columns) {
 			// get student info
 			vm.loading = true;
-			var header = "Name, Email, Phone, Address, School, Parent Name, Parent Phone, Parent Email, Mentor, Session, Top Interest, Interviewers, Interview Date, Interview Time, Interview DOW\n";
+			var header = putColsInString(columns);
 			var content = "";
 			//$scope.StudentService.studentListActive().then(function(data){
 			StudentService.studentListAccepted().then(function (data) {
-					var Students = data;
+				var Students = data;
 
-					Students.forEach(function (student) { // creates and formats student data on a CSV sheet
-						console.log("student object data: ", student)
-						content = "\"" + student.application.firstName + ' ' + student.application.lastName + "\"" + "," + "\"" + student.application.email + "\"" + "," + "\"" + student.application.phone + "\"" + "," + "\"" + student.application.address.city + " , " + student.application.address.state + " , " + student.application.address.zipcode + "\"" + "," + "\"" + student.application.school + "\"" + "," + "\"" + student.application.parent.name + "\"" + "," + "\"" + student.application.parent.phone + "\"" + "," + "\"" + student.application.parent.email + "\"" + "," + "\"" + student.mentor + "\"" + "," + "\"" + student.timeSlot + "\"" + "," + "\"" + student.application.interests[0] + "\"" + "," + "\"" + student.interviewer[0] + ", " + student.interviewer[1] + "\"" + "," + "\"" + " " + "\"" + "," + "\"" + " " + "\"" + "\n" + content;
-					});
-					content = header + "\n" + content;
+				Students.forEach(function (student) { // creates and formats student data on a CSV sheet
+					var formatedCols = putColsInCSVFormat(columns, student)
+					content = formatedCols + "\n" + content;
+					console.log("formatted content: ", content)
+				});
+				content = header + content;
 
-					//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
-					var link = document.createElement('a');
-					link.href = 'data:attachment/csv,' + encodeURIComponent(content);
-					link.download = 'Active_Students_CSV.csv';
-					link.click();
-					vm.loading = false;
-				},
+				//var fileUrl = $sce.trustAsResourceUrl(URL.createObjectURL(file));
+				var link = document.createElement('a');
+				link.href = 'data:attachment/csv,' + encodeURIComponent(content);
+				link.download = 'Active_Students_CSV.csv';
+				link.click();
+				vm.loading = false;
+				$state.reload();
+
+			},
 				function (error) {
 					vm.loading = false;
 					$scope.error = 'Unable to retrieve students!\n' + error;
@@ -387,16 +586,16 @@
 			var printContents_1 = document.getElementById(divID_1).innerHTML;
 			var printContents_2 = document.getElementById(divID_2).innerHTML;
 			var printContents = document.getElementById(divID_3).innerHTML;
-      //console.log("printContents1: " + printContents_1);
-      /*
-      / @params
-      / '' => optional URL of the window you are loading
-      / '_blank' => URL is loaded into a new window, or tab. This is default
-      / 
-      */
+			//console.log("printContents1: " + printContents_1);
+			/*
+			/ @params
+			/ '' => optional URL of the window you are loading
+			/ '_blank' => URL is loaded into a new window, or tab. This is default
+			/ 
+			*/
 			var popup = window.open('', '_blank', 'width=900px, height=600px');
 			popup.document.open();
-      //popup.focus();
+			//popup.focus();
 			popup.document.write('<html onload="window.focus();"><meta charset="UTF-8">' +
 				'<meta name="viewport" content="width=device-width, initial-scale=1">' +
 				'<link rel="stylesheet" href="/modules/core/client/css/core.css" media="print">' +
@@ -416,17 +615,17 @@
 				'</style>' +
 				//'<body onload="popup.print();">' + printContents + '</div></body></html>');
 				'<body onload="window.print();">' + '<div style="width:33%; float:left;">' + printContents_1 + '</div>' + '<div style="width:66%; float:left;">' + printContents_2 + '</div></body></html>');
-      popup.document.close();
-      /*
-          window.print() will trigger a print window first. However, it is blank for some reason on Chrome ONLY until you call print again. 
-          so we call print on the window again below. Then to make the 2nd print window come to the front, we call 
-          reload on the window and close the old window. There's no documentation on why Chrome is doing this, so this is works for now.
-      */
-      popup.print(); 
-      popup.location.reload(true);
-      popup.close();
+			popup.document.close();
+			/*
+				window.print() will trigger a print window first. However, it is blank for some reason on Chrome ONLY until you call print again. 
+				so we call print on the window again below. Then to make the 2nd print window come to the front, we call 
+				reload on the window and close the old window. There's no documentation on why Chrome is doing this, so this is works for now.
+			*/
+			popup.print();
+			popup.location.reload(true);
+			popup.close();
 			setTimeout(function () {
-        //popup.print();
+				//popup.print();
 			}, 100);
 		};
 

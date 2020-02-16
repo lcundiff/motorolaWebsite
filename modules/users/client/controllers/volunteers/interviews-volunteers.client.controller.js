@@ -101,7 +101,7 @@
     }
 
     $scope.openModal = function (student, docId) {
-			console.log(student);
+			console.log("interviews modal , " , student);
 			vm.modal_student = student;
 			$scope.vm.modal_student = vm.modal_student;
 			var modal = document.getElementById(docId);
