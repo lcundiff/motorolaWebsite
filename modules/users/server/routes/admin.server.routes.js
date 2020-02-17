@@ -43,6 +43,7 @@ module.exports = function (app) {
   app.route('/api/analytics/newInterviewerActivity').get(admin.newInterviewerActivity);
   app.route('/api/analytics/completedVolunteerApps').get(admin.completedVolunteerApps);
   app.route('/api/updateSchools').put(admin.updateSchools);
+  app.route('/api/sendThankYou').put(admin.sendThankYou);
 
   // Finish by binding the user middleware
   app.param('userId', admin.userByID);

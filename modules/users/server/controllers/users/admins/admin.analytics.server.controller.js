@@ -75,6 +75,7 @@ var path = require('path'),
     });
   };
 
+
   exports.completedStudentApps = function(req, res) {
     var allStudentApps = Student.count({}).exec();
     var completedStudentApps = Student.count({ isAppComplete: true}).exec();

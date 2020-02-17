@@ -89,7 +89,12 @@
       update_schools: {
         method: 'PUT',
         url: '/api/updateSchools'
-      }
+      },
+      send_thank_you: {
+        method: 'PUT',
+        url: '/api/sendThankYou'
+      },
+
     });
 
     angular.extend(Admins, {
@@ -168,7 +173,13 @@
          return this.update_schools(
           {name: schoolName
         }).$promise;
-      }
+      },
+      sendThankYou: function (credentials) {
+        return this.send_thank_you({
+          credentials: credentials
+       }).$promise;
+     },
+      
     });
 
     return Admins;

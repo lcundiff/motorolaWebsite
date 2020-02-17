@@ -10,14 +10,14 @@
 
 	function DashboardAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService, FileService, VolunteerService, /*AutomateService, googleDriveService,*/ $http, $sce) {
 		var vm = this;
-    vm.loading = false;
+    	vm.loading = false;
 		vm.newStudentActivity = newStudentActivity;
 		vm.completedStudentApps = completedStudentApps;
 		vm.completedStudentForms = completedStudentForms;
-    vm.updateSchools = updateSchools; 
+    	vm.updateSchools = updateSchools; 
 		vm.newVolunteerActivity = newVolunteerActivity;
 		vm.completedVolunteerApps = completedVolunteerApps;
-
+		vm.sendThankYou = sendThankYou;
 		vm.newStudentActivityGraph = {
 			config: {
 				title: 'Sign-ups this Week'
@@ -42,7 +42,18 @@
         console.log(points, evt);
       }
 		};
-    
+
+		function sendThankYou() {
+			console.log("Thank you");
+			var credentials = {
+				email: 'sydney.achinger@gmail.com',
+				firstName: "Sydney",
+				lastName: "Achinger",
+			}
+			AdminService.sendThankYou(credentials)
+				.then(res=> console.log("Send Thank You Res: ",res)).catch(err => console.log("Err: ",err));
+		}
+
 		vm.newVolunteerActivityGraph = {
 			config: {
 				title: 'Sign-ups this Week'

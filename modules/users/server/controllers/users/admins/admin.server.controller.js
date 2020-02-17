@@ -144,3 +144,10 @@ exports.updateSchools = function(req, res) {
   });
 };
 
+exports.sendThankYou = function(req,res){
+  console.log("Hello from send thank you server controller.")
+  var content = req.body['credentials']
+  console.log(content)
+  res.status(200).send(content);
+};
+
