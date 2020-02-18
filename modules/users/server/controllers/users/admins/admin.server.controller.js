@@ -9,7 +9,17 @@ var path = require('path'),
   Student = mongoose.model('Student'),
   Volunteer = mongoose.model('Volunteer'),
   School = mongoose.model('School'),
+  config = require(path.resolve('./config/config')),
+  nodemailer = require('nodemailer'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
+
+  var smtpTransport = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'motorolamentoring2020@gmail.com',
+      pass: 'Motorola123!'
+    }
+  });
 
 /**
  * Show the current user
@@ -146,8 +156,24 @@ exports.updateSchools = function(req, res) {
 
 exports.sendThankYou = function(req,res){
   console.log("Hello from send thank you server controller.")
-  var content = req.body['credentials']
-  console.log(content)
-  res.status(200).send(content);
+  var credentials = req.body['credentials']
+  var mailOptions = {
+    from: 'motorolamentoring2020@gmail.com',
+    to: credentials["email"],
+    subject: "Motorola Mentoring Application",
+    text: "Dear "+credentials['firstname'] +" "+ credentials['lastname']+",\n"+" \n"+
+    "Thank you for applying to the Motorola mentoring program. Unfortunately, we are unable to accept your application. We encourage you to apply again next year. \n"+
+    " \n"+"Best Regards, \n"+"Motorola Mentoring Team"
+  }
+  smtpTransport.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+      res.status(400)
+    } else {
+      console.log('Email sent: ' + info.response);
+      res.status(200).send(mailOptions);
+    }
+  });
+  res.status(200).send(mailOptions);
 };
 

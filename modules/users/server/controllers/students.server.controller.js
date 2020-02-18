@@ -251,15 +251,23 @@ exports.listNonActiveWithoutForms = function(req, res) {
       }
   });
 };
+//Student.find({active: {$ne: false } }).collation({ locale: "en" }).sort('application.lastName').populate('user', 'displayName').exec(function(err, students) {
 
 exports.listAccepted = function(req, res) {
-  Student.find({ timeSlot: {$size: 1}, mentor: {$ne: ""} } ).collation({ locale: "en" }).sort('application.lastName').populate('user', 'displayName').exec().then(function (students) {
-      res.jsonp(students);
-  }, function(err){
+  Student.find({ timeSlot: {$size: 1}, mentor: {$ne: ""} } ).collation({ locale: "en" }).sort('application.lastName').populate('user', 'displayName').exec(function (err,students) {
     if (err) {
+      console.log(err)
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
+    } else{
+      console.log("calling list accepted");
+      if(students.length === 0){
+        res.send(["No accepted students"])
+      }
+      else{
+        res.jsonp(students);
+      }
     }
   });
 }

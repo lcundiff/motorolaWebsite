@@ -44,14 +44,46 @@
 		};
 
 		function sendThankYou() {
-			console.log("Thank you");
-			var credentials = {
-				email: 'sydney.achinger@gmail.com',
-				firstName: "Sydney",
-				lastName: "Achinger",
+			StudentService.studentListAccepted().then(function (accepted_students) {
+				if(accepted_students[0] === "No accepted students"){
+					console.log("No accepted students, send thank you to all active students");
+					StudentService.studentList().then(function(active_students){
+						for(var i =0; i <active_students.length;i++){
+							var credentials = {
+								email: active_students[i]['application']['email'],
+								firstname: active_students[i]['application']['firstName'],
+								lastname: active_students[i]['application']['lastName']
+							}
+							AdminService.sendThankYou(credentials)
+							.then(res=> console.log("Send Thank You Res: ",res)).catch(err => console.log("Err: ",err));
+						}	
+					})
+				}
+				else{
+					var accepted_emails = []
+					for(var i = 0; i<accepted_students.length;i++){
+						accepted_emails.push(accepted_students[i]['application']['email']);
+					}
+	
+					//should we email students from all students list or from active students list
+					StudentService.studentList().then(function(active_students){
+						for(var i =0; i< active_students.length; i++){
+							email = active_students['application']['email'];
+							if ( accepted_emails.includes(email) === false){
+								var credentials = {
+									email: active_students[i]['application']['email'],
+									firstname: active_students[i]['application']['firstName'],
+									lastname: active_students[i]['application']['lastName']
+								}
+								AdminService.sendThankYou(credentials)
+								.then(res=> console.log("Send Thank You Res: ",res)).catch(err => console.log("Err: ",err));
+							}
+
+						}
+					})
+				}
 			}
-			AdminService.sendThankYou(credentials)
-				.then(res=> console.log("Send Thank You Res: ",res)).catch(err => console.log("Err: ",err));
+			);
 		}
 
 		vm.newVolunteerActivityGraph = {
