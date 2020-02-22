@@ -48,15 +48,23 @@
 				if(accepted_students[0] === "No accepted students"){
 					console.log("No accepted students, send thank you to all active students");
 					StudentService.studentList().then(function(active_students){
+						var credentials =[]
 						for(var i =0; i <active_students.length;i++){
-							var credentials = {
+							var credential = {
 								email: active_students[i]['application']['email'],
 								firstname: active_students[i]['application']['firstName'],
 								lastname: active_students[i]['application']['lastName']
 							}
-							AdminService.sendThankYou(credentials)
-							.then(res=> console.log("Send Thank You Res: ",res)).catch(err => console.log("Err: ",err));
-						}	
+							credentials.push(credential)
+						}
+						AdminService.sendThankYou(credentials)
+						.then(function(res){
+							console.log("Send Thank You Res: ",res)
+							Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>Consolation Emails Sent.'});
+						}).catch(function(err){
+							console.log("Err: ",err)
+							Notification.error({message: 'Error Trying To Send Emails.'});
+						});	
 					})
 				}
 				else{
@@ -67,19 +75,27 @@
 	
 					//should we email students from all students list or from active students list
 					StudentService.studentList().then(function(active_students){
+						var credentials =[]
 						for(var i =0; i< active_students.length; i++){
 							email = active_students['application']['email'];
 							if ( accepted_emails.includes(email) === false){
-								var credentials = {
+								var credential = {
 									email: active_students[i]['application']['email'],
 									firstname: active_students[i]['application']['firstName'],
 									lastname: active_students[i]['application']['lastName']
 								}
-								AdminService.sendThankYou(credentials)
-								.then(res=> console.log("Send Thank You Res: ",res)).catch(err => console.log("Err: ",err));
+								credentials.push(credential)
 							}
 
 						}
+						AdminService.sendThankYou(credentials)
+						.then(function(res){
+							console.log("Send Thank You Res: ",res)
+							Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>Consolation Emails Sent.'});
+						}).catch(function(err){
+							console.log("Err: ",err)
+							Notification.error({message: 'Error Trying To Send Emails.'});
+						});
 					})
 				}
 			}

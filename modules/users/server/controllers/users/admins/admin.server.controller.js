@@ -157,23 +157,26 @@ exports.updateSchools = function(req, res) {
 exports.sendThankYou = function(req,res){
   console.log("Hello from send thank you server controller.")
   var credentials = req.body['credentials']
-  var mailOptions = {
-    from: 'motorolamentoring2020@gmail.com',
-    to: credentials["email"],
-    subject: "Motorola Mentoring Application",
-    text: "Dear "+credentials['firstname'] +" "+ credentials['lastname']+",\n"+" \n"+
-    "Thank you for applying to the Motorola mentoring program. Unfortunately, we are unable to accept your application. We encourage you to apply again next year. \n"+
-    " \n"+"Best Regards, \n"+"Motorola Mentoring Team"
-  }
-  smtpTransport.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-      res.status(400)
-    } else {
-      console.log('Email sent: ' + info.response);
-      res.status(200).send(mailOptions);
+
+  for(var i =0; i<credentials.length; i++){
+    var credential = credentials[i]
+    var mailOptions = {
+      from: 'motorolamentoring2020@gmail.com',
+      to: credential["email"],
+      subject: "Motorola Mentoring Application",
+      text: "Dear "+credential['firstname'] +" "+ credential['lastname']+",\n"+" \n"+
+      "Thank you for applying to the Motorola mentoring program. Unfortunately, we are unable to accept your application. We encourage you to apply again next year. \n"+
+      " \n"+"Best Regards, \n"+"Motorola Mentoring Team"
     }
-  });
-  res.status(200).send(mailOptions);
+    smtpTransport.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+        res.status(400)
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  }
+  res.status(200).send("Sent all consolation emails.");
 };
 
