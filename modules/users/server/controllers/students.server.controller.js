@@ -215,6 +215,19 @@ exports.listActive = function (req, res) {
   });
 };
 
+exports.listFormsNotApproved = function(req,res){
+  Student.find({active: true, isFormSubmitted: true }).collation({ locale: "en" }).sort('application.lastName').exec().then(function (students) {
+    console.log(students)
+    res.json(students);
+  }, function(err){
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+});
+}
+
 exports.listActiveWithoutForms = function(req, res) {
   Student.find({active: true, isFormSubmitted: false}).collation({ locale: "en" }).sort('application.lastName').exec().then(function (students) {
       res.json(students);
@@ -226,6 +239,7 @@ exports.listActiveWithoutForms = function(req, res) {
       }
   });
 };
+
 
 exports.listDeactivated = function (req, res) {
   console.log("In server list all students");

@@ -44,7 +44,7 @@ module.exports = function (app) {
   app.route('/api/analytics/completedVolunteerApps').get(admin.completedVolunteerApps);
   app.route('/api/updateSchools').put(admin.updateSchools);
   app.route('/api/sendThankYou').put(admin.sendThankYou);
-  app.route('/api/sendCorrection').put(admin.sendCorrection)
+  app.route('/api/sendRemindToSubmit').put(admin.sendRemindToSubmit)
 
   // Finish by binding the user middleware
   app.param('userId', admin.userByID);

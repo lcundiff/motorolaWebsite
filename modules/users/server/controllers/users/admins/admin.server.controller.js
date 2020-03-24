@@ -154,7 +154,7 @@ exports.updateSchools = function(req, res) {
   });
 };
 
-exports.sendCorrection = function(req,res){
+exports.sendRemindToSubmit = function(req,res){
   var no_form_students = req.body["credentials"]  
 
   for(var i =0; i< no_form_students.length; i++){ 
@@ -163,9 +163,9 @@ exports.sendCorrection = function(req,res){
     var mailOptions = {
       from: 'motorolamentoring2020@gmail.com',
       to: student["application"]["email"],
-      subject: "Motorola Mentoring Application Form Correction",
+      subject: "Motorola Mentoring Application Form Reminder",
       text: "Dear "+student['application']["firstname"] +" "+ student["application"]['lastname']+",\n"+" \n"+
-      "There is an issue with your application. Please review that your forms are updated and/or approved. \n"+
+      "This is a reminder to finish your Motorola Mentoring Application by submitting all required forms.\n"+
       " \n"+"Best Regards, \n"+"Motorola Mentoring Team"
     }
     console.log("trying to send email")

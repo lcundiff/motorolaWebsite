@@ -94,9 +94,9 @@
         method: 'PUT',
         url: '/api/sendThankYou'
       },
-      send_correction: {
+      send_remind_to_submit: {
         method: 'PUT',
-        url: '/api/sendCorrection'
+        url: '/api/sendRemindToSubmit'
       },
       
 
@@ -184,8 +184,8 @@
           credentials: credentials
        }).$promise;
      },
-     sendCorrection: function (credentials) {
-        return this.send_correction({
+     sendRemindToSubmit: function (credentials) {
+        return this.send_remind_to_submit({
           credentials: credentials
         }).$promise;
      },
