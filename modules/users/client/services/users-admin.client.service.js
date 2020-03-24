@@ -94,6 +94,11 @@
         method: 'PUT',
         url: '/api/sendThankYou'
       },
+      send_correction: {
+        method: 'PUT',
+        url: '/api/sendCorrection'
+      },
+      
 
     });
 
@@ -179,6 +184,12 @@
           credentials: credentials
        }).$promise;
      },
+     sendCorrection: function (credentials) {
+        return this.send_correction({
+          credentials: credentials
+        }).$promise;
+     },
+     
       
     });
 

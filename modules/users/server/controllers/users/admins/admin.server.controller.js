@@ -154,6 +154,33 @@ exports.updateSchools = function(req, res) {
   });
 };
 
+exports.sendCorrection = function(req,res){
+  var no_form_students = req.body["credentials"]  
+
+  for(var i =0; i< no_form_students.length; i++){ 
+    var student = no_form_students[i]
+    console.log(student)
+    var mailOptions = {
+      from: 'motorolamentoring2020@gmail.com',
+      to: student["application"]["email"],
+      subject: "Motorola Mentoring Application Form Correction",
+      text: "Dear "+student['application']["firstname"] +" "+ student["application"]['lastname']+",\n"+" \n"+
+      "There is an issue with your application. Please review that your forms are updated and/or approved. \n"+
+      " \n"+"Best Regards, \n"+"Motorola Mentoring Team"
+    }
+    console.log("trying to send email")
+    smtpTransport.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+        res.status(400)
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  }
+  res.status(200).send("done");
+};
+
 exports.sendThankYou = function(req,res){
   console.log("Hello from send thank you server controller.")
   var credentials = req.body['credentials']

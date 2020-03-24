@@ -18,6 +18,7 @@
 		vm.newVolunteerActivity = newVolunteerActivity;
 		vm.completedVolunteerApps = completedVolunteerApps;
 		vm.sendThankYou = sendThankYou;
+		vm.sendCorrection = sendCorrection;
 		vm.newStudentActivityGraph = {
 			config: {
 				title: 'Sign-ups this Week'
@@ -42,6 +43,19 @@
         console.log(points, evt);
       }
 		};
+
+		function sendCorrection() {
+			StudentService.studentListActiveWithoutForms().then(function (noforms_students){
+				console.log(noforms_students)
+				AdminService.sendCorrection(noforms_students).then(function(res){console.log("Finished calling Admin service.", res)})
+			}).then(function(res){
+				console.log("Send Thank You Res: ",res)
+				Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>Application Correction Emails Sent.'});
+			}).catch(function(err){
+				console.log("Err: ",err)
+				Notification.error({message: 'Error Trying To Send Emails.'});
+			});	
+		}
 
 		function sendThankYou() {
 			StudentService.studentListAccepted().then(function (accepted_students) {
