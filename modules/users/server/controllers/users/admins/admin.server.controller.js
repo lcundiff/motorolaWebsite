@@ -13,13 +13,8 @@ var path = require('path'),
   nodemailer = require('nodemailer'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
-  var smtpTransport = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'motorolamentoring2020@gmail.com',
-      pass: 'Motorola123!'
-    }
-  });
+  var smtpTransport = nodemailer.createTransport(config.mailer.options);
+
 
 /**
  * Show the current user
@@ -161,7 +156,7 @@ exports.sendRemindToSubmit = function(req,res){
     var student = no_form_students[i]
     console.log(student)
     var mailOptions = {
-      from: 'motorolamentoring2020@gmail.com',
+      from: config.mailer.from,
       to: student["application"]["email"],
       subject: "Motorola Mentoring Application Form Reminder",
       text: "Dear "+student['application']["firstname"] +" "+ student["application"]['lastname']+",\n"+" \n"+
@@ -188,7 +183,7 @@ exports.sendThankYou = function(req,res){
   for(var i =0; i<credentials.length; i++){
     var credential = credentials[i]
     var mailOptions = {
-      from: 'motorolamentoring2020@gmail.com',
+      from: config.mailer.from,
       to: credential["email"],
       subject: "Motorola Mentoring Application",
       text: "Dear "+credential['firstname'] +" "+ credential['lastname']+",\n"+" \n"+
