@@ -1,9 +1,9 @@
-# OS
-# ===========
-.DS_Store
-ehthumbs.db
-Icon?
-Thumbs.db
+# Local JS File - auth info
+#===================
+config/env/local.json
+
+# Database files
+*.db
 
 # Node and related ecosystem
 # ==========================
