@@ -46,9 +46,15 @@
 		};
 
 		function sendUnapprovedReminder(){
-			console.log("Unnaproved forms")
-			StudentService.studentListActiveWithoutForms().then (function(notapprov_students){
-				console.log(notapprov_students)
+			StudentService.studentListFormsNotApproved().then(function(notapprov_students){
+				console.log("Not_approv_students: ",notapprov_students)
+				AdminService.sendUnapprovedReminder(notapprov_students).then(function(res){
+					console.log("Send Unnaproved Forms  Res: ",res)
+					Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>Unnaproved Forms Emails Sent.'});
+				}).catch(function(err){
+					console.log("Err: ",err)
+					Notification.error({message: 'Error Trying To Send Emails.'});
+			});
 			})
 		}
 

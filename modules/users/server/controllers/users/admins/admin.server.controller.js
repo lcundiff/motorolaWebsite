@@ -176,6 +176,31 @@ exports.sendRemindToSubmit = function(req,res){
   res.status(200).send("done");
 };
 
+exports.sendUnapprovedReminder = function(req,res){
+  console.log("Hello from send unapproved forms server controller.")
+  var credentials = req.body['credentials'];
+  for(var i =0; i<credentials.length; i++){
+    var credential = credentials[i]
+    var mailOptions = {
+      from: config.mailer.from,
+      to: credential["email"],
+      subject: "Motorola Mentoring Application",
+      text: "Dear "+credential['firstname'] +" "+ credential['lastname']+",\n"+" \n"+
+      "This is a reminder to check the status of your application and the status of the forms you submitted. Our records indicated you have unapproved forms.\n"+
+      " \n"+"Best Regards, \n"+"Motorola Mentoring Team"
+    }
+    smtpTransport.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+        res.status(400)
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  }
+  res.status(200).send("Sent all consolation emails.");
+}
+
 exports.sendThankYou = function(req,res){
   console.log("Hello from send thank you server controller.")
   var credentials = req.body['credentials']

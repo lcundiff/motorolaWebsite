@@ -98,8 +98,11 @@
         method: 'PUT',
         url: '/api/sendRemindToSubmit'
       },
+      send_unapproved_reminder: {
+        method: 'PUT',
+        url: '/api/sendUnapprovedReminder'
+      },
       
-
     });
 
     angular.extend(Admins, {
@@ -189,6 +192,11 @@
           credentials: credentials
         }).$promise;
      },
+     sendUnapprovedReminder: function(credentials){
+       return this.send_unapproved_reminder({
+         credentials: credentials
+       }).$promise
+     }
      
       
     });

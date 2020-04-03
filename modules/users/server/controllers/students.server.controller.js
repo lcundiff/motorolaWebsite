@@ -215,17 +215,26 @@ exports.listActive = function (req, res) {
   });
 };
 
+//SYD
 exports.listFormsNotApproved = function(req,res){
   Student.find({active: true, isFormSubmitted: true }).collation({ locale: "en" }).sort('application.lastName').exec().then(function (students) {
-    console.log(students)
-    res.json(students);
+    var forms_unapproved = []
+    console.log("Students with all forms submitted: ",students)
+    for(var i = 0; i < students.length; i++){
+      student = students[i]
+      if(student.isWaiverAdminApproved == false || student.isNDAAdminApproved == false){
+        forms_unapproved.push(student)
+      }
+    }
+    console.log("Students with all forms submitted and forms unapproved: ",forms_unapproved)
+    res.json(forms_unapproved);
   }, function(err){
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
-});
+  });
 }
 
 exports.listActiveWithoutForms = function(req, res) {

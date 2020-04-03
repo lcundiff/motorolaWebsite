@@ -126,8 +126,8 @@
       studentListAccepted: function(){
         return this.list_accepted().$promise;
       },
-      studentlistFormsNotApproved: function(){
-        return this.list_forms_not_approved
+      studentListFormsNotApproved: function(){
+        return this.list_forms_not_approved().$promise;
       },
       studentListActiveWithoutForms: function(){
         return this.active_no_forms().$promise;
