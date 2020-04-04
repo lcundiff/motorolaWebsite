@@ -187,6 +187,7 @@
                 <th style="text-align:center" scope="col">Application</th>
                 <th style="text-align:center"scope="col">Forms</th>
                 <th style="text-align:center" scope="col">Session</th>
+                <th style="text-align:center" scope="col">Fix Form Reminder</th>
               </tr>
             </thead>
             <tbody style="cursor: pointer;">
@@ -202,6 +203,10 @@
                 <!-- session -->
                 <td ng-bind-template="{{student.timeSlot}}" ng-if="student.timeSlot.length === 1"></td>
                 <td ng-if="student.timeSlot.length !== 1"><small>No Session</small></td>
+              
+                <!-- fix forms reminder -->
+                <td ><button ng-click= vm.sendFormFixStudent(student) class="sign-button sign-in-button-warning">Fix Form Reminder</button></td>
+
               </tr>
             </tbody>
           </table>

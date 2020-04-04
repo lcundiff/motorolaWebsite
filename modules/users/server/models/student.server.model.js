@@ -231,6 +231,11 @@ var StudentSchema = new Schema({
       default: false,
       required: true
     },
+  
+  reminderCount: {
+    type: Number,
+    default: 0,
+  },
 
   active: {
       type: Boolean,

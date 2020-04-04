@@ -270,7 +270,6 @@
 
     function sendFormFixEmail(student, formName) {
       vm.loading = true;
-
       var credentials = {
         email: student.application.email,
         firstName: student.application.firstName,

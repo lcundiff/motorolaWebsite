@@ -150,20 +150,19 @@ exports.updateSchools = function(req, res) {
 };
 
 exports.sendRemindToSubmit = function(req,res){
+  console.log("Hello from send remind to submit forms server controller.")
   var no_form_students = req.body["credentials"]  
 
   for(var i =0; i< no_form_students.length; i++){ 
     var student = no_form_students[i]
-    console.log(student)
     var mailOptions = {
       from: config.mailer.from,
       to: student["application"]["email"],
       subject: "Motorola Mentoring Application Form Reminder",
-      text: "Dear "+student['application']["firstname"] +" "+ student["application"]['lastname']+",\n"+" \n"+
+      text: "Dear "+student['application']["firstName"] +" "+ student["application"]['lastName']+",\n"+" \n"+
       "This is a reminder to finish your Motorola Mentoring Application by submitting all required forms.\n"+
       " \n"+"Best Regards, \n"+"Motorola Mentoring Team"
     }
-    console.log("trying to send email")
     smtpTransport.sendMail(mailOptions, function(error, info){
       if (error) {
         console.log(error);
@@ -173,22 +172,25 @@ exports.sendRemindToSubmit = function(req,res){
       }
     });
   }
-  res.status(200).send("done");
+  res.status(200).send("Sent all reminder to submit forms emails.");
 };
 
 exports.sendUnapprovedReminder = function(req,res){
   console.log("Hello from send unapproved forms server controller.")
-  var credentials = req.body['credentials'];
-  for(var i =0; i<credentials.length; i++){
-    var credential = credentials[i]
+  var fix_forms_students = req.body['credentials'];
+
+  for(var i =0; i<fix_forms_students.length; i++){
+    var student = fix_forms_students[i];
+
     var mailOptions = {
       from: config.mailer.from,
-      to: credential["email"],
+      to: student["application"]["email"],
       subject: "Motorola Mentoring Application",
-      text: "Dear "+credential['firstname'] +" "+ credential['lastname']+",\n"+" \n"+
+      text: "Dear "+student['application']["firstName"] +" "+ student["application"]['lastName']+",\n"+" \n"+
       "This is a reminder to check the status of your application and the status of the forms you submitted. Our records indicated you have unapproved forms.\n"+
       " \n"+"Best Regards, \n"+"Motorola Mentoring Team"
     }
+
     smtpTransport.sendMail(mailOptions, function(error, info){
       if (error) {
         console.log(error);
@@ -198,7 +200,7 @@ exports.sendUnapprovedReminder = function(req,res){
       }
     });
   }
-  res.status(200).send("Sent all consolation emails.");
+  res.status(200).send("Sent all unnaproved forms emails.");
 }
 
 exports.sendThankYou = function(req,res){

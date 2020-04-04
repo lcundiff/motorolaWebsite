@@ -51,6 +51,13 @@
 				AdminService.sendUnapprovedReminder(notapprov_students).then(function(res){
 					console.log("Send Unnaproved Forms  Res: ",res)
 					Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>Unnaproved Forms Emails Sent.'});
+
+					for(var i =0; i < notapprov_students.length; i++){
+						var student = notapprov_students[i]
+						student.reminderCount = student.reminderCount + 1
+    					StudentService.updateStudent(student.user, student).then(function(res){console.log("Update user reminder count res: ",res);})
+    					.catch(function(err){console.log("Error updating student reminder count",err);});
+					}
 				}).catch(function(err){
 					console.log("Err: ",err)
 					Notification.error({message: 'Error Trying To Send Emails.'});
