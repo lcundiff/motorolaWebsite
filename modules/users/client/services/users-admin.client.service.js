@@ -89,7 +89,20 @@
       update_schools: {
         method: 'PUT',
         url: '/api/updateSchools'
-      }
+      },
+      send_thank_you: {
+        method: 'PUT',
+        url: '/api/sendThankYou'
+      },
+      send_remind_to_submit: {
+        method: 'PUT',
+        url: '/api/sendRemindToSubmit'
+      },
+      send_unapproved_reminder: {
+        method: 'PUT',
+        url: '/api/sendUnapprovedReminder'
+      },
+      
     });
 
     angular.extend(Admins, {
@@ -168,7 +181,24 @@
          return this.update_schools(
           {name: schoolName
         }).$promise;
-      }
+      },
+      sendThankYou: function (credentials) {
+        return this.send_thank_you({
+          credentials: credentials
+       }).$promise;
+     },
+     sendRemindToSubmit: function (credentials) {
+        return this.send_remind_to_submit({
+          credentials: credentials
+        }).$promise;
+     },
+     sendUnapprovedReminder: function(credentials){
+       return this.send_unapproved_reminder({
+         credentials: credentials
+       }).$promise
+     }
+     
+      
     });
 
     return Admins;

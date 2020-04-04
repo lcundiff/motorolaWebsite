@@ -10,14 +10,16 @@
 
 	function DashboardAdminsController($scope, $state, $window, $filter, Authentication, Notification, AdminService, UsersService, StudentService, FileService, VolunteerService, /*AutomateService, googleDriveService,*/ $http, $sce) {
 		var vm = this;
-    vm.loading = false;
+    	vm.loading = false;
 		vm.newStudentActivity = newStudentActivity;
 		vm.completedStudentApps = completedStudentApps;
 		vm.completedStudentForms = completedStudentForms;
-    vm.updateSchools = updateSchools; 
+    	vm.updateSchools = updateSchools; 
 		vm.newVolunteerActivity = newVolunteerActivity;
 		vm.completedVolunteerApps = completedVolunteerApps;
-
+		vm.sendThankYou = sendThankYou;
+		vm.sendRemindToSubmit = sendRemindToSubmit;
+		vm.sendUnapprovedReminder = sendUnapprovedReminder;
 		vm.newStudentActivityGraph = {
 			config: {
 				title: 'Sign-ups this Week'
@@ -42,7 +44,100 @@
         console.log(points, evt);
       }
 		};
-    
+
+		function sendUnapprovedReminder(){
+			StudentService.studentListFormsNotApproved().then(function(notapprov_students){
+				console.log("Not_approv_students: ",notapprov_students)
+				AdminService.sendUnapprovedReminder(notapprov_students).then(function(res){
+					console.log("Send Unnaproved Forms  Res: ",res)
+					Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>Unnaproved Forms Emails Sent.'});
+
+					for(var i =0; i < notapprov_students.length; i++){
+						var student = notapprov_students[i]
+						student.reminderCount = student.reminderCount + 1
+    					StudentService.updateStudent(student.user, student).then(function(res){console.log("Update user reminder count res: ",res);})
+    					.catch(function(err){console.log("Error updating student reminder count",err);});
+					}
+				}).catch(function(err){
+					console.log("Err: ",err)
+					Notification.error({message: 'Error Trying To Send Emails.'});
+			});
+			})
+		}
+
+		function sendRemindToSubmit() {
+			StudentService.studentListActiveWithoutForms().then(function (noforms_students){
+				console.log(noforms_students)
+				AdminService.sendRemindToSubmit(noforms_students)
+				.then(function(res){
+					console.log("Send Thank You Res: ",res)
+					Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>Application Reminder Emails Sent.'});
+				}).catch(function(err){
+					console.log("Err: ",err)
+					Notification.error({message: 'Error Trying To Send Emails.'});
+			});	
+			})
+		}
+
+		function sendThankYou() {
+			StudentService.studentListAccepted().then(function (accepted_students) {
+				if(accepted_students[0] === "No accepted students"){
+					console.log("No accepted students, send thank you to all active students");
+					StudentService.studentList().then(function(active_students){
+						var credentials =[]
+						for(var i =0; i <active_students.length;i++){
+							var credential = {
+								email: active_students[i]['application']['email'],
+								firstname: active_students[i]['application']['firstName'],
+								lastname: active_students[i]['application']['lastName']
+							}
+							credentials.push(credential)
+						}
+						AdminService.sendThankYou(credentials)
+						.then(function(res){
+							console.log("Send Thank You Res: ",res)
+							Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>Consolation Emails Sent.'});
+						}).catch(function(err){
+							console.log("Err: ",err)
+							Notification.error({message: 'Error Trying To Send Emails.'});
+						});	
+					})
+				}
+				else{
+					var accepted_emails = []
+					for(var i = 0; i<accepted_students.length;i++){
+						accepted_emails.push(accepted_students[i]['application']['email']);
+					}
+	
+					//should we email students from all students list or from active students list
+					StudentService.studentList().then(function(active_students){
+						var credentials =[]
+						for(var i =0; i< active_students.length; i++){
+							email = active_students['application']['email'];
+							if ( accepted_emails.includes(email) === false){
+								var credential = {
+									email: active_students[i]['application']['email'],
+									firstname: active_students[i]['application']['firstName'],
+									lastname: active_students[i]['application']['lastName']
+								}
+								credentials.push(credential)
+							}
+
+						}
+						AdminService.sendThankYou(credentials)
+						.then(function(res){
+							console.log("Send Thank You Res: ",res)
+							Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>Consolation Emails Sent.'});
+						}).catch(function(err){
+							console.log("Err: ",err)
+							Notification.error({message: 'Error Trying To Send Emails.'});
+						});
+					})
+				}
+			}
+			);
+		}
+
 		vm.newVolunteerActivityGraph = {
 			config: {
 				title: 'Sign-ups this Week'

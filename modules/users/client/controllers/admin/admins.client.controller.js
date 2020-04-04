@@ -1015,6 +1015,7 @@ $scope.deactivateStudent = function (id) {
     });
   }
   else{
+    // found this while working on email buttons, I believe the line should be: StudentService.update(student.user, student)
     StudentService.update(student, student.user).then(function (response) {
       console.log("student was successfully deactivated", response.data);
       console.log(response.data.active);

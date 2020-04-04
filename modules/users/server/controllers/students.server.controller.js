@@ -215,6 +215,27 @@ exports.listActive = function (req, res) {
   });
 };
 
+//Added to find students who have submitted all forms but not gonna all forms admin approved
+exports.listFormsNotApproved = function(req,res){
+  Student.find({active: true, isFormSubmitted: true }).collation({ locale: "en" }).sort('application.lastName').exec().then(function (students) {
+    var forms_unapproved = []
+    for(var i = 0; i < students.length; i++){
+      var student = students[i]
+      if(student.isWaiverAdminApproved == false || student.isNDAAdminApproved == false){
+        forms_unapproved.push(student)
+      }
+    }
+    console.log("Students with all forms submitted and forms unapproved: ",forms_unapproved)
+    res.json(forms_unapproved);
+  }, function(err){
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+  });
+}
+
 exports.listActiveWithoutForms = function(req, res) {
   Student.find({active: true, isFormSubmitted: false}).collation({ locale: "en" }).sort('application.lastName').exec().then(function (students) {
       res.json(students);
@@ -226,6 +247,7 @@ exports.listActiveWithoutForms = function(req, res) {
       }
   });
 };
+
 
 exports.listDeactivated = function (req, res) {
   console.log("In server list all students");
@@ -251,15 +273,23 @@ exports.listNonActiveWithoutForms = function(req, res) {
       }
   });
 };
+//Student.find({active: {$ne: false } }).collation({ locale: "en" }).sort('application.lastName').populate('user', 'displayName').exec(function(err, students) {
 
 exports.listAccepted = function(req, res) {
-  Student.find({ timeSlot: {$size: 1}, mentor: {$ne: ""} } ).collation({ locale: "en" }).sort('application.lastName').populate('user', 'displayName').exec().then(function (students) {
-      res.jsonp(students);
-  }, function(err){
+  Student.find({ timeSlot: {$size: 1}, mentor: {$ne: ""} } ).collation({ locale: "en" }).sort('application.lastName').populate('user', 'displayName').exec(function (err,students) {
     if (err) {
+      console.log(err)
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
+    } else{
+      console.log("calling list accepted");
+      if(students.length === 0){
+        res.send(["No accepted students"])
+      }
+      else{
+        res.jsonp(students);
+      }
     }
   });
 }

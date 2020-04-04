@@ -29,6 +29,7 @@
 		vm.manAcceptStudent = manAcceptStudent;
 		vm.autoAccept = autoAccept;
 		vm.updateOneField = updateOneField;
+		vm.sendFormFixStudent = sendFormFixStudent;
 
 		// FORMS
 		vm.viewForm = viewForm;
@@ -66,6 +67,22 @@
 			console.log("vm.user:", vm.user);
 
 			vm.selected_user = true;
+		}
+		function sendFormFixStudent(student){
+			console.log("Sending a fix form reminder to ", student.application.firstName);
+			AdminService.sendUnapprovedReminder([student]).then(function(res){
+				console.log("Send Unnaproved Form  Res: ",res)
+				Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>Unnaproved Forms Email Sent.'});				
+
+				student.reminderCount = student.reminderCount + 1
+				StudentService.updateStudent(student.user, student).then(function(res){console.log("Update user reminder count res: ",res);})
+				.catch(function(err){console.log("Error updating student reminder count");});
+				
+			}).catch(function(err){
+				console.log("Err: ",err)
+				Notification.error({message: 'Error Trying To Send Emails.'});
+			})
+			console.log("After admin service")
 		}
 		// this is redundant
 		function displayUser(user) {
@@ -120,6 +137,7 @@
 			});
 
 		}
+
 		// download pdf form
 		function viewForm(fileId) {
 			if (fileId === null || fileId === '' || fileId === undefined) {

@@ -55,6 +55,11 @@
           isArray: true,
           url: '/api/students/listAccepted'
         },
+        list_forms_not_approved: {
+          method: 'GET',
+          isArray: true,
+          url: '/api/students/listFormsNotApproved'
+        },
         active_no_forms: {
           method: 'GET',
           isArray: true,
@@ -120,6 +125,9 @@
       },
       studentListAccepted: function(){
         return this.list_accepted().$promise;
+      },
+      studentListFormsNotApproved: function(){
+        return this.list_forms_not_approved().$promise;
       },
       studentListActiveWithoutForms: function(){
         return this.active_no_forms().$promise;
