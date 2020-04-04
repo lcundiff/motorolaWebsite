@@ -215,13 +215,12 @@ exports.listActive = function (req, res) {
   });
 };
 
-//SYD
+//Added to find students who have submitted all forms but not gonna all forms admin approved
 exports.listFormsNotApproved = function(req,res){
   Student.find({active: true, isFormSubmitted: true }).collation({ locale: "en" }).sort('application.lastName').exec().then(function (students) {
     var forms_unapproved = []
-    console.log("Students with all forms submitted: ",students)
     for(var i = 0; i < students.length; i++){
-      student = students[i]
+      var student = students[i]
       if(student.isWaiverAdminApproved == false || student.isNDAAdminApproved == false){
         forms_unapproved.push(student)
       }
