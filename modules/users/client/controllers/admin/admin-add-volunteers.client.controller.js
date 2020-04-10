@@ -6,9 +6,9 @@
     .module('users')
     .controller('AdminAddVolunteerController', AdminAddVolunteerController);
 
-    AdminAddVolunteerController.$inject = ['$scope', '$state', '$window', 'Authentication', 'UsersService', 'VolunteerService', 'menuService', 'Notification', '$http','$sce'];
+    AdminAddVolunteerController.$inject = ['$scope', '$state', '$window', 'Authentication', 'UsersService', 'VolunteerService', 'menuService', 'Notification', '$http'];
 
-  function AdminAddVolunteerController($scope, $state, $window, Authentication, UsersService, VolunteerService, menuService, Notification, $http, $sce) {
+  function AdminAddVolunteerController($scope, $state, $window, Authentication, UsersService, VolunteerService, menuService, Notification, $http) {
     var vm = this;
     console.log("vm = ", vm)
     $window.user = {
@@ -43,16 +43,18 @@
 
       console.log(appPages);
       console.log(currentActive);
-
+      /* if carousel is needed
       for(var i = 0; i < appPages.length; i++){
         var errorMessages = appPages[i].querySelectorAll('.error-text');
-
+        
         if(errorMessages.length > 0){
+          // finds active slide in carousel
           document.getElementById('myCarousel').querySelector(`#${currentActive}`).classList.remove('active');
           appPages[i].classList.add('active');
           return;
         }
-      }
+        
+      }*/
 
     }
     //first create user
@@ -89,11 +91,11 @@
       volunteer.username = vm.credentials.application.username;
 
       var address ={
-        "line_1": vm.credentials.application.address.line_1 ,
-        "line_2" : vm.credentials.application.address.line_2,
-        "city": vm.credentials.application.address.city,
-        "state":vm.credentials.application.address.state,
-        "zipcode": vm.credentials.application.address.zipcode
+        "line_1": vm.credentials.application.address.line_1 == null ? vm.credentials.application.address.line_1 : '',
+        "line_2" : vm.credentials.application.address.line_2 == null ? vm.credentials.application.address.line_2 : '',
+        "city": vm.credentials.application.address.city == null? vm.credentials.application.address.city : '',
+        "state":vm.credentials.application.address.state == null ? vm.credentials.application.address.state : '',
+        "zipcode": vm.credentials.application.address.zipcode == null ? vm.credentials.application.address.zipcode : ''
       }
       volunteer.application = vm.credentials.application;
       volunteer.application.firstName = vm.credentials.application.firstName;
@@ -127,7 +129,7 @@
     }
     function onVolunteerSubmissionError(response) {
       vm.loading = false;
-      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Volunteer submission error.', delay: 6000 });
+      Notification.error({ message: response, title: '<i class="glyphicon glyphicon-remove"></i> Volunteer submission error.', delay: 6000 });
     }
   }
 
